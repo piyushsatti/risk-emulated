@@ -4,11 +4,6 @@
   <artifactId>WARZONE</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <dependencies>
-	<dependency>
-   <groupId>org.apache</groupId>
-   <artifactId>apache</artifactId>
-   <version>29</version>
-  </dependency>
   <dependency>
     <groupId>junit</groupId>
     <artifactId>junit</artifactId>
