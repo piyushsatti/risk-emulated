@@ -1,4 +1,4 @@
-package Build_1.Views;
+package main.java.views;
 
 public class SampleViews {
  public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package Build_1.Components;
+package main.java.components;
 
 public class SampleComponents {
 

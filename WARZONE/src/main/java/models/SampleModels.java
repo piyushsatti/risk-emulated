@@ -1,4 +1,4 @@
-package Build_1.Models;
+package main.java.models;
 
 public class SampleModels {
 
