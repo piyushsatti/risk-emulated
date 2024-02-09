@@ -1,6 +1,6 @@
 package main.test;
 
-class MainTest {
+class GameEngineTest {
 
     @org.junit.jupiter.api.BeforeEach
     void setUp() {
