@@ -1,7 +1,9 @@
-package main.java;
+package controller;
 
 public class GameEngine {
     public static void main(String[] args) {
-        System.out.println("Call Game Engine Start.");
+        System.out.println("Start of the Game");
+
+
     }
 }
