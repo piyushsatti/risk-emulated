@@ -19,5 +19,13 @@ public class Map {
         d_countryList.add(c);
     }
 
+    public boolean isConnected(){
+        boolean connected = true;
+        for (Country c : d_countryList){
+            connected = connected && c.canReach(d_countryList);
+        }
+        return connected;
+    }
+
 
 }

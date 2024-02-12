@@ -14,14 +14,23 @@ public class SampleModels {
 		Country e = new Country("e", 1);
 
 		a.addBorder(b);
-		a.addBorder(c);
-
-
+		b.addBorder(c);
+		c.addBorder(d);
+		d.addBorder(e);
+		e.addBorder(a);
 
 		ArrayList<Country> testList = new ArrayList<Country>();
 		testList.add(a);
 		testList.add(b);
 		testList.add(c);
+
+		testMap.addCountry(a);
+		testMap.addCountry(b);
+		testMap.addCountry(c);
+		testMap.addCountry(d);
+		testMap.addCountry(e);
+
+		System.out.println(testMap.isConnected());
 
 		System.out.println(a.canReach(testList));
 
