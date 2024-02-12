@@ -120,4 +120,8 @@ public class Country {
         }
     }
 
+    public String getCountryName(){
+        return this.d_countryName;
+    }
+
 }
