@@ -57,8 +57,12 @@ public class Country {
         outPut += "Continent: " + this.d_continentID + "\n";
         outPut += "Border Countries: ";
 
+        int loopIndex = 0;
+
         for (Country c : this.getBorderCountries()){
-            outPut += c.d_countryName + "\n";
+            loopIndex++;
+            outPut += c.d_countryName;
+            if(loopIndex < this.getBorderCountries().size()) outPut += ", ";
         }
 
         return outPut;

@@ -12,6 +12,7 @@ public class SampleModels {
 		Country e = new Country("e", 1);
 
 		a.addBorder(b);
+		a.addBorder(c);
 		b.addBorder(c);
 		c.addBorder(d);
 		d.addBorder(e);
@@ -23,7 +24,9 @@ public class SampleModels {
 		testMap.addCountry(d);
 		testMap.addCountry(e);
 
-		System.out.print(a);
+		System.out.println(a);
+		System.out.println(b);
+		System.out.println(c);
 	}
 
 }
