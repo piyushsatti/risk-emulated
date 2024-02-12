@@ -1,7 +1,7 @@
 package models;
 import java.util.*;
 
-public class Player {
+public class Player{
 
     private String d_playerName;
     private int d_reinforcements;
@@ -30,13 +30,13 @@ public class Player {
     }
     
     //Constructors
-    Player(){
+    public Player(){
      d_playerName= "";
      d_reinforcements= 0;
      d_assignedCountries= new ArrayList<>(); 	
     }
     
-    Player(String d_playerName,int d_reinforcements,ArrayList<Country> d_assignedCountries){
+    public Player(String d_playerName,int d_reinforcements,ArrayList<Country> d_assignedCountries){
         this.d_playerName= "";
         this.d_reinforcements= 0;
         this.d_assignedCountries= d_assignedCountries; 	
