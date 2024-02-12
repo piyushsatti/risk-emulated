@@ -53,7 +53,6 @@ public class SampleViews {
                     System.out.println(country);
                 }
                 System.out.println();
-                System.out.println("test line");
             }
 
 //
