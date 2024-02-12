@@ -10,6 +10,7 @@ import java.util.ArrayList;
 public class Map {
 
     public ArrayList<Country> d_countryList;
+    public ArrayList<Continent> d_continentList;
 
     public Map(){
         this.d_countryList = new ArrayList<Country>();
@@ -17,6 +18,10 @@ public class Map {
 
     public void addCountry(Country c){
         d_countryList.add(c);
+    }
+
+    public void addContinent(Continent c){
+        d_continentList.add(c);
     }
 
     public boolean isConnected(){

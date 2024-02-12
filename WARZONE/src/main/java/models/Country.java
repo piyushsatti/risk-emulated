@@ -12,6 +12,8 @@ public class Country {
 
     public ArrayList<Border> d_borderList;
 
+    public Continent d_continent;
+
     public Country(int d_countryID, int d_continentID, int d_deployedArmies, List<Integer> d_neighborListID, Player d_assignedPlayer) {
         this.d_countryID = d_countryID;
         this.d_continentID = d_continentID;
@@ -25,6 +27,12 @@ public class Country {
         this.d_countryName = name;
         this.d_continentID = continentID;
         this.d_borderList = new ArrayList<>();
+    }
+
+    public Country(String name, Continent continent){
+        this.d_countryName = name;
+        this.d_borderList = new ArrayList<>();
+        this.d_continent = continent;
     }
 
     public void addBorder(Country c){
