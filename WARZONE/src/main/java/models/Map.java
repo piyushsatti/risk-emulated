@@ -1,6 +1,6 @@
 package models;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Class representing the Warzone map
@@ -9,5 +9,15 @@ import java.util.List;
  */
 public class Map {
 
-    public List<Country> d_countryList;
+    public ArrayList<Country> d_countryList;
+
+    public Map(){
+        this.d_countryList = new ArrayList<Country>();
+    }
+
+    public void addCountry(Country c){
+        d_countryList.add(c);
+    }
+
+
 }

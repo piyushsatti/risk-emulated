@@ -6,4 +6,8 @@ package models;
  */
 public class Border {
     public Country d_target;
+
+    public Border(Country c){
+        this.d_target = c;
+    }
 }
