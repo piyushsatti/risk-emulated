@@ -36,7 +36,7 @@ public class Player {
      d_assignedCountries= new ArrayList<>(); 	
     }
     
-    Player(String d_playerName,int d_reinforcements,ArrayList<Country> d_assignedCountries;){
+    Player(String d_playerName,int d_reinforcements,ArrayList<Country> d_assignedCountries){
         this.d_playerName= "";
         this.d_reinforcements= 0;
         this.d_assignedCountries= d_assignedCountries; 	
