@@ -67,4 +67,49 @@ public class Country {
 
         return outPut;
     }
+
+    /**
+     * Method which checks if a country can reach all the other
+     * countries in the list while only moving through countries in the list
+     * @param countriesToReach List of countries the method is trying to reach
+     * @return true if all countries are reached, false if not
+     */
+    public boolean canReach(ArrayList<Country> countriesToReach){
+
+        ArrayList<Country> observed = new ArrayList<>();
+        ArrayList<Country> notObserved = new ArrayList<>(countriesToReach);
+        observed.add(this); //add calling object to observed list (must be present in CountriesToReach)
+
+        while (true){
+
+            int observedCount = observed.size();
+
+            notObserved.removeAll(observed); //remove observed countries from not observed list
+
+            if(notObserved.isEmpty()) return true; //if notObserved is empty => all countries found => success
+
+            ArrayList<Country> observedCopy = new ArrayList<>(observed);
+            //copy of observed list, needed because we cannot iterate over a list and modify it at the same time
+
+            for (Country o: observed){  // for each observed country
+
+                ArrayList<Country> neighbors = o.getBorderCountries(); //get neighbors
+
+                for(Country n: neighbors){ //for each neighbor found
+
+                    //if not observed and in search list, add to observed list
+                    if(!observedCopy.contains(n) && notObserved.contains(n)){
+                        observedCopy.add(n);
+                    }
+
+                }
+
+            }
+
+            //if size of observed countries hasn't changed => fail
+            if(observedCount == observedCopy.size()) return false;
+            observed = observedCopy; //assign new observed list
+        }
+    }
+
 }

@@ -1,5 +1,7 @@
 package models;
 
+import java.util.ArrayList;
+
 public class SampleModels {
 
 	public static void main(String[] args) {
@@ -13,20 +15,17 @@ public class SampleModels {
 
 		a.addBorder(b);
 		a.addBorder(c);
-		b.addBorder(c);
-		c.addBorder(d);
-		d.addBorder(e);
-		e.addBorder(a);
 
-		testMap.addCountry(a);
-		testMap.addCountry(b);
-		testMap.addCountry(c);
-		testMap.addCountry(d);
-		testMap.addCountry(e);
 
-		System.out.println(a);
-		System.out.println(b);
-		System.out.println(c);
+
+		ArrayList<Country> testList = new ArrayList<Country>();
+		testList.add(a);
+		testList.add(b);
+		testList.add(c);
+
+		System.out.println(a.canReach(testList));
+
+
 	}
 
 }
