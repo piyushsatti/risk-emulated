@@ -1,6 +1,7 @@
 package controller;
 import java.util.*;
 
+import models.Continent;
 import models.Country;
 import models.Player;
 
@@ -13,14 +14,16 @@ public class GameEngine {
         
         
       //Testing Player
-		
+
       		Player testPlayer  = new Player();
       		Player testPlayer_2  = new Player();
-      		
-      		Country a = new Country("a",1);
-    		Country b = new Country("b",1);
-    		Country c = new Country("c",2);
-    		Country d = new Country("d",2);
+
+			Continent a1 = new Continent("a1", 1);
+			Continent a2 = new Continent("a2", 1);
+      		Country a = new Country("a",a1);
+    		Country b = new Country("b",a1);
+    		Country c = new Country("c",a2);
+    		Country d = new Country("d",a2);
     	
       		
       		System.out.println(testPlayer.getName());
