@@ -1,10 +1,7 @@
 package main.java.controller;
-import java.util.*;
 
-import models.Country;
-import models.Player;
-import models.Continent;
 import main.java.models.Player;
+import main.java.models.map.Continent;
 import main.java.models.map.Country;
 
 import java.util.ArrayList;
