@@ -1,27 +1,37 @@
 package models;
 
-import java.util.ArrayList;
-
 public class SampleModels {
 
 	public static void main(String[] args) {
 
-		Map cMap =  new Map();
-		cMap.addContinent("Africa");
-		cMap.addContinent("Asia");
-		cMap.addCountry("Egypt", "Africa");
-		cMap.addCountry("Sudan", "Africa");
-		cMap.addCountry("Yemen", "Asia");
-		cMap.addCountry("KSA", "Asia");
-		cMap.addBorder("Egypt", "Sudan");
-		cMap.addBorder("Sudan", "Egypt");
-		cMap.addBorder("Yemen","KSA");
-		cMap.addBorder("KSA","Yemen");
-		cMap.addBorder("Sudan","Yemen");
-		cMap.addBorder("Yemen","Sudan");
+		/*
+			Maps contain Continents and Countries in the HashMap
+			Countries contain a HashMap of Border objects and a Continent reference
+		 */
 
-		System.out.println(cMap.isConnected());
-		System.out.println(cMap.isContinentConnected());
+
+		Map ExampleMap =  new Map(); //create a map
+
+		ExampleMap.addContinent("Africa"); //Add Continent objects
+		ExampleMap.addContinent("Asia");
+
+
+		ExampleMap.addCountry("Egypt", "Africa"); //Add Country objects
+		ExampleMap.addCountry("Sudan", "Africa");
+		ExampleMap.addCountry("Yemen", "Asia");
+		ExampleMap.addCountry("KSA", "Asia");
+
+
+		ExampleMap.addBorder("Egypt", "Sudan"); //Add Border objects
+		ExampleMap.addBorder("Sudan", "Egypt");
+		ExampleMap.addBorder("Yemen","KSA");
+		ExampleMap.addBorder("KSA","Yemen");
+		ExampleMap.addBorder("Sudan","Yemen");
+		ExampleMap.addBorder("Yemen","Sudan");
+
+		System.out.println(ExampleMap.isConnected()); //check if Map is connected graph
+
+		System.out.println(ExampleMap.isContinentConnected()); //check if Continents are connected sub-graphs
 	}
 
 }
