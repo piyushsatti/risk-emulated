@@ -5,8 +5,6 @@ import java.util.HashMap;
 
 /**
  * Class representing the Warzone map
- * Contains d_countryList which is a list containing all the countries
- * on the map
  */
 public class Map {
 
@@ -18,21 +16,8 @@ public class Map {
         this.d_countries = new HashMap<>();
     }
 
-    public void addCountry(Country country){
-        d_countries.put(country.getCountryName(),country);
-    }
-
-    public void addCountry(Country country, Continent continent){
-        if(!d_continents.containsKey(continent.d_continentName)) {
-            System.out.println("Continent doesn't exist!");
-            return;
-        }
-        country.d_continent = continent;
-        d_countries.put(country.getCountryName(),country);
-    }
-
     public void addCountry(String countryName, Continent continent){
-        if(!d_continents.containsKey(continent.d_continentName)) {
+        if(!this.containsContinent(continent.d_continentName)) {
             System.out.println("Continent doesn't exist!");
             return;
         }

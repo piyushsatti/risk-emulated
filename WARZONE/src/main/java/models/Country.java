@@ -3,15 +3,9 @@ import java.util.*;
 
 public class Country {
 
-
     private final String d_countryName;
-
     public HashMap<String, Border> d_borders;
-
     public Continent d_continent;
-
-
-
 
 
     public Country(String name, Continent continent){
