@@ -1,5 +1,8 @@
-package models;
-import java.util.*;
+package main.java.models;
+
+import main.java.models.map.Country;
+
+import java.util.ArrayList;
 
 public class Player{
 
@@ -25,8 +28,8 @@ public class Player{
     public void setReinforcements(int p_reinforcements) {
         this.d_reinforcements= p_reinforcements;
     }
-    public void setassignedCountries(ArrayList<Country> d_assignedCountries) {
-        this.d_assignedCountries= d_assignedCountries;
+    public void setassignedCountries(Country d_assignedCountries) {
+        this.d_assignedCountries.add(d_assignedCountries);
     }
     
     //Constructors
@@ -36,11 +39,13 @@ public class Player{
      d_assignedCountries= new ArrayList<>(); 	
     }
     
+    
     public Player(String d_playerName,int d_reinforcements,ArrayList<Country> d_assignedCountries){
         this.d_playerName= "";
         this.d_reinforcements= 0;
         this.d_assignedCountries= d_assignedCountries; 	
        }
-
+   
+    //issue order
 
 }

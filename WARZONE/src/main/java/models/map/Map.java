@@ -1,8 +1,12 @@
-package models;
+package main.java.models.map;
+
 import java.util.HashMap;
+import java.util.ArrayList;
 
 /**
  * Class representing the Warzone map
+ * Contains d_countryList which is a list containing all the countries
+ * on the map
  */
 public class Map {
 

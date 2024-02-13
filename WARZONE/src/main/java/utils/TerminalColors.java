@@ -1,4 +1,4 @@
-package main.java.models;
+package main.java.utils;
 
 public class TerminalColors {
     // ANSI escape code constants for text colors

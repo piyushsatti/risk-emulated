@@ -1,5 +1,8 @@
-package models;
-import java.util.*;
+package main.java.models.map;
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 
 /**
  * Class representing Country to be used within Warzone map
