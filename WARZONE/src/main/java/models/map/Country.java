@@ -5,73 +5,84 @@ import main.java.models.Player;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class representing Country to be used within Warzone map
+ */
 public class Country {
-    private int d_countryID;
 
-    private String d_countryName;
-    private int d_continentID;
-    private int d_deployedArmies;
-    private List<Integer> d_neighborListID;
-    private Player d_assignedPlayer;
+    private final String d_countryName;
+    private HashMap<String, Border> d_borders;
+    private Continent d_continent;
 
-    public ArrayList<Border> d_borderList;
-
-    public Continent d_continent;
-
-    public Country(int d_countryID, int d_continentID, int d_deployedArmies, List<Integer> d_neighborListID, Player d_assignedPlayer) {
-        this.d_countryID = d_countryID;
-        this.d_continentID = d_continentID;
-        this.d_deployedArmies = d_deployedArmies;
-        this.d_neighborListID = d_neighborListID;
-        this.d_assignedPlayer = d_assignedPlayer;
-        this.d_borderList = new ArrayList<Border>();
-    }
-
-    public Country(String name, int continentID){
-        this.d_countryName = name;
-        this.d_continentID = continentID;
-        this.d_borderList = new ArrayList<>();
-    }
-
+    /**
+     * Country constructor
+     * @param name Country name
+     * @param continent Continent object to be associated with
+     */
     public Country(String name, Continent continent){
         this.d_countryName = name;
-        this.d_borderList = new ArrayList<>();
+        this.d_borders = new HashMap<>();
         this.d_continent = continent;
     }
 
-    public void addBorder(Country c){
-        this.d_borderList.add(new Border(c));
+    /**
+     * Getter method for d_countryName attribute
+     * @return d_countryName String
+     */
+    public String getD_countryName() {
+        return d_countryName;
     }
 
     /**
-     * Method that returns the list of Border objects associated with a Country
-     * @return List of Border objects
+     * Getter method for Continent object
+     * @return Continent object attribute
      */
-    public ArrayList<Border> getBorders(){
-        return this.d_borderList;
+    public Continent getD_continent() {
+        return d_continent;
     }
 
     /**
-     * Method which returns list of neighboring countries (outgoing borders)
-     * @return ArrayList of neighboring countries
+     * Method which adds Border to d_borders Hashmap
+     * @param country country which the added border will point to
      */
-    public ArrayList<Country> getBorderCountries(){
-        ArrayList <Country> borderCountries = new ArrayList<>();
-        for(Border b: this.d_borderList){
-            borderCountries.add(b.d_target);
+    public void addBorder(Country country){
+        this.d_borders.put(country.d_countryName,new Border(country));
+    }
+
+    /**
+     * Method that returns the HashMap of Border objects associated with a Country
+     * @return HashMap of Border objects
+     */
+    public HashMap<String, Border> getBorders(){
+        return this.d_borders;
+    }
+
+    /**
+     * Method which returns HashMap of neighboring countries (outgoing borders)
+     * @return HashMap of neighboring countries
+     */
+    public HashMap<String, Country> getBorderCountries(){
+        HashMap <String, Country> borderCountries = new HashMap<>();
+
+        for(Border b: this.d_borders.values()){
+            borderCountries.put(b.getD_target().d_countryName, b.getD_target());
         }
 
         return borderCountries;
     }
 
+    /**
+     * String summary of Country object
+     * @return String of Country details (Name, Continent, Borders) to be used in print statements
+     */
     public String toString(){
         String outPut = "Name: " + this.d_countryName + "\n";
-        outPut += "Continent: " + this.d_continentID + "\n";
+        outPut += "Continent: " + this.d_continent.d_continentName + "\n";
         outPut += "Border Countries: ";
 
         int loopIndex = 0;
 
-        for (Country c : this.getBorderCountries()){
+        for (Country c : this.getBorderCountries().values()){
             loopIndex++;
             outPut += c.d_countryName;
             if(loopIndex < this.getBorderCountries().size()) outPut += ", ";
@@ -86,10 +97,11 @@ public class Country {
      * @param countriesToReach List of countries the method is trying to reach
      * @return true if all countries are reached, false if not
      */
-    public boolean canReach(ArrayList<Country> countriesToReach){
+    public boolean canReach(HashMap<String,Country> countriesToReach){
 
         ArrayList<Country> observed = new ArrayList<>();
-        ArrayList<Country> notObserved = new ArrayList<>(countriesToReach);
+        Collection<Country> countryCollection = countriesToReach.values();
+        ArrayList<Country> notObserved = new ArrayList<>(countryCollection);
         observed.add(this); //add calling object to observed list (must be present in CountriesToReach)
 
         while (true){
@@ -105,9 +117,9 @@ public class Country {
 
             for (Country o: observed){  // for each observed country
 
-                ArrayList<Country> neighbors = o.getBorderCountries(); //get neighbors
+                HashMap<String,Country> neighbors = o.getBorderCountries(); //get neighbors
 
-                for(Country n: neighbors){ //for each neighbor found
+                for(Country n: neighbors.values()){ //for each neighbor found
 
                     //if not observed and in search list, add to observed list
                     if(!observedCopy.contains(n) && notObserved.contains(n)){
@@ -124,8 +136,5 @@ public class Country {
         }
     }
 
-    public String getCountryName(){
-        return this.d_countryName;
-    }
 
 }

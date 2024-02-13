@@ -16,4 +16,9 @@ public class Continent {
         this.bonus = bonusValue;
     }
 
+    public Continent(String name){
+        this.d_continentName = name;
+        this.bonus = 0;
+    }
+
 }
