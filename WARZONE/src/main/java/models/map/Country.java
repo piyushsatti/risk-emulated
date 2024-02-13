@@ -1,5 +1,9 @@
-package models;
-import java.util.*;
+package main.java.models.map;
+
+import main.java.models.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Country {
     private int d_countryID;

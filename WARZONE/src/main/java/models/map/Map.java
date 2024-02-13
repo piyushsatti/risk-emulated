@@ -1,4 +1,4 @@
-package models;
+package main.java.models.map;
 
 import java.util.ArrayList;
 

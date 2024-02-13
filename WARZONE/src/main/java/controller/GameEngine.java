@@ -1,8 +1,9 @@
-package controller;
-import java.util.*;
+package main.java.controller;
 
-import models.Country;
-import models.Player;
+import main.java.models.Player;
+import main.java.models.map.Country;
+
+import java.util.ArrayList;
 
 public class GameEngine {
     public static void main(String[] args) {

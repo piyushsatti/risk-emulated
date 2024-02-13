@@ -1,4 +1,8 @@
-package models;
+package main.java.models;
+
+import main.java.models.map.Continent;
+import main.java.models.map.Country;
+import main.java.models.map.Map;
 
 import java.util.ArrayList;
 

@@ -1,5 +1,8 @@
-package models;
-import java.util.*;
+package main.java.models;
+
+import main.java.models.map.Country;
+
+import java.util.ArrayList;
 
 public class Player{
 
