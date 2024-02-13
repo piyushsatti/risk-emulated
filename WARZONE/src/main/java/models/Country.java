@@ -1,45 +1,76 @@
 package models;
 import java.util.*;
 
+/**
+ * Class representing Country to be used within Warzone map
+ */
 public class Country {
 
     private final String d_countryName;
-    public HashMap<String, Border> d_borders;
-    public Continent d_continent;
+    private HashMap<String, Border> d_borders;
+    private Continent d_continent;
 
-
+    /**
+     * Country constructor
+     * @param name Country name
+     * @param continent Continent object to be associated with
+     */
     public Country(String name, Continent continent){
         this.d_countryName = name;
         this.d_borders = new HashMap<>();
         this.d_continent = continent;
     }
 
-    public void addBorder(Country c){
-        this.d_borders.put(c.d_countryName,new Border(c));
+    /**
+     * Getter method for d_countryName attribute
+     * @return d_countryName String
+     */
+    public String getD_countryName() {
+        return d_countryName;
     }
 
     /**
-     * Method that returns the list of Border objects associated with a Country
-     * @return List of Border objects
+     * Getter method for Continent object
+     * @return Continent object attribute
+     */
+    public Continent getD_continent() {
+        return d_continent;
+    }
+
+    /**
+     * Method which adds Border to d_borders Hashmap
+     * @param country country which the added border will point to
+     */
+    public void addBorder(Country country){
+        this.d_borders.put(country.d_countryName,new Border(country));
+    }
+
+    /**
+     * Method that returns the HashMap of Border objects associated with a Country
+     * @return HashMap of Border objects
      */
     public HashMap<String, Border> getBorders(){
         return this.d_borders;
     }
 
     /**
-     * Method which returns list of neighboring countries (outgoing borders)
-     * @return ArrayList of neighboring countries
+     * Method which returns HashMap of neighboring countries (outgoing borders)
+     * @return HashMap of neighboring countries
      */
     public HashMap<String, Country> getBorderCountries(){
         HashMap <String, Country> borderCountries = new HashMap<>();
 
         for(Border b: this.d_borders.values()){
-            borderCountries.put(b.d_target.d_countryName, b.d_target);
+            borderCountries.put(b.getD_target().d_countryName, b.getD_target());
         }
 
         return borderCountries;
     }
 
+    /**
+     * String summary of Country object
+     * @return String of Country details (Name, Continent, Borders) to be used in print statements
+     */
     public String toString(){
         String outPut = "Name: " + this.d_countryName + "\n";
         outPut += "Continent: " + this.d_continent.d_continentName + "\n";
@@ -101,8 +132,5 @@ public class Country {
         }
     }
 
-    public String getCountryName(){
-        return this.d_countryName;
-    }
 
 }

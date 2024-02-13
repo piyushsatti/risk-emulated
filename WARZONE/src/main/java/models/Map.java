@@ -1,6 +1,4 @@
 package models;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -8,8 +6,8 @@ import java.util.HashMap;
  */
 public class Map {
 
-    public HashMap<String,Country> d_countries;
-    public HashMap<String, Continent> d_continents;
+    private HashMap<String,Country> d_countries;
+    private HashMap<String, Continent> d_continents;
 
     public Map(){
         this.d_continents = new HashMap<>();
@@ -68,8 +66,8 @@ public class Map {
     public HashMap<String, Country> getContinentCountries(Continent continent){
         HashMap<String, Country> output = new HashMap<>();
         for(Country c: this.d_countries.values()){
-            if(c.d_continent.equals(continent)){
-                output.put(c.getCountryName(),c);
+            if(c.getD_continent().equals(continent)){
+                output.put(c.getD_countryName(),c);
             }
         }
         return output;

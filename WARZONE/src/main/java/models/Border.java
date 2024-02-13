@@ -2,12 +2,29 @@ package models;
 
 /**
  * Class representing the borders of a country.
- * Contains variable d_target pointing to a single neighbor
+ * Each Country object will hold a hashmap of borders (key = target country name)
  */
 public class Border {
-    public Country d_target;
 
-    public Border(Country c){
-        this.d_target = c;
+    /**
+     * Variable which is a reference to the target country
+     * Meaning this border "points" to the target (directed graph)
+     */
+    private final Country d_target;
+
+    /**
+     * Accessor method for private d_target variable
+     * @return reference to target Country
+     */
+    public Country getD_target() {
+        return d_target;
+    }
+
+    /**
+     * Border constructor, requires a Country object
+     * @param country reference to target Country for Border object
+     */
+    public Border(Country country){
+        this.d_target = country;
     }
 }
