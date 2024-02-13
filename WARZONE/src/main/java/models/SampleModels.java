@@ -6,15 +6,13 @@ public class SampleModels {
 
 	public static void main(String[] args) {
 
-		Continent Africa = new Continent("Africa", 5);
-		Continent Asia = new Continent("Asia", 10);
 		Map cMap =  new Map();
-		cMap.addContinent(Africa);
-		cMap.addContinent(Asia);
-		cMap.addCountry("Egypt", Africa);
-		cMap.addCountry("Sudan", Africa);
-		cMap.addCountry("Yemen", Asia);
-		cMap.addCountry("KSA", Asia);
+		cMap.addContinent("Africa");
+		cMap.addContinent("Asia");
+		cMap.addCountry("Egypt", "Africa");
+		cMap.addCountry("Sudan", "Africa");
+		cMap.addCountry("Yemen", "Asia");
+		cMap.addCountry("KSA", "Asia");
 		cMap.addBorder("Egypt", "Sudan");
 		cMap.addBorder("Sudan", "Egypt");
 		cMap.addBorder("Yemen","KSA");

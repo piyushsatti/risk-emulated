@@ -30,15 +30,15 @@ public class Map {
      * This method adds a country to the map. It is necessary to have an existing Continent to
      * associate to the new country
      * @param countryName Name of the country to be added
-     * @param continent Continent object which will be associated to new country
+     * @param continentName Continent name which will be associated to new country (if present)
      */
-    public void addCountry(String countryName, Continent continent){
-        if(!this.containsContinent(continent.d_continentName)) { //does the continent exist?
+    public void addCountry(String countryName, String continentName){
+        if(!this.containsContinent(continentName)) { //does the continent exist?
             System.out.println("Continent doesn't exist!");
             return;
         }
 
-        d_countries.put(countryName, new Country(countryName, continent));
+        d_countries.put(countryName, new Country(countryName, d_continents.get(continentName)));
     }
 
     /**
@@ -65,6 +65,14 @@ public class Map {
      */
     public void addContinent(Continent continent){
         d_continents.put(continent.d_continentName, continent);
+    }
+
+    /**
+     * Method which add continent object ot continents HashMaps
+     * @param continentName name of Continent object which will be added to Map
+     */
+    public void addContinent(String continentName){
+        d_continents.put(continentName, new Continent(continentName));
     }
 
     /**
