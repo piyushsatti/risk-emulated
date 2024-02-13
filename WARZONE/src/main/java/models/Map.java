@@ -1,6 +1,7 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Class representing the Warzone map
@@ -9,33 +10,34 @@ import java.util.ArrayList;
  */
 public class Map {
 
-    public ArrayList<Country> d_countryList;
-    public ArrayList<Continent> d_continentList;
+    public HashMap<String,Country> d_countries;
+    public HashMap<String, Continent> d_continents;
 
     public Map(){
-        this.d_continentList = new ArrayList<Continent>();
-        this.d_countryList = new ArrayList<Country>();
+        this.d_continents = new HashMap<>();
+        this.d_countries = new HashMap<>();
     }
 
-    public void addCountry(Country c){
-        d_countryList.add(c);
+    public void addCountry(Country country){
+        d_countries.put(country.getCountryName(),country);
     }
 
     public void addCountry(Country country, Continent continent){
-        if(!d_continentList.contains(continent)) {
+        if(!d_continents.containsKey(continent.d_continentName)) {
             System.out.println("Continent doesn't exist!");
             return;
         }
         country.d_continent = continent;
-        d_countryList.add(country);
+        d_countries.put(country.getCountryName(),country);
     }
 
     public void addCountry(String countryName, Continent continent){
-        if(!d_continentList.contains(continent)) {
+        if(!d_continents.containsKey(continent.d_continentName)) {
             System.out.println("Continent doesn't exist!");
             return;
         }
-        d_countryList.add(new Country(countryName, continent));
+
+        d_countries.put(countryName, new Country(countryName, continent));
     }
 
     public void addBorder(String source, String target){
@@ -48,21 +50,21 @@ public class Map {
 
     }
 
-    public void addContinent(Continent c){
-        d_continentList.add(c);
+    public void addContinent(Continent continent){
+        d_continents.put(continent.d_continentName, continent);
     }
 
     public boolean isConnected(){
         boolean connected = true;
-        for (Country c : d_countryList){
-            connected = connected && c.canReach(d_countryList);
+        for (Country c : d_countries.values()){
+            connected = connected && c.canReach(d_countries);
         }
         return connected;
     }
 
-    public boolean isConnected(ArrayList<Country> countryList){
+    public boolean isConnected(HashMap<String, Country> countryList){
         boolean connected = true;
-        for (Country c : countryList){
+        for (Country c : countryList.values()){
             connected = connected && c.canReach(countryList);
         }
         return connected;
@@ -70,44 +72,33 @@ public class Map {
 
     public boolean isContinentConnected(){
         boolean connected = true;
-        for(Continent target: this.d_continentList){
-            ArrayList<Country> tempContList = this.getContinentCountries(target);
-            connected = connected && isConnected(tempContList);
+        for(Continent target: this.d_continents.values()){
+            HashMap<String,Country> tempCont = this.getContinentCountries(target);
+            connected = connected && isConnected(tempCont);
         }
 
         return connected;
     }
 
-    public ArrayList<Country> getContinentCountries(Continent continent){
-        ArrayList<Country> output = new ArrayList<>();
-        for(Country c: this.d_countryList){
+    public HashMap<String, Country> getContinentCountries(Continent continent){
+        HashMap<String, Country> output = new HashMap<>();
+        for(Country c: this.d_countries.values()){
             if(c.d_continent.equals(continent)){
-                output.add(c);
+                output.put(c.getCountryName(),c);
             }
         }
         return output;
     }
 
     public boolean containsCountry(String c){
-        for(Country cont: this.d_countryList){
-            if(cont.getCountryName().equals(c)) return true;
-        }
-        return false;
+        return this.d_countries.containsKey(c);
     }
 
     public boolean containsContinent(String c){
-        for(Continent cont: this.d_continentList){
-            if(cont.d_continentName.equals(c)) return true;
-        }
-        return false;
+        return this.d_continents.containsKey(c);
     }
 
     public Country getCountry(String countryName){
-        for(Country c: this.d_countryList){
-            if(c.getCountryName().equals(countryName)){
-                return c;
-            }
-        }
-        return null;
+        return this.d_countries.get(countryName);
     }
 }
