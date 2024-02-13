@@ -5,7 +5,6 @@ import java.io.IOException;
 
 public class MapInterface {
     private static File d_map_file_obj;
-
     private static void createFileObjectFromFileName(String p_map_name) {
         try {
             d_map_file_obj = new File(
