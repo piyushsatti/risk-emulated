@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 /**
  * Class representing the Warzone map
- * Contains d_countryList which is a list containing all the countries
+ * Contains d_countries which is a HashMap containing all the countries
  * on the map
  */
 public class Map {
@@ -80,8 +80,9 @@ public class Map {
 
 
     /**
-     * Method which add continent object ot continents HashMaps
-     * @param continentName name of Continent object which will be added to Map
+     * Method which adds continent to map
+     * @param id new continent identifier
+     * @param continentName new continent name
      */
     public void addContinent(int id, String continentName){
         d_continents.put(id, new Continent(id,continentName));
@@ -117,6 +118,11 @@ public class Map {
         return connected;
     }
 
+    /**
+     * Method which gets list of countries associated with the provided continent
+     * @param continent Continent object for which countries should be retrieved
+     * @return HashMap of countries associated with continent
+     */
     public HashMap<Integer, Country> getContinentCountries(Continent continent){
         HashMap<Integer, Country> output = new HashMap<>();
         for(Country c: this.d_countries.values()){
@@ -127,14 +133,29 @@ public class Map {
         return output;
     }
 
+    /**
+     * Method that checks if country exists in map
+     * @param countryID Country identifier integer
+     * @return true if found false if not found
+     */
     public boolean containsCountry(int countryID){
         return this.d_countries.containsKey(countryID);
     }
 
+    /**
+     * Method that checks if continent exists in map
+     * @param continentID Continent identifier integer
+     * @return true if found false if not found
+     */
     public boolean containsContinent(int continentID){
         return this.d_continents.containsKey(continentID);
     }
 
+    /**
+     * Retrieve country object based on country ID
+     * @param countryID Identifier of country to search for
+     * @return Country object with matching identifier
+     */
     public Country getCountry(int countryID){
         return this.d_countries.get(countryID);
     }

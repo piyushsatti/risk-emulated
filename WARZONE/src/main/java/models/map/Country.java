@@ -9,18 +9,32 @@ import java.util.HashMap;
  */
 public class Country {
 
+    /**
+     * Country integer identifier
+     */
     private final int d_countryID;
+
+    /**
+     * Country name String
+     */
     private final String d_countryName;
+
+    /**
+     * Hashmap containing Border objects associated with country
+     */
     private HashMap<Integer, Border> d_borders;
+
+    /**
+     * Continent associated with the country
+     */
     private Continent d_continent;
 
     /**
      * Country constructor
-     * @param name Country name
-     * @param continent Continent object to be associated with
+     * @param id Identifier integer
+     * @param name Name of country String
+     * @param continent Reference to associated continent
      */
-
-
     public Country(int id, String name, Continent continent){
         this.d_countryID = id;
         this.d_countryName = name;
@@ -29,13 +43,17 @@ public class Country {
     }
 
     /**
-     * Getter method for d_countryName attribute
+     * Accessor method for d_countryName attribute
      * @return d_countryName String
      */
     public String getD_countryName() {
         return d_countryName;
     }
 
+    /**
+     * Accessor method for d_countryID attribute
+     * @return d_countryID integer
+     */
     public int getD_countryID(){
         return d_countryID;
     }
@@ -101,7 +119,7 @@ public class Country {
     /**
      * Method which checks if a country can reach all the other
      * countries in the list while only moving through countries in the list
-     * @param countriesToReach List of countries the method is trying to reach
+     * @param countriesToReach HashMap of countries the method is trying to reach
      * @return true if all countries are reached, false if not
      */
     public boolean canReach(HashMap<Integer,Country> countriesToReach){
