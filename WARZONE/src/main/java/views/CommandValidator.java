@@ -1,6 +1,5 @@
 package views;
 
-import controller.GameEngine;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidPlayerToRemoveException;
 
