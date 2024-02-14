@@ -1,7 +1,7 @@
 package main.java.models.map;
 
-import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Class representing the Warzone map
@@ -14,13 +14,13 @@ public class Map {
      * HashMap containing all countries.
      * Key is the Country name and Value is the Country object
      */
-    private HashMap<Integer,Country> d_countries;
+    public HashMap<Integer, Country> d_countries;
 
     /**
      * HashMap containing the all continents on the map.
      * Key is the Continent name and Value is the Continent object
      */
-    private HashMap<Integer, Continent> d_continents;
+    public HashMap<Integer, Continent> d_continents;
 
     /**
      * Constructor that initializes the Country and Continent HashMaps
