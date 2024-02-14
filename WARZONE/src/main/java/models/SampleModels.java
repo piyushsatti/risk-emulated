@@ -1,5 +1,6 @@
 package main.java.models;
 
+import main.java.models.map.Border;
 import main.java.models.map.Continent;
 import main.java.models.map.Country;
 import main.java.models.map.Map;
@@ -16,26 +17,27 @@ public class SampleModels {
 
 		Map ExampleMap =  new Map(); //create a map
 
-		ExampleMap.addContinent("Africa"); //Add Continent objects
-		ExampleMap.addContinent("Asia");
+		ExampleMap.addContinent(1,"Africa"); //Add Continent objects
+		ExampleMap.addContinent(2,"Asia");
 
 
-		ExampleMap.addCountry("Egypt", "Africa"); //Add Country objects
-		ExampleMap.addCountry("Sudan", "Africa");
-		ExampleMap.addCountry("Yemen", "Asia");
-		ExampleMap.addCountry("KSA", "Asia");
+		ExampleMap.addCountry(1,1, "Egypt"); //Add Country objects
+		ExampleMap.addCountry(2,1, "Sudan");
+		ExampleMap.addCountry(3,2, "Yemen");
+		ExampleMap.addCountry(4,2, "KSA");
 
 
-		ExampleMap.addBorder("Egypt", "Sudan"); //Add Border objects
-		ExampleMap.addBorder("Sudan", "Egypt");
-		ExampleMap.addBorder("Yemen","KSA");
-		ExampleMap.addBorder("KSA","Yemen");
-		ExampleMap.addBorder("Sudan","Yemen");
-		ExampleMap.addBorder("Yemen","Sudan");
+		ExampleMap.addBorder(1,2); //Add Border objects
+		ExampleMap.addBorder(2,1);
+		ExampleMap.addBorder(3,4);
+		ExampleMap.addBorder(4,3);
+		ExampleMap.addBorder(2,3);
+		ExampleMap.addBorder(3,2);
 
 		System.out.println(ExampleMap.isConnected()); //check if Map is connected graph
 
 		System.out.println(ExampleMap.isContinentConnected()); //check if Continents are connected sub-graphs
+
 	}
 
 }

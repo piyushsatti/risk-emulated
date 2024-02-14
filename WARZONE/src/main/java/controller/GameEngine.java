@@ -31,10 +31,10 @@ public class GameEngine {
       		playerList.add(testPlayer);
 
       		ArrayList<Country> countryList = new ArrayList<>();   //To be given by Map Team
-      		Country a = new Country("a",new Continent("p",1));
-    		Country b = new Country("b",new Continent("q",1));
-    		Country c = new Country("c",new Continent("r",1));
-    		Country d = new Country("d",new Continent("s",1));
+      		Country a = new Country(1,"a",new Continent(1,"a"));
+    		Country b = new Country(2,"b",new Continent(1,"a"));
+    		Country c = new Country(3,"c",new Continent(1,"a"));
+    		Country d = new Country(4,"d",new Continent(1,"a"));
 
     		countryList.add(a);
     		countryList.add(b);

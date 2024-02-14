@@ -9,8 +9,9 @@ import java.util.HashMap;
  */
 public class Country {
 
+    private final int d_countryID;
     private final String d_countryName;
-    private HashMap<String, Border> d_borders;
+    private HashMap<Integer, Border> d_borders;
     private Continent d_continent;
 
     /**
@@ -18,7 +19,10 @@ public class Country {
      * @param name Country name
      * @param continent Continent object to be associated with
      */
-    public Country(String name, Continent continent){
+
+
+    public Country(int id, String name, Continent continent){
+        this.d_countryID = id;
         this.d_countryName = name;
         this.d_borders = new HashMap<>();
         this.d_continent = continent;
@@ -30,6 +34,10 @@ public class Country {
      */
     public String getD_countryName() {
         return d_countryName;
+    }
+
+    public int getD_countryID(){
+        return d_countryID;
     }
 
     /**
@@ -45,14 +53,14 @@ public class Country {
      * @param country country which the added border will point to
      */
     public void addBorder(Country country){
-        this.d_borders.put(country.d_countryName,new Border(country));
+        this.d_borders.put(country.getD_countryID(),new Border(country));
     }
 
     /**
      * Method that returns the HashMap of Border objects associated with a Country
      * @return HashMap of Border objects
      */
-    public HashMap<String, Border> getBorders(){
+    public HashMap<Integer, Border> getBorders(){
         return this.d_borders;
     }
 
@@ -60,11 +68,11 @@ public class Country {
      * Method which returns HashMap of neighboring countries (outgoing borders)
      * @return HashMap of neighboring countries
      */
-    public HashMap<String, Country> getBorderCountries(){
-        HashMap <String, Country> borderCountries = new HashMap<>();
+    public HashMap<Integer, Country> getBorderCountries(){
+        HashMap <Integer, Country> borderCountries = new HashMap<>();
 
         for(Border b: this.d_borders.values()){
-            borderCountries.put(b.getD_target().d_countryName, b.getD_target());
+            borderCountries.put(b.getD_target().getD_countryID(), b.getD_target());
         }
 
         return borderCountries;
@@ -83,7 +91,7 @@ public class Country {
 
         for (Country c : this.getBorderCountries().values()){
             loopIndex++;
-            outPut += c.d_countryName;
+            outPut += c.getD_countryName();
             if(loopIndex < this.getBorderCountries().size()) outPut += ", ";
         }
 
@@ -96,7 +104,7 @@ public class Country {
      * @param countriesToReach List of countries the method is trying to reach
      * @return true if all countries are reached, false if not
      */
-    public boolean canReach(HashMap<String,Country> countriesToReach){
+    public boolean canReach(HashMap<Integer,Country> countriesToReach){
 
         ArrayList<Country> observed = new ArrayList<>();
         Collection<Country> countryCollection = countriesToReach.values();
@@ -116,7 +124,7 @@ public class Country {
 
             for (Country o: observed){  // for each observed country
 
-                HashMap<String,Country> neighbors = o.getBorderCountries(); //get neighbors
+                HashMap<Integer,Country> neighbors = o.getBorderCountries(); //get neighbors
 
                 for(Country n: neighbors.values()){ //for each neighbor found
 

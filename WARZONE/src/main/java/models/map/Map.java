@@ -14,13 +14,13 @@ public class Map {
      * HashMap containing all countries.
      * Key is the Country name and Value is the Country object
      */
-    private HashMap<String,Country> d_countries;
+    private HashMap<Integer,Country> d_countries;
 
     /**
      * HashMap containing the all continents on the map.
      * Key is the Continent name and Value is the Continent object
      */
-    private HashMap<String, Continent> d_continents;
+    private HashMap<Integer, Continent> d_continents;
 
     /**
      * Constructor that initializes the Country and Continent HashMaps
@@ -34,15 +34,15 @@ public class Map {
      * This method adds a country to the map. It is necessary to have an existing Continent to
      * associate to the new country
      * @param countryName Name of the country to be added
-     * @param continentName Continent name which will be associated to new country (if present)
+     * @param continentID Continent name which will be associated to new country (if present)
      */
-    public void addCountry(String countryName, String continentName){
-        if(!this.containsContinent(continentName)) { //does the continent exist?
+    public void addCountry(int countryID, int continentID, String countryName){
+        if(!this.containsContinent(continentID)) { //does the continent exist?
             System.out.println("Continent doesn't exist!");
             return;
         }
 
-        d_countries.put(countryName, new Country(countryName, d_continents.get(continentName)));
+        d_countries.put(countryID, new Country(countryID, countryName, d_continents.get(continentID)));
     }
 
     /**
@@ -52,7 +52,7 @@ public class Map {
      * @param source Country which will contain the new Border
      * @param target Country which border will "point" to
      */
-    public void addBorder(String source, String target){
+    public void addBorder(int source, int target){
         //check that both countries exist
         if(!(this.containsCountry(source) && this.containsCountry(target))){
             System.out.println("Country doesn't exist!");
@@ -63,20 +63,28 @@ public class Map {
 
     }
 
-    /**
-     * Method which add continent object ot continents HashMaps
-     * @param continent object which will be added to Map
-     */
-    public void addContinent(Continent continent){
-        d_continents.put(continent.d_continentName, continent);
+    public void addBorders(int source, ArrayList<Integer> borderList){
+        //check that both countries exist
+        for(Integer i : borderList){
+            if(!this.containsCountry(i)){
+                System.out.println("Country " + i + " is missing! Abort!");
+                return;
+            }
+        }
+
+        for(Integer i : borderList){
+            this.addBorder(source,i);
+        }
+
     }
+
 
     /**
      * Method which add continent object ot continents HashMaps
      * @param continentName name of Continent object which will be added to Map
      */
-    public void addContinent(String continentName){
-        d_continents.put(continentName, new Continent(continentName));
+    public void addContinent(int id, String continentName){
+        d_continents.put(id, new Continent(id,continentName));
     }
 
     /**
@@ -91,7 +99,7 @@ public class Map {
         return connected;
     }
 
-    public boolean isConnected(HashMap<String, Country> countryList){
+    public boolean isConnected(HashMap<Integer, Country> countryList){
         boolean connected = true;
         for (Country c : countryList.values()){
             connected = connected && c.canReach(countryList);
@@ -102,32 +110,32 @@ public class Map {
     public boolean isContinentConnected(){
         boolean connected = true;
         for(Continent target: this.d_continents.values()){
-            HashMap<String,Country> tempCont = this.getContinentCountries(target);
+            HashMap<Integer,Country> tempCont = this.getContinentCountries(target);
             connected = connected && isConnected(tempCont);
         }
 
         return connected;
     }
 
-    public HashMap<String, Country> getContinentCountries(Continent continent){
-        HashMap<String, Country> output = new HashMap<>();
+    public HashMap<Integer, Country> getContinentCountries(Continent continent){
+        HashMap<Integer, Country> output = new HashMap<>();
         for(Country c: this.d_countries.values()){
             if(c.getD_continent().equals(continent)){
-                output.put(c.getD_countryName(),c);
+                output.put(c.getD_countryID(),c);
             }
         }
         return output;
     }
 
-    public boolean containsCountry(String c){
-        return this.d_countries.containsKey(c);
+    public boolean containsCountry(int countryID){
+        return this.d_countries.containsKey(countryID);
     }
 
-    public boolean containsContinent(String c){
-        return this.d_continents.containsKey(c);
+    public boolean containsContinent(int continentID){
+        return this.d_continents.containsKey(continentID);
     }
 
-    public Country getCountry(String countryName){
-        return this.d_countries.get(countryName);
+    public Country getCountry(int countryID){
+        return this.d_countries.get(countryID);
     }
 }

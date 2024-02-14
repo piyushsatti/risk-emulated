@@ -1,6 +1,10 @@
 package main.java.models.map;
 
 public class Continent {
+
+    private int d_continentID;
+
+
     /**
      * Name of continent
      */
@@ -11,12 +15,9 @@ public class Continent {
      */
     public int bonus;
 
-    public Continent(String name, int bonusValue){
-        this.d_continentName = name;
-        this.bonus = bonusValue;
-    }
 
-    public Continent(String name){
+    public Continent(int id, String name){
+        this.d_continentID = id;
         this.d_continentName = name;
         this.bonus = 0;
     }
