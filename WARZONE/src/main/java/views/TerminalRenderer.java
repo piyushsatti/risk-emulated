@@ -1,27 +1,29 @@
 package main.java.views;
 
+import main.java.utils.TerminalColors;
+
 public class TerminalRenderer {
     public static String renderWelcome() {
-        return """
-                 _    _          ______                \s
-                | |  | |        |___  /                \s
-                | |  | | __ _ _ __ / /  ___  _ __   ___\s
-                | |/\\| |/ _` | '__/ /  / _ \\| '_ \\ / _ \\\s
-                \\  /\\  / (_| | |./ /__| (_) | | | |  __/\s
-                 \\/  \\/ \\__,_|_|\\_____/\\___/|_| |_|\\___|\s
+        return TerminalColors.ANSI_CYAN + """
+                
+                 ___       ___     ____     ______      ______      ____        __      _    _____ \s
+                (  (       )  )   (    )   (   __ \\    (____  )    / __ \\      /  \\    / )  / ___/ \s
+                 \\  \\  _  /  /    / /\\ \\    ) (__) )       / /    / /  \\ \\    / /\\ \\  / /  ( (__   \s
+                  \\  \\/ \\/  /    ( (__) )  (    __/    ___/ /_   ( ()  () )   ) ) ) ) ) )   ) __)  \s
+                   )   _   (      )    (    ) \\ \\  _  /__  ___)  ( ()  () )  ( ( ( ( ( (   ( (     \s
+                   \\  ( )  /     /  /\\  \\  ( ( \\ \\_))   / /____   \\ \\__/ /   / /  \\ \\/ /    \\ \\___ \s
+                    \\_/ \\_/     /__(  )__\\  )_) \\__/   (_______)   \\____/   (_/    \\__/      \\____\\\s
                 \s
                 Welcome to WarZone. Built by Team24.
-                """;
+                """ + TerminalColors.ANSI_RESET;
     }
 
     public static String renderMenu(String menu_type, String[] options) {
         // Display menu graphics
         StringBuilder out = new StringBuilder();
-        out.append(String.format("""
-                ============================
+        out.append(TerminalColors.ANSI_BLUE + "============================\n" + TerminalColors.ANSI_GREEN).append(String.format("""
                 |  %s Options:\s
-                """, menu_type)
-        );
+                """, menu_type));
         for (int i = 1; i < options.length; i++) {
             out.append(String.format("""
                     |     %d. %s\s
@@ -30,12 +32,12 @@ public class TerminalRenderer {
         out.append(String.format("""
                     |     %d. Exit\s
                     """, options.length));
-        return out.toString();
+        return out.toString() + TerminalColors.ANSI_BLUE + "============================" + TerminalColors.ANSI_RESET;
     }
 
     public static void main(String[] args) {
         System.out.println(renderWelcome());
-        String[] test = {"Hi", "Bye", "Opti"};
-        System.out.println(renderMenu("Main Menu", test));
+        String[] poop = {"Hi", "Bye", "Opti"};
+        System.out.println(renderMenu("Main Menu", poop));
     }
 }
