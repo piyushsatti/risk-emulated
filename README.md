@@ -20,6 +20,10 @@
 - 1-1 relationship between tested classes and test classes
 
 # To-Do
+- [ ] User-interface
+  - [ ] Welcome message
+  - [ ] ShowMap renderer
+  - [ ] User Interface messages
 - [ ] Map-Editor
   - [ ] User-driven creation/deletion of map elements: country, continent, and connectivity between countries. Map editor commands:
     - [ ] editcontinent -add continentID continentvalue -remove continentID 
