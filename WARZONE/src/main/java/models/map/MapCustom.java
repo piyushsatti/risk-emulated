@@ -102,11 +102,25 @@ public class MapCustom {
 
     /**
      * Method which adds continent to map
-     * @param id new continent identifier
+     * @param continentID new continent identifier
      * @param continentName new continent name
      */
-    public void addContinent(int id, String continentName){
-        d_continents.put(id, new Continent(id,continentName));
+    public void addContinent(int continentID, String continentName){
+        d_continents.put(continentID, new Continent(continentID,continentName));
+    }
+    /**
+     * Method to remove a continent from the map.
+     * @param continentID The identifier of the continent to be removed.
+     */
+    public void removeContinent(int continentID){
+        if (d_continents.containsKey(continentID)){
+            d_continents.remove(continentID);
+            System.out.println("Continent removed successfully");
+        }
+        else {
+            System.out.println("Continent with ID " + continentID + " does not exist.");
+        }
+
     }
 
     /**
