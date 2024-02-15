@@ -1,8 +1,11 @@
 package models.map;
 
+import main.java.models.map.Continent;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+
 
 /**
  * Class representing Country to be used within Warzone map
@@ -29,6 +32,16 @@ public class Country {
      */
     private Continent d_continent;
 
+    private int d_deployedReinforcements;
+
+    public int getD_deployedReinforcements() {
+        return d_deployedReinforcements;
+    }
+
+    public void setD_deployedReinforcements(int p_deployedReinforcements) {
+        this.d_deployedReinforcements = p_deployedReinforcements;
+    }
+
     /**
      * Country constructor
      * @param id Identifier integer
@@ -40,6 +53,10 @@ public class Country {
         this.d_countryName = name;
         this.d_borders = new HashMap<>();
         this.d_continent = continent;
+        this.d_deployedReinforcements = 0;
+    }
+    public void printCountryDetails(){
+        System.out.print("Country ID: "+this.d_countryID +" Country Name: " + this.d_countryName + "Deployed Reinforcements: "+ this.d_deployedReinforcements);
     }
 
     /**
@@ -89,7 +106,7 @@ public class Country {
     public HashMap<Integer, Country> getBorderCountries(){
         HashMap <Integer, Country> borderCountries = new HashMap<>();
 
-        for(Border b: this.d_borders.values()){
+        for( models.map.Border b: this.d_borders.values()){
             borderCountries.put(b.getD_target().getD_countryID(), b.getD_target());
         }
 
