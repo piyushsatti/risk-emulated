@@ -54,30 +54,25 @@ public class MapInterface {
             /*
               Manages the state of the file reading program
              */
-            switch (data) {
-                case "[continents]" -> {
-                    state[0] = true;
-                    state[1] = false;
-                    state[2] = false;
-                    continue;
-                }
-                case "[countries]" -> {
-                    state[0] = false;
-                    state[1] = true;
-                    state[2] = false;
-                    continue;
-                }
-                case "[borders]" -> {
-                    state[0] = false;
-                    state[1] = false;
-                    state[2] = true;
-                    continue;
-                }
-                case "" -> {
-                    state[0] = false;
-                    state[1] = false;
-                    state[2] = false;
-                }
+            if (data.equals("[continents]")) {
+                state[0] = true;
+                state[1] = false;
+                state[2] = false;
+                continue;
+            } else if (data.equals("[countries]")) {
+                state[0] = false;
+                state[1] = true;
+                state[2] = false;
+                continue;
+            } else if (data.equals("[borders]")) {
+                state[0] = false;
+                state[1] = false;
+                state[2] = true;
+                continue;
+            } else if (data.isEmpty()) {
+                state[0] = false;
+                state[1] = false;
+                state[2] = false;
             }
             /*
               Executes object initialization based on current state
