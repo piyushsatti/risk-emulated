@@ -1,33 +1,33 @@
-package src.main.java.models;
+package main.java.models;
 
-import src.main.java.controller.MapInterfaceV1;
-import src.main.java.models.map.Country;
-import src.main.java.models.map.MapCustom;
-import src.main.java.models.Order;
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.ArrayDeque;
+import main.java.controller.MapInterface;
+import main.java.models.worldmap.Country;
+import main.java.models.worldmap.WorldMap;
+
+import java.util.*;
 
 public class Player{
 
     private String d_playerName;
     private int d_reinforcements;
-    private HashMap<Integer,Country> d_assignedCountries;
-    private static MapCustom map;
-    private static ArrayList<Player> d_Players = new ArrayList<>();
-    private Deque<Order> d_orderList;
+    private final Map<Integer, Country> d_assignedCountries;
 
-
-    //Constructors
-    public Player(String p_playerName){
-        this.d_playerName= p_playerName;
-        this.d_reinforcements= 0;
-        this.d_assignedCountries= new HashMap<>();
-        this.d_orderList = new ArrayDeque<>();
-
+    public static WorldMap getMap() {
+        return map;
     }
 
+    private static WorldMap map;
+
+    public Queue<Order> getD_orderList() {
+        return d_orderList;
+    }
+
+    private final Queue<Order> d_orderList;
+    public static List<Player> getD_Players() {
+        return d_Players;
+    }
+
+    private static List<Player> d_Players = new ArrayList<>();
 
     //Getters
     public String getName() {
@@ -36,19 +36,10 @@ public class Player{
     public int getReinforcements() {
         return d_reinforcements;
     }
-    public HashMap<Integer,Country> getassignedCountries() {
+    public Map<Integer,Country> getassignedCountries() {
         return this.d_assignedCountries;
     }
-    public static MapCustom getMap() {
-        return map;
-    }
-    public Deque<Order> getD_orderList() {
-        return d_orderList;
-    }
 
-    public static ArrayList<Player> getD_Players() {
-        return d_Players;
-    }
     //Setters
     public void setName(String p_name) {
         this.d_playerName= p_name;
@@ -60,7 +51,23 @@ public class Player{
         this.d_assignedCountries.put(p_countryID, p_assignedCountry);
     }
 
+    //Constructors
+    public Player(String p_playerName){
+        this.d_playerName= p_playerName;
+        this.d_reinforcements= 0;
+        this.d_assignedCountries= new HashMap<>();
+        this.d_orderList = new LinkedList<>();
+        //d_Players.add(this);
+    }
 
+
+//    public Player(String d_playerName,int d_reinforcements,ArrayList<Country> d_assignedCountries){
+//        this.d_playerName= "";
+//        this.d_reinforcements= 0;
+//        this.d_assignedCountries= d_assignedCountries;
+//       }
+
+    //issue order
 
     //addPlayer assuming a list of players to be added is given as parameter
     public static void addPlayer(ArrayList<String> p_names){
@@ -80,7 +87,6 @@ public class Player{
             d_Players.add(new Player(l_name));
         }
     }
-
     //removePlayer assuming a list of players to be added is given as parameter
     public static void removePlayer(ArrayList<String> p_names){
         for(String l_name: p_names){
@@ -92,32 +98,59 @@ public class Player{
 
         }
     }
-
-    //Printing Details of  all players
     public void printPlayerDetails(){
         System.out.print("Name: "+this.d_playerName +" ");
         System.out.print("Reinforcements: "+this.d_reinforcements+" ");
-        for(HashMap.Entry<Integer, Country> entry : this.d_assignedCountries.entrySet()){
+        for(Map.Entry<Integer, Country> entry : this.d_assignedCountries.entrySet()){
             System.out.print("Country ID: " +entry.getKey() +" Country Details: "+ entry.getValue() +" ");
         }
     }
-
-
-    //Printing Details of  Single Player
     public static void displayPlayers(){
         System.out.print("Number of Players: " + d_Players.size());
         for(Player l_player: d_Players){
             l_player.printPlayerDetails();
         }
     }
+//        public static void addPlayer(ArrayList<String> p_names){
+//            for(String l_name: p_names){
+//                System.out.println("Name of the Player to be added: "+  l_name);
+//                System.out.println("Total list of Player: "+  d_Players.size());
+//                boolean l_found = false;
+//                for (Player l_player : d_Players) {
+//                    if (l_player.getName().equals(l_name)) {
+//
+//                        d_Players.remove(l_player);
+//                        System.out.println("Hi" + d_Players);
+//                        l_found = true;
+//                        break;
+//                    }
+//                }
+//                d_Players.add(new Player(l_name));
+//            }
+//        }
+//// Create new player objects for each name in the p_names list
+//        for (String name : p_names) {
+//            if (!addedNames.contains(name)) { // Check if name has already been added
+//                Player player = new Player(name);
+//                d_Players.add(player);
+//                addedNames.add(name); // Add name to the set of added names
+//            }
+//        }
+//
+//        for(Player py : d_Players){
+//            System.out.println("Current Object Name: "+py.getName());
+//        }
+//
+//    }
+    //removePlayer assuming a list of players to be added is given as parameter
 
-   //Assigning Countries to each player
+
     public static void assignCountriesToPlayers(){
-        map = MapInterfaceV1.loader("usa8");
-        HashMap<Integer, Country> listOfCountries = map.getD_countries();
+        map = MapInterface.loadMap("usa8");
+        Map<Integer, Country> listOfCountries = map.getCountries();
         int totalplayers = d_Players.size();
         int playerNumber =0;
-        for(HashMap.Entry<Integer, Country> entry : listOfCountries.entrySet()) {
+        for(Map.Entry<Integer, Country> entry : listOfCountries.entrySet()) {
             if((playerNumber%totalplayers ==0) && playerNumber!=0){
                 playerNumber =0;
             }
@@ -139,7 +172,6 @@ public class Player{
         }
 
     }
-    //Issue order function to issue orders in round robin manner.
     public void issue_order(int l_numberTobeDeployed, int l_countryID) {
 //         int l_numberTobeDeployed = 1; //To be acquired from command prompt
 //         int l_countryID = 4; //To be acquired from command prompt
@@ -168,8 +200,7 @@ public class Player{
 
 
     }
-    //Checking if player has placed all his troops.
-    public static boolean allTroopsPlaced(ArrayList<Player> p_Players){
+    public static boolean allTroopsPlaced(List<Player> p_Players){
         for(Player l_player : p_Players){
             if(l_player.getReinforcements()!=0){
                 return false;
@@ -177,8 +208,7 @@ public class Player{
         }
         return true;
     }
-    //Checking if all orders of each player have been executed.
-    public static boolean allOrdersExecuted(ArrayList<Player> p_Players){
+    public static boolean allOrdersExecuted(List<Player> p_Players){
         for(Player l_player : p_Players){
             if(!l_player.d_orderList.isEmpty()){
                 return false;
@@ -186,7 +216,6 @@ public class Player{
         }
         return true;
     }
-    //return next order in the order list.
     public Order next_order(){
         return this.d_orderList.poll();
     }
