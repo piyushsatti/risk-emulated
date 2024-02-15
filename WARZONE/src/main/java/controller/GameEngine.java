@@ -29,6 +29,7 @@ public class GameEngine {
         Player.assignCountriesToPlayers();
         List<Player> d_listOfPlayers = Player.getD_Players();
         //************************************** MAIN LOOP **************************************//
+	      //****************ASSIGN REINFORCEMENTS ***************************//
         for(Player player : d_listOfPlayers){
             int l_numberOfTroops = Math.max((int)player.getassignedCountries().size()/3,3);
             player.setReinforcements(l_numberOfTroops);
@@ -53,7 +54,7 @@ public class GameEngine {
 //            }
 //
 //        }
-        //Execute Order Phase
+     //****************EXECUTE order ***************************//
         while(!Player.allOrdersExecuted(d_listOfPlayers)){
             if((playerNumber % totalplayers == 0) && playerNumber!=0){
                 playerNumber =0;
@@ -65,7 +66,8 @@ public class GameEngine {
             playerNumber++;
 
         }
-         ///////FOLLOWING CODE IS TO TEST issue order
+
+////////////////////////// Only Notes BELOW IT IGNORE //////////////////////////////////////////////////////////////////////////////////
 
 
 //        while(true){
