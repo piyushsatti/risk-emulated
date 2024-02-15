@@ -5,6 +5,7 @@ import main.java.controller.MapInterface;
 import main.java.models.worldmap.Country;
 import main.java.models.worldmap.WorldMap;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -14,10 +15,10 @@ public class Player{
 
     private String d_playerName;
     private int d_reinforcements;
-    private HashMap<Integer,Country> d_assignedCountries;
+    private final HashMap<Integer, Country> d_assignedCountries;
     private static WorldMap map;
-    private static ArrayList<Player> d_Players = new ArrayList<>();
-    private Deque<Order> d_orderList;
+    private static final ArrayList<Player> d_Players = new ArrayList<>();
+    private final Deque<Order> d_orderList;
 
 
     //Constructors
@@ -37,17 +38,19 @@ public class Player{
     public int getReinforcements() {
         return d_reinforcements;
     }
-    public HashMap<Integer,Country> getassignedCountries() {
+
+    public HashMap<Integer, Country> getAssignedCountries() {
         return this.d_assignedCountries;
     }
     public static WorldMap getMap() {
         return map;
     }
-    public Deque<Order> getD_orderList() {
+
+    public Deque<Order> getOrderList() {
         return d_orderList;
     }
 
-    public static ArrayList<Player> getD_Players() {
+    public static ArrayList<Player> getPlayers() {
         return d_Players;
     }
     //Setters
@@ -57,7 +60,8 @@ public class Player{
     public void setReinforcements(int p_reinforcements) {
         this.d_reinforcements= p_reinforcements;
     }
-    public void setassignedCountries(Integer p_countryID, Country p_assignedCountry) {
+
+    public void setAssignedCountries(Integer p_countryID, Country p_assignedCountry) {
         this.d_assignedCountries.put(p_countryID, p_assignedCountry);
     }
 
@@ -68,13 +72,11 @@ public class Player{
         for(String l_name: p_names){
             System.out.println("Name of the Player to be added: "+  l_name);
             System.out.println("Total list of Player: "+  d_Players.size());
-            boolean l_found = false;
             for (Player l_player : d_Players) {
                 if (l_player.getName().equals(l_name)) {
 
                     d_Players.remove(l_player);
                     System.out.println("Hi" + d_Players);
-                    l_found = true;
                     break;
                 }
             }
@@ -85,12 +87,7 @@ public class Player{
     //removePlayer assuming a list of players to be added is given as parameter
     public static void removePlayer(ArrayList<String> p_names){
         for(String l_name: p_names){
-            for (Player l_player : d_Players) {
-                if (l_player.getName().equals(l_name)) {
-                    d_Players.remove(l_player);
-                }
-            }
-
+            d_Players.removeIf(l_player -> l_player.getName().equals(l_name));
         }
     }
 
@@ -113,19 +110,19 @@ public class Player{
     }
 
     //Assigning Countries to each player
-    public static void assignCountriesToPlayers(){
+    public static void assignCountriesToPlayers() throws FileNotFoundException {
         map = MapInterface.loadMap("usa8");
         HashMap<Integer, Country> listOfCountries = map.getD_countries();
-        int totalplayers = d_Players.size();
+        int total_players = d_Players.size();
         int playerNumber =0;
         for(HashMap.Entry<Integer, Country> entry : listOfCountries.entrySet()) {
-            if((playerNumber%totalplayers ==0) && playerNumber!=0){
+            if ((playerNumber % total_players == 0) && playerNumber != 0) {
                 playerNumber =0;
             }
             Integer key = entry.getKey();
             Country value = entry.getValue();
             Player p = d_Players.get(playerNumber);
-            p.setassignedCountries(key,value);
+            p.setAssignedCountries(key, value);
 
             playerNumber++;
         }
@@ -135,20 +132,19 @@ public class Player{
             System.out.println(" ");
         }
         for(Player l_player: d_Players){
-            System.out.println("Number of Countries: " + l_player.getassignedCountries().size());
+            System.out.println("Number of Countries: " + l_player.getAssignedCountries().size());
             System.out.println(" ");
         }
 
     }
+
     //Issue order function to issue orders in round robin manner.
     public void issue_order(int l_numberTobeDeployed, int l_countryID) {
-//         int l_numberTobeDeployed = 1; //To be acquired from command prompt
-//         int l_countryID = 4; //To be acquired from command prompt
         if(this.d_assignedCountries.containsKey(l_countryID)){
             System.out.println("You own the Country: "+this.d_playerName);
             System.out.println("The country is: "+ this.d_assignedCountries.get(l_countryID).getD_countryName());
         }else{
-            System.out.println("Cannot Deploy Troops here you dont own it."+this.d_playerName);
+            System.out.println("Cannot Deploy Troops here you don't own it." + this.d_playerName);
             return;
         }
         if(this.d_reinforcements<l_numberTobeDeployed){
