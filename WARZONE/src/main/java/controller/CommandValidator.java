@@ -1,4 +1,4 @@
-package controller;
+package main.java.controller;
 
 import exceptions.InvalidCommandException;
 import exceptions.InvalidPlayerToRemoveException;

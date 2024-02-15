@@ -53,7 +53,13 @@ public class WorldMap {
 
         d_countries.put(countryID, new Country(countryID, countryName, d_continents.get(continentID)));
     }
+    /**
+     * Method which returns list of country in form of a HashMap <CountryID,Country>
 
+     */
+    public  HashMap<Integer, Country> getD_countries() {
+        return this.d_countries;
+    }
     /**
      * Method which adds a border between a source and target country.
      * This method is called from the map object but the border is created within
