@@ -53,6 +53,20 @@ public class MapCustom {
     }
 
     /**
+     * This method removes a country from the map.
+     * @param countryID The unique identifier of the country to be removed.
+     */
+    public void removeCountry(int countryID) {
+        if (d_countries.containsKey(countryID)) {
+            d_countries.remove(countryID);
+            System.out.println("Country removed successfully.");
+        } else {
+            System.out.println("Country with ID " + countryID + " does not exist.");
+        }
+    }
+
+
+    /**
      * Method which adds a border between a source and target country.
      * This method is called from the map object but the border is created within
      * the Country object
