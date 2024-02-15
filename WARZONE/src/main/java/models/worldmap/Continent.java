@@ -10,7 +10,7 @@ public class Continent {
     /**
      * Integer identifier
      */
-    private int d_continentID;
+    private final int d_continentID;
 
     /**
      * Name of continent
@@ -20,7 +20,7 @@ public class Continent {
     /**
      * Value of bonus associated with control of the continent
      */
-    private int bonus;
+    private final int bonus;
 
 
     /**
@@ -28,10 +28,10 @@ public class Continent {
      * @param id Integer identifier
      * @param name Continent name
      */
-    public Continent(int id, String name){
+    public Continent(int id, String name, int bonus) {
         this.d_continentID = id;
         this.d_continentName = name;
-        this.bonus = 0; //bonus set to zero for now (to be used in the future)
+        this.bonus = bonus; //bonus set to zero for now (to be used in the future)
     }
 
     /**

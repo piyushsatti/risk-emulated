@@ -99,8 +99,8 @@ public class WorldMap {
      * @param id new continent identifier
      * @param continentName new continent name
      */
-    public void addContinent(int id, String continentName){
-        d_continents.put(id, new Continent(id,continentName));
+    public void addContinent(int id, String continentName, int bonus) {
+        d_continents.put(id, new Continent(id, continentName, bonus));
     }
 
     /**

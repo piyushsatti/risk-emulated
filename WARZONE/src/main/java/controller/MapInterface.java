@@ -1,6 +1,7 @@
 package main.java.controller;
 
 import main.java.models.worldmap.Continent;
+import main.java.models.worldmap.Country;
 import main.java.models.worldmap.WorldMap;
 
 import java.io.*;
@@ -61,7 +62,7 @@ public class MapInterface {
             }
             split_data = data.split(" ");
             if (state[0]) {
-                map.addContinent(i, split_data[0]);
+                map.addContinent(i, split_data[0], Integer.parseInt(split_data[1]));
                 i++;
                 continue;
             } else if (state[1]) {
@@ -89,8 +90,12 @@ public class MapInterface {
 
     public static void saveMap(String p_file_name, WorldMap p_map) throws FileNotFoundException, IOException {
 
-        File inputFile = new File(p_file_name);
-        File tempFile = new File("WARZONE/SRC/resources/maps/temp.txt");
+        File inputFile = new File(
+                "WARZONE/src/main/resources/maps/" +
+                        p_file_name + "/" +
+                        p_file_name + "regions.map"
+        );
+        File tempFile = new File("WARZONE/src/main/resources/maps/temp.txt");
 
         BufferedReader reader = new BufferedReader(new FileReader(inputFile));
         BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
@@ -100,69 +105,64 @@ public class MapInterface {
         Boolean[] state = {false, false, false};
         int i = 1;
 
+        boolean flag = true;
         while (true) {
 
             current_line = reader.readLine();
             if (current_line == null) break;
 
-            if (!state[0] && !state[1] && !state[2]) {
-                added_line.append(current_line);
-            }
+            if (flag) added_line.append(current_line).append("\n");
 
             if (current_line.equals("[continents]")) {
-                state[0] = true;
-                state[1] = false;
-                state[2] = false;
-            } else if (current_line.equals("[countries]")) {
-                state[0] = false;
-                state[1] = true;
-                state[2] = false;
-            } else if (current_line.equals("[borders]")) {
-                state[0] = false;
-                state[1] = false;
-                state[2] = true;
-            } else if (current_line.isEmpty()) {
-                state[0] = false;
-                state[1] = false;
-                state[2] = false;
-            } else {
-                if (state[0]) {
-                    HashMap<Integer, Continent> continents_all = p_map.getContinents();
-                    for (Continent continent_obj : continents_all.values()) {
-                        added_line.append(continent_obj.d_continentName).append(" ").append(continent_obj.getBonus()).append("\n");
-                    }
-                } else if (state[1]) {
-
-                } else if (state[2]) {
-
-                } else {
-                    state[0] = false;
-                    state[1] = false;
-                    state[2] = false;
+                for (Continent continent_obj : p_map.getContinents().values()) {
+                    added_line.append(continent_obj.d_continentName).append(" ").append(continent_obj.getBonus()).append(" ").append("gray").append("\n");
                 }
+                added_line.append("\n");
+                flag = false;
+            } else if (current_line.equals("[countries]")) {
+                for (Country country_obj : p_map.getCountries().values()) {
+                    added_line.append(country_obj.getD_countryID()).append(" ").append(country_obj.getD_countryName()).append(" ").append(country_obj.getD_continent().getD_continentID()).append(" ").append(69).append(" ").append(69).append("\n");
+                }
+                added_line.append("\n");
+                flag = false;
+            } else if (current_line.equals("[borders]")) {
+                for (Integer country_id : p_map.getCountries().keySet()) {
+                    HashMap<Integer, Country> border_countries = p_map.getCountry(country_id).getBorderCountries();
+                    added_line.append(country_id);
+                    for (Integer border_country_id : border_countries.keySet()) {
+                        added_line.append(" ").append(border_country_id);
+                    }
+                    added_line.append("\n");
+                }
+                added_line.append("\n");
+                flag = false;
+            } else if (current_line.isEmpty()) {
+                flag = true;
             }
-            writer.write(added_line.toString());
         }
+
+        writer.write(added_line.append("\n").toString());
 
         writer.close();
         reader.close();
 
-        if (!inputFile.delete()) {
-            System.out.println("Could not delete original file.");
-            return;
-        }
+//        if (!inputFile.delete()) {
+//            System.out.println("Could not delete original file.");
+//            return;
+//        }
 
-        if (!tempFile.renameTo(new File("WARZONE/SRC/resources/mapsinputFile.map"))) {
-            System.out.println("Could not rename temporary file.");
-        }
+//        if (!tempFile.renameTo(new File("WARZONE/SRC/resources/mapsinputFile.map"))) {
+//            System.out.println("Could not rename temporary file.");
+//        }
     }
 
     public static boolean validateMap(WorldMap map) {
         return (map.isConnected()) && (map.isContinentConnected());
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         WorldMap map = MapInterface.loadMap("usa8");
         System.out.println(MapInterface.validateMap(map));
+        MapInterface.saveMap("usa8", map);
     }
 }
