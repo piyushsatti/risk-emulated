@@ -35,6 +35,10 @@ public class MapInterface {
         }
     }
 
+    public static boolean validateMap(WorldMap map) {
+        return (map.isConnected()) && (map.isContinentConnected());
+    }
+
     public static WorldMap loadMap(String p_map_name) {
         Scanner file_reader = null;
         WorldMap map = new WorldMap();
