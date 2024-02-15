@@ -1,4 +1,4 @@
-package main.java.models.map;
+package main.java.models.worldmap;
 
 /**
  * Class representing the Continents on the Warzone map

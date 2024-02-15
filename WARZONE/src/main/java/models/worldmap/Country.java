@@ -1,6 +1,4 @@
-package models.map;
-
-import main.java.models.map.Continent;
+package main.java.models.worldmap;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,12 +23,12 @@ public class Country {
     /**
      * Hashmap containing Border objects associated with country
      */
-    private HashMap<Integer, Border> d_borders;
+    private final HashMap<Integer, Border> d_borders;
 
     /**
      * Continent associated with the country
      */
-    private Continent d_continent;
+    private final Continent d_continent;
 
     private int d_deployedReinforcements;
 
@@ -106,7 +104,7 @@ public class Country {
     public HashMap<Integer, Country> getBorderCountries(){
         HashMap <Integer, Country> borderCountries = new HashMap<>();
 
-        for( models.map.Border b: this.d_borders.values()){
+        for (Border b : this.d_borders.values()) {
             borderCountries.put(b.getD_target().getD_countryID(), b.getD_target());
         }
 

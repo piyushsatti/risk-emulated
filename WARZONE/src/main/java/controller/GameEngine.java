@@ -1,15 +1,14 @@
-package controller;
+package main.java.controller;
 
-import models.Player;
-import models.Order;
+import main.java.models.Order;
+import main.java.models.Player;
+
 import java.util.ArrayList;
 import java.util.List;
 public class GameEngine {
     public static void main(String[] args) {
 
         System.out.println("Start of the Game");
-
-
 
        //Show Map
        //LoadMap

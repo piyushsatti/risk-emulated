@@ -1,8 +1,8 @@
-package models;
+package main.java.models;
 
-import controller.MapInterfaceV1;
-import models.map.Country;
-import models.map.MapCustom;
+import main.java.controller.MapInterface;
+import main.java.models.worldmap.Country;
+import main.java.models.worldmap.WorldMap;
 
 import java.util.*;
 
@@ -10,19 +10,19 @@ public class Player{
 
     private String d_playerName;
     private int d_reinforcements;
-    private Map<Integer,Country> d_assignedCountries;
+    private final Map<Integer, Country> d_assignedCountries;
 
-    public static MapCustom getMap() {
+    public static WorldMap getMap() {
         return map;
     }
 
-    private static MapCustom map;
+    private static WorldMap map;
 
     public Queue<Order> getD_orderList() {
         return d_orderList;
     }
 
-    private  Queue<Order> d_orderList;
+    private final Queue<Order> d_orderList;
     public static List<Player> getD_Players() {
         return d_Players;
     }
@@ -146,8 +146,8 @@ public class Player{
 
 
     public static void assignCountriesToPlayers(){
-        map = MapInterfaceV1.loader("usa8");
-        Map<Integer, Country> listOfCountries = map.getD_countries();
+        map = MapInterface.loadMap("usa8");
+        Map<Integer, Country> listOfCountries = map.getCountries();
         int totalplayers = d_Players.size();
         int playerNumber =0;
         for(Map.Entry<Integer, Country> entry : listOfCountries.entrySet()) {

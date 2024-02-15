@@ -1,14 +1,13 @@
-package controller;
-
-import models.map.MapCustom;
+package main.java.oldcode;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Scanner;
 
-public class MapInterfaceV1 {
+public class OldMapInterfaceV1 {
     private static File d_map_file_obj;
+
     private static void createFileObjectFromFileName(String p_map_name) {
         try {
             d_map_file_obj = new File(
@@ -34,9 +33,9 @@ public class MapInterfaceV1 {
         }
     }
 
-    public static MapCustom loader(String p_map_name) {
+    public static OldMapCustom loader(String p_map_name) {
         Scanner file_reader = null;
-        MapCustom map = new MapCustom();
+        OldMapCustom map = new OldMapCustom();
         try {
             createFileObjectFromFileName(p_map_name);
             file_reader = new Scanner(d_map_file_obj);
@@ -106,7 +105,7 @@ public class MapInterfaceV1 {
     }
 
     public static void main(String[] args) {
-        MapCustom map = MapInterfaceV1.loader("usa8");
+        OldMapCustom map = OldMapInterfaceV1.loader("usa8");
         //System.out.println(map.d_continents.values());
         System.out.println(map.d_countries.values());
     }

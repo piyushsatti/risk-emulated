@@ -1,4 +1,4 @@
-package models.map;
+package main.java.models.worldmap;
 
 /**
  * Class representing the borders of a country.
