@@ -33,8 +33,7 @@ public class CommandValidator {
         d_validCommandList = new ArrayList<>(Arrays.asList("editcontinent", "editcountry", "editneighbor", "showmap",
                 "savemap", "editmap", "validatemap", "loadmap", "gameplayer", "deploy", "assigncountries"));
     }
-    // CommandValidator c2;
-    // c2.addCommand("ehstrbrt")
+    
     String[] d_command_arr = null;
     public void addCommand(String p_entered_command, String p_game_phase_string) throws InvalidCommandException, InvalidPlayerToRemoveException {
         this.d_command_arr = checkCommandValidity(p_entered_command, p_game_phase_string);
