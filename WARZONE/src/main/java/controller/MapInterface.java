@@ -1,6 +1,6 @@
-package main.java.controller;
+package controller;
 
-import main.java.models.map.Map;
+import models.map.Map;
 
 import java.io.File;
 import java.io.FileNotFoundException;
