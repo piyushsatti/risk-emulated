@@ -1,4 +1,4 @@
-package views;
+package controller;
 
 import exceptions.InvalidCommandException;
 import exceptions.InvalidPlayerToRemoveException;
@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public class CommandValidator1 {
+public class CommandValidator {
     private static final HashMap<String, List<String>> d_commandGamePhaseMap;
     private static final List<String> d_validCommandList;
 
@@ -88,9 +88,9 @@ public class CommandValidator1 {
             int b = Integer.parseInt(p_lCommand[2]);
         }
         catch(NumberFormatException e){
-                System.out.println(e.getMessage());
-            }
+            System.out.println(e.getMessage());
         }
+    }
 
     private void checkGamePlayerCommandValidity(String[] p_lCommand) throws InvalidCommandException {
         try {
@@ -133,6 +133,8 @@ public class CommandValidator1 {
     }
 
     List<List<Integer>> addContinentIdList;
+
+    //to do..
     private void processValidCommand(String[] p_lCommand, String p_gamePhaseString) {
         String mainCommand = p_lCommand[0];
         int len = p_lCommand.length;
@@ -156,8 +158,6 @@ public class CommandValidator1 {
                 }
             }
         }
-
-
     }
 
     private void checkEditCommandsValidity(String[] p_lCommand) throws InvalidCommandException,NumberFormatException {
