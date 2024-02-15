@@ -35,7 +35,7 @@ public class TerminalRenderer {
 
     public static void main(String[] args) {
         System.out.println(renderWelcome());
-        String[] poop = {"Hi", "Bye", "Opti"};
-        System.out.println(renderMenu("Main Menu", poop));
+        String[] test = {"Hi", "Bye", "Opti"};
+        System.out.println(renderMenu("Main Menu", test));
     }
 }
