@@ -12,18 +12,11 @@ public class MapInterface {
 
     private static File createFileObjectFromFileName(String p_map_name) throws FileNotFoundException {
 
-        File map_file_obj = new File(
-                "WARZONE/src/main/resources/maps/" +
-                        p_map_name + "/" +
-                        p_map_name + "regions.map"
-        );
+        File map_file_obj = new File(GameEngine.MAPS_FOLDER + p_map_name);
 
         if (map_file_obj.exists() && !map_file_obj.isDirectory()) {
 
-            System.out.println(
-                    "Successfully Loaded Map: " +
-                            map_file_obj.getName()
-            );
+            System.out.println("Successfully Loaded Map: " + map_file_obj.getName());
 
             return map_file_obj;
 
@@ -55,9 +48,7 @@ public class MapInterface {
 
         int i = 1;
 
-        while (true) {
-
-            if (!file_reader.hasNextLine()) break;
+        while (file_reader.hasNextLine()) {
 
             data = file_reader.nextLine();
 
@@ -152,106 +143,76 @@ public class MapInterface {
 
     }
 
-    public static void saveMap(String p_file_name, WorldMap p_map) throws FileNotFoundException, IOException {
+    public static void saveMap(String p_file_name, WorldMap p_map) throws IOException {
 
-        File inputFile = new File(
-                "WARZONE/src/main/resources/maps/" +
-                        p_file_name + "/" +
-                        p_file_name + "regions.map"
-        );
+        File outputFile = new File(GameEngine.MAPS_FOLDER + p_file_name);
 
-        File tempFile = new File("WARZONE/src/main/resources/maps/temp.txt");
+        if (!outputFile.exists()) {
 
-        BufferedReader reader = new BufferedReader(new FileReader(inputFile));
+            outputFile.createNewFile();
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile));
+        }
 
-        String current_line;
+        String file_signature = """
+                ; map: estonia.map
+                ; map made with the map maker
+                ; yura.net Risk 1.0.9.3
+                                
+                [files]
+                pic estonia_pic.png
+                map estonia_map.gif
+                crd estonia.cards
+                """;
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
 
         StringBuilder added_line = new StringBuilder();
 
-        Boolean[] state = {false, false, false};
+        added_line.append(file_signature);
 
-        int i = 1;
+        added_line.append("\n[continents]\n");
 
-        boolean flag = true;
+        for (Continent continent_obj : p_map.getContinents().values()) {
 
-        while (true) {
+            added_line.append(continent_obj.d_continentName)
+                    .append(" ").append(continent_obj.getBonus())
+                    .append(" ").append("xxx").append("\n");
 
-            current_line = reader.readLine();
+        }
 
-            if (current_line == null) break;
+        added_line.append("\n[countries]\n");
 
-            if (flag) added_line.append(current_line).append("\n");
+        for (Country country_obj : p_map.getCountries().values()) {
 
-            if (current_line.equals("[continents]")) {
+            added_line.append(country_obj.getD_countryID())
+                    .append(" ").append(country_obj.getD_countryName())
+                    .append(" ").append(country_obj.getD_continent().getD_continentID())
+                    .append(" 0 0").append("\n");
 
-                for (Continent continent_obj : p_map.getContinents().values()) {
+        }
 
-                    added_line.append(continent_obj.d_continentName).append(" ").append(continent_obj.getBonus()).append(" ").append("gray").append("\n");
+        added_line.append("\n[borders]");
 
-                }
+        for (Integer country_id : p_map.getCountries().keySet()) {
 
-                added_line.append("\n");
+            HashMap<Integer, Country> border_countries = p_map.getCountry(country_id).getBorderCountries();
 
-                flag = false;
+            added_line.append("\n");
 
-            } else if (current_line.equals("[countries]")) {
+            added_line.append(country_id);
 
-                for (Country country_obj : p_map.getCountries().values()) {
+            for (Integer border_country_id : border_countries.keySet()) {
 
-                    added_line.append(country_obj.getD_countryID()).append(" ").append(country_obj.getD_countryName()).append(" ").append(country_obj.getD_continent().getD_continentID()).append(" ").append(69).append(" ").append(69).append("\n");
-
-                }
-
-                added_line.append("\n");
-
-                flag = false;
-
-            } else if (current_line.equals("[borders]")) {
-
-                for (Integer country_id : p_map.getCountries().keySet()) {
-
-                    HashMap<Integer, Country> border_countries = p_map.getCountry(country_id).getBorderCountries();
-
-                    added_line.append(country_id);
-
-                    for (Integer border_country_id : border_countries.keySet()) {
-
-                        added_line.append(" ").append(border_country_id);
-
-                    }
-
-                    added_line.append("\n");
-
-                }
-
-                added_line.append("\n");
-
-                flag = false;
-
-            } else if (current_line.isEmpty()) {
-
-                flag = true;
+                added_line.append(" ").append(border_country_id);
 
             }
 
         }
 
-        writer.write(added_line.append("\n").toString());
+        writer.write(added_line.toString());
 
         writer.close();
 
-        reader.close();
-
-//        if (!inputFile.delete()) {
-//            System.out.println("Could not delete original file.");
-//            return;
-//        }
-
-//        if (!tempFile.renameTo(new File("WARZONE/SRC/resources/mapsinputFile.map"))) {
-//            System.out.println("Could not rename temporary file.");
-//        }
     }
 
     public static boolean validateMap(WorldMap map) {
@@ -260,11 +221,13 @@ public class MapInterface {
 
     public static void main(String[] args) throws IOException {
 
-        WorldMap map = MapInterface.loadMap("usa8");
+        // WorldMap map = MapInterface.loadMap("samplemaps/usa8regions.map");
+
+        WorldMap map = MapInterface.loadMap("usa9.map");
 
         System.out.println(MapInterface.validateMap(map));
 
-        MapInterface.saveMap("usa8", map);
+        MapInterface.saveMap("test_out.map", map);
 
     }
 

@@ -16,8 +16,9 @@ public class GameEngine {
         GAMEPLAY
     }
 
-    ;
     private static GAME_PHASE game_phase = GAME_PHASE.MAIN_MENU;
+
+    public static final String MAPS_FOLDER = "WARZONE/src/main/resources/maps/";
 
     public static void playerLoop() throws FileNotFoundException {
 
@@ -47,25 +48,42 @@ public class GameEngine {
             player.setReinforcements(l_numberOfTroops);
 //            player.printPlayerDetails();
 //            System.out.println(" ");
+
         }
+
         //****************issue order ***************************//
+
         int totalplayers = d_listOfPlayers.size();
+
         int playerNumber =0;
+
         for(int i=0;i<3;i++){
+
             //NOTE isse_order should not have parameters according to project requirements it is just for testing.
+
             d_listOfPlayers.get(0).issue_order(1,4);
+
             d_listOfPlayers.get(1).issue_order(1,2);
+
             d_listOfPlayers.get(2).issue_order(1,3);
+
         }
 
         while(!Player.allOrdersExecuted(d_listOfPlayers)){
+
             if((playerNumber % totalplayers == 0) && playerNumber!=0){
+
                 playerNumber =0;
+
             }
+
             if (!d_listOfPlayers.get(playerNumber).getOrderList().isEmpty()) {
+
                 Order order = d_listOfPlayers.get(playerNumber).next_order();
+
                 order.execute_order();
             }
+
             playerNumber++;
 
         }
@@ -98,6 +116,7 @@ public class GameEngine {
             game_phase = GAME_PHASE.GAMEPLAY;
 
         }
+
     }
 
     public static void mapEditor() {
