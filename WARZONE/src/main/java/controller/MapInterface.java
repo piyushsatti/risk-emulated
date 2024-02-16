@@ -14,7 +14,6 @@ public class MapInterface {
 
         File map_file_obj = new File(
                 "WARZONE/src/main/resources/maps/" +
-                        p_map_name + "/" +
                         p_map_name + "regions.map"
         );
 
@@ -156,7 +155,6 @@ public class MapInterface {
 
         File inputFile = new File(
                 "WARZONE/src/main/resources/maps/" +
-                        p_file_name + "/" +
                         p_file_name + "regions.map"
         );
 
