@@ -153,10 +153,8 @@ public class WorldMap {
      */
     public void removeContinent(int continentID) {
         Continent continent = d_continents.get(continentID);
-        for (Country country : d_countries.values()) {
-            if (country.getD_continent().equals(continent)) {
-                this.removeCountry(country.getD_countryID());
-            }
+        for (Country country : getContinentCountries(continent).values()) {
+            this.removeCountry(country.getD_countryID());
         }
         d_continents.remove(continentID);
     }
@@ -167,8 +165,8 @@ public class WorldMap {
      */
     public void removeCountry(int countryID) {
         Country country = d_countries.get(countryID);
-        for (Country country_remove_border : country.getBorderCountries().values()) {
-            country_remove_border.removeBorder(country);
+        for (Country countryToCheck : this.d_countries.values()) {
+            countryToCheck.removeBorder(countryToCheck);
         }
         d_countries.remove(countryID);
     }
