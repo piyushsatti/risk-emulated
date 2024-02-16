@@ -24,14 +24,14 @@ public class TerminalRenderer {
         out.append(TerminalColors.ANSI_BLUE + "============================\n" + TerminalColors.ANSI_GREEN).append(String.format("""
                 |  %s Options:\s
                 """, menu_type));
-        for (int i = 1; i < options.length; i++) {
+        for (int i = 0; i < options.length; i++) {
             out.append(String.format("""
                     |     %d. %s\s
-                    """, i, options[i-1]));
+                    """, i + 1, options[i]));
         }
         out.append(String.format("""
                     |     %d. Exit\s
-                    """, options.length));
+                """, options.length + 1));
         return out.toString() + TerminalColors.ANSI_BLUE + "============================" + TerminalColors.ANSI_RESET;
     }
 

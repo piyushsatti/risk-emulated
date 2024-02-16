@@ -2,12 +2,24 @@ package main.java.controller;
 
 import main.java.models.Order;
 import main.java.models.Player;
+import main.java.utils.TerminalColors;
+import main.java.views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GameEngine {
-    public static void main(String[] args) throws FileNotFoundException {
+    enum GAME_PHASE {
+        MAIN_MENU,
+        MAP_EDITOR,
+        GAMEPLAY
+    }
+
+    ;
+    private static GAME_PHASE game_phase = GAME_PHASE.MAIN_MENU;
+
+    public static void playerLoop() throws FileNotFoundException {
 
         System.out.println("Start of the Game");
 
@@ -57,6 +69,53 @@ public class GameEngine {
             playerNumber++;
 
         }
+    }
 
+    private static void startingMenu() {
+
+        System.out.println(TerminalRenderer.renderWelcome());
+
+        String[] menu_options = {"Map Editor", "Play Game"};
+
+        System.out.println(TerminalRenderer.renderMenu("Main Menu", menu_options));
+
+        Scanner in = new Scanner(System.in);
+
+        int user_in = Integer.parseInt(in.nextLine()) - 1;
+
+        if ((user_in >= menu_options.length) || (user_in < 0)) {
+
+            System.out.println(TerminalColors.ANSI_PURPLE + "Thank you for playing!" + TerminalColors.ANSI_RESET);
+
+            System.exit(0);
+
+        } else if (menu_options[user_in].equals("Map Editor")) {
+
+            game_phase = GAME_PHASE.MAP_EDITOR;
+
+        } else if (menu_options[user_in].equals("Play Game")) {
+
+            game_phase = GAME_PHASE.GAMEPLAY;
+
+        }
+    }
+
+    public static void mapEditor() {
+        // trigger sub-routines for map editor
+    }
+
+    public static void main(String[] args) throws FileNotFoundException {
+
+        startingMenu();
+
+        if (game_phase == GAME_PHASE.MAP_EDITOR) {
+
+            mapEditor();
+
+        } else if (game_phase == GAME_PHASE.GAMEPLAY) {
+
+            playerLoop();
+
+        }
     }
 }

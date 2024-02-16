@@ -93,7 +93,6 @@ public class WorldMap {
 
     }
 
-
     /**
      * Method which adds continent to map
      * @param id new continent identifier
@@ -152,15 +151,14 @@ public class WorldMap {
      * Method to remove a continent from the map.
      * @param continentID The identifier of the continent to be removed.
      */
-    public void removeContinent(int continentID){
-        if (d_continents.containsKey(continentID)){
-            d_continents.remove(continentID);
-            System.out.println("Continent removed successfully");
+    public void removeContinent(int continentID) {
+        Continent continent = d_continents.get(continentID);
+        for (Country country : d_countries.values()) {
+            if (country.getD_continent().equals(continent)) {
+                this.removeCountry(country.getD_countryID());
+            }
         }
-        else {
-            System.out.println("Continent with ID " + continentID + " does not exist.");
-        }
-
+        d_continents.remove(continentID);
     }
 
     /**
@@ -168,12 +166,11 @@ public class WorldMap {
      * @param countryID The unique identifier of the country to be removed.
      */
     public void removeCountry(int countryID) {
-        if (d_countries.containsKey(countryID)) {
-            d_countries.remove(countryID);
-            System.out.println("Country removed successfully.");
-        } else {
-            System.out.println("Country with ID " + countryID + " does not exist.");
+        Country country = d_countries.get(countryID);
+        for (Country country_remove_border : country.getBorderCountries().values()) {
+            country_remove_border.removeBorder(country);
         }
+        d_countries.remove(countryID);
     }
 
     /**

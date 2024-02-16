@@ -90,6 +90,15 @@ public class Country {
     }
 
     /**
+     * Method which removes Border to d_borders Hashmap
+     *
+     * @param country country which the border is removed from
+     */
+    public void removeBorder(Country country) {
+        this.d_borders.remove(country.getD_countryID());
+    }
+
+    /**
      * Method that returns the HashMap of Border objects associated with a Country
      * @return HashMap of Border objects
      */
