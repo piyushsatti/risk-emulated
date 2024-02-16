@@ -30,9 +30,9 @@ public class TerminalRenderer {
                     """, i + 1, options[i]));
         }
         out.append(String.format("""
-                    |     %d. Exit\s
+                |     %d. Exit\s
                 """, options.length + 1));
-        return out.toString() + TerminalColors.ANSI_BLUE + "============================" + TerminalColors.ANSI_RESET;
+        return out + TerminalColors.ANSI_BLUE + "============================" + TerminalColors.ANSI_RESET;
     }
 
     public static void main(String[] args) {
