@@ -65,16 +65,6 @@ public class Player{
 
     public void setAssignedCountries(Integer p_countryID, Country p_assignedCountry) {
         this.d_assignedCountries.put(p_countryID, p_assignedCountry);
-        this.d_assignedCountries.put(1,new Country(1,"India",new Continent(1,"Asia",1)));
-
-    }
-
-    public void setAssignedCountries() {
-        //this.d_assignedCountries.put(p_countryID, p_assignedCountry);
-        this.d_assignedCountries.put(1,new Country(1,"India",new Continent(1,"Asia",1)));
-        this.d_assignedCountries.put(2,new Country(2,"Inda",new Continent(1,"Asia",1)));
-        this.d_assignedCountries.put(3,new Country(3,"Indi",new Continent(1,"Asia",1)));
-
     }
 
 
@@ -107,7 +97,7 @@ public class Player{
         System.out.print("Name: "+this.d_playerName +" ");
         System.out.print("Reinforcements: "+this.d_reinforcements+" ");
         for(HashMap.Entry<Integer, Country> entry : this.d_assignedCountries.entrySet()){
-           // System.out.print("Country ID: " +entry.getKey() +" Country Details: "+ entry.getValue() +" ");
+            System.out.print("Country ID: " +entry.getKey() +" Country Details: "+ entry.getValue() +" ");
         }
     }
 
