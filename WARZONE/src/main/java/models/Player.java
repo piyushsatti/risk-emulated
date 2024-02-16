@@ -2,8 +2,10 @@
 package main.java.models;
 
 import main.java.controller.MapInterface;
+import main.java.models.worldmap.Continent;
 import main.java.models.worldmap.Country;
 import main.java.models.worldmap.WorldMap;
+import org.apache.http.cookie.Cookie;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayDeque;
@@ -64,7 +66,6 @@ public class Player{
     public void setAssignedCountries(Integer p_countryID, Country p_assignedCountry) {
         this.d_assignedCountries.put(p_countryID, p_assignedCountry);
     }
-
 
 
     //addPlayer assuming a list of players to be added is given as parameter
