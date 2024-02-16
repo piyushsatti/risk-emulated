@@ -149,6 +149,34 @@ public class WorldMap {
     }
 
     /**
+     * Method to remove a continent from the map.
+     * @param continentID The identifier of the continent to be removed.
+     */
+    public void removeContinent(int continentID){
+        if (d_continents.containsKey(continentID)){
+            d_continents.remove(continentID);
+            System.out.println("Continent removed successfully");
+        }
+        else {
+            System.out.println("Continent with ID " + continentID + " does not exist.");
+        }
+
+    }
+
+    /**
+     * This method removes a country from the map.
+     * @param countryID The unique identifier of the country to be removed.
+     */
+    public void removeCountry(int countryID) {
+        if (d_countries.containsKey(countryID)) {
+            d_countries.remove(countryID);
+            System.out.println("Country removed successfully.");
+        } else {
+            System.out.println("Country with ID " + countryID + " does not exist.");
+        }
+    }
+
+    /**
      * Method that checks if country exists in map
      * @param countryID Country identifier integer
      * @return true if found false if not found
