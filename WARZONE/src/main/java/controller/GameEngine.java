@@ -2,15 +2,12 @@ package main.java.controller;
 
 import main.java.models.Order;
 import main.java.models.Player;
-import main.java.models.worldmap.Continent;
-import main.java.models.worldmap.Country;
 import main.java.utils.TerminalColors;
 import main.java.views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.concurrent.CountedCompleter;
 
 public class GameEngine {
 
@@ -21,6 +18,8 @@ public class GameEngine {
     }
 
     private static GAME_PHASE game_phase = GAME_PHASE.MAIN_MENU;
+
+    public static String MAPS_FOLDER = "WARZONE/src/main/resources/maps/";
 
     public static void playerLoop(int c) throws FileNotFoundException {
 

@@ -2,10 +2,8 @@
 package main.java.models;
 
 import main.java.controller.MapInterface;
-import main.java.models.worldmap.Continent;
 import main.java.models.worldmap.Country;
 import main.java.models.worldmap.WorldMap;
-import org.apache.http.cookie.Cookie;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayDeque;
