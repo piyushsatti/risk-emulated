@@ -46,8 +46,15 @@ public class WorldMap {
      * @param continentID Continent name which will be associated to new country (if present)
      */
     public void addCountry(int countryID, int continentID, String countryName){
+
         if(!this.containsContinent(continentID)) { //does the continent exist?
-            System.out.println("Continent doesn't exist!");
+            //throw exception
+            return;
+        }else if(this.containsCountry(countryID)){ //duplicate country id
+            //throw exception
+            return;
+        }else if(this.containsCountry(countryName)) { //duplicate country name
+            //throw exception
             return;
         }
 
@@ -68,8 +75,11 @@ public class WorldMap {
      */
     public void addBorder(int source, int target){
         //check that both countries exist
-        if(!(this.containsCountry(source) && this.containsCountry(target))){
-            System.out.println("Country doesn't exist!");
+        if(!this.containsCountry(source)){
+            //throw exception
+            return;
+        }else if(!this.containsCountry(target)){
+            //throw exception
             return;
         }
 
@@ -81,7 +91,7 @@ public class WorldMap {
         //check that both countries exist
         for(Integer i : borderList){
             if(!this.containsCountry(i)){
-                System.out.println("Country " + i + " is missing! Abort!");
+                //throw exception
                 return;
             }
         }
@@ -98,6 +108,13 @@ public class WorldMap {
      * @param continentName new continent name
      */
     public void addContinent(int id, String continentName, int bonus) {
+        if(this.containsContinent(id)){ //duplicate continent
+            //throw error
+            return;
+        }else if(this.containsContinent(continentName)){ //duplicate name
+            //throw error
+            return;
+        }
         d_continents.put(id, new Continent(id, continentName, bonus));
     }
 
@@ -179,6 +196,10 @@ public class WorldMap {
         return this.d_countries.containsKey(countryID);
     }
 
+    public boolean containsCountry(String countryName){
+        return this.containsCountry(this.getCountryID(countryName));
+    }
+
     /**
      * Method that checks if continent exists in map
      * @param continentID Continent identifier integer
@@ -186,6 +207,10 @@ public class WorldMap {
      */
     public boolean containsContinent(int continentID){
         return this.d_continents.containsKey(continentID);
+    }
+
+    public boolean containsContinent(String continentName){
+        return this.containsContinent(this.getContinentID(continentName));
     }
 
     /**
@@ -200,10 +225,29 @@ public class WorldMap {
     public void removeBorder(int source, int target){
         //check that both countries exist
         if(!(this.containsCountry(source) && this.containsCountry(target))){
-            System.out.println("Country doesn't exist!");
+            //throw exception
             return;
         }
 
         this.getCountry(source).removeBorder(this.getCountry(target));
+    }
+
+
+    public int getCountryID(String countryName){
+        for (Country c : this.getCountries().values()){
+            if(c.getD_countryName().equals(countryName)){
+                return c.getD_countryID();
+            }
+        }
+        return 0;
+    }
+
+    public int getContinentID(String continentName){
+        for(Continent c: this.d_continents.values()){
+            if(c.getContinentName().equals(continentName)){
+                return c.getD_continentID();
+            }
+        }
+        return 0;
     }
 }

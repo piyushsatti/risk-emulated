@@ -37,16 +37,6 @@ public class Country {
      */
     private final Continent d_continent;
 
-    private int d_deployedReinforcements;
-
-    public int getD_deployedReinforcements() {
-        return d_deployedReinforcements;
-    }
-
-    public void setD_deployedReinforcements(int p_deployedReinforcements) {
-        this.d_deployedReinforcements = p_deployedReinforcements;
-    }
-
     /**
      * Country constructor
      * @param id Identifier integer
@@ -58,11 +48,11 @@ public class Country {
         this.d_countryName = name;
         this.d_borders = new HashMap<>();
         this.d_continent = continent;
-        this.d_deployedReinforcements = 0;
+        this.d_reinforcements = 0;
     }
 
     public String returnCountryDetails() {
-        return "Country ID: " + this.d_countryID + " Country Name: " + this.d_countryName + "Deployed Reinforcements: " + this.d_deployedReinforcements;
+        return "Country ID: " + this.d_countryID + " Country Name: " + this.d_countryName + "Deployed Reinforcements: " + this.getReinforcements();
     }
 
     /**
