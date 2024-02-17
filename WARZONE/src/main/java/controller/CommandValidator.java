@@ -265,7 +265,7 @@ public class CommandValidator {
 
         } else if (mainCommand.equals("showmap") && (GameEngine.game_phase == GameEngine.GAME_PHASE.GAMEPLAY)) {
 
-            //showmapGamePlay(); method to show all countries, continents, armies on each country, ownership, connecitvity
+            //method to show all countries, continents, armies on each country, ownership, connecitvity
             TerminalRenderer.showCurrentGameMap();
         }
 
@@ -479,79 +479,6 @@ public class CommandValidator {
 
         }
     }
-
-//    private void checkEditCommandsValidity(String[] p_lCommand) throws InvalidCommandException,NumberFormatException {
-//
-//        int l_countAddOption = 0;
-//
-//        int l_countRemoveOption = 0;
-//
-//        int len = p_lCommand.length;
-//
-//        for (String s : p_lCommand) {
-//
-//            if (s.equals("-add")) l_countAddOption++;
-//
-//            else if (s.equals("-remove")) l_countRemoveOption++;
-//
-//        }
-//
-//        if (l_countAddOption == 0 && l_countRemoveOption == 0) {
-//
-//                throw new InvalidCommandException("no options added");
-//
-//        }
-//
-//        int i=1;
-//
-//        String mainCommand = p_lCommand[0];
-//
-//        while (i < len) {
-//
-//            if (!(p_lCommand[i].equals("-add") || p_lCommand[i].equals("-remove"))) {
-//
-//                    throw new InvalidCommandException("invalid command format");
-//
-//            }
-//
-//            if (p_lCommand[i].equals("-add") && i + 2 >= len) {
-//
-//                    throw new InvalidCommandException("invalid command format");
-//
-//            } else if (p_lCommand[i].equals("-remove") && (mainCommand.equals("editcontinent") || mainCommand.equals("editcountry")) && i + 1 >= len) {
-//
-//                    throw new InvalidCommandException("invalid command format");
-//
-//            } else if (p_lCommand[i].equals("-remove") && mainCommand.equals("editneighbor") && i + 2 >= len) {
-//                    throw new InvalidCommandException("invalid command format");
-//                }
-//
-//            if (p_lCommand[i].equals("-add")) {
-//
-//                    int p1 = Integer.parseInt(p_lCommand[i+1]);
-//
-//                int p2 = Integer.parseInt(p_lCommand[i+2]);
-//
-//                i+=3;
-//                } else if ((mainCommand.equals("editcontinent") || mainCommand.equals("editcountry")) && p_lCommand[i].equals("-remove")) {
-//
-//                    int p1 = Integer.parseInt(p_lCommand[i+1]);
-//
-//                i+=2;
-//
-//            } else if (mainCommand.equals("editneighbor") && p_lCommand[i].equals("-remove")) {
-//
-//                    int p1 = Integer.parseInt(p_lCommand[i+1]);
-//
-//                int p2 = Integer.parseInt(p_lCommand[i+2]);
-//
-//                i+=3;
-//
-//            }
-//
-//        }
-//
-//    }
 
     public static void main(String[] args) throws InvalidCommandException {
 
