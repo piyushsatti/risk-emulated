@@ -13,6 +13,7 @@ public class Order {
     public Order(int p_playerOrderID,int p_fromCountryID,int p_reinforcementsDeployed){
         this.d_playerOrderID = p_playerOrderID;
         this.d_fromCountryID = p_fromCountryID;
+         this.d_toCountryID = -1;
         this.d_reinforcementsDeployed = p_reinforcementsDeployed;
     }
 //    public void printOrder(){
