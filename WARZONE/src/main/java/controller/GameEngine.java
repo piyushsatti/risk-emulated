@@ -1,7 +1,7 @@
 package main.java.controller;
 
-import controller.PlayGame;
-import main.java.models.Order;
+
+
 import main.java.models.Player;
 import main.java.models.worldmap.WorldMap;
 import main.java.utils.TerminalColors;
@@ -67,7 +67,7 @@ public class GameEngine {
                 case "Load Map" :  //Load Map;
                 case"Add/Remove Player": //We get the final Arraylist of names by addition and removal of player;
                 case "Start Game" : //Call Start Map;
-                    PlayGame.startgame();
+                    PlayGame.startGame();
 
                 default: //exit
                     System.exit(0);
@@ -154,7 +154,7 @@ public class GameEngine {
 
         if (CURRENT_GAME_PHASE == GAME_PHASES.MAP_EDITOR) {
 
-            mapEditor();
+           // mapEditor();
 
         } else if (CURRENT_GAME_PHASE == GAME_PHASES.GAMEPLAY) {
 

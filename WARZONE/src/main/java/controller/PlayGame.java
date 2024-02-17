@@ -1,7 +1,10 @@
-package controller;
+package main.java.controller;
 
 import main.java.models.Order;
 import main.java.models.Player;
+import main.java.models.worldmap.Country;
+import main.java.models.worldmap.WorldMap;
+
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,44 +12,72 @@ import java.util.HashMap;
 public class PlayGame {
 
 
-    public static void startgame() throws FileNotFoundException {
+    public static void startGame() throws FileNotFoundException {
 
 
         //We need list of players here
         ArrayList<Player> l_listOfPlayers = GameEngine.PLAYER_LIST;
-
+        System.out.println("Assign countries input from user");
         //Assigning Countries
-         Player.assignCountriesToPlayers(l_listOfPlayers);
+         assignCountriesToPlayers(l_listOfPlayers);
 
          //View to show that the startup phase is done - View StartUp.
 
-        gameloop(l_listOfPlayers);
+        gameLoop(l_listOfPlayers);
 
 
     }
 
     public static void assignCountriesToPlayers(ArrayList<Player> l_listOfPlayers) throws FileNotFoundException {
-        map = MapInterface.loadMap("usa8"); //Take map from game engine
-        HashMap<Integer, main.java.models.worldmap.Country> listOfCountries = map.getD_countries();
-        int total_players = d_Players.size();
+        WorldMap map = GameEngine.CURRENT_MAP; //Take map from game engine
+
+
+        //Needs to be implemented randomly
+       /* Set<String> keySet = map.keySet();
+
+        // Convert the set of keys into a List for easy removal
+        List<String> keysList = new ArrayList<>(keySet);
+
+        // Use a random number generator to generate a random index within the range of the list size
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(keysList.size());
+
+        // Access the key at the randomly generated index
+        String randomKey = keysList.get(randomIndex);
+        Set<String> keySet = map.keySet();
+
+        // Convert the set of keys into a List for easy removal
+        List<String> keysList = new ArrayList<>(keySet);
+
+        // Use a random number generator to generate a random index within the range of the list size
+        Random rand = new Random();
+        int randomIndex = rand.nextInt(keysList.size());
+
+        // Access the key at the randomly generated index
+        String randomKey = keysList.get(randomIndex);
+        keysList.remove(randomIndex);       */
+
+
+       HashMap<Integer, Country> listOfCountries = map.getCountries();
+        int total_players = l_listOfPlayers.size();
         int playerNumber =0;
         for(HashMap.Entry<Integer, main.java.models.worldmap.Country> entry : listOfCountries.entrySet()) {
             if ((playerNumber % total_players == 0) && playerNumber != 0) {
                 playerNumber =0;
             }
             Integer key = entry.getKey();
-            main.java.models.worldmap.Country value = entry.getValue();
-            Player p = d_Players.get(playerNumber);
+            Country value = entry.getValue();
+            Player p = l_listOfPlayers.get(playerNumber);
             p.setAssignedCountries(key);
 
             playerNumber++;
         }
 
-        for(Player l_player: d_Players){
-            l_player.printPlayerDetails();
-            System.out.println(" ");
+        for(Player l_player: l_listOfPlayers){
+            //l_player.printPlayerDetails();
+            System.out.println("Assigning Done");
         }
-        for(Player l_player: d_Players){
+        for(Player l_player: l_listOfPlayers){
             System.out.println("Number of Countries: " + l_player.getAssignedCountries().size());
             System.out.println(" ");
         }
@@ -67,7 +98,7 @@ public class PlayGame {
     //Checking if all orders of each player have been executed.
     public static boolean allOrdersExecuted(ArrayList<Player> p_Players){
         for(Player l_player : p_Players){
-            if(!l_player.d_orderList.isEmpty()){
+            if(!l_player.getOrderList().isEmpty()){
                 return false;
             }
         }
@@ -76,7 +107,7 @@ public class PlayGame {
 
 
 
-    public static void gameloop(ArrayList<Player> l_listOfPlayers ) throws FileNotFoundException{
+    public static void gameLoop(ArrayList<Player> l_listOfPlayers ) {
 
         System.out.println("Assigning Reinforcements");
         for(Player player : l_listOfPlayers){
@@ -90,7 +121,7 @@ public class PlayGame {
 
         int l_totalplayers = l_listOfPlayers.size();
         int l_playerNumber =0;
-        while(!Player.allTroopsPlaced(l_listOfPlayers)){
+        while(!allTroopsPlaced(l_listOfPlayers)){
             if((l_playerNumber % l_totalplayers == 0) && l_playerNumber!=0){
                 l_playerNumber =0;}
             if(l_listOfPlayers.get(l_playerNumber).getReinforcements()!=0){
@@ -103,13 +134,13 @@ public class PlayGame {
 
         //Execute order for all players
         System.out.println("Executing Orders");
-        while(!main.java.models.Player.allOrdersExecuted(l_listOfPlayers)){
+        while(!allOrdersExecuted(l_listOfPlayers)){
             if((l_playerNumber % l_totalplayers == 0) && l_playerNumber!=0){
                 l_playerNumber =0;
             }
             if (!l_listOfPlayers.get(l_playerNumber).getOrderList().isEmpty()) {
                 Order order = l_listOfPlayers.get(l_playerNumber).next_order();
-                order.execute_order();
+                order.execute();
             }
             l_playerNumber++;
         }

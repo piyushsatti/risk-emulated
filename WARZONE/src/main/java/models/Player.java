@@ -22,6 +22,7 @@ public class Player{
 
     //Constructors
     public Player(String p_playerName){
+        this.d_playerId=0;
         this.d_playerName= p_playerName;
         this.d_reinforcements= 0;
         this.d_assignedCountries= new ArrayList<Integer>();
@@ -31,6 +32,7 @@ public class Player{
 
 
     //Getters
+
     public String getName() {
         return d_playerName;
     }
@@ -47,8 +49,18 @@ public class Player{
         return d_orderList;
     }
 
+    public int getPlayerId() {
+        return d_playerId;
+    }
+
+
+
 
     //Setters
+    public void setPlayerId(int d_playerId) {
+        this.d_playerId = d_playerId;
+    }
+
     public void setName(String p_name) {
         this.d_playerName= p_name;
     }
@@ -140,7 +152,7 @@ public class Player{
 
         if(this.d_assignedCountries.contains(l_countryID)){
             System.out.println("You own the Country: "+this.d_playerName);
-            System.out.println("The country is: "+ this.d_assignedCountries.get(l_countryID).getD_countryName());
+           // System.out.println("The country is: "+ this.d_assignedCountries.get(l_countryID).getD_countryName());
         }else{
             System.out.println("Cannot Deploy Troops here you don't own it." + this.d_playerName);
             return;
@@ -149,7 +161,7 @@ public class Player{
             System.out.println("Not enough Troops! for "+this.d_playerName);
             return;
         }else{
-            Order order = new Order(this.getName(),"deploy",l_countryID,l_numberTobeDeployed);
+            Order order = new Order(this.getPlayerId(),l_countryID,l_numberTobeDeployed);
             System.out.println("Order Created for Player: "+this.d_playerName);
             this.d_orderList.add(order);
             this.setReinforcements(this.getReinforcements()-l_numberTobeDeployed);
@@ -158,7 +170,7 @@ public class Player{
         }
         System.out.println("The order list is:");
         for(Order order: d_orderList){
-            order.printOrder();
+            //order.printOrder();
         }
 
 
@@ -170,7 +182,6 @@ public class Player{
     public Order next_order(){
         return this.d_orderList.poll();
     }
-
 
 
 
