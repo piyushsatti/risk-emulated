@@ -20,8 +20,18 @@ public class Country {
      */
     private final String d_countryName;
 
+    private int d_playerID;
     /**
      * Hashmap containing Border objects associated with country
+     */
+
+    /**
+     * Count of reinforcements currently deployed in country
+     */
+    private int d_reinforcements;
+
+    /**
+     * HashMap containing the outgoing borders associated with a country
      */
     private final HashMap<Integer, Border> d_borders;
 
@@ -185,5 +195,35 @@ public class Country {
         }
     }
 
+    /**
+     * Getter method for player ID controlling the country
+     * @return
+     */
+    public int get_playerID() {
+        return d_playerID;
+    }
 
+    /**
+     * Setter method used to set the controlling player ID on the country
+     * @param id controlling player ID
+     */
+    public void set_playerID(int id) {
+        this.d_playerID = id;
+    }
+
+    /**
+     * Getter method for reinforcement count
+     * @return count of reinforcements on country
+     */
+    public int getReinforcements() {
+        return d_reinforcements;
+    }
+
+    /**
+     * Setter method for reinforcement count of country
+     * @param reinforcements count of reinforcements on country
+     */
+    public void setReinforcements(int reinforcements) {
+        this.d_reinforcements = reinforcements;
+    }
 }
