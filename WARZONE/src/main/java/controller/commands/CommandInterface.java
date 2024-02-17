@@ -8,6 +8,7 @@ import main.java.utils.exceptions.CountryDoesNotExistException;
 import main.java.utils.exceptions.PlayerDoesNotExistException;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class CommandInterface {
     public static void addContinentIdContinentVal(String p_continentName, String p_continentVal) {
@@ -108,9 +109,10 @@ public class CommandInterface {
         MapInterface.validateMap(GameEngine.CURRENT_MAP); //check if this is correct/required
     }
 
-    public static void saveMap(String p_filename) {
-        saveMap(p_filename);
+    public static void saveMap(String p_filename) throws IOException {
+        MapInterface.saveMap(p_filename);
     }
+
 
     public static void editMap() {
 
