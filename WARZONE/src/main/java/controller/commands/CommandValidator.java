@@ -3,7 +3,6 @@ package main.java.controller.commands;
 import exceptions.InvalidCommandException;
 import main.java.controller.GameEngine;
 import main.java.views.TerminalRenderer;
-import main.java.controller.GameEngine.GAME_PHASES;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -82,7 +81,7 @@ public class CommandValidator {
 
     List<Integer> d_countryIdNumList;
 
-    String[] d_command_arr = null;
+    private  String[] d_command;
 
 
     /**
@@ -92,10 +91,9 @@ public class CommandValidator {
      */
     public void addCommand(String p_entered_command) throws InvalidCommandException {
 
-        this.d_command_arr = checkCommandValidity(p_entered_command);
+        checkCommandValidity(p_entered_command);
 
     }
-
     /**
      * this method checks if the command entered is of valid format or not.
      * @param p_enteredCommand
@@ -103,17 +101,16 @@ public class CommandValidator {
      * @throws InvalidCommandException
      * @throws NumberFormatException
      */
-    private String[] checkCommandValidity(String p_enteredCommand) throws InvalidCommandException, NumberFormatException {
+    private void checkCommandValidity(String p_enteredCommand) throws InvalidCommandException, NumberFormatException {
 
-        String[] l_command;
 
         if (p_enteredCommand.isEmpty()) throw new InvalidCommandException("empty command entered");
 
         p_enteredCommand = p_enteredCommand.trim();
 
-        l_command = p_enteredCommand.split("\\s+");
+        d_command = p_enteredCommand.split("\\s+");
 
-        String l_mainCommand = l_command[0];
+        String l_mainCommand = d_command[0];
 
         if (!d_validCommandList.contains(l_mainCommand)) {
 
@@ -123,30 +120,36 @@ public class CommandValidator {
 
             throw new InvalidCommandException("entered command " + l_mainCommand + "  invalid for this gamephase");
 
-        } else if ((l_mainCommand.equals("savemap") || l_mainCommand.equals("editmap") || l_mainCommand.equals("loadmap")) && l_command.length != 2) {
+        } else if ((l_mainCommand.equals("savemap") || l_mainCommand.equals("editmap") || l_mainCommand.equals("loadmap")) && d_command.length != 2) {
 
             throw new InvalidCommandException("incorrect format, enter command followed by filename");
 
-        } else if (l_mainCommand.equals("deploy") && l_command.length != 3) {
+        } else if (l_mainCommand.equals("deploy") && d_command.length != 3) {
 
             throw new InvalidCommandException("invalid command,enter: deploy countryId num");
 
         } else if ((l_mainCommand.equals("showmap") || l_mainCommand.equals("validatemap") ||
 
-                l_mainCommand.equals("assigncountries")) && l_command.length != 1) {
+                l_mainCommand.equals("assigncountries")) && d_command.length != 1) {
 
             throw new InvalidCommandException("invalid command, must not have options or parameters");
 
         }
 
         switch (l_mainCommand) {
-            case "editcountry", "editcontinent", "editneighbor" -> this.checkEditCommandsValidity(l_command);
-            case "gameplayer" -> this.checkGamePlayerCommandValidity(l_command);
-            case "deploy" -> this.checkDeployCommandValidity(l_command);
+            case "editcountry", "editcontinent", "editneighbor" -> {
+                this.checkEditCommandsValidity(d_command);
+                break;
+            }
+            case "gameplayer" -> {
+                this.checkGamePlayerCommandValidity(d_command);
+                break;
+            }
+            case "deploy" -> {
+                this.checkDeployCommandValidity(d_command);
+                break;
+            }
         }
-
-        return l_command;
-
     }
 
     /**
@@ -248,7 +251,7 @@ public class CommandValidator {
 
         int l_i = 1;
 
-        String mainCommand = p_lCommand[0];
+        String l_mainCommand = p_lCommand[0];
 
         while (l_i < l_len) {
 
@@ -262,11 +265,11 @@ public class CommandValidator {
 
                 throw new InvalidCommandException("invalid command format");
 
-            } else if (p_lCommand[l_i].equals("-remove") && (mainCommand.equals("editcontinent") || mainCommand.equals("editcountry")) && l_i + 1 >= l_len) {
+            } else if (p_lCommand[l_i].equals("-remove") && (l_mainCommand.equals("editcontinent") || l_mainCommand.equals("editcountry")) && l_i + 1 >= l_len) {
 
                 throw new InvalidCommandException("invalid command format");
 
-            } else if (p_lCommand[l_i].equals("-remove") && mainCommand.equals("editneighbor") && l_i + 2 >= l_len) {
+            } else if (p_lCommand[l_i].equals("-remove") && l_mainCommand.equals("editneighbor") && l_i + 2 >= l_len) {
                 throw new InvalidCommandException("invalid command format");
             }
 
@@ -277,13 +280,13 @@ public class CommandValidator {
                 int p2 = Integer.parseInt(p_lCommand[l_i + 2]);
 
                 l_i += 3;
-            } else if ((mainCommand.equals("editcontinent") || mainCommand.equals("editcountry")) && p_lCommand[l_i].equals("-remove")) {
+            } else if ((l_mainCommand.equals("editcontinent") || l_mainCommand.equals("editcountry")) && p_lCommand[l_i].equals("-remove")) {
 
                 int p1 = Integer.parseInt(p_lCommand[l_i + 1]);
 
                 l_i += 2;
 
-            } else if (mainCommand.equals("editneighbor") && p_lCommand[l_i].equals("-remove")) {
+            } else if (l_mainCommand.equals("editneighbor") && p_lCommand[l_i].equals("-remove")) {
 
                 int p1 = Integer.parseInt(p_lCommand[l_i + 1]);
 
@@ -304,7 +307,7 @@ public class CommandValidator {
      */
     public void processValidCommand() throws NumberFormatException, FileNotFoundException {
 
-        String[] p_lCommand = this.d_command_arr;
+        String[] p_lCommand = d_command;
 
         String l_mainCommand = p_lCommand[0];
 

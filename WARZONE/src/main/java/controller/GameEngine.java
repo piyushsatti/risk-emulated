@@ -139,15 +139,13 @@ public class GameEngine {
             try {
 
                 command.addCommand(input_command);
+                command.processValidCommand();
 
             } catch (exceptions.InvalidCommandException e) {
 
                 TerminalRenderer.renderError("Invalid Command Entered: " + input_command + "\n" + e.toString());
 
             }
-
-            command.processValidCommand();
-
         }
 
     }
