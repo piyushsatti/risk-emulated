@@ -21,9 +21,6 @@ public class Country {
     private final String d_countryName;
 
     private int d_playerID;
-    /**
-     * Hashmap containing Border objects associated with country
-     */
 
     /**
      * Count of reinforcements currently deployed in country
@@ -63,8 +60,9 @@ public class Country {
         this.d_continent = continent;
         this.d_deployedReinforcements = 0;
     }
-    public void printCountryDetails(){
-        System.out.print("Country ID: "+this.d_countryID +" Country Name: " + this.d_countryName + "Deployed Reinforcements: "+ this.d_deployedReinforcements);
+
+    public String returnCountryDetails() {
+        return "Country ID: " + this.d_countryID + " Country Name: " + this.d_countryName + "Deployed Reinforcements: " + this.d_deployedReinforcements;
     }
 
     /**
@@ -96,7 +94,7 @@ public class Country {
      * @param country country which the added border will point to
      */
     public void addBorder(Country country){
-        this.d_borders.put(country.getD_countryID(),new Border(country));
+        this.d_borders.put(country.getD_countryID(), new Border(country));
     }
 
     /**
@@ -135,19 +133,19 @@ public class Country {
      * @return String of Country details (Name, Continent, Borders) to be used in print statements
      */
     public String toString(){
-        String outPut = "Name: " + this.d_countryName + "\n";
-        outPut += "Continent: " + this.d_continent.d_continentName + "\n";
-        outPut += "Border Countries: ";
+        StringBuilder outPut = new StringBuilder("Name: " + this.d_countryName + "\n");
+        outPut.append("Continent: ").append(this.d_continent.d_continentName).append("\n");
+        outPut.append("Border Countries: ");
 
         int loopIndex = 0;
 
         for (Country c : this.getBorderCountries().values()){
             loopIndex++;
-            outPut += c.getD_countryName();
-            if(loopIndex < this.getBorderCountries().size()) outPut += ", ";
+            outPut.append(c.getD_countryName());
+            if (loopIndex < this.getBorderCountries().size()) outPut.append(", ");
         }
 
-        return outPut;
+        return outPut.toString();
     }
 
     /**
@@ -197,9 +195,9 @@ public class Country {
 
     /**
      * Getter method for player ID controlling the country
-     * @return
+     * @return Player ID Integer
      */
-    public int get_playerID() {
+    public int getPlayerID() {
         return d_playerID;
     }
 
@@ -207,7 +205,7 @@ public class Country {
      * Setter method used to set the controlling player ID on the country
      * @param id controlling player ID
      */
-    public void set_playerID(int id) {
+    public void setPlayerID(int id) {
         this.d_playerID = id;
     }
 
