@@ -3,6 +3,7 @@ package main.java.controller.commands;
 import exceptions.InvalidCommandException;
 import main.java.controller.GameEngine;
 import main.java.views.TerminalRenderer;
+import main.java.controller.GameEngine.GAME_PHASES;
 
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -28,7 +29,7 @@ public class CommandValidator {
         );
 
         d_commandGamePhaseMap.put(
-                "gamePlay",
+                "GAMEPLAY",
                 new ArrayList<>(
                         List.of(
                                 "showmap"
@@ -37,7 +38,7 @@ public class CommandValidator {
         );
 
         d_commandGamePhaseMap.put(
-                "startUp",
+                "MAIN_MENU",
                 new ArrayList<>(
                         List.of(
                                 "loadmap", "gameplayer"
@@ -46,7 +47,7 @@ public class CommandValidator {
         );
 
         d_commandGamePhaseMap.put(
-                "mainGameLoop",
+                "GAMEPLAY",
                 new ArrayList<>(
                         List.of(
                                 "deploy"
@@ -110,7 +111,7 @@ public class CommandValidator {
 
         p_enteredCommand = p_enteredCommand.trim();
 
-        l_command = p_enteredCommand.split(" ");
+        l_command = p_enteredCommand.split("\\s+");
 
         String l_mainCommand = l_command[0];
 
