@@ -1,14 +1,11 @@
-package main.java.controller;
+package main.java.controller.commands;
 
 import exceptions.InvalidCommandException;
+import main.java.controller.GameEngine;
 import main.java.views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class CommandValidator {
 
@@ -20,34 +17,49 @@ public class CommandValidator {
 
         d_commandGamePhaseMap = new HashMap<>();
 
-        List<String> l_mapEditorCommands = new ArrayList<>(
-                Arrays.asList("editcontinent", "editcountry", "editneighbor", "savemap",
-                        "editmap", "validatemap", "showmap"));
+        d_commandGamePhaseMap.put(
+                "MAP_EDITOR",
+                new ArrayList<>(
+                        Arrays.asList(
+                                "editcontinent", "editcountry", "editneighbor", "savemap",
+                                "editmap", "validatemap", "showmap"
+                        )
+                )
+        );
 
-        d_commandGamePhaseMap.put("mapEditor", l_mapEditorCommands);
+        d_commandGamePhaseMap.put(
+                "gamePlay",
+                new ArrayList<>(
+                        List.of(
+                                "showmap"
+                        )
+                )
+        );
 
-        List<String> l_gamePlayCommands = new ArrayList<>();
+        d_commandGamePhaseMap.put(
+                "startUp",
+                new ArrayList<>(
+                        List.of(
+                                "loadmap", "gameplayer"
+                        )
+                )
+        );
 
-        l_gamePlayCommands.add("showmap");
+        d_commandGamePhaseMap.put(
+                "mainGameLoop",
+                new ArrayList<>(
+                        List.of(
+                                "deploy"
+                        )
+                )
+        );
 
-        d_commandGamePhaseMap.put("gamePlay", l_gamePlayCommands);
-
-        List<String> l_startUpCommands = new ArrayList<>();
-
-        l_startUpCommands.add("loadmap");
-
-        l_startUpCommands.add("gameplayer");
-
-        d_commandGamePhaseMap.put("startUp", l_startUpCommands);
-
-        List<String> l_mainGameLoopCommands = new ArrayList<>();
-
-        l_mainGameLoopCommands.add("deploy");
-
-        d_commandGamePhaseMap.put("mainGameLoop", l_mainGameLoopCommands);
-
-        d_validCommandList = new ArrayList<>(Arrays.asList("editcontinent", "editcountry", "editneighbor", "showmap",
-                "savemap", "editmap", "validatemap", "loadmap", "gameplayer", "deploy"));
+        d_validCommandList = new ArrayList<>(
+                Arrays.asList(
+                        "editcontinent", "editcountry", "editneighbor", "showmap",
+                        "savemap", "editmap", "validatemap", "loadmap", "gameplayer", "deploy"
+                )
+        );
 
     }
 
@@ -106,7 +118,7 @@ public class CommandValidator {
 
             throw new InvalidCommandException("invalid command entered");
 
-        } else if (!d_commandGamePhaseMap.get(GameEngine.game_phase.toString()).contains(l_mainCommand)) {
+        } else if (!d_commandGamePhaseMap.get(GameEngine.CURRENT_GAME_PHASE.toString()).contains(l_mainCommand)) {
 
             throw new InvalidCommandException("entered command " + l_mainCommand + "  invalid for this gamephase");
 
@@ -297,11 +309,11 @@ public class CommandValidator {
 
         int l_len = p_lCommand.length;
 
-        if (l_mainCommand.equals("showmap") && (GameEngine.game_phase == GameEngine.GAME_PHASE.MAP_EDITOR)) {
+        if (l_mainCommand.equals("showmap") && (GameEngine.CURRENT_GAME_PHASE == GameEngine.GAME_PHASES.MAP_EDITOR)) {
 
             TerminalRenderer.showMap(); //method to show all continents, countries and their neighbors
 
-        } else if (l_mainCommand.equals("showmap") && (GameEngine.game_phase == GameEngine.GAME_PHASE.GAMEPLAY)) {
+        } else if (l_mainCommand.equals("showmap") && (GameEngine.CURRENT_GAME_PHASE == GameEngine.GAME_PHASES.GAMEPLAY)) {
 
             //method to show all countries, continents, armies on each country, ownership, connecitvity
             TerminalRenderer.showCurrentGameMap();

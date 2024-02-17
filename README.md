@@ -22,7 +22,8 @@
 - javadoc comments for every class and method
 - long methods (more than 10 lines) are documented with comments for procedural steps
 - no commented-out code
-  Project structure
+
+## Project structure
 - one folder for every module in the high-level design
 - tests are in a separate folder that has the exact same structure as the code folder
 - 1-1 relationship between tested classes and test classes
