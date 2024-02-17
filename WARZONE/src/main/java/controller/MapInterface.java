@@ -70,9 +70,9 @@ public class MapInterface {
 
         while (l_file_reader.hasNextLine()) {
 
-            data = l_file_reader.nextLine();
+            l_data = l_file_reader.nextLine();
 
-            if (data.equals("[continents]")) {
+            if (l_data.equals("[continents]")) {
 
                 l_state[0] = true;
 
@@ -82,7 +82,7 @@ public class MapInterface {
 
                 continue;
 
-            } else if (data.equals("[countries]")) {
+            } else if (l_data.equals("[countries]")) {
 
                 l_state[0] = false;
 
@@ -92,7 +92,7 @@ public class MapInterface {
 
                 continue;
 
-            } else if (data.equals("[borders]")) {
+            } else if (l_data.equals("[borders]")) {
 
                 l_state[0] = false;
 
@@ -102,7 +102,7 @@ public class MapInterface {
 
                 continue;
 
-            } else if (data.isEmpty()) {
+            } else if (l_data.isEmpty()) {
 
                 l_state[0] = false;
 
@@ -112,7 +112,7 @@ public class MapInterface {
 
             }
 
-            l_split_data = data.split(" ");
+            l_split_data = l_data.split(" ");
 
             if (l_state[0]) {
 
