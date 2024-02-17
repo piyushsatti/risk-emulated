@@ -102,6 +102,7 @@ public class TerminalRenderer {
      * @param args The command-line arguments (not used in this method).
      * @throws FileNotFoundException If the map file is not found.
      */
+
     public static void main(String[] args) throws FileNotFoundException{
         System.out.println(renderWelcome());
         String[] poop = {"Hi", "Bye", "Opti"};
