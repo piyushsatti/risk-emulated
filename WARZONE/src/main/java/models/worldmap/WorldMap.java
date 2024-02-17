@@ -196,4 +196,14 @@ public class WorldMap {
     public Country getCountry(int countryID){
         return this.d_countries.get(countryID);
     }
+
+    public void removeBorder(int source, int target){
+        //check that both countries exist
+        if(!(this.containsCountry(source) && this.containsCountry(target))){
+            System.out.println("Country doesn't exist!");
+            return;
+        }
+
+        this.getCountry(source).removeBorder(this.getCountry(target));
+    }
 }
