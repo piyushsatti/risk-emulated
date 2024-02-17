@@ -24,13 +24,13 @@ public class MapInterface {
      */
     private static File createFileObjectFromFileName(String p_map_name) throws FileNotFoundException {
 
-        File map_file_obj = new File(GameEngine.MAPS_FOLDER + p_map_name);
+        File l_map_file_obj = new File(GameEngine.MAPS_FOLDER + p_map_name);
 
-        if (map_file_obj.exists() && !map_file_obj.isDirectory()) {
+        if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory()) {
 
-            System.out.println("Successfully Loaded Map: " + map_file_obj.getName());
+            System.out.println("Successfully Loaded Map: " + l_map_file_obj.getName());
 
-            return map_file_obj;
+            return l_map_file_obj;
 
         } else {
 
@@ -50,99 +50,99 @@ public class MapInterface {
      */
     public static WorldMap loadMap(String p_map_name) throws FileNotFoundException, NumberFormatException {
 
-        File map_file_obj;
+        File l_map_file_obj;
 
-        Scanner file_reader = null;
+        Scanner l_file_reader = null;
 
         WorldMap map = new WorldMap();
 
-        map_file_obj = createFileObjectFromFileName(p_map_name);
+        l_map_file_obj = createFileObjectFromFileName(p_map_name);
 
-        file_reader = new Scanner(map_file_obj);
+        l_file_reader = new Scanner(l_map_file_obj);
 
-        String data;
+        String l_data;
 
-        String[] split_data;
+        String[] l_split_data;
 
-        Boolean[] state = {false, false, false};
+        Boolean[] l_state = {false, false, false};
 
         int i = 1;
 
-        while (file_reader.hasNextLine()) {
+        while (l_file_reader.hasNextLine()) {
 
-            data = file_reader.nextLine();
+            l_data = l_file_reader.nextLine();
 
-            if (data.equals("[continents]")) {
+            if (l_data.equals("[continents]")) {
 
-                state[0] = true;
+                l_state[0] = true;
 
-                state[1] = false;
+                l_state[1] = false;
 
-                state[2] = false;
-
-                continue;
-
-            } else if (data.equals("[countries]")) {
-
-                state[0] = false;
-
-                state[1] = true;
-
-                state[2] = false;
+                l_state[2] = false;
 
                 continue;
 
-            } else if (data.equals("[borders]")) {
+            } else if (l_data.equals("[countries]")) {
 
-                state[0] = false;
+                l_state[0] = false;
 
-                state[1] = false;
+                l_state[1] = true;
 
-                state[2] = true;
+                l_state[2] = false;
 
                 continue;
 
-            } else if (data.isEmpty()) {
+            } else if (l_data.equals("[borders]")) {
 
-                state[0] = false;
+                l_state[0] = false;
 
-                state[1] = false;
+                l_state[1] = false;
 
-                state[2] = false;
+                l_state[2] = true;
+
+                continue;
+
+            } else if (l_data.isEmpty()) {
+
+                l_state[0] = false;
+
+                l_state[1] = false;
+
+                l_state[2] = false;
 
             }
 
-            split_data = data.split(" ");
+            l_split_data = l_data.split(" ");
 
-            if (state[0]) {
+            if (l_state[0]) {
 
-                map.addContinent(i, split_data[0], Integer.parseInt(split_data[1]));
+                map.addContinent(i, l_split_data[0], Integer.parseInt(l_split_data[1]));
 
                 i++;
 
                 continue;
 
-            } else if (state[1]) {
+            } else if (l_state[1]) {
 
                 map.addCountry(
 
-                        Integer.parseInt(split_data[0]),
+                        Integer.parseInt(l_split_data[0]),
 
-                        Integer.parseInt(split_data[2]),
+                        Integer.parseInt(l_split_data[2]),
 
-                        split_data[1]
+                        l_split_data[1]
 
                 );
 
                 continue;
 
-            } else if (state[2]) {
+            } else if (l_state[2]) {
 
-                for (int j = 1; j < split_data.length; j++) {
+                for (int j = 1; j < l_split_data.length; j++) {
 
                     map.addBorder(
-                            Integer.parseInt(split_data[0]),
-                            Integer.parseInt(split_data[j])
+                            Integer.parseInt(l_split_data[0]),
+                            Integer.parseInt(l_split_data[j])
                     );
 
                 }
@@ -151,11 +151,11 @@ public class MapInterface {
 
             }
 
-            state[0] = false;
+            l_state[0] = false;
 
-            state[1] = false;
+            l_state[1] = false;
 
-            state[2] = false;
+            l_state[2] = false;
 
         }
 

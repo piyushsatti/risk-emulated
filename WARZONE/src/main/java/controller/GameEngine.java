@@ -1,7 +1,7 @@
 package main.java.controller;
 
-import controller.PlayGame;
-import main.java.models.Order;
+
+import main.java.controller.commands.CommandValidator;
 import main.java.models.Player;
 import main.java.models.worldmap.WorldMap;
 import main.java.utils.TerminalColors;
@@ -45,30 +45,29 @@ public class GameEngine {
 
     public static void playerLoop() throws FileNotFoundException {
 
-<<<<<<< Updated upstream
-=======
+
         //Need A view for what needs to be done;
 
->>>>>>> Stashed changes
-        //System.out.println(TerminalRenderer.renderWelcome()); Welcome to the game screen
+
+        TerminalRenderer.renderWelcome();
 
         String[] menu_options = {"Show Map","Load Map","Add/Remove Player", "Start Game"};
 
-        System.out.println(TerminalRenderer.renderMenu("Main Menu", menu_options));
+        TerminalRenderer.renderMenu("Main Menu", menu_options);
 
         Scanner in = new Scanner(System.in);
 
         String input = in.nextLine();
 
         //Validate Command
-        while(!input.equals("Exit")){
+        while (!input.equals("Exit")) {
 
             switch(input){
                 case "Show Map" : //Show Map;
                 case "Load Map" :  //Load Map;
                 case"Add/Remove Player": //We get the final Arraylist of names by addition and removal of player;
                 case "Start Game" : //Call Start Map;
-                    PlayGame.startgame();
+                    PlayGame.startGame();
 
                 default: //exit
                     System.exit(0);
@@ -82,11 +81,14 @@ public class GameEngine {
 
     private static void startingMenu() {
 
-        System.out.println(TerminalRenderer.renderWelcome());
+        TerminalRenderer.renderWelcome();
 
         String[] menu_options = {"Map Editor", "Play Game"};
 
-        System.out.println(TerminalRenderer.renderMenu("Main Menu", menu_options));
+        TerminalRenderer.renderMenu(
+                "Main Menu",
+                menu_options
+        );
 
         Scanner in = new Scanner(System.in);
 
@@ -114,13 +116,9 @@ public class GameEngine {
 
         if (GameEngine.CURRENT_GAME_PHASE != GAME_PHASES.MAP_EDITOR) return;
 
-        try {
-            WorldMap map = MapInterface.loadMap(
-                    TerminalRenderer.renderMapEditorMenu()
-            );
-        } catch (FileNotFoundException e) {
-            TerminalRenderer.renderError("Map file entered does not exist" + e.toString());
-        }
+        GameEngine.CURRENT_MAP = MapInterface.loadMap(
+                TerminalRenderer.renderMapEditorMenu()
+        );
 
         String input_command;
 
@@ -131,7 +129,12 @@ public class GameEngine {
 
             input_command = TerminalRenderer.renderMapEditorCommands();
 
-            if (input_command.equals("exit")) break;
+            if (input_command.equals("exit")) {
+
+                TerminalRenderer.renderExit();
+
+                break;
+            }
 
             try {
 
@@ -151,17 +154,44 @@ public class GameEngine {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        startingMenu();
+        while (CURRENT_GAME_PHASE == GAME_PHASES.MAIN_MENU) {
 
-        if (CURRENT_GAME_PHASE == GAME_PHASES.MAP_EDITOR) {
+            startingMenu();
 
-            mapEditor();
+            if (CURRENT_GAME_PHASE == GAME_PHASES.MAP_EDITOR) {
 
-        } else if (CURRENT_GAME_PHASE == GAME_PHASES.GAMEPLAY) {
+                try {
 
-            playerLoop();
+                    mapEditor();
+
+                } catch (FileNotFoundException e) {
+
+                    TerminalRenderer.renderError("Map file entered does not exist" + e);
+
+                    CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+
+                }
+
+            }
+
+            if (CURRENT_GAME_PHASE == GAME_PHASES.GAMEPLAY) {
+
+                try {
+
+                    playerLoop();
+
+                } catch (Exception e) {
+
+                    TerminalRenderer.renderError("Error in GameLoop" + e);
+
+                    CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+
+                }
+
+            }
 
         }
+
     }
 
 }
