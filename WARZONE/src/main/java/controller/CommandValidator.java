@@ -51,35 +51,48 @@ public class CommandValidator {
 
     }
 
-    List<List<Integer>> addContinentIdContinentValList;
+    List<List<Integer>> d_addContinentIdContinentValList;
 
-    List<List<Integer>> addCountryIdContinentIdList;
+    List<List<Integer>> d_addCountryIdContinentIdList;
 
-    List<List<Integer>> addCountryIdNeighborCountryIdList;
+    List<List<Integer>> d_addCountryIdNeighborCountryIdList;
 
-    List<Integer> removeContinentIdList;
+    List<Integer> d_removeContinentIdList;
 
-    List<Integer> removeCountryIdList;
+    List<Integer> d_removeCountryIdList;
 
-    List<List<Integer>> removeCountryIdNeighborCountryIdList;
+    List<List<Integer>> d_removeCountryIdNeighborCountryIdList;
 
-    List<String> playersToAdd;
+    List<String> d_playersToAdd;
 
-    List<String> playersToRemove;
+    List<String> d_playersToRemove;
 
-    List<Integer> countryIdNumList;
+    List<Integer> d_countryIdNumList;
 
     String[] d_command_arr = null;
 
+
+    /**
+     * This method adds the command after checking the validity of the command.
+     * @param p_entered_command
+     * @throws InvalidCommandException
+     */
     public void addCommand(String p_entered_command) throws InvalidCommandException {
 
         this.d_command_arr = checkCommandValidity(p_entered_command);
 
     }
 
+    /**
+     * this method checks if the command entered is of valid format or not.
+     * @param p_enteredCommand
+     * @return
+     * @throws InvalidCommandException
+     * @throws NumberFormatException
+     */
     private String[] checkCommandValidity(String p_enteredCommand) throws InvalidCommandException, NumberFormatException {
 
-        String[] l_command = new String[0];
+        String[] l_command;
 
         if (p_enteredCommand.isEmpty()) throw new InvalidCommandException("empty command entered");
 
@@ -87,33 +100,33 @@ public class CommandValidator {
 
         l_command = p_enteredCommand.split(" ");
 
-        String mainCommand = l_command[0];
+        String l_mainCommand = l_command[0];
 
-        if (!d_validCommandList.contains(mainCommand)) {
+        if (!d_validCommandList.contains(l_mainCommand)) {
 
             throw new InvalidCommandException("invalid command entered");
 
-        } else if (!d_commandGamePhaseMap.get(GameEngine.game_phase.toString()).contains(mainCommand)) {
+        } else if (!d_commandGamePhaseMap.get(GameEngine.game_phase.toString()).contains(l_mainCommand)) {
 
-            throw new InvalidCommandException("entered command " + mainCommand + "  invalid for this gamephase");
+            throw new InvalidCommandException("entered command " + l_mainCommand + "  invalid for this gamephase");
 
-        } else if ((mainCommand.equals("savemap") || mainCommand.equals("editmap") || mainCommand.equals("loadmap")) && l_command.length != 2) {
+        } else if ((l_mainCommand.equals("savemap") || l_mainCommand.equals("editmap") || l_mainCommand.equals("loadmap")) && l_command.length != 2) {
 
             throw new InvalidCommandException("incorrect format, enter command followed by filename");
 
-        } else if (mainCommand.equals("deploy") && l_command.length != 3) {
+        } else if (l_mainCommand.equals("deploy") && l_command.length != 3) {
 
             throw new InvalidCommandException("invalid command,enter: deploy countryId num");
 
-        } else if ((mainCommand.equals("showmap") || mainCommand.equals("validatemap") ||
+        } else if ((l_mainCommand.equals("showmap") || l_mainCommand.equals("validatemap") ||
 
-                mainCommand.equals("assigncountries")) && l_command.length != 1) {
+                l_mainCommand.equals("assigncountries")) && l_command.length != 1) {
 
             throw new InvalidCommandException("invalid command, must not have options or parameters");
 
         }
 
-        switch (mainCommand) {
+        switch (l_mainCommand) {
             case "editcountry", "editcontinent", "editneighbor" -> this.checkEditCommandsValidity(l_command);
             case "gameplayer" -> this.checkGamePlayerCommandValidity(l_command);
             case "deploy" -> this.checkDeployCommandValidity(l_command);
@@ -123,6 +136,11 @@ public class CommandValidator {
 
     }
 
+    /**
+     * this method checks if the deploy command is valid or not
+     * @param p_lCommand
+     * @throws NumberFormatException
+     */
     private void checkDeployCommandValidity(String[] p_lCommand) throws NumberFormatException {
 
         int a = Integer.parseInt(p_lCommand[1]);
@@ -131,19 +149,24 @@ public class CommandValidator {
 
     }
 
+    /**
+     * this method checks the validity of gameplayer command
+     * @param p_lCommand
+     * @throws InvalidCommandException
+     */
     private void checkGamePlayerCommandValidity(String[] p_lCommand) throws InvalidCommandException {
 
         int l_countAddOption = 0;
 
         int l_countRemoveOption = 0;
 
-        int len = p_lCommand.length;
+        int l_len = p_lCommand.length;
 
-        for (String s : p_lCommand) {
+        for (String l_s : p_lCommand) {
 
-            if (s.equals("-add")) l_countAddOption++;
+            if (l_s.equals("-add")) l_countAddOption++;
 
-            else if (s.equals("-remove")) l_countRemoveOption++;
+            else if (l_s.equals("-remove")) l_countRemoveOption++;
 
         }
 
@@ -153,48 +176,54 @@ public class CommandValidator {
 
         }
 
-        int i=1;
+        int l_i=1;
 
-        while (i < len) {
+        while (l_i < l_len) {
 
-                String currOption = p_lCommand[i];
+                String l_currOption = p_lCommand[l_i];
 
-            if (!(currOption.equals("-add") || currOption.equals("-remove"))) {
-
-                    throw new InvalidCommandException("invalid command format");
-
-            } else if (currOption.equals("-add") && i + 1 >= len) {
+            if (!(l_currOption.equals("-add") || l_currOption.equals("-remove"))) {
 
                     throw new InvalidCommandException("invalid command format");
 
-            } else if (currOption.equals("-add") && (p_lCommand[i + 1].equals("-add") || p_lCommand[i + 1].equals("-remove"))) {
+            } else if (l_currOption.equals("-add") && l_i + 1 >= l_len) {
 
                     throw new InvalidCommandException("invalid command format");
 
-            } else if (currOption.equals("-remove") && (p_lCommand[i + 1].equals("-add") || p_lCommand[i + 1].equals("-remove"))) {
+            } else if (l_currOption.equals("-add") && (p_lCommand[l_i + 1].equals("-add") || p_lCommand[l_i + 1].equals("-remove"))) {
+
+                    throw new InvalidCommandException("invalid command format");
+
+            } else if (l_currOption.equals("-remove") && (p_lCommand[l_i + 1].equals("-add") || p_lCommand[l_i + 1].equals("-remove"))) {
 
                     throw new InvalidCommandException("invalid command format");
 
             }
 
-            i+=2;
+            l_i+=2;
 
         }
     }
 
+    /**
+     * this method checks the validity of the editcountry, editcontinent and editneighbor commands
+     * @param p_lCommand
+     * @throws InvalidCommandException
+     * @throws NumberFormatException
+     */
     private void checkEditCommandsValidity(String[] p_lCommand) throws InvalidCommandException, NumberFormatException {
 
         int l_countAddOption = 0;
 
         int l_countRemoveOption = 0;
 
-        int len = p_lCommand.length;
+        int l_len = p_lCommand.length;
 
-        for (String s : p_lCommand) {
+        for (String l_s : p_lCommand) {
 
-            if (s.equals("-add")) l_countAddOption++;
+            if (l_s.equals("-add")) l_countAddOption++;
 
-            else if (s.equals("-remove")) l_countRemoveOption++;
+            else if (l_s.equals("-remove")) l_countRemoveOption++;
 
         }
 
@@ -204,50 +233,50 @@ public class CommandValidator {
 
         }
 
-        int i = 1;
+        int l_i = 1;
 
         String mainCommand = p_lCommand[0];
 
-        while (i < len) {
+        while (l_i < l_len) {
 
-            if (!(p_lCommand[i].equals("-add") || p_lCommand[i].equals("-remove"))) {
+            if (!(p_lCommand[l_i].equals("-add") || p_lCommand[l_i].equals("-remove"))) {
 
                 throw new InvalidCommandException("invalid command format");
 
             }
 
-            if (p_lCommand[i].equals("-add") && i + 2 >= len) {
+            if (p_lCommand[l_i].equals("-add") && l_i + 2 >= l_len) {
 
                 throw new InvalidCommandException("invalid command format");
 
-            } else if (p_lCommand[i].equals("-remove") && (mainCommand.equals("editcontinent") || mainCommand.equals("editcountry")) && i + 1 >= len) {
+            } else if (p_lCommand[l_i].equals("-remove") && (mainCommand.equals("editcontinent") || mainCommand.equals("editcountry")) && l_i + 1 >= l_len) {
 
                 throw new InvalidCommandException("invalid command format");
 
-            } else if (p_lCommand[i].equals("-remove") && mainCommand.equals("editneighbor") && i + 2 >= len) {
+            } else if (p_lCommand[l_i].equals("-remove") && mainCommand.equals("editneighbor") && l_i + 2 >= l_len) {
                 throw new InvalidCommandException("invalid command format");
             }
 
-            if (p_lCommand[i].equals("-add")) {
+            if (p_lCommand[l_i].equals("-add")) {
 
-                int p1 = Integer.parseInt(p_lCommand[i + 1]);
+                int p1 = Integer.parseInt(p_lCommand[l_i + 1]);
 
-                int p2 = Integer.parseInt(p_lCommand[i + 2]);
+                int p2 = Integer.parseInt(p_lCommand[l_i + 2]);
 
-                i += 3;
-            } else if ((mainCommand.equals("editcontinent") || mainCommand.equals("editcountry")) && p_lCommand[i].equals("-remove")) {
+                l_i += 3;
+            } else if ((mainCommand.equals("editcontinent") || mainCommand.equals("editcountry")) && p_lCommand[l_i].equals("-remove")) {
 
-                int p1 = Integer.parseInt(p_lCommand[i + 1]);
+                int p1 = Integer.parseInt(p_lCommand[l_i + 1]);
 
-                i += 2;
+                l_i += 2;
 
-            } else if (mainCommand.equals("editneighbor") && p_lCommand[i].equals("-remove")) {
+            } else if (mainCommand.equals("editneighbor") && p_lCommand[l_i].equals("-remove")) {
 
-                int p1 = Integer.parseInt(p_lCommand[i + 1]);
+                int p1 = Integer.parseInt(p_lCommand[l_i + 1]);
 
-                int p2 = Integer.parseInt(p_lCommand[i + 2]);
+                int p2 = Integer.parseInt(p_lCommand[l_i + 2]);
 
-                i += 3;
+                l_i += 3;
 
             }
 
@@ -255,246 +284,256 @@ public class CommandValidator {
 
     }
 
+    /**
+     * this method is used to call further methods which would execute the commands
+     * @throws NumberFormatException
+     * @throws FileNotFoundException
+     */
     public void processValidCommand() throws NumberFormatException, FileNotFoundException {
 
         String[] p_lCommand = this.d_command_arr;
 
-        String mainCommand = p_lCommand[0];
+        String l_mainCommand = p_lCommand[0];
 
-        int len = p_lCommand.length;
+        int l_len = p_lCommand.length;
 
-        if (mainCommand.equals("showmap") && (GameEngine.game_phase == GameEngine.GAME_PHASE.MAP_EDITOR)) {
+        if (l_mainCommand.equals("showmap") && (GameEngine.game_phase == GameEngine.GAME_PHASE.MAP_EDITOR)) {
 
             TerminalRenderer.showMap(); //method to show all continents, countries and their neighbors
 
-        } else if (mainCommand.equals("showmap") && (GameEngine.game_phase == GameEngine.GAME_PHASE.GAMEPLAY)) {
+        } else if (l_mainCommand.equals("showmap") && (GameEngine.game_phase == GameEngine.GAME_PHASE.GAMEPLAY)) {
 
             //method to show all countries, continents, armies on each country, ownership, connecitvity
             TerminalRenderer.showCurrentGameMap();
         }
 
-        if (mainCommand.equals("editcontinent")) {
+        if (l_mainCommand.equals("editcontinent")) {
 
-            addContinentIdContinentValList = new ArrayList<>();
+            d_addContinentIdContinentValList = new ArrayList<>();
 
-            removeContinentIdList = new ArrayList<>();
+            d_removeContinentIdList = new ArrayList<>();
 
-            int i = 1;
+            int l_i = 1;
 
-            while (i < len) {
+            while (l_i < l_len) {
 
-                String currOption = p_lCommand[i];
+                String l_currOption = p_lCommand[l_i];
 
-                if (currOption.equals("-add")) {
+                if (l_currOption.equals("-add")) {
 
-                    int addContinentId = Integer.parseInt(p_lCommand[++i]);
+                    int l_addContinentId = Integer.parseInt(p_lCommand[++l_i]);
 
-                    int addContinentVal = Integer.parseInt(p_lCommand[++i]);
+                    int l_addContinentVal = Integer.parseInt(p_lCommand[++l_i]);
 
-                    List<Integer> pair = new ArrayList<>();
+                    List<Integer> l_pair = new ArrayList<>();
 
-                    pair.add(addContinentId);
+                    l_pair.add(l_addContinentId);
 
-                    pair.add(addContinentVal);
+                    l_pair.add(l_addContinentVal);
 
-                    addContinentIdContinentValList.add(pair);
+                    d_addContinentIdContinentValList.add(l_pair);
 
-                } else if (currOption.equals("-remove")) {
+                } else if (l_currOption.equals("-remove")) {
 
-                    int removeContinentId = Integer.parseInt(p_lCommand[++i]);
+                    int l_removeContinentId = Integer.parseInt(p_lCommand[++l_i]);
 
-                    removeContinentIdList.add(removeContinentId);
+                    d_removeContinentIdList.add(l_removeContinentId);
 
                 }
 
-                i++;
+                l_i++;
 
             }
 
-            for(int j=0;j<addContinentIdContinentValList.size();j++)
+            for(int j = 0; j< d_addContinentIdContinentValList.size(); j++)
             {
-                List<Integer> pair = addContinentIdContinentValList.get(j);
+                List<Integer> pair = d_addContinentIdContinentValList.get(j);
                 CommandInterface.addContinentIdContinentVal(pair.get(0), pair.get(1));
             }
-            for(int j=0;j<removeContinentIdList.size();j++)
+            for(int j=0;j<d_removeContinentIdList.size();j++)
             {
-                CommandInterface.removeContinentId(removeContinentIdList.get(j));
+                CommandInterface.removeContinentId(d_removeContinentIdList.get(j));
             }
 
-        } else if (mainCommand.equals("editcountry")) {
+        } else if (l_mainCommand.equals("editcountry")) {
 
-            addCountryIdContinentIdList = new ArrayList<>();
+            d_addCountryIdContinentIdList = new ArrayList<>();
 
-            removeCountryIdList = new ArrayList<>();
+            d_removeCountryIdList = new ArrayList<>();
 
-            int j = 1;
+            int l_j = 1;
 
-            while (j < len) {
+            while (l_j < l_len) {
 
-                String currOption = p_lCommand[j];
+                String l_currOption = p_lCommand[l_j];
 
-                if (currOption.equals("-add")) {
+                if (l_currOption.equals("-add")) {
 
-                    int addCountryId = Integer.parseInt(p_lCommand[++j]);
+                    int l_addCountryId = Integer.parseInt(p_lCommand[++l_j]);
 
-                    int addContinentId = Integer.parseInt(p_lCommand[++j]);
+                    int l_addContinentId = Integer.parseInt(p_lCommand[++l_j]);
 
-                    List<Integer> pair = new ArrayList<>();
+                    List<Integer> l_pair = new ArrayList<>();
 
-                    pair.add(addCountryId);
+                    l_pair.add(l_addCountryId);
 
-                    pair.add(addContinentId);
+                    l_pair.add(l_addContinentId);
 
-                    addCountryIdContinentIdList.add(pair);
+                    d_addCountryIdContinentIdList.add(l_pair);
 
-                } else if (currOption.equals("-remove")) {
+                } else if (l_currOption.equals("-remove")) {
 
-                    int removeCountryId = Integer.parseInt(p_lCommand[++j]);
+                    int l_removeCountryId = Integer.parseInt(p_lCommand[++l_j]);
 
-                    removeCountryIdList.add(removeCountryId);
+                    d_removeCountryIdList.add(l_removeCountryId);
 
                 }
 
-                j++;
+                l_j++;
 
             }
-            for(int i=0;i<addCountryIdContinentIdList.size();i++)
+            for(int i = 0; i< d_addCountryIdContinentIdList.size(); i++)
             {
-                List<Integer> pair = addCountryIdContinentIdList.get(i);
+                List<Integer> pair = d_addCountryIdContinentIdList.get(i);
                 CommandInterface.addCountryIdContinentId(pair.get(0), pair.get(1));
             }
-            for(int i=0;i<removeCountryIdList.size();i++)
+            for(int i=0;i<d_removeCountryIdList.size();i++)
             {
-                CommandInterface.removeCountryId(removeCountryIdList.get(i));
+                CommandInterface.removeCountryId(d_removeCountryIdList.get(i));
             }
 
-        } else if (mainCommand.equals("editneighbor")) {
+        } else if (l_mainCommand.equals("editneighbor")) {
 
-            addCountryIdNeighborCountryIdList = new ArrayList<>();
+            d_addCountryIdNeighborCountryIdList = new ArrayList<>();
 
-            removeCountryIdNeighborCountryIdList = new ArrayList<>();
+            d_removeCountryIdNeighborCountryIdList = new ArrayList<>();
 
-            int k = 1;
+            int l_k = 1;
 
-            while (k < len) {
+            while (l_k < l_len) {
 
-                String currOption = p_lCommand[k];
+                String l_currOption = p_lCommand[l_k];
 
-                if (currOption.equals("-add")) {
+                if (l_currOption.equals("-add")) {
 
-                    int addCountryId = Integer.parseInt(p_lCommand[++k]);
+                    int l_addCountryId = Integer.parseInt(p_lCommand[++l_k]);
 
-                    int addNeighborCountryId = Integer.parseInt(p_lCommand[++k]);
+                    int l_addNeighborCountryId = Integer.parseInt(p_lCommand[++l_k]);
 
-                    List<Integer> pair = new ArrayList<>();
+                    List<Integer> l_pair = new ArrayList<>();
 
-                    pair.add(addCountryId);
+                    l_pair.add(l_addCountryId);
 
-                    pair.add(addNeighborCountryId);
+                    l_pair.add(l_addNeighborCountryId);
 
-                    addCountryIdNeighborCountryIdList.add(pair);
+                    d_addCountryIdNeighborCountryIdList.add(l_pair);
 
-                } else if (currOption.equals("-remove")) {
+                } else if (l_currOption.equals("-remove")) {
 
-                    List<Integer> pair = new ArrayList<>();
+                    List<Integer> l_pair = new ArrayList<>();
 
-                    int removeCountryId = Integer.parseInt(p_lCommand[++k]);
+                    int l_removeCountryId = Integer.parseInt(p_lCommand[++l_k]);
 
-                    int removeNeighborCountryId = Integer.parseInt(p_lCommand[++k]);
+                    int l_removeNeighborCountryId = Integer.parseInt(p_lCommand[++l_k]);
 
-                    pair.add(removeCountryId);
+                    l_pair.add(l_removeCountryId);
 
-                    pair.add(removeNeighborCountryId);
+                    l_pair.add(l_removeNeighborCountryId);
 
-                    removeCountryIdNeighborCountryIdList.add(pair);
+                    d_removeCountryIdNeighborCountryIdList.add(l_pair);
 
                 }
 
-                k++;
+                l_k++;
 
             }
-            for(int i=0;i<addCountryIdNeighborCountryIdList.size();i++)
+            for(int i=0;i<d_addCountryIdNeighborCountryIdList.size();i++)
             {
-                List<Integer> pair = addCountryIdNeighborCountryIdList.get(i);
-                CommandInterface.addCountryIdNeighborCountryId(pair.get(0), pair.get(1));
+                List<Integer> l_pair = d_addCountryIdNeighborCountryIdList.get(i);
+                CommandInterface.addCountryIdNeighborCountryId(l_pair.get(0), l_pair.get(1));
             }
-            for(int i=0;i<removeCountryIdNeighborCountryIdList.size();i++)
+            for(int i=0;i<d_removeCountryIdNeighborCountryIdList.size();i++)
             {
-                List<Integer> pair = removeCountryIdNeighborCountryIdList.get(i);
-                CommandInterface.removeCountryIdNeighborCountryId(pair.get(0), pair.get(1));
+                List<Integer> l_pair = d_removeCountryIdNeighborCountryIdList.get(i);
+                CommandInterface.removeCountryIdNeighborCountryId(l_pair.get(0), l_pair.get(1));
             }
-        } else if (mainCommand.equals("gameplayer")) {
+        } else if (l_mainCommand.equals("gameplayer")) {
 
-            playersToAdd = new ArrayList<>();
+            d_playersToAdd = new ArrayList<>();
 
-            playersToRemove = new ArrayList<>();
+            d_playersToRemove = new ArrayList<>();
 
-            int z = 1;
+            int l_z = 1;
 
-            while (z < len) {
+            while (l_z < l_len) {
 
-                String currOption = p_lCommand[z];
+                String l_currOption = p_lCommand[l_z];
 
-                if (currOption.equals("-add")) {
+                if (l_currOption.equals("-add")) {
 
-                    String playerToAdd = p_lCommand[++z];
+                    String l_playerToAdd = p_lCommand[++l_z];
 
-                    playersToAdd.add(playerToAdd);
+                    d_playersToAdd.add(l_playerToAdd);
 
-                } else if (currOption.equals("-remove")) {
+                } else if (l_currOption.equals("-remove")) {
 
-                    String playerToRemove = p_lCommand[++z];
+                    String l_playerToRemove = p_lCommand[++l_z];
 
-                    playersToRemove.add(playerToRemove);
+                    d_playersToRemove.add(l_playerToRemove);
 
                 }
 
-                z++;
+                l_z++;
 
             }
-            for(int i=0;i<playersToAdd.size();i++)
+            for(int i=0;i<d_playersToAdd.size();i++)
             {
-                CommandInterface.addPlayers(playersToAdd.get(i));
+                CommandInterface.addPlayers(d_playersToAdd.get(i));
             }
-            for(int i=0;i<playersToRemove.size();i++)
+            for(int i=0;i<d_playersToRemove.size();i++)
             {
-                CommandInterface.removePlayers(playersToRemove.get(i));
+                CommandInterface.removePlayers(d_playersToRemove.get(i));
             }
 
-        } else if (mainCommand.equals("deploy")) {
+        } else if (l_mainCommand.equals("deploy")) {
 
-            countryIdNumList = new ArrayList<>();
+            d_countryIdNumList = new ArrayList<>();
 
-            int countryId = Integer.parseInt(p_lCommand[1]);
+            int l_countryId = Integer.parseInt(p_lCommand[1]);
 
-            int numReinforcements = Integer.parseInt(p_lCommand[2]);
+            int l_numReinforcements = Integer.parseInt(p_lCommand[2]);
 
-            countryIdNumList.add(countryId);
+            d_countryIdNumList.add(l_countryId);
 
-            countryIdNumList.add(numReinforcements);
+            d_countryIdNumList.add(l_numReinforcements);
 
-        } else if (mainCommand.equals("savemap")) {//method to savemap
+        } else if (l_mainCommand.equals("savemap")) {//method to savemap
 
-        } else if (mainCommand.equals("editmap")) {//method to edit map
+        } else if (l_mainCommand.equals("editmap")) {//method to edit map
 
-        } else if (mainCommand.equals("validatemap")) {//method to validate map
+        } else if (l_mainCommand.equals("validatemap")) {//method to validate map
 
-        } else if (mainCommand.equals("loadmap")) {//method to load map
+        } else if (l_mainCommand.equals("loadmap")) {//method to load map
 
         }
     }
 
+    /**
+     * main method
+     * @param args
+     * @throws InvalidCommandException
+     */
     public static void main(String[] args) throws InvalidCommandException {
 
         System.out.println("enter command:");
 
         Scanner sc = new Scanner(System.in);
 
-        String command = sc.nextLine();
+        String l_command = sc.nextLine();
 
-        CommandValidator obj = new CommandValidator();
+        CommandValidator commandValidator = new CommandValidator();
 
-        obj.addCommand(command);
+        commandValidator.addCommand(l_command);
 
     }
 
