@@ -11,7 +11,17 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * The TerminalRenderer class provides methods for rendering various components in a terminal interface,
+ * such as a welcome message, a menu, and displaying a map.
+ */
 public class TerminalRenderer {
+
+    /**
+     * Renders a welcome message for the terminal interface.
+     *
+     * @return The string representation of the welcome message.
+     */
     public static String renderWelcome() {
         return TerminalColors.ANSI_CYAN + """
                 
@@ -27,6 +37,13 @@ public class TerminalRenderer {
                 """ + TerminalColors.ANSI_RESET;
     }
 
+    /**
+     * Renders a menu with the specified type and options.
+     *
+     * @param menu_type The type of the menu.
+     * @param options   The options to be displayed in the menu.
+     * @return The string representation of the rendered menu.
+     */
     public static String renderMenu(String menu_type, String[] options) {
         // Display menu graphics
         StringBuilder out = new StringBuilder();
@@ -44,6 +61,12 @@ public class TerminalRenderer {
         return out + TerminalColors.ANSI_BLUE + "============================" + TerminalColors.ANSI_RESET;
     }
 
+    /**
+     * Displays the map loaded in the current game engine.
+     *
+     * @return The string representation of the displayed map.
+     * @throws FileNotFoundException If the map file is not found.
+     */
     public static String showMap() throws FileNotFoundException
     {
         WorldMap map = GameEngine.CURRENT_MAP;
@@ -72,6 +95,13 @@ public class TerminalRenderer {
         System.out.println(out.toString());
         return out.toString();
     }
+    /**
+     * The main method demonstrates the usage of the TerminalRenderer class by rendering a welcome message,
+     * rendering a sample menu, and displaying a map.
+     *
+     * @param args The command-line arguments (not used in this method).
+     * @throws FileNotFoundException If the map file is not found.
+     */
     public static void main(String[] args) throws FileNotFoundException{
         System.out.println(renderWelcome());
         String[] poop = {"Hi", "Bye", "Opti"};
