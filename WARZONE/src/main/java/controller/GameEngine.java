@@ -25,7 +25,7 @@ public class GameEngine {
 
     public static WorldMap CURRENT_MAP;
 
-    public static ArrayList<Player> PLAYER_LIST = new ArrayList<Player>();
+    public static ArrayList<Player> PLAYER_LIST = new ArrayList<Player>(new Player("Priyanshu"));
 
     static {
 
@@ -63,9 +63,14 @@ public class GameEngine {
         while (!input.equals("Exit")) {
 
             switch(input){
-                case "Show Map" : //Show Map;
+                case "Show Map" :
+                    TerminalRenderer.showMap(true);
                 case "Load Map" :  //Load Map;
+                    MapInterface.loadMap(
+                            TerminalRenderer.renderRequestMapFileName()
+                    );
                 case"Add/Remove Player": //We get the final Arraylist of names by addition and removal of player;
+
                 case "Start Game" : //Call Start Map;
                     PlayGame.startGame();
 

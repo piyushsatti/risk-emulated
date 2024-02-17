@@ -154,7 +154,7 @@ public class TerminalRenderer {
     /**
      * Displays the map loaded in the game engine.
      */
-    public static void showMap() {
+    public static void showMap(boolean p_enable_gameview) {
         WorldMap map = GameEngine.CURRENT_MAP;
         StringBuilder out = new StringBuilder();
         HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
@@ -207,6 +207,12 @@ public class TerminalRenderer {
             out.append("\n");
         }
         System.out.println(out);
+    }
+    public static String renderRequestMapFileName(){
+        return "usa9.map";
+    }
+    public static String renderAssignCountries(){
+        return "usa9.map";
     }
 
     /**

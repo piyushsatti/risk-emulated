@@ -1,18 +1,12 @@
 
 package main.java.models;
 
-import main.java.controller.MapInterface;
-import main.java.models.worldmap.Country;
-import main.java.models.worldmap.WorldMap;
-
-import java.io.FileNotFoundException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
-import java.util.HashMap;
 
 public class Player{
-
+   private static int d_latest_playerID =1;
     private int d_playerId;
     private String d_playerName;
     private int d_reinforcements;
@@ -22,11 +16,12 @@ public class Player{
 
     //Constructors
     public Player(String p_playerName){
-        this.d_playerId=0;
+        this.d_playerId=d_latest_playerID;
         this.d_playerName= p_playerName;
         this.d_reinforcements= 0;
         this.d_assignedCountries= new ArrayList<Integer>();
         this.d_orderList = new ArrayDeque<Order>();
+        d_latest_playerID++;
 
     }
 
@@ -148,8 +143,8 @@ public class Player{
     //NOTE TO PIYUSH: need to get the value of l_numberTobeDeployed and l_countryID inside issue_order from user
     public void issue_order(int l_numberTobeDeployed, int l_countryID) {
 
-        //issue order view gives l_numberTobeDeployed,l_countryID
-
+        //issue order view gives l_numberTobeDeployed,l_country
+       // l_country is a string we need l_countryID
         if(this.d_assignedCountries.contains(l_countryID)){
             System.out.println("You own the Country: "+this.d_playerName);
            // System.out.println("The country is: "+ this.d_assignedCountries.get(l_countryID).getD_countryName());

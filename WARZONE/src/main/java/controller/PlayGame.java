@@ -4,6 +4,7 @@ import main.java.models.Order;
 import main.java.models.Player;
 import main.java.models.worldmap.Country;
 import main.java.models.worldmap.WorldMap;
+import main.java.views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -12,13 +13,16 @@ import java.util.HashMap;
 public class PlayGame {
 
 
-    public static void startGame() throws FileNotFoundException {
+    public static void startGame() {
 
         //We need list of players here
         ArrayList<Player> l_listOfPlayers = GameEngine.PLAYER_LIST;
         System.out.println("Assign countries input from user");
         //NOTE TO PIYUSH: Since assigncountries is a command we need a view for it so user can enter it.
+        TerminalRenderer.renderAssignCountries();
         //Assigning Countries
+
+       //change menu in playerloop
          assignCountriesToPlayers(l_listOfPlayers);
          //View to show that the startup phase is done - View StartUp.
 
@@ -143,13 +147,19 @@ public class PlayGame {
     }
 
     public static void gameLoop(ArrayList<Player> p_listOfPlayers ) {
+        do{
 
-        assignReinforcements(p_listOfPlayers);
-        playerOrders(p_listOfPlayers);
-        allOrdersExecuted(p_listOfPlayers);
+            assignReinforcements(p_listOfPlayers);
+            playerOrders(p_listOfPlayers);
+            allOrdersExecuted(p_listOfPlayers);
+            //Call stringview for exit or not.
 
 
-        System.out.println("Game Loop Completed");
+        }while(true);
+
+        //PostExecution View -> current state map. Current Players //Turn Information.
+
+
 
 
     }
