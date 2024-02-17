@@ -254,6 +254,7 @@ public class MapInterface {
     public static boolean validateMap(WorldMap map) {
 
         return (map.isConnected()) && (map.isContinentConnected());
+
     }
 
     /**
