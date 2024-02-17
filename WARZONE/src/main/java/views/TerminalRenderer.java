@@ -1,6 +1,16 @@
 package main.java.views;
 
+import main.java.controller.MapInterface;
+import main.java.models.worldmap.WorldMap;
 import main.java.utils.TerminalColors;
+import main.java.models.worldmap.Continent;
+import main.java.models.worldmap.Country;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 public class TerminalRenderer {
     public static String renderWelcome() {
@@ -35,9 +45,38 @@ public class TerminalRenderer {
         return out + TerminalColors.ANSI_BLUE + "============================" + TerminalColors.ANSI_RESET;
     }
 
-    public static void main(String[] args) {
+    public static String showMap(WorldMap map) throws FileNotFoundException
+    {
+        //map = MapInterface.loadMap("usa9.map");
+        StringBuilder out = new StringBuilder();
+        HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
+        for (Country c : map.getCountries().values()) {
+            List<Country> temp= continentCountriesMap.getOrDefault(c.getD_continent(),new ArrayList<>());
+            temp.add(c);
+            continentCountriesMap.put(c.getD_continent(),temp);
+        }
+        for(Continent continent : continentCountriesMap.keySet())
+        {
+            String continentName = continent.getContinentName();
+            out.append(continentName);
+            out.append("\n\t");
+            for (Country country : continentCountriesMap.get(continent)) {
+                out.append(country.getD_countryName());
+                out.append("\n\t\t");
+                for (Country borderCountries : country.getBorderCountries().values()) {
+                    out.append(borderCountries.getD_countryName()).append(" ");
+                }
+                out.append("\n\t");
+            }
+            out.append("\n");
+        }
+        System.out.println(out.toString());
+        return out.toString();
+    }
+    public static void main(String[] args) throws FileNotFoundException{
         System.out.println(renderWelcome());
         String[] poop = {"Hi", "Bye", "Opti"};
         System.out.println(renderMenu("Main Menu", poop));
+        showMap(MapInterface.loadMap("usa9.map"));
     }
 }

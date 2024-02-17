@@ -49,4 +49,10 @@ public class Continent {
     public int getBonus() {
         return bonus;
     }
+
+    //added by me
+    public String getContinentName()
+    {
+        return d_continentName;
+    }
 }

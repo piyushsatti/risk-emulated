@@ -32,8 +32,6 @@ public class CommandValidator {
 
         l_startUpCommands.add("gameplayer");
 
-        l_startUpCommands.add("assigncountries");
-
         d_commandGamePhaseMap.put("startUp", l_startUpCommands);
 
         List<String> l_mainGameLoopCommands = new ArrayList<>();
@@ -43,7 +41,7 @@ public class CommandValidator {
         d_commandGamePhaseMap.put("mainGameLoop", l_mainGameLoopCommands);
 
         d_validCommandList = new ArrayList<>(Arrays.asList("editcontinent", "editcountry", "editneighbor", "showmap",
-                "savemap", "editmap", "validatemap", "loadmap", "gameplayer", "deploy", "assigncountries"));
+                "savemap", "editmap", "validatemap", "loadmap", "gameplayer", "deploy"));
 
     }
 
@@ -91,9 +89,7 @@ public class CommandValidator {
 
                 throw new InvalidCommandException("invalid command,enter: deploy countryId num");
 
-            } else if ((mainCommand.equals("showmap") || mainCommand.equals("validatemap") ||
-
-                    mainCommand.equals("assigncountries")) && l_command.length != 1) {
+            } else if ((mainCommand.equals("showmap") || mainCommand.equals("validatemap")) && l_command.length != 1) {
 
                 throw new InvalidCommandException("invalid command, must not have options or parameters");
 
@@ -406,10 +402,7 @@ public class CommandValidator {
 
         } else if (mainCommand.equals("loadmap")) {//method to load map
 
-        } else if (mainCommand.equals("assigncountries")) {//method to assign countries
-
         }
-
     }
 
     private void checkEditCommandsValidity(String[] p_lCommand) throws InvalidCommandException,NumberFormatException {
