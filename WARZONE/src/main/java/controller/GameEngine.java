@@ -45,11 +45,10 @@ public class GameEngine {
 
     public static void playerLoop() throws FileNotFoundException {
 
-<<<<<<< Updated upstream
-=======
+
         //Need A view for what needs to be done;
 
->>>>>>> Stashed changes
+
         //System.out.println(TerminalRenderer.renderWelcome()); Welcome to the game screen
 
         String[] menu_options = {"Show Map","Load Map","Add/Remove Player", "Start Game"};

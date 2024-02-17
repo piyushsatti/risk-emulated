@@ -37,7 +37,7 @@ public class PlayGame {
             Integer key = entry.getKey();
             main.java.models.worldmap.Country value = entry.getValue();
             Player p = d_Players.get(playerNumber);
-            p.setAssignedCountries(key, value);
+            p.setAssignedCountries(key);
 
             playerNumber++;
         }
@@ -52,6 +52,28 @@ public class PlayGame {
         }
 
     }
+
+    //Checking if player has placed all his troops.
+    public static boolean allTroopsPlaced(ArrayList<Player> p_Players){
+        for(Player l_player : p_Players){
+            if(l_player.getReinforcements()!=0){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
+    //Checking if all orders of each player have been executed.
+    public static boolean allOrdersExecuted(ArrayList<Player> p_Players){
+        for(Player l_player : p_Players){
+            if(!l_player.d_orderList.isEmpty()){
+                return false;
+            }
+        }
+        return true;
+    }
+
 
 
     public static void gameloop(ArrayList<Player> l_listOfPlayers ) throws FileNotFoundException{
