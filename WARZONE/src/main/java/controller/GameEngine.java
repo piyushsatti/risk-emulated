@@ -2,6 +2,7 @@ package main.java.controller;
 
 import main.java.models.Order;
 import main.java.models.Player;
+import main.java.models.worldmap.WorldMap;
 import main.java.utils.TerminalColors;
 import main.java.views.TerminalRenderer;
 
@@ -11,81 +12,33 @@ import java.util.Scanner;
 
 public class GameEngine {
 
-    enum GAME_PHASE {
+    public enum GAME_PHASES {
         MAIN_MENU,
         MAP_EDITOR,
         GAMEPLAY
     }
 
-    private static GAME_PHASE game_phase = GAME_PHASE.MAIN_MENU;
+    public static GAME_PHASES CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
 
     public static String MAPS_FOLDER = "WARZONE/src/main/resources/maps/";
 
-    public static void playerLoop(int c) throws FileNotFoundException {
+    public static WorldMap CURRENT_MAP;
 
-        System.out.println("Start of the Game");
+    public static ArrayList<Player> PLAYER_LIST = new ArrayList<Player>();
 
-        //Show Map
-        //LoadMap
+    static {
 
 
-        /********************************************************* Adding Players and Assigncountries *************/
-        //Add and remove player - Player arraylist
-        //Example of how Add Player works
-        ArrayList<String> names = new ArrayList<>();
-        names.add("Dev");
-        names.add("Priyanshu");
-        names.add("Piyush");
-         //NOTE TO PIYUSH: need to get ArrayList of Players to be added or removed from user through command prompt
-        Player.addPlayer(names);
-        System.out.println("Displaying.........");
-//         Player.displayPlayers();
-        // Assigning Countries to each player
-        Player.assignCountriesToPlayers();
-        ArrayList<Player> d_listOfPlayers = Player.getPlayers();
-        //************************************** MAIN LOOP **************************************//
-        for(Player player : d_listOfPlayers){
-            int l_numberOfTroops = Math.max((int) player.getAssignedCountries().size() / 3, 3);
-            player.setReinforcements(l_numberOfTroops);
-//            player.printPlayerDetails();
-//            System.out.println(" ");
+        try {
+
+            CURRENT_MAP = MapInterface.loadMap("usa9.map");
+
+        } catch (FileNotFoundException e) {
+
+            throw new RuntimeException(e);
 
         }
 
-        //****************issue order ***************************//
-
-        int totalplayers = d_listOfPlayers.size();
-
-        int playerNumber =0;
-
-        for(int i=0;i<3;i++){
-            //NOTE isse_order should not have parameters according to project requirements it is just for testing.
-            d_listOfPlayers.get(0).issue_order(1,4);
-
-            d_listOfPlayers.get(1).issue_order(1,2);
-
-            d_listOfPlayers.get(2).issue_order(1,3);
-
-        }
-
-        while(!Player.allOrdersExecuted(d_listOfPlayers)){
-
-            if((playerNumber % totalplayers == 0) && playerNumber!=0){
-
-                playerNumber =0;
-
-            }
-
-            if (!d_listOfPlayers.get(playerNumber).getOrderList().isEmpty()) {
-
-                Order order = d_listOfPlayers.get(playerNumber).next_order();
-
-                order.execute_order();
-            }
-
-            playerNumber++;
-
-        }
     }
 
     public static void startgame() throws FileNotFoundException{
@@ -139,19 +92,18 @@ public class GameEngine {
     }
     public static void playerLoop() throws FileNotFoundException {
 
-
         //System.out.println(TerminalRenderer.renderWelcome()); Welcome to the game screen
 
         String[] menu_options = {"Show Map","Load Map","Add/Remove Player", "Start Game"};
 
         System.out.println(TerminalRenderer.renderMenu("Main Menu", menu_options));
 
-
         Scanner in = new Scanner(System.in);
+
         String input = in.nextLine();
+
         //Validate Command
         while(!input.equals("Exit")){
-
 
             switch(input){
                 case "Show Map" : //Show Map;
@@ -167,7 +119,6 @@ public class GameEngine {
             //What is the next input
             input = in.nextLine();
         }
-
 
     }
 
@@ -191,35 +142,68 @@ public class GameEngine {
 
         } else if (menu_options[user_in].equals("Map Editor")) {
 
-            game_phase = GAME_PHASE.MAP_EDITOR;
+            CURRENT_GAME_PHASE = GAME_PHASES.MAP_EDITOR;
 
         } else if (menu_options[user_in].equals("Play Game")) {
 
-            game_phase = GAME_PHASE.GAMEPLAY;
+            CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
 
         }
 
     }
 
-    public static void mapEditor() {
-        // trigger sub-routines for map editor
+    public static void mapEditor() throws FileNotFoundException {
+
+        if (GameEngine.CURRENT_GAME_PHASE != GAME_PHASES.MAP_EDITOR) return;
+
+        try {
+            WorldMap map = MapInterface.loadMap(
+                    TerminalRenderer.renderMapEditorMenu()
+            );
+        } catch (FileNotFoundException e) {
+            TerminalRenderer.renderError("Map file entered does not exist" + e.toString());
+        }
+
+        String input_command;
+
+        while (true) {
+
+            // render for help command and list of commands that can be used for mapeditor\
+            CommandValidator command = new CommandValidator();
+
+            input_command = TerminalRenderer.renderMapEditorCommands();
+
+            if (input_command.equals("exit")) break;
+
+            try {
+
+                command.addCommand(input_command);
+
+            } catch (exceptions.InvalidCommandException e) {
+
+                TerminalRenderer.renderError("Invalid Command Entered: " + input_command + "\n" + e.toString());
+
+            }
+
+            command.processValidCommand();
+
+        }
+
     }
 
     public static void main(String[] args) throws FileNotFoundException {
 
-        playerLoop();
         startingMenu();
 
-        if (game_phase == GAME_PHASE.MAP_EDITOR) {
+        if (CURRENT_GAME_PHASE == GAME_PHASES.MAP_EDITOR) {
 
             mapEditor();
 
-        } else if (game_phase == GAME_PHASE.GAMEPLAY) {
+        } else if (CURRENT_GAME_PHASE == GAME_PHASES.GAMEPLAY) {
 
             playerLoop();
 
         }
     }
-
 
 }

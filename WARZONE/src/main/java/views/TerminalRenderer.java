@@ -1,14 +1,13 @@
 package main.java.views;
 
-import main.java.controller.MapInterface;
-import main.java.models.worldmap.WorldMap;
-import main.java.utils.TerminalColors;
+import main.java.controller.GameEngine;
 import main.java.models.worldmap.Continent;
 import main.java.models.worldmap.Country;
+import main.java.models.worldmap.WorldMap;
+import main.java.utils.TerminalColors;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -45,9 +44,9 @@ public class TerminalRenderer {
         return out + TerminalColors.ANSI_BLUE + "============================" + TerminalColors.ANSI_RESET;
     }
 
-    public static String showMap(WorldMap map) throws FileNotFoundException
+    public static String showMap() throws FileNotFoundException
     {
-        //map = MapInterface.loadMap("usa9.map");
+        WorldMap map = GameEngine.CURRENT_MAP;
         StringBuilder out = new StringBuilder();
         HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
         for (Country c : map.getCountries().values()) {
@@ -77,6 +76,6 @@ public class TerminalRenderer {
         System.out.println(renderWelcome());
         String[] poop = {"Hi", "Bye", "Opti"};
         System.out.println(renderMenu("Main Menu", poop));
-        showMap(MapInterface.loadMap("usa9.map"));
+        //showMap(MapInterface.loadMap("usa9.map"));
     }
 }

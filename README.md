@@ -1,6 +1,14 @@
 # SOEN6441_Team24_Warzone
 
-# Naming conventions
+# How to Run.
+
+## MapEditor Command
+
+## GamePlay Commands
+
+# Design and Project
+
+## Naming conventions
 
 - class names in CamelCase that starts with a capital letter
 - data members start with d_
@@ -19,7 +27,7 @@
 - tests are in a separate folder that has the exact same structure as the code folder
 - 1-1 relationship between tested classes and test classes
 
-# To-Do
+## Design To-Do
 - [ ] Map-Editor
   - [ ] User-driven creation/deletion of map elements: country, continent, and connectivity between countries. Map editor commands:
     - [ ] editcontinent -add continentID continentvalue -remove continentID 

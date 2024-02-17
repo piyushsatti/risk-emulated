@@ -216,7 +216,9 @@ public class MapInterface {
     }
 
     public static boolean validateMap(WorldMap map) {
+
         return (map.isConnected()) && (map.isContinentConnected());
+
     }
 
     public static void main(String[] args) throws IOException {
