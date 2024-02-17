@@ -368,7 +368,7 @@ public class CommandValidator {
             }
             for(int j=0;j<d_removeContinentIdList.size();j++)
             {
-                CommandInterface.removeContinentId(d_removeContinentIdList.get(j));
+                CommandInterface.removeContinent(d_removeContinentIdList.get(j));
             }
 
         } else if (l_mainCommand.equals("editcountry")) {
@@ -411,11 +411,11 @@ public class CommandValidator {
             for(int i = 0; i< d_addCountryIdContinentIdList.size(); i++)
             {
                 List<Integer> pair = d_addCountryIdContinentIdList.get(i);
-                CommandInterface.addCountryIdContinentId(pair.get(0), pair.get(1));
+                // CommandInterface.addCountry(pair.get(0), pair.get(1));
             }
             for(int i=0;i<d_removeCountryIdList.size();i++)
             {
-                CommandInterface.removeCountryId(d_removeCountryIdList.get(i));
+                // CommandInterface.removeCountryId(d_removeCountryIdList.get(i));
             }
 
         } else if (l_mainCommand.equals("editneighbor")) {
@@ -466,12 +466,12 @@ public class CommandValidator {
             for(int i=0;i<d_addCountryIdNeighborCountryIdList.size();i++)
             {
                 List<Integer> l_pair = d_addCountryIdNeighborCountryIdList.get(i);
-                CommandInterface.addCountryIdNeighborCountryId(l_pair.get(0), l_pair.get(1));
+                // CommandInterface.addCountryIdNeighborCountryId(l_pair.get(0), l_pair.get(1));
             }
             for(int i=0;i<d_removeCountryIdNeighborCountryIdList.size();i++)
             {
                 List<Integer> l_pair = d_removeCountryIdNeighborCountryIdList.get(i);
-                CommandInterface.removeCountryIdNeighborCountryId(l_pair.get(0), l_pair.get(1));
+                // CommandInterface.removeCountryIdNeighborCountryId(l_pair.get(0), l_pair.get(1));
             }
         } else if (l_mainCommand.equals("gameplayer")) {
 

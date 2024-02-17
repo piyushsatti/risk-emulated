@@ -4,7 +4,6 @@ package main.java.controller;
 import main.java.controller.commands.CommandValidator;
 import main.java.models.Player;
 import main.java.models.worldmap.WorldMap;
-import main.java.utils.TerminalColors;
 import main.java.views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
@@ -16,7 +15,8 @@ public class GameEngine {
     public enum GAME_PHASES {
         MAIN_MENU,
         MAP_EDITOR,
-        GAMEPLAY
+        GAMEPLAY,
+        SETTINGS
     }
 
     public static GAME_PHASES CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
@@ -92,21 +92,39 @@ public class GameEngine {
 
         Scanner in = new Scanner(System.in);
 
-        int user_in = Integer.parseInt(in.nextLine()) - 1;
+        String user_in;
 
-        if ((user_in >= menu_options.length) || (user_in < 0)) {
+        while (true) {
 
-            System.out.println(TerminalColors.ANSI_PURPLE + "Thank you for playing!" + TerminalColors.ANSI_RESET);
+            user_in = in.nextLine();
 
-            System.exit(0);
+            if (user_in.strip().replace(" ", "").equalsIgnoreCase("settings")) {
 
-        } else if (menu_options[user_in].equals("Map Editor")) {
+                CURRENT_GAME_PHASE = GAME_PHASES.SETTINGS;
 
-            CURRENT_GAME_PHASE = GAME_PHASES.MAP_EDITOR;
+                return;
 
-        } else if (menu_options[user_in].equals("Play Game")) {
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("mapeditor")) {
 
-            CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
+                CURRENT_GAME_PHASE = GAME_PHASES.MAP_EDITOR;
+
+                return;
+
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("playgame")) {
+
+                CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
+
+                return;
+
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
+
+                TerminalRenderer.renderExit();
+
+            } else {
+
+                TerminalRenderer.renderMessage("Not an option. Try again.");
+
+            }
 
         }
 
@@ -124,7 +142,7 @@ public class GameEngine {
 
         while (true) {
 
-            // render for help command and list of commands that can be used for mapeditor\
+            // render for help command and list of commands that can be used for mapeditor
             CommandValidator command = new CommandValidator();
 
             input_command = TerminalRenderer.renderMapEditorCommands();
@@ -134,11 +152,13 @@ public class GameEngine {
                 TerminalRenderer.renderExit();
 
                 break;
+
             }
 
             try {
 
                 command.addCommand(input_command);
+
                 command.processValidCommand();
 
             } catch (exceptions.InvalidCommandException e) {
@@ -146,11 +166,12 @@ public class GameEngine {
                 TerminalRenderer.renderError("Invalid Command Entered: " + input_command + "\n" + e.toString());
 
             }
+
         }
 
     }
 
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
 
         while (CURRENT_GAME_PHASE == GAME_PHASES.MAIN_MENU) {
 

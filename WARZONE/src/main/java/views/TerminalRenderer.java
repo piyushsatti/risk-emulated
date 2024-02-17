@@ -57,6 +57,9 @@ public class TerminalRenderer {
                                 """ +
                         TerminalColors.ANSI_RESET
         );
+
+        System.exit(0);
+
     }
 
     /**
@@ -135,6 +138,16 @@ public class TerminalRenderer {
         Scanner in = new Scanner(System.in);
 
         return in.nextLine();
+
+    }
+
+    public static void renderMessage(String message) {
+
+        System.out.println(
+                TerminalColors.ANSI_BLUE +
+                        message +
+                        TerminalColors.ANSI_RESET
+        );
 
     }
 
