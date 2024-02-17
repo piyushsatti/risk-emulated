@@ -22,9 +22,9 @@ public class Border {
 
     /**
      * Border constructor, requires a Country object
-     * @param country reference to target Country for Border object
+     * @param p_country reference to target Country for Border object
      */
-    public Border(Country country){
-        this.d_target = country;
+    public Border(Country p_country){
+        this.d_target = p_country;
     }
 }

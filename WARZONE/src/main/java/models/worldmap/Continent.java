@@ -20,18 +20,18 @@ public class Continent {
     /**
      * Value of bonus associated with control of the continent
      */
-    private final int bonus;
+    private final int d_bonus;
 
 
     /**
      * Constructor
-     * @param id Integer identifier
-     * @param name Continent name
+     * @param p_id Integer identifier
+     * @param p_name Continent name
      */
-    public Continent(int id, String name, int bonus) {
-        this.d_continentID = id;
-        this.d_continentName = name;
-        this.bonus = bonus; //bonus set to zero for now (to be used in the future)
+    public Continent(int p_id, String p_name, int p_bonus) {
+        this.d_continentID = p_id;
+        this.d_continentName = p_name;
+        this.d_bonus = p_bonus; //bonus set to zero for now (to be used in the future)
     }
 
     /**
@@ -47,10 +47,13 @@ public class Continent {
      * @return Bonus value
      */
     public int getBonus() {
-        return bonus;
+        return d_bonus;
     }
 
-    //added by me
+    /**
+     * Getter method for continent name
+     * @return continent name string
+     */
     public String getContinentName()
     {
         return d_continentName;
