@@ -47,7 +47,7 @@ public class WorldMap {
      */
     public void addCountry(int countryID, int continentID, String countryName){
         if(!this.containsContinent(continentID)) { //does the continent exist?
-            System.out.println("Continent doesn't exist!");
+            //throw exception
             return;
         }
 
@@ -69,7 +69,7 @@ public class WorldMap {
     public void addBorder(int source, int target){
         //check that both countries exist
         if(!(this.containsCountry(source) && this.containsCountry(target))){
-            System.out.println("Country doesn't exist!");
+            //throw exception
             return;
         }
 
@@ -81,7 +81,7 @@ public class WorldMap {
         //check that both countries exist
         for(Integer i : borderList){
             if(!this.containsCountry(i)){
-                System.out.println("Country " + i + " is missing! Abort!");
+                //throw exception
                 return;
             }
         }
@@ -200,7 +200,7 @@ public class WorldMap {
     public void removeBorder(int source, int target){
         //check that both countries exist
         if(!(this.containsCountry(source) && this.containsCountry(target))){
-            System.out.println("Country doesn't exist!");
+            //throw exception
             return;
         }
 
