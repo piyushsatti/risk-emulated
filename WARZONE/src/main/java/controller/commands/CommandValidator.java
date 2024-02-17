@@ -520,13 +520,16 @@ public class CommandValidator {
             d_countryIdNumList.add(l_numReinforcements);
 
         } else if (l_mainCommand.equals("savemap")) {//method to savemap
+            CommandInterface.saveMap();
 
         } else if (l_mainCommand.equals("editmap")) {//method to edit map
+            CommandInterface.editMap();
 
         } else if (l_mainCommand.equals("validatemap")) {//method to validate map
+            CommandInterface.validateMap();
 
         } else if (l_mainCommand.equals("loadmap")) {//method to load map
-
+            CommandInterface.loadCurrentMap();
         }
     }
 
