@@ -1,5 +1,7 @@
 package main.java.models.worldmap;
 
+import main.java.models.worldmap.Continent;
+import main.java.models.worldmap.Country;
 import java.util.ArrayList;
 import java.util.HashMap;
 

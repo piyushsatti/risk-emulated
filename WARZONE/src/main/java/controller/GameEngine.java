@@ -1,5 +1,6 @@
 package main.java.controller;
 
+import controller.PlayGame;
 import main.java.models.Order;
 import main.java.models.Player;
 import main.java.models.worldmap.WorldMap;
@@ -41,57 +42,14 @@ public class GameEngine {
 
     }
 
-    public static void startgame() throws FileNotFoundException{
 
-
-        //We need list of players here
-        ArrayList<Player> l_listOfPlayers = Player.getPlayers();
-
-
-        Player.assignCountriesToPlayers();
-
-
-
-       System.out.println("Assigning Reinforcements");
-        for(Player player : l_listOfPlayers){
-            int l_numberOfTroops = Math.max((int) player.getAssignedCountries().size() / 3, 3);
-            player.setReinforcements(l_numberOfTroops);
-        }
-        System.out.println("Reinforcements Assigned");
-
-
-
-        //Input the parameters for issue orders
-        System.out.println("Please Start issuing orders");
-        int l_totalplayers = l_listOfPlayers.size();
-        int l_playerNumber =0;
-        while(!Player.allTroopsPlaced(l_listOfPlayers)){
-            if((l_playerNumber % l_totalplayers == 0) && l_playerNumber!=0){
-                l_playerNumber =0;}
-            if(l_listOfPlayers.get(l_playerNumber).getReinforcements()!=0){
-                l_listOfPlayers.get(l_playerNumber).issue_order(1,3);}
-
-            l_playerNumber++;
-        }
-
-        //Execute order for all players
-        System.out.println("Executing Orders");
-        while(!Player.allOrdersExecuted(l_listOfPlayers)){
-            if((l_playerNumber % l_totalplayers == 0) && l_playerNumber!=0){
-                l_playerNumber =0;
-            }
-            if (!l_listOfPlayers.get(l_playerNumber).getOrderList().isEmpty()) {
-                Order order = l_listOfPlayers.get(l_playerNumber).next_order();
-                order.execute_order();
-            }
-            l_playerNumber++;
-        }
-        System.out.println("Orders Executed");
-
-
-    }
     public static void playerLoop() throws FileNotFoundException {
 
+<<<<<<< Updated upstream
+=======
+        //Need A view for what needs to be done;
+
+>>>>>>> Stashed changes
         //System.out.println(TerminalRenderer.renderWelcome()); Welcome to the game screen
 
         String[] menu_options = {"Show Map","Load Map","Add/Remove Player", "Start Game"};
@@ -110,7 +68,7 @@ public class GameEngine {
                 case "Load Map" :  //Load Map;
                 case"Add/Remove Player": //We get the final Arraylist of names by addition and removal of player;
                 case "Start Game" : //Call Start Map;
-                     startgame();
+                    PlayGame.startgame();
 
                 default: //exit
                     System.exit(0);
