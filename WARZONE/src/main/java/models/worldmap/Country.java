@@ -22,6 +22,10 @@ public class Country {
 
     private int d_playerID;
 
+    /**
+     * Count of reinforcements currently deployed in country
+     */
+    private int d_reinforcements;
 
     /**
      * HashMap containing the outgoing borders associated with a country
@@ -205,5 +209,19 @@ public class Country {
         this.d_playerID = id;
     }
 
+    /**
+     * Getter method for reinforcement count
+     * @return count of reinforcements on country
+     */
+    public int getReinforcements() {
+        return d_reinforcements;
+    }
 
+    /**
+     * Setter method for reinforcement count of country
+     * @param reinforcements count of reinforcements on country
+     */
+    public void setReinforcements(int reinforcements) {
+        this.d_reinforcements = reinforcements;
+    }
 }
