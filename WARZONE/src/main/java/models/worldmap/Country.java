@@ -20,7 +20,7 @@ public class Country {
      */
     private final String d_countryName;
 
-    private int d_playerID;
+    private int d_country_player_ID;
 
     /**
      * Count of reinforcements currently deployed in country
@@ -187,18 +187,12 @@ public class Country {
      * Getter method for player ID controlling the country
      * @return Player ID Integer
      */
-    public int getPlayerID() {
-        return d_playerID;
-    }
+
 
     /**
      * Setter method used to set the controlling player ID on the country
      * @param id controlling player ID
      */
-    public void setPlayerID(int id) {
-        this.d_playerID = id;
-    }
-
     /**
      * Getter method for reinforcement count
      * @return count of reinforcements on country
@@ -213,5 +207,13 @@ public class Country {
      */
     public void setReinforcements(int reinforcements) {
         this.d_reinforcements = reinforcements;
+    }
+
+    public int getD_country_player_ID() {
+        return d_country_player_ID;
+    }
+
+    public void setD_country_player_ID(int d_country_player_ID) {
+        this.d_country_player_ID = d_country_player_ID;
     }
 }

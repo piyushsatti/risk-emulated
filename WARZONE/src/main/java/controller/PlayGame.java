@@ -13,7 +13,7 @@ import java.util.HashMap;
 public class PlayGame {
 
 
-    public static void startGame() {
+    public static void startGame() throws FileNotFoundException{
 
         //We need list of players here
         ArrayList<Player> l_listOfPlayers = GameEngine.PLAYER_LIST;
@@ -147,15 +147,15 @@ public class PlayGame {
     }
 
     public static void gameLoop(ArrayList<Player> p_listOfPlayers ) {
-        do{
+
 
             assignReinforcements(p_listOfPlayers);
             playerOrders(p_listOfPlayers);
-            allOrdersExecuted(p_listOfPlayers);
+            executingOrders(p_listOfPlayers);
             //Call stringview for exit or not.
 
 
-        }while(true);
+
 
         //PostExecution View -> current state map. Current Players //Turn Information.
 

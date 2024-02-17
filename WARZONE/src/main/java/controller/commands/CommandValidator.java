@@ -315,7 +315,7 @@ public class CommandValidator {
 
         if (l_mainCommand.equals("showmap") && (GameEngine.CURRENT_GAME_PHASE == GameEngine.GAME_PHASES.MAP_EDITOR)) {
 
-            TerminalRenderer.showMap(); //method to show all continents, countries and their neighbors
+            TerminalRenderer.showMap(true); //method to show all continents, countries and their neighbors
 
         } else if (l_mainCommand.equals("showmap") && (GameEngine.CURRENT_GAME_PHASE == GameEngine.GAME_PHASES.GAMEPLAY)) {
 
@@ -542,18 +542,6 @@ public class CommandValidator {
      * @param args
      * @throws InvalidCommandException
      */
-    public static void main(String[] args) throws InvalidCommandException {
 
-        System.out.println("enter command:");
-
-        Scanner sc = new Scanner(System.in);
-
-        String l_command = sc.nextLine();
-
-        CommandValidator commandValidator = new CommandValidator();
-
-        commandValidator.addCommand(l_command);
-
-    }
 
 }

@@ -25,7 +25,7 @@ public class GameEngine {
 
     public static WorldMap CURRENT_MAP;
 
-    public static ArrayList<Player> PLAYER_LIST = new ArrayList<Player>(new Player("Priyanshu"));
+    public static ArrayList<Player> PLAYER_LIST = new ArrayList<Player>();
 
     static {
 
@@ -35,7 +35,7 @@ public class GameEngine {
             CURRENT_MAP = MapInterface.loadMap("usa9.map");
 
         } catch (FileNotFoundException e) {
-
+            System.out.println("Error");
             throw new RuntimeException(e);
 
         }
@@ -51,38 +51,60 @@ public class GameEngine {
 
         TerminalRenderer.renderWelcome();
 
-        String[] menu_options = {"Show Map","Load Map","Add/Remove Player", "Start Game"};
+        String[] menu_options = {"Show Map", "Load Map", "Add/RemovePlayer", "StartGame"};
 
-        TerminalRenderer.renderMenu("Main Menu", menu_options);
+        TerminalRenderer.renderMenu(
+                "Main Menu",
+                menu_options
+        );
 
         Scanner in = new Scanner(System.in);
 
-        String input = in.nextLine();
+        String user_in = "";
 
-        //Validate Command
-        while (!input.equals("Exit")) {
+        while (true) {
 
-            switch(input){
-                case "Show Map" :
-                    TerminalRenderer.showMap(true);
-                case "Load Map" :  //Load Map;
-                    MapInterface.loadMap(
-                            TerminalRenderer.renderRequestMapFileName()
-                    );
-                case"Add/Remove Player": //We get the final Arraylist of names by addition and removal of player;
+            user_in = in.nextLine();
 
-                case "Start Game" : //Call Start Map;
-                    PlayGame.startGame();
 
-                default: //exit
-                    System.exit(0);
-             }
+            if (user_in.strip().replace(" ", "").equalsIgnoreCase("showmap")) {
 
-            //What is the next input
-            input = in.nextLine();
+                TerminalRenderer.showMap(true);
+                return;
+
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("loadmap")) {
+
+                MapInterface.loadMap(
+                        TerminalRenderer.renderRequestMapFileName()
+                );
+
+                return;
+
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("Add/RemovePlayer")) {
+
+                CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
+
+                return;
+
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("startgame")) {
+
+                PlayGame.startGame();
+
+                return;
+
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
+
+                TerminalRenderer.renderExit();
+
+            } else {
+
+                TerminalRenderer.renderMessage("Not an option. Try again.");
+
+            }
+
         }
-
     }
+
 
     private static void startingMenu() {
 
@@ -176,7 +198,12 @@ public class GameEngine {
 
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
+
+    Player p = new Player("Priyanshu");
+    PLAYER_LIST.add(p);
+
+
 
         while (CURRENT_GAME_PHASE == GAME_PHASES.MAIN_MENU) {
 
