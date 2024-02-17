@@ -79,6 +79,12 @@ public class Country {
         return d_continent;
     }
 
+    public int getD_country_player_ID() {
+        return d_country_player_ID;
+    }
+
+
+
     /**
      * Method which adds Border to d_borders Hashmap
      * @param country country which the added border will point to
@@ -209,11 +215,9 @@ public class Country {
         this.d_reinforcements = reinforcements;
     }
 
-    public int getD_country_player_ID() {
-        return d_country_player_ID;
-    }
-
     public void setD_country_player_ID(int d_country_player_ID) {
         this.d_country_player_ID = d_country_player_ID;
     }
+
+
 }

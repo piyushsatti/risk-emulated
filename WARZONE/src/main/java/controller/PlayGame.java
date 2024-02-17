@@ -9,6 +9,7 @@ import main.java.views.TerminalRenderer;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class PlayGame {
 
@@ -17,12 +18,8 @@ public class PlayGame {
 
         //We need list of players here
         ArrayList<Player> l_listOfPlayers = GameEngine.PLAYER_LIST;
-        System.out.println("Assign countries input from user");
-        //NOTE TO PIYUSH: Since assigncountries is a command we need a view for it so user can enter it.
-        TerminalRenderer.renderAssignCountries();
-        //Assigning Countries
+        System.out.println("Assigning countries");
 
-       //change menu in playerloop
          assignCountriesToPlayers(l_listOfPlayers);
          //View to show that the startup phase is done - View StartUp.
 
@@ -64,11 +61,13 @@ public class PlayGame {
        HashMap<Integer, Country> listOfCountries = map.getCountries();
         int total_players = p_listOfPlayers.size();
         int playerNumber =0;
-        for(HashMap.Entry<Integer, main.java.models.worldmap.Country> entry : listOfCountries.entrySet()) {
+        for(HashMap.Entry<Integer,Country> entry : listOfCountries.entrySet()) {
             if ((playerNumber % total_players == 0) && playerNumber != 0) {
                 playerNumber =0;
             }
             Integer key = entry.getKey();
+            Country country = entry.getValue();
+            country.setD_country_player_ID(p_listOfPlayers.get(playerNumber).getPlayerId());
             p_listOfPlayers.get(playerNumber).setAssignedCountries(key);
             playerNumber++;
         }
@@ -149,9 +148,51 @@ public class PlayGame {
     public static void gameLoop(ArrayList<Player> p_listOfPlayers ) {
 
 
-            assignReinforcements(p_listOfPlayers);
-            playerOrders(p_listOfPlayers);
-            executingOrders(p_listOfPlayers);
+        String[] menu_options = {"Show Map","Start Game"};
+
+        TerminalRenderer.renderMenu(
+                "Main Menu",
+                menu_options
+        );
+
+        Scanner in = new Scanner(System.in);
+
+        String user_in = "";
+
+        while (true) {
+
+            user_in = in.nextLine();
+
+
+            if (user_in.strip().replace(" ", "").equalsIgnoreCase("showmap")) {
+
+                TerminalRenderer.showMap(true);
+                return;
+
+
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("startgame")) {
+
+                break;
+
+            }
+
+            else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
+
+                TerminalRenderer.renderExit();
+
+            } else {
+
+                TerminalRenderer.renderMessage("Not an option. Try again.");
+
+            }
+
+        }
+
+
+        assignReinforcements(p_listOfPlayers);
+        playerOrders(p_listOfPlayers);
+        executingOrders(p_listOfPlayers);
+
             //Call stringview for exit or not.
 
 

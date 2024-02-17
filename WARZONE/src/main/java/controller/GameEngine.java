@@ -55,7 +55,7 @@ public class GameEngine {
 
         TerminalRenderer.renderWelcome();
 
-        String[] menu_options = {"Show Map", "Load Map", "Add/RemovePlayer", "StartGame"};
+        String[] menu_options = {"Show Map", "Load Map", "Add/RemovePlayer","Assign Countries"};
 
         TerminalRenderer.renderMenu(
                 "Main Menu",
@@ -90,13 +90,22 @@ public class GameEngine {
 
                 return;
 
-            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("startgame")) {
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("assigncountries")) {
 
-                PlayGame.startGame();
-
+                if(PLAYER_LIST.isEmpty()){
+                    TerminalRenderer.renderMessage("!!!PLAYER LIST IS EMPTY!!! \n Please add players to the list" );
+                }
+                else if(CURRENT_MAP.getD_countries().size()>=PLAYER_LIST.size()) {
+                    PlayGame.startGame();
+                }
+                else{
+                    TerminalRenderer.renderMessage("!!!Players are more than countries!!!");
+                }
                 return;
 
-            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
+            }
+
+            else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
 
                 TerminalRenderer.renderExit();
 
@@ -203,8 +212,8 @@ public class GameEngine {
 
     public static void main(String[] args) throws FileNotFoundException {
 
-    Player p = new Player("Priyanshu");
-    PLAYER_LIST.add(p);
+     Player p = new Player("Priyanshu");
+     PLAYER_LIST.add(p);
 
 
 
