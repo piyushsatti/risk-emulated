@@ -8,12 +8,13 @@ public class Order {
     int d_playerOrderID;
 
     private final int d_fromCountryID;
+    private final int d_toCountryID;
     private final int d_reinforcementsDeployed;
 
     public Order(int p_playerOrderID,int p_fromCountryID,int p_reinforcementsDeployed){
         this.d_playerOrderID = p_playerOrderID;
         this.d_fromCountryID = p_fromCountryID;
-         this.d_toCountryID = -1;
+        this.d_toCountryID = -1;
         this.d_reinforcementsDeployed = p_reinforcementsDeployed;
     }
 //    public void printOrder(){

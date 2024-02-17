@@ -1,7 +1,5 @@
 package main.java.models.worldmap;
 
-import main.java.models.worldmap.Continent;
-import main.java.models.worldmap.Country;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -57,7 +55,6 @@ public class WorldMap {
     }
     /**
      * Method which returns list of country in form of a HashMap <CountryID,Country>
-
      */
     public  HashMap<Integer, Country> getD_countries() {
         return this.d_countries;
