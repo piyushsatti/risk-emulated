@@ -1,45 +1,6 @@
 package main.java.controller.commands;
 
 import main.java.controller.GameEngine;
-import main.java.utils.exceptions.CountryDoesNotExistException;
-
-public class CommandInterface {
-
-    public static void addContinentIdContinentVal(Integer integer, Integer integer1) {
-
-        // GameEngine.CURRENT_MAP.addContinent();
-
-    }
-
-    public static void removeContinent(int continentId) {
-
-        GameEngine.CURRENT_MAP.removeContinent(continentId);
-
-    }
-
-    public static void addCountry(int country_id, int continent_id, String country_name) {
-
-        GameEngine.CURRENT_MAP.addCountry(country_id, continent_id, country_name);
-
-    }
-
-    public static void removeCountry(int Country_id) {
-
-        GameEngine.CURRENT_MAP.removeCountry(Country_id);
-
-    }
-
-    public static void addNeighboursToCountry(int country_id, int neighbour_id) {
-
-        GameEngine.CURRENT_MAP.addBorder(country_id, neighbour_id);
-
-    }
-
-    public static void removeNeighboursToCountry(int country_id, int neighbour_id) {
-
-        // GameEngine.CURRENT_MAP.getCountry(country_id).removeBorder(neighbour_id);
-
-=======
 import main.java.controller.MapInterface;
 import main.java.models.Player;
 import main.java.utils.exceptions.ContinentDoesNotExistException;
@@ -49,7 +10,6 @@ import main.java.utils.exceptions.PlayerDoesNotExistException;
 import java.io.FileNotFoundException;
 
 public class CommandInterface {
-
     public static void addContinentIdContinentVal(String p_continentName, String p_continentVal) {
         int highestId = 0;
         for(int i : GameEngine.CURRENT_MAP.getContinents().keySet())
@@ -118,7 +78,6 @@ public class CommandInterface {
         }
         GameEngine.CURRENT_MAP.removeBorder(l_countryId,l_neighborCountryId);
         GameEngine.CURRENT_MAP.removeBorder(l_neighborCountryId,l_countryId);
->>>>>>> Stashed changes
     }
 
     public static void addPlayers(String p_playerName) {
