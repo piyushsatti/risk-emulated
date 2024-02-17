@@ -8,7 +8,21 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * The MapInterface class provides functionality for loading, saving, and validating world maps.
+ * It includes methods to load a map from a file, save a map to a file, and validate the integrity
+ * of a map.
+ */
+
 public class MapInterface {
+
+    /**
+     * Creates a File object from the given map name.
+     *
+     * @param p_map_name The name of the map file.
+     * @return The File object representing the map file.
+     * @throws FileNotFoundException If the specified file does not exist.
+     */
 
     private static File createFileObjectFromFileName(String p_map_name) throws FileNotFoundException {
 
@@ -27,7 +41,14 @@ public class MapInterface {
         }
 
     }
-
+    /**
+     * Loads a world map from the specified file.
+     *
+     * @param p_map_name The name of the map file to load.
+     * @return The loaded WorldMap object.
+     * @throws FileNotFoundException    If the specified file does not exist.
+     * @throws NumberFormatException    If there is an error in parsing numeric data.
+     */
     public static WorldMap loadMap(String p_map_name) throws FileNotFoundException, NumberFormatException {
 
         File map_file_obj;
@@ -143,6 +164,14 @@ public class MapInterface {
 
     }
 
+    /**
+     * Saves the provided map to a file with the given file name.
+     *
+     * @param p_file_name The name of the file to save the map to.
+     * @param p_map       The WorldMap object to save.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
+
     public static void saveMap(String p_file_name, WorldMap p_map) throws IOException {
 
         File outputFile = new File(GameEngine.MAPS_FOLDER + p_file_name);
@@ -215,10 +244,23 @@ public class MapInterface {
 
     }
 
+    /**
+     * Validates the integrity of the provided map.
+     *
+     * @param map The WorldMap object to validate.
+     * @return True if the map is valid, false otherwise.
+     */
+
     public static boolean validateMap(WorldMap map) {
         return (map.isConnected()) && (map.isContinentConnected());
     }
 
+    /**
+     * The main method demonstrates loading a map, validating it, and then saving it to a file.
+     *
+     * @param args The command-line arguments (not used in this method).
+     * @throws IOException If an I/O error occurs while loading or saving the map.
+     */
     public static void main(String[] args) throws IOException {
 
         // WorldMap map = MapInterface.loadMap("samplemaps/usa8regions.map");
