@@ -297,11 +297,11 @@ public class CommandValidator {
 
         int l_len = p_lCommand.length;
 
-        if (l_mainCommand.equals("showmap") && (GameEngine.game_phase == GameEngine.GAME_PHASE.MAP_EDITOR)) {
+        if (l_mainCommand.equals("showmap") && (GameEngine.CURRENT_GAME_PHASE == GameEngine.GAME_PHASES.MAP_EDITOR)) {
 
             TerminalRenderer.showMap(); //method to show all continents, countries and their neighbors
 
-        } else if (l_mainCommand.equals("showmap") && (GameEngine.game_phase == GameEngine.GAME_PHASE.GAMEPLAY)) {
+        } else if (l_mainCommand.equals("showmap") && (GameEngine.CURRENT_GAME_PHASE == GameEngine.GAME_PHASES.GAMEPLAY)) {
 
             //method to show all countries, continents, armies on each country, ownership, connecitvity
             TerminalRenderer.showCurrentGameMap();
@@ -508,13 +508,16 @@ public class CommandValidator {
             d_countryIdNumList.add(l_numReinforcements);
 
         } else if (l_mainCommand.equals("savemap")) {//method to savemap
+            CommandInterface.saveMap();
 
         } else if (l_mainCommand.equals("editmap")) {//method to edit map
+            CommandInterface.editMap();
 
         } else if (l_mainCommand.equals("validatemap")) {//method to validate map
+            CommandInterface.validateMap();
 
         } else if (l_mainCommand.equals("loadmap")) {//method to load map
-
+            CommandInterface.loadCurrentMap();
         }
     }
 

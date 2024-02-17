@@ -25,4 +25,16 @@ public class CommandInterface {
 
     public static void removePlayers(String s) {
     }
+
+    public static void loadCurrentMap() {
+    }
+
+    public static void validateMap() {
+    }
+
+    public static void saveMap() {
+    }
+
+    public static void editMap() {
+    }
 }
