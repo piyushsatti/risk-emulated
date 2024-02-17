@@ -13,7 +13,6 @@ import java.util.Scanner;
  * It includes methods to load a map from a file, save a map to a file, and validate the integrity
  * of a map.
  */
-
 public class MapInterface {
 
     /**
@@ -23,7 +22,6 @@ public class MapInterface {
      * @return The File object representing the map file.
      * @throws FileNotFoundException If the specified file does not exist.
      */
-
     private static File createFileObjectFromFileName(String p_map_name) throws FileNotFoundException {
 
         File map_file_obj = new File(GameEngine.MAPS_FOLDER + p_map_name);
@@ -41,6 +39,7 @@ public class MapInterface {
         }
 
     }
+
     /**
      * Loads a world map from the specified file.
      *
@@ -169,11 +168,11 @@ public class MapInterface {
      * Saves the provided map to a file with the given file name.
      *
      * @param p_file_name The name of the file to save the map to.
-     * @param p_map       The WorldMap object to save.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
+    public static void saveMap(String p_file_name) throws IOException {
 
-    public static void saveMap(String p_file_name, WorldMap p_map) throws IOException {
+        WorldMap p_map = GameEngine.CURRENT_MAP;
 
         File outputFile = new File(GameEngine.MAPS_FOLDER + p_file_name);
 
@@ -251,7 +250,6 @@ public class MapInterface {
      * @param map The WorldMap object to validate.
      * @return True if the map is valid, false otherwise.
      */
-
     public static boolean validateMap(WorldMap map) {
 
         return (map.isConnected()) && (map.isContinentConnected());
@@ -266,13 +264,11 @@ public class MapInterface {
      */
     public static void main(String[] args) throws IOException {
 
-        // WorldMap map = MapInterface.loadMap("samplemaps/usa8regions.map");
-
         WorldMap map = MapInterface.loadMap("usa9.map");
 
         System.out.println(MapInterface.validateMap(map));
 
-        MapInterface.saveMap("test_out.map", map);
+        MapInterface.saveMap("test_out.map");
 
     }
 
