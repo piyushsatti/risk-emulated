@@ -1,8 +1,13 @@
 
 package main.java.models;
 
+import main.java.controller.GameEngine;
+import main.java.controller.commands.CommandValidator;
+import main.java.views.TerminalRenderer;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Deque;
 
 public class Player{
@@ -141,34 +146,52 @@ public class Player{
 
     //Issue order function to issue orders in round robin manner.
     //NOTE TO PIYUSH: need to get the value of l_numberTobeDeployed and l_countryID inside issue_order from user
-    public void issue_order(int l_numberTobeDeployed, int l_countryID) {
+    public void issue_order() throws exceptions.InvalidCommandException {
+
+        int l_playerNumber = 0;
+        int l_totalplayers = GameEngine.PLAYER_LIST.size();
+
+        while(true) {
+        String command = TerminalRenderer.issueOrderview(this.getName());
+        CommandValidator commandValidator = new CommandValidator();
+        commandValidator.addCommand(command);
+        System.out.println(command);
+
+        String arr[] = command.split(" ");
+        System.out.println(Arrays.toString(arr));
+            int l_countryID = GameEngine.CURRENT_MAP.getCountryID(arr[1]);
+            int l_numberTobeDeployed = Integer.parseInt(arr[2]);
+
 
         //issue order view gives l_numberTobeDeployed,l_country
-       // l_country is a string we need l_countryID
-        if(this.d_assignedCountries.contains(l_countryID)){
-            System.out.println("You own the Country: "+this.d_playerName);
-           // System.out.println("The country is: "+ this.d_assignedCountries.get(l_countryID).getD_countryName());
-        }else{
-            System.out.println("Cannot Deploy Troops here you don't own it." + this.d_playerName);
-            return;
-        }
-        if(this.d_reinforcements<l_numberTobeDeployed){
-            System.out.println("Not enough Troops! for "+this.d_playerName);
-            return;
-        }else{
-            Order order = new Order(this.getPlayerId(),l_countryID,l_numberTobeDeployed);
-            System.out.println("Order Created for Player: "+this.d_playerName);
-            this.d_orderList.add(order);
-            this.setReinforcements(this.getReinforcements()-l_numberTobeDeployed);
-            System.out.println("Player "+this.d_playerName+" Updated Reinforcements: "+this.getReinforcements());
+        // l_country is a string we need l_countryID
 
-        }
-        System.out.println("The order list is:");
-        for(Order order: d_orderList){
-            //order.printOrder();
-        }
+            if (l_countryID > 0 && l_numberTobeDeployed <= GameEngine.PLAYER_LIST.get(l_playerNumber).getReinforcements()) {
 
+                if (this.d_assignedCountries.contains(l_countryID)) {
+                    System.out.println("You own the Country: " + this.d_playerName);
+                    // System.out.println("The country is: "+ this.d_assignedCountries.get(l_countryID).getD_countryName());
+                } else {
+                    System.out.println("Cannot Deploy Troops here you don't own it." + this.d_playerName);
+                    continue;
+                }
+                if (this.d_reinforcements < l_numberTobeDeployed) {
+                    System.out.println("Not enough Troops! for " + this.d_playerName);
+                    continue;
 
+                } else {
+                    Order order = new Order(this.getPlayerId(), l_countryID, l_numberTobeDeployed);
+                    System.out.println("Order Created for Player: " + this.d_playerName);
+                    this.d_orderList.add(order);
+                    this.setReinforcements(this.getReinforcements() - l_numberTobeDeployed);
+                    System.out.println("Player " + this.d_playerName + " Updated Reinforcements: " + this.getReinforcements());
+                    return;
+
+                }
+            } else {
+                System.out.println("Please check your command \"Format deploy countryName number of armies\"");
+            }
+        }
     }
 
 

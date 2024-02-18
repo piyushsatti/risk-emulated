@@ -150,7 +150,9 @@ public class CommandValidator {
                 break;
             }
             case "deploy" -> {
+                System.out.println("I am in deploy check");
                 this.checkDeployCommandValidity(d_command);
+
                 break;
             }
         }
@@ -163,6 +165,8 @@ public class CommandValidator {
      */
     private void checkDeployCommandValidity(String[] p_lCommand) throws NumberFormatException {
         int b = Integer.parseInt(p_lCommand[2]);
+        System.out.println("Inside main check");
+        return;
     }
 
     /**

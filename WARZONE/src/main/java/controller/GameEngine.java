@@ -47,7 +47,7 @@ public class GameEngine {
     }
 
 
-    public static void playerLoop() throws FileNotFoundException {
+    public static void playerLoop() throws FileNotFoundException, exceptions.InvalidCommandException {
 
 
         //Need A view for what needs to be done;
@@ -213,7 +213,10 @@ public class GameEngine {
     public static void main(String[] args) throws FileNotFoundException {
 
      Player p = new Player("Priyanshu");
+     Player d = new Player("Dev");
      PLAYER_LIST.add(p);
+     PLAYER_LIST.add(d);
+
 
 
 

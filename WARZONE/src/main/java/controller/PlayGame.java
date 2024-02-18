@@ -1,5 +1,6 @@
 package main.java.controller;
 
+import main.java.controller.commands.CommandValidator;
 import main.java.models.Order;
 import main.java.models.Player;
 import main.java.models.worldmap.Country;
@@ -8,13 +9,14 @@ import main.java.views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
 public class PlayGame {
 
 
-    public static void startGame() throws FileNotFoundException{
+    public static void startGame() throws FileNotFoundException, exceptions.InvalidCommandException {
 
         //We need list of players here
         ArrayList<Player> l_listOfPlayers = GameEngine.PLAYER_LIST;
@@ -88,17 +90,19 @@ public class PlayGame {
         System.out.println("Reinforcements Assigned");
 
     }
-    public static void playerOrders(ArrayList<Player> p_listOfPlayers){
+    public static void playerOrders(ArrayList<Player> p_listOfPlayers) throws exceptions.InvalidCommandException {
+
         System.out.println("Please Start issuing orders");
         int l_totalplayers = p_listOfPlayers.size();
         int l_playerNumber =0;
         while(!allTroopsPlaced(p_listOfPlayers)){
             if((l_playerNumber % l_totalplayers == 0) && l_playerNumber!=0){
                 l_playerNumber =0;}
-            if(p_listOfPlayers.get(l_playerNumber).getReinforcements()!=0){
+            if(p_listOfPlayers.get(l_playerNumber).getReinforcements()!=0) {
                 //Issue Order View  -- To which country do you want to deploy and how much
-                p_listOfPlayers.get(l_playerNumber).issue_order(1,3);}
 
+                        p_listOfPlayers.get(l_playerNumber).issue_order();
+            }
             l_playerNumber++;
         }
 
@@ -145,7 +149,7 @@ public class PlayGame {
         return true;
     }
 
-    public static void gameLoop(ArrayList<Player> p_listOfPlayers ) {
+    public static void gameLoop(ArrayList<Player> p_listOfPlayers ) throws exceptions.InvalidCommandException {
 
 
         String[] menu_options = {"Show Map","Start Game"};

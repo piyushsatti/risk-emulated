@@ -215,6 +215,16 @@ public class TerminalRenderer {
         return "usa9.map";
     }
 
+    public static String issueOrderview(String p_player){
+
+        System.out.println(p_player+" Please enter order \n");
+
+        Scanner in = new Scanner(System.in);
+
+
+        return in.nextLine();
+    }
+
     /**
      * The main method demonstrates the usage of the TerminalRenderer class by rendering a welcome message,
      * rendering a sample menu, and displaying a map.
