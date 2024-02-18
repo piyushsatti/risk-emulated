@@ -150,14 +150,6 @@ public class CommandInterface {
                 it.remove();
             }
         }
-//        for(Player p : GameEngine.PLAYER_LIST)
-//        {
-//            if(p.getName().equals(p_playerName))
-//            {
-//                playerExists = true;
-//                GameEngine.PLAYER_LIST.remove(p);
-//            }
-//        }
         if(!playerExists) {
             throw new PlayerDoesNotExistException("p_playerName");
         }
