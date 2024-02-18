@@ -1,6 +1,7 @@
 package main.java.views;
 
 import main.java.controller.GameEngine;
+import main.java.models.Player;
 import main.java.models.worldmap.Continent;
 import main.java.models.worldmap.Country;
 import main.java.models.worldmap.WorldMap;
@@ -170,6 +171,14 @@ public class TerminalRenderer {
             out.append("\n\t");
             for (Country country : continentCountriesMap.get(continent)) {
                 out.append(country.getD_countryName());
+                if(p_enable_gameview == true){
+                    out.append(" Reinforcements Deployed: " + country.getReinforcements());
+                    Integer l_ownerPlayerID = country.getD_country_player_ID();
+                    if( Player.getPlayerFromList(GameEngine.PLAYER_LIST,l_ownerPlayerID)!=null){
+                        out.append(" Player Name: " + Player.getPlayerFromList(GameEngine.PLAYER_LIST,l_ownerPlayerID).getName());
+                    }
+
+                }
                 out.append("\n\t\t");
                 for (Country borderCountries : country.getBorderCountries().values()) {
                     out.append(borderCountries.getD_countryName()).append(" ");
@@ -217,11 +226,9 @@ public class TerminalRenderer {
 
     public static String issueOrderview(String p_player){
 
-        System.out.println(p_player+" Please enter order \n");
+        System.out.println(p_player+" Please Enter Your Order");
 
         Scanner in = new Scanner(System.in);
-
-
         return in.nextLine();
     }
 
