@@ -184,9 +184,9 @@ public class TerminalRenderer {
         StringBuilder out = new StringBuilder();
         HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
         for (Country c : map.getCountries().values()) {
-            List<Country> temp= continentCountriesMap.getOrDefault(c.getD_continent(),new ArrayList<>());
+            List<Country> temp = continentCountriesMap.getOrDefault(c.getContinent(), new ArrayList<>());
             temp.add(c);
-            continentCountriesMap.put(c.getD_continent(),temp);
+            continentCountriesMap.put(c.getContinent(), temp);
         }
         for(Continent continent : continentCountriesMap.keySet())
         {
@@ -194,18 +194,18 @@ public class TerminalRenderer {
             out.append(continentName);
             out.append("\n\t");
             for (Country country : continentCountriesMap.get(continent)) {
-                out.append(country.getD_countryName());
-                if(p_enable_gameview == true){
-                    out.append(" Reinforcements Deployed: " + country.getReinforcements());
-                    Integer l_ownerPlayerID = country.getD_country_player_ID();
+                out.append(country.getCountryName());
+                if (p_enable_gameview) {
+                    out.append(" Reinforcements Deployed: ").append(country.getReinforcements());
+                    int l_ownerPlayerID = country.getCountryPlayerID();
                     if( Player.getPlayerFromList(GameEngine.PLAYER_LIST,l_ownerPlayerID)!=null){
-                        out.append(" Player Name: " + Player.getPlayerFromList(GameEngine.PLAYER_LIST,l_ownerPlayerID).getName());
+                        out.append(" Player Name: ").append(Player.getPlayerFromList(GameEngine.PLAYER_LIST, l_ownerPlayerID).getName());
                     }
 
                 }
                 out.append("\n\t\t");
                 for (Country borderCountries : country.getBorderCountries().values()) {
-                    out.append(borderCountries.getD_countryName()).append(" ");
+                    out.append(borderCountries.getCountryName()).append(" ");
                 }
                 out.append("\n\t");
             }
@@ -223,9 +223,9 @@ public class TerminalRenderer {
         StringBuilder out = new StringBuilder();
         HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
         for (Country c : map.getCountries().values()) {
-            List<Country> temp= continentCountriesMap.getOrDefault(c.getD_continent(),new ArrayList<>());
+            List<Country> temp = continentCountriesMap.getOrDefault(c.getContinent(), new ArrayList<>());
             temp.add(c);
-            continentCountriesMap.put(c.getD_continent(),temp);
+            continentCountriesMap.put(c.getContinent(), temp);
         }
         for(Continent continent : continentCountriesMap.keySet())
         {
@@ -233,10 +233,10 @@ public class TerminalRenderer {
             out.append(continentName);
             out.append("\n\t");
             for (Country country : continentCountriesMap.get(continent)) {
-                out.append(country.getD_countryName());
+                out.append(country.getCountryName());
                 out.append("\n\t\t");
                 for (Country borderCountries : country.getBorderCountries().values()) {
-                    out.append(borderCountries.getD_countryName()).append(" ");
+                    out.append(borderCountries.getCountryName()).append(" ");
                 }
                 out.append("\n\t");
             }

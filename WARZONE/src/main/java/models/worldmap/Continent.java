@@ -22,28 +22,34 @@ public class Continent {
      */
     private final int d_bonus;
 
-
     /**
      * Constructor
+     *
      * @param p_id Integer identifier
      * @param p_name Continent name
      */
     public Continent(int p_id, String p_name, int p_bonus) {
+
         this.d_continentID = p_id;
+
         this.d_continentName = p_name;
+
         this.d_bonus = p_bonus; //bonus set to zero for now (to be used in the future)
+
     }
 
     /**
      * Accessor method
+     *
      * @return Continent integer identifier
      */
-    public int getD_continentID() {
+    public int getContinentID() {
         return d_continentID;
     }
 
     /**
      * Accessor method
+     *
      * @return Bonus value
      */
     public int getBonus() {
@@ -52,6 +58,7 @@ public class Continent {
 
     /**
      * Getter method for continent name
+     *
      * @return continent name string
      */
     public String getContinentName()

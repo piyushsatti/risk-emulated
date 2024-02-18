@@ -56,7 +56,7 @@ public class Order {
                 "Order Executed: " +
                         this.d_reinforcementsDeployed +
                         " troops deployed on " +
-                        GameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getD_countryName() +
+                        GameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getCountryName() +
                         " by " +
                         this.d_playerOrderName
         );

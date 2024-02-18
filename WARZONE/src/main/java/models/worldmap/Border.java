@@ -13,18 +13,20 @@ public class Border {
     private final Country d_target;
 
     /**
-     * Accessor method for private d_target variable
-     * @return reference to target Country
+     * Border constructor, requires a Country object
+     *
+     * @param p_country reference to target Country for Border object
      */
-    public Country getD_target() {
-        return d_target;
+    public Border(Country p_country) {
+        this.d_target = p_country;
     }
 
     /**
-     * Border constructor, requires a Country object
-     * @param p_country reference to target Country for Border object
+     * Accessor method for private d_target variable
+     * @return reference to target Country
      */
-    public Border(Country p_country){
-        this.d_target = p_country;
+    public Country getTarget() {
+        return d_target;
     }
+
 }

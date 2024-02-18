@@ -39,58 +39,76 @@ public class Country {
 
     /**
      * Country constructor
+     *
      * @param id Identifier integer
      * @param name Name of country String
      * @param continent Reference to associated continent
      */
     public Country(int id, String name, Continent continent){
+
         this.d_countryID = id;
+
         this.d_countryName = name;
+
         this.d_borders = new HashMap<>();
+
         this.d_continent = continent;
+
         this.d_reinforcements = 0;
+
     }
 
     public String returnCountryDetails() {
-        return "Country ID: " + this.d_countryID + " Country Name: " + this.d_countryName + "Deployed Reinforcements: " + this.getReinforcements();
+
+        return "Country ID: " + this.d_countryID +
+                " Country Name: " + this.d_countryName +
+                "Deployed Reinforcements: " + this.getReinforcements();
+
     }
 
     /**
      * Accessor method for d_countryName attribute
+     *
      * @return d_countryName String
      */
-    public String getD_countryName() {
+    public String getCountryName() {
         return d_countryName;
     }
 
     /**
      * Accessor method for d_countryID attribute
+     *
      * @return d_countryID integer
      */
-    public int getD_countryID(){
+    public int getCountryID() {
         return d_countryID;
     }
 
     /**
      * Getter method for Continent object
+     *
      * @return Continent object attribute
      */
-    public Continent getD_continent() {
+    public Continent getContinent() {
         return d_continent;
     }
 
-    public int getD_country_player_ID() {
+    /**
+     * Getter method for a country's owning player
+     *
+     * @return Country's Player ID
+     */
+    public int getCountryPlayerID() {
         return d_country_player_ID;
     }
 
-
-
     /**
      * Method which adds Border to d_borders Hashmap
+     *
      * @param country country which the added border will point to
      */
     public void addBorder(Country country){
-        this.d_borders.put(country.getD_countryID(), new Border(country));
+        this.d_borders.put(country.getCountryID(), new Border(country));
     }
 
     /**
@@ -99,11 +117,12 @@ public class Country {
      * @param country country which the border is removed from
      */
     public void removeBorder(Country country) {
-        this.d_borders.remove(country.getD_countryID());
+        this.d_borders.remove(country.getCountryID());
     }
 
     /**
      * Method that returns the HashMap of Border objects associated with a Country
+     *
      * @return HashMap of Border objects
      */
     public HashMap<Integer, Border> getBorders(){
@@ -112,48 +131,38 @@ public class Country {
 
     /**
      * Method which returns HashMap of neighboring countries (outgoing borders)
+     *
      * @return HashMap of neighboring countries
      */
     public HashMap<Integer, Country> getBorderCountries(){
+
         HashMap <Integer, Country> borderCountries = new HashMap<>();
 
         for (Border b : this.d_borders.values()) {
-            borderCountries.put(b.getD_target().getD_countryID(), b.getD_target());
+
+            borderCountries.put(b.getTarget().getCountryID(), b.getTarget());
+
         }
+
         return borderCountries;
-    }
-
-    /**
-     * String summary of Country object
-     * @return String of Country details (Name, Continent, Borders) to be used in print statements
-     */
-    public String toString(){
-        StringBuilder outPut = new StringBuilder("Name: " + this.d_countryName + "\n");
-        outPut.append("Continent: ").append(this.d_continent.d_continentName).append("\n");
-        outPut.append("Border Countries: ");
-
-        int loopIndex = 0;
-
-        for (Country c : this.getBorderCountries().values()){
-            loopIndex++;
-            outPut.append(c.getD_countryName());
-            if (loopIndex < this.getBorderCountries().size()) outPut.append(", ");
-        }
-
-        return outPut.toString();
     }
 
     /**
      * Method which checks if a country can reach all the other
      * countries in the list while only moving through countries in the list
+     *
      * @param countriesToReach HashMap of countries the method is trying to reach
      * @return true if all countries are reached, false if not
      */
     public boolean canReach(HashMap<Integer,Country> countriesToReach){
 
+
         ArrayList<Country> observed = new ArrayList<>();
+
         Collection<Country> countryCollection = countriesToReach.values();
+
         ArrayList<Country> notObserved = new ArrayList<>(countryCollection);
+
         observed.add(this); //add calling object to observed list (must be present in CountriesToReach)
 
         while (true){
@@ -183,23 +192,18 @@ public class Country {
             }
 
             //if size of observed countries hasn't changed => fail
+
             if(observedCount == observedCopy.size()) return false;
+
             observed = observedCopy; //assign new observed list
+
         }
+
     }
 
     /**
-     * Getter method for player ID controlling the country
-     * @return Player ID Integer
-     */
-
-
-    /**
-     * Setter method used to set the controlling player ID on the country
-     * @param id controlling player ID
-     */
-    /**
      * Getter method for reinforcement count
+     *
      * @return count of reinforcements on country
      */
     public int getReinforcements() {
@@ -208,14 +212,50 @@ public class Country {
 
     /**
      * Setter method for reinforcement count of country
+     *
      * @param reinforcements count of reinforcements on country
      */
     public void setReinforcements(int reinforcements) {
         this.d_reinforcements = reinforcements;
     }
 
-    public void setD_country_player_ID(int d_country_player_ID) {
-        this.d_country_player_ID = d_country_player_ID;
+    /**
+     * Set a country's owning player's ID
+     *
+     * @param p_country_player_ID player id belonging to a country
+     */
+    public void setCountryPlayerID(int p_country_player_ID) {
+        this.d_country_player_ID = p_country_player_ID;
+    }
+
+    /**
+     * String summary of Country object
+     *
+     * @return String of Country details (Name, Continent, Borders) to be used in print statements
+     */
+    @Override
+    public String toString() {
+
+        StringBuilder outPut = new StringBuilder("Name: " + this.d_countryName + "\n");
+
+        outPut.append("Continent: ").append(this.d_continent.d_continentName).append("\n");
+
+        outPut.append("Border Countries: ");
+
+        int loopIndex = 0;
+
+        for (Country c : this.getBorderCountries().values()) {
+
+            loopIndex++;
+
+            outPut.append(c.getCountryName());
+
+            if (loopIndex < this.getBorderCountries().size()) outPut.append(", ");
+
+        }
+
+        return outPut.toString();
+
     }
 
 }

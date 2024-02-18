@@ -46,7 +46,7 @@ public class PlayGame {
                 playerNumber =0;
             }
             Country country = map.get(l_randomCountryID);
-            country.setD_country_player_ID(p_listOfPlayers.get(playerNumber).getPlayerId());
+            country.setCountryPlayerID(p_listOfPlayers.get(playerNumber).getPlayerId());
             p_listOfPlayers.get(playerNumber).setAssignedCountries(l_randomCountryID);
             playerNumber++;
         }
@@ -57,7 +57,7 @@ public class PlayGame {
             System.out.println("List of Assigned Countries for Player: "+l_player.getName());
             ArrayList<Integer> l_listOfAssignedCountries = l_player.getAssignedCountries();
             for(Integer l_countryID : l_listOfAssignedCountries){
-                System.out.println(GameEngine.CURRENT_MAP.getCountry(l_countryID).getD_countryName());
+                System.out.println(GameEngine.CURRENT_MAP.getCountry(l_countryID).getCountryName());
             }
             System.out.println("-----------------------------------------------------------------");
 

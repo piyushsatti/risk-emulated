@@ -3,6 +3,7 @@ package main.java.controller;
 import main.java.models.worldmap.Continent;
 import main.java.models.worldmap.Country;
 import main.java.models.worldmap.WorldMap;
+import main.java.views.TerminalRenderer;
 
 import java.io.*;
 import java.util.HashMap;
@@ -52,7 +53,7 @@ public class MapInterface {
 
         File l_map_file_obj;
 
-        Scanner l_file_reader = null;
+        Scanner l_file_reader;
 
         WorldMap map = new WorldMap();
 
@@ -176,11 +177,7 @@ public class MapInterface {
 
         File outputFile = new File(GameEngine.MAPS_FOLDER + p_file_name);
 
-        if (!outputFile.exists()) {
-
-            outputFile.createNewFile();
-
-        }
+        TerminalRenderer.renderMessage("Was file created? " + outputFile.createNewFile());
 
         String file_signature = """
                 ; map: estonia.map
@@ -213,9 +210,9 @@ public class MapInterface {
 
         for (Country country_obj : p_map.getCountries().values()) {
 
-            added_line.append(country_obj.getD_countryID())
-                    .append(" ").append(country_obj.getD_countryName())
-                    .append(" ").append(country_obj.getD_continent().getD_continentID())
+            added_line.append(country_obj.getCountryID())
+                    .append(" ").append(country_obj.getCountryName())
+                    .append(" ").append(country_obj.getContinent().getContinentID())
                     .append(" 0 0").append("\n");
 
         }

@@ -76,7 +76,7 @@ public class Player {
 
                     Order order = new Order(this.getName(),this.getPlayerId(), l_countryID, l_numberTobeDeployed);
 
-                    TerminalRenderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + GameEngine.CURRENT_MAP.getCountry(l_countryID).getD_countryName() + " by Player: " + this.d_playerName);
+                    TerminalRenderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + GameEngine.CURRENT_MAP.getCountry(l_countryID).getCountryName() + " by Player: " + this.d_playerName);
 
                     this.d_orderList.add(order);
 
