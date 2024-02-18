@@ -8,9 +8,17 @@ import main.java.views.TerminalRenderer;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-
+/**
+ * The PlayGame class manages the gameplay mechanics including assigning countries to players,
+ * issuing reinforcements, issuing orders, and executing orders.
+ */
 public class PlayGame {
-
+    /**
+     * Starts the game by assigning countries to players and entering the game loop.
+     *
+     * @throws FileNotFoundException if a required file is not found.
+     * @throws exceptions.InvalidCommandException if an invalid command is issued.
+     */
     public static void startGame() throws FileNotFoundException, exceptions.InvalidCommandException {
 
         ArrayList<Player> l_listOfPlayers = GameEngine.PLAYER_LIST;
@@ -19,7 +27,12 @@ public class PlayGame {
         gameLoop(l_listOfPlayers);
 
     }
-
+    /**
+     * Assigns countries to players randomly.
+     *
+     * @param p_listOfPlayers list of players participating in the game.
+     * @throws FileNotFoundException if the map file is not found.
+     */
     public static void assignCountriesToPlayers(ArrayList<Player> p_listOfPlayers) throws FileNotFoundException {
 
         HashMap<Integer,Country> map = GameEngine.CURRENT_MAP.getD_countries();
@@ -56,6 +69,11 @@ public class PlayGame {
         }
 
     }
+    /**
+     * Assigns reinforcements to players based on the number of countries owned.
+     *
+     * @param p_listOfPlayers list of players participating in the game.
+     */
     public static void assignReinforcements(ArrayList<Player> p_listOfPlayers){
         System.out.println("Assigning Reinforcements");
         for(Player player : p_listOfPlayers){
@@ -65,6 +83,12 @@ public class PlayGame {
         System.out.println("Reinforcements Assigned");
 
     }
+    /**
+     * Allows players to issue orders during their turn.
+     *
+     * @param p_listOfPlayers list of players participating in the game.
+     * @throws exceptions.InvalidCommandException if an invalid command is issued.
+     */
     public static void playerOrders(ArrayList<Player> p_listOfPlayers) throws exceptions.InvalidCommandException {
 
         System.out.println("Please Start issuing orders");
@@ -80,6 +104,11 @@ public class PlayGame {
         }
 
     }
+    /**
+     * Executes orders issued by players.
+     *
+     * @param p_listOfPlayers list of players participating in the game.
+     */
     public static void executingOrders(ArrayList<Player> p_listOfPlayers){
         System.out.println("Executing Orders");
         int l_totalplayers = p_listOfPlayers.size();
@@ -99,8 +128,12 @@ public class PlayGame {
 
     }
 
-
-
+    /**
+     * Checks if all players have placed all their troops.
+     *
+     * @param p_Players list of players participating in the game.
+     * @return true if all players have placed all their troops, otherwise false.
+     */
     //Checking if player has placed all his troops.
     public static boolean allTroopsPlaced(ArrayList<Player> p_Players){
         for(Player l_player : p_Players){
@@ -110,8 +143,12 @@ public class PlayGame {
         }
         return true;
     }
-
-
+    /**
+     * Checks if all orders of each player have been executed.
+     *
+     * @param p_Players list of players participating in the game.
+     * @return true if all orders of each player have been executed, otherwise false.
+     */
     //Checking if all orders of each player have been executed.
     public static boolean allOrdersExecuted(ArrayList<Player> p_Players){
         for(Player l_player : p_Players){
@@ -121,9 +158,14 @@ public class PlayGame {
         }
         return true;
     }
-
+    /**
+     * Manages the game loop including rendering the main menu, handling user input,
+     * and executing game actions.
+     *
+     * @param p_listOfPlayers list of players participating in the game.
+     * @throws exceptions.InvalidCommandException if an invalid command is issued.
+     */
     public static void gameLoop(ArrayList<Player> p_listOfPlayers ) throws exceptions.InvalidCommandException {
-
 
         String[] menu_options = {"Show Map","Start Game"};
 
@@ -140,27 +182,21 @@ public class PlayGame {
 
             user_in = in.nextLine();
 
-
             if (user_in.strip().replace(" ", "").equalsIgnoreCase("showmap")) {
 
                 TerminalRenderer.showMap(true);
-
-
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("startgame")) {
 
                 break;
 
-            }
-
-            else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
 
                 TerminalRenderer.renderExit();
 
             } else {
 
                 TerminalRenderer.renderMessage("Not an option. Try again.");
-
             }
 
         }
