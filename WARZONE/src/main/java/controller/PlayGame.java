@@ -11,39 +11,28 @@ import java.util.*;
 
 public class PlayGame {
 
-
     public static void startGame() throws FileNotFoundException, exceptions.InvalidCommandException {
 
-        //We need list of players here
         ArrayList<Player> l_listOfPlayers = GameEngine.PLAYER_LIST;
         System.out.println("Assigning countries");
-
-         assignCountriesToPlayers(l_listOfPlayers);
-         //View to show that the startup phase is done - View StartUp.
-
+        assignCountriesToPlayers(l_listOfPlayers);
         gameLoop(l_listOfPlayers);
-
 
     }
 
     public static void assignCountriesToPlayers(ArrayList<Player> p_listOfPlayers) throws FileNotFoundException {
 
-        HashMap<Integer,Country> map = GameEngine.CURRENT_MAP.getD_countries(); //Take map from game engine
+        HashMap<Integer,Country> map = GameEngine.CURRENT_MAP.getD_countries();
+        Set<Integer> l_countryIDSet = map.keySet();
+        ArrayList<Integer> l_countryIDList = new ArrayList<>(l_countryIDSet);
 
-
-        Set<Integer> keySet = map.keySet();
-
-        // Convert the set of keys into a List for easy removal
-        ArrayList<Integer> keysList = new ArrayList<>(keySet);
-
-        // Use a random number generator to generate a random index within the range of the list size
         int total_players = p_listOfPlayers.size();
         int playerNumber =0;
-        while (!keysList.isEmpty()) {
+        while (!l_countryIDList.isEmpty()) {
             Random rand = new Random();
-            int randomIndex = rand.nextInt(keysList.size());
-            int l_randomCountryID = keysList.get(randomIndex);
-            keysList.remove(randomIndex);
+            int randomIndex = rand.nextInt(l_countryIDList.size());
+            int l_randomCountryID = l_countryIDList.get(randomIndex);
+            l_countryIDList.remove(randomIndex);
             if ((playerNumber % total_players == 0) && playerNumber != 0) {
                 playerNumber =0;
             }
