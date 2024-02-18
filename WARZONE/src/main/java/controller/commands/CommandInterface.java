@@ -159,7 +159,7 @@ public class CommandInterface {
      * @throws FileNotFoundException : when map file is not found
      */
     public static void loadCurrentMap(String p_filename) throws FileNotFoundException {
-        MapInterface.loadMap(p_filename);
+        GameEngine.CURRENT_MAP = MapInterface.loadMap(p_filename);
     }
 
     /**
