@@ -3,6 +3,7 @@ package main.java.models;
 
 import main.java.controller.GameEngine;
 import main.java.controller.commands.CommandValidator;
+import main.java.utils.exceptions.InvalidCommandException;
 import main.java.views.TerminalRenderer;
 
 import java.util.ArrayDeque;
@@ -77,7 +78,7 @@ public class Player{
     }
 
 
-    public void issue_order() throws exceptions.InvalidCommandException {
+    public void issue_order() throws InvalidCommandException {
 
         while(true) {
             System.out.println("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());

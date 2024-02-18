@@ -9,6 +9,7 @@ import main.java.utils.exceptions.ContinentDoesNotExistException;
 import main.java.utils.exceptions.CountryDoesNotExistException;
 import main.java.utils.exceptions.PlayerDoesNotExistException;
 import main.java.views.TerminalRenderer;
+import main.java.utils.exceptions.InvalidCommandException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -72,13 +73,13 @@ public class GameEngine {
      * Manages the loop for player actions during the gameplay phase.
      *
      * @throws IOException                      if an I/O error occurs.
-     * @throws exceptions.InvalidCommandException if an invalid command is entered.
+     * @throws InvalidCommandException if an invalid command is entered.
      * @throws CountryDoesNotExistException     if the country does not exist.
      * @throws ContinentDoesNotExistException   if the continent does not exist.
      * @throws ContinentAlreadyExistsException if the continent already exists.
      * @throws PlayerDoesNotExistException     if the player does not exist.
      */
-    public static void playerLoop() throws IOException, exceptions.InvalidCommandException, CountryDoesNotExistException, ContinentDoesNotExistException, ContinentAlreadyExistsException, PlayerDoesNotExistException {
+    public static void playerLoop() throws IOException,InvalidCommandException, CountryDoesNotExistException, ContinentDoesNotExistException, ContinentAlreadyExistsException, PlayerDoesNotExistException {
 
 
         TerminalRenderer.renderWelcome();
@@ -242,7 +243,7 @@ public class GameEngine {
 
                 command.processValidCommand();
 
-            } catch (exceptions.InvalidCommandException | CountryDoesNotExistException |
+            } catch (InvalidCommandException | CountryDoesNotExistException |
                      ContinentAlreadyExistsException | ContinentDoesNotExistException | IOException | PlayerDoesNotExistException e) {
 
                 TerminalRenderer.renderError("Invalid Command Entered: " + input_command + "\n" + e.toString());

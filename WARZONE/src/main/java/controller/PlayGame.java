@@ -1,8 +1,10 @@
 package main.java.controller;
 
+
 import main.java.models.Order;
 import main.java.models.Player;
 import main.java.models.worldmap.Country;
+import main.java.utils.exceptions.InvalidCommandException;
 import main.java.views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
@@ -17,9 +19,9 @@ public class PlayGame {
      * Starts the game by assigning countries to players and entering the game loop.
      *
      * @throws FileNotFoundException if a required file is not found.
-     * @throws exceptions.InvalidCommandException if an invalid command is issued.
+     * @throws InvalidCommandException if an invalid command is issued.
      */
-    public static void startGame() throws FileNotFoundException, exceptions.InvalidCommandException {
+    public static void startGame() throws FileNotFoundException, InvalidCommandException {
 
         ArrayList<Player> l_listOfPlayers = GameEngine.PLAYER_LIST;
         System.out.println("Assigning countries");
@@ -87,9 +89,9 @@ public class PlayGame {
      * Allows players to issue orders during their turn.
      *
      * @param p_listOfPlayers list of players participating in the game.
-     * @throws exceptions.InvalidCommandException if an invalid command is issued.
+     * @throws InvalidCommandException if an invalid command is issued.
      */
-    public static void playerOrders(ArrayList<Player> p_listOfPlayers) throws exceptions.InvalidCommandException {
+    public static void playerOrders(ArrayList<Player> p_listOfPlayers) throws InvalidCommandException {
 
         System.out.println("Please Start issuing orders");
         int l_totalplayers = p_listOfPlayers.size();
@@ -163,9 +165,9 @@ public class PlayGame {
      * and executing game actions.
      *
      * @param p_listOfPlayers list of players participating in the game.
-     * @throws exceptions.InvalidCommandException if an invalid command is issued.
+     * @throws InvalidCommandException if an invalid command is issued.
      */
-    public static void gameLoop(ArrayList<Player> p_listOfPlayers ) throws exceptions.InvalidCommandException {
+    public static void gameLoop(ArrayList<Player> p_listOfPlayers ) throws InvalidCommandException {
 
         String[] menu_options = {"Show Map","Start Game"};
 
