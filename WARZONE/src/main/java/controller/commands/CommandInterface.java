@@ -176,7 +176,7 @@ public class CommandInterface {
      * saves map
      * @param p_filename : name of the map file
      * @throws IOException : If an I/O error occurs while writing to the file.
-     * 
+     *
      */
     public static void saveMap(String p_filename) throws IOException {
         MapInterface.saveMap(p_filename);
