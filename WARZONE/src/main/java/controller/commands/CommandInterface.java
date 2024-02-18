@@ -13,6 +13,7 @@ import main.java.utils.exceptions.PlayerDoesNotExistException;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class CommandInterface {
     /**
@@ -141,14 +142,22 @@ public class CommandInterface {
      */
     public static void removePlayers(String p_playerName) throws PlayerDoesNotExistException {
         boolean playerExists = false;
-        for(Player p : GameEngine.PLAYER_LIST)
-        {
-            if(p.getName().equals(p_playerName))
-            {
+        Iterator<Player> it = GameEngine.PLAYER_LIST.iterator();
+        while (it.hasNext()) {
+            Player player = it.next();
+            if (player.getName().equals(p_playerName)) {
                 playerExists = true;
-                GameEngine.PLAYER_LIST.remove(p);
+                it.remove();
             }
         }
+//        for(Player p : GameEngine.PLAYER_LIST)
+//        {
+//            if(p.getName().equals(p_playerName))
+//            {
+//                playerExists = true;
+//                GameEngine.PLAYER_LIST.remove(p);
+//            }
+//        }
         if(!playerExists) {
             throw new PlayerDoesNotExistException("p_playerName");
         }
