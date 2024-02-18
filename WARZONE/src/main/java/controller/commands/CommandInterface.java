@@ -8,9 +8,7 @@ import main.java.utils.exceptions.ContinentDoesNotExistException;
 import main.java.utils.exceptions.CountryDoesNotExistException;
 import main.java.utils.exceptions.PlayerDoesNotExistException;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.Iterator;
 
 public class CommandInterface {
@@ -184,16 +182,45 @@ public class CommandInterface {
         MapInterface.saveMap(p_filename);
     }
 
+    /**
+     *this method checks if the map with the filename entered by the user exists in the maps folder or not
+     * if yes, the map is loaded and current map is set to this map
+     * if not, a new map with the filename given by the user is created and it is set as the current map
+     * @param p_filename: name of the map file entered by the user
+     * @throws IOException
+     */
     public static void editMap(String p_filename) throws IOException {
         File l_map_file_obj = new File(GameEngine.MAPS_FOLDER + p_filename);
+        //checking if the map with the filename entered by the user exists in the maps folder or not
         if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory())
         {
-            MapInterface.loadMap(p_filename);
+            GameEngine.CURRENT_MAP = MapInterface.loadMap(p_filename); //loading the existing map and setting it as current map
         }
-        else {
-            File outputFile = new File(GameEngine.MAPS_FOLDER + p_filename);
-            outputFile.createNewFile();
-            System.out.println("new map created, please use edit commands to add countries,continents");
+        else { //else case: map with filename entered by user does not exist
+            if(!p_filename.contains(".map")) p_filename = p_filename + ".map"; //adding .map in the filename if the user didn't specify it
+            File l_outputFile = new File(GameEngine.MAPS_FOLDER + p_filename);
+            l_outputFile.createNewFile();
+            //adding some boiler plate text for the newly created map
+            String file_signature = """
+                ; map: estonia.map
+                ; map made with the map maker
+                ; yura.net Risk 1.0.9.3
+                                
+                [files]
+                pic estonia_pic.png
+                map estonia_map.gif
+                crd estonia.cards
+                """;
+            BufferedWriter writer = new BufferedWriter(new FileWriter(l_outputFile));
+            StringBuilder l_added_line = new StringBuilder();
+            l_added_line.append(file_signature);
+            l_added_line.append("\n[continents]\n");
+            l_added_line.append("\n[countries]\n");
+            l_added_line.append("\n[borders]");
+            writer.write(l_added_line.toString());
+            writer.close();
+            GameEngine.CURRENT_MAP = MapInterface.loadMap(p_filename); //setting this new map as the current map
+            System.out.println("new map created: "+p_filename+" , please use edit commands to add countries,continents");
         }
     }
 
