@@ -120,7 +120,6 @@ public class Country {
         for (Border b : this.d_borders.values()) {
             borderCountries.put(b.getD_target().getD_countryID(), b.getD_target());
         }
-
         return borderCountries;
     }
 
@@ -218,6 +217,5 @@ public class Country {
     public void setD_country_player_ID(int d_country_player_ID) {
         this.d_country_player_ID = d_country_player_ID;
     }
-
-
+    
 }
