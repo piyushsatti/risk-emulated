@@ -405,7 +405,7 @@ public class CommandValidator {
             d_removeCountryIdNeighborCountryIdList = new ArrayList<>(); //list to store remove option parameters of the editneighbor command
 
             int l_k = 1;
-
+            //we are now iterating over the command array and adding parameters of add/remove options to the lists d_addCountryIdNeighborCountryIdList and d_removeCountryIdNeighborCountryIdList respectively
             while (l_k < l_len) {
 
                 String l_currOption = p_lCommand[l_k];
@@ -443,24 +443,24 @@ public class CommandValidator {
                 l_k++;
 
             }
+            //iterating over d_addCountryIdNeighborCountryIdList and d_removeCountryIdNeighborCountryIdList lists to call addCountryIdNeighborCountryId() and d_removeCountryIdNeighborCountryIdList() methods
             for(int i=0;i<d_addCountryIdNeighborCountryIdList.size();i++)
             {
                 List<String> l_pair = d_addCountryIdNeighborCountryIdList.get(i);
-                CommandInterface.addCountryIdNeighborCountryId(l_pair.get(0), l_pair.get(1));
+                CommandInterface.addCountryIdNeighborCountryId(l_pair.get(0), l_pair.get(1)); //calling method to add country and its neighbor to the map
             }
             for(int i=0;i<d_removeCountryIdNeighborCountryIdList.size();i++)
             {
                 List<String> l_pair = d_removeCountryIdNeighborCountryIdList.get(i);
-                CommandInterface.removeCountryIdNeighborCountryId(l_pair.get(0), l_pair.get(1));
+                CommandInterface.removeCountryIdNeighborCountryId(l_pair.get(0), l_pair.get(1)); //calling method to remove country and neighboring country from the map
             }
         } else if (l_mainCommand.equals("gameplayer")) {
 
-            d_playersToAdd = new ArrayList<>();
-
-            d_playersToRemove = new ArrayList<>();
+            d_playersToAdd = new ArrayList<>(); //list to store names of players to finally add in the player list
+            d_playersToRemove = new ArrayList<>(); //list to store names of players to finally remove from the player list
 
             int l_z = 1;
-
+            //iterating over the command to add parameters of add/remove options to d_playersToAdd and d_playersToRemove lists respectively
             while (l_z < l_len) {
 
                 String l_currOption = p_lCommand[l_z];
@@ -483,22 +483,22 @@ public class CommandValidator {
             }
             for(int i=0;i<d_playersToAdd.size();i++)
             {
-                CommandInterface.addPlayers(d_playersToAdd.get(i));
+                CommandInterface.addPlayers(d_playersToAdd.get(i)); //for each player name, calling method to add this player to the player list in the game engine class
             }
             int l_size = d_playersToRemove.size();
             List<String> l_copyList = new ArrayList<>(d_playersToRemove);
             for(int i=0;i<l_size;i++)
             {
-                CommandInterface.removePlayers(l_copyList.get(i));
+                CommandInterface.removePlayers(l_copyList.get(i)); //for each player name, calling method to remove this player from the player list in the game engine class
             }
 
         } else if (l_mainCommand.equals("deploy")) {
 
-            d_countryIdNumList = new ArrayList<>();
+            d_countryIdNumList = new ArrayList<>(); //list to store country id at 0th index and corresponding number of reinforcement at 1st index
 
             String l_countryId = p_lCommand[1];
 
-            int l_numReinforcements = Integer.parseInt(p_lCommand[2]);
+            int l_numReinforcements = Integer.parseInt(p_lCommand[2]); //if the number of reinforcements is not an integer, NumberFormatException will be thrown
 
             d_countryIdNumList.add(l_countryId);
 
