@@ -3,8 +3,6 @@ package main.java.controller.commands;
 import main.java.controller.GameEngine;
 import main.java.controller.MapInterface;
 import main.java.models.Player;
-import main.java.models.worldmap.Border;
-import main.java.models.worldmap.Country;
 import main.java.utils.exceptions.ContinentAlreadyExistsException;
 import main.java.utils.exceptions.ContinentDoesNotExistException;
 import main.java.utils.exceptions.CountryDoesNotExistException;
@@ -12,7 +10,6 @@ import main.java.utils.exceptions.PlayerDoesNotExistException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Iterator;
 
 public class CommandInterface {
@@ -169,7 +166,11 @@ public class CommandInterface {
      * validates the map
      */
     public static void validateMap() {
-        MapInterface.validateMap(GameEngine.CURRENT_MAP);
+        if(MapInterface.validateMap(GameEngine.CURRENT_MAP)){
+            System.out.println("Map is Valid");
+        }else{
+            System.out.println("Map is Not Valid");
+        }
     }
 
     /**
