@@ -1,17 +1,13 @@
 package main.java.controller;
 
-import main.java.controller.commands.CommandValidator;
 import main.java.models.Order;
 import main.java.models.Player;
 import main.java.models.worldmap.Country;
-import main.java.models.worldmap.WorldMap;
 import main.java.views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
+
 
 public class PlayGame {
 
@@ -31,53 +27,43 @@ public class PlayGame {
     }
 
     public static void assignCountriesToPlayers(ArrayList<Player> p_listOfPlayers) throws FileNotFoundException {
-        WorldMap map = GameEngine.CURRENT_MAP; //Take map from game engine
+
+        HashMap<Integer,Country> map = GameEngine.CURRENT_MAP.getD_countries(); //Take map from game engine
 
 
-        //Needs to be implemented randomly
-       /* Set<String> keySet = map.keySet();
-
-        // Convert the set of keys into a List for easy removal
-        List<String> keysList = new ArrayList<>(keySet);
-
-        // Use a random number generator to generate a random index within the range of the list size
-        Random rand = new Random();
-        int randomIndex = rand.nextInt(keysList.size());
-
-        // Access the key at the randomly generated index
-        String randomKey = keysList.get(randomIndex);
-        Set<String> keySet = map.keySet();
+        Set<Integer> keySet = map.keySet();
 
         // Convert the set of keys into a List for easy removal
-        List<String> keysList = new ArrayList<>(keySet);
+        ArrayList<Integer> keysList = new ArrayList<>(keySet);
 
         // Use a random number generator to generate a random index within the range of the list size
-        Random rand = new Random();
-        int randomIndex = rand.nextInt(keysList.size());
-
-        // Access the key at the randomly generated index
-        String randomKey = keysList.get(randomIndex);
-        keysList.remove(randomIndex);       */
-
-
-       HashMap<Integer, Country> listOfCountries = map.getCountries();
         int total_players = p_listOfPlayers.size();
         int playerNumber =0;
-        for(HashMap.Entry<Integer,Country> entry : listOfCountries.entrySet()) {
+        while (!keysList.isEmpty()) {
+            Random rand = new Random();
+            int randomIndex = rand.nextInt(keysList.size());
+            int l_randomCountryID = keysList.get(randomIndex);
+            keysList.remove(randomIndex);
             if ((playerNumber % total_players == 0) && playerNumber != 0) {
                 playerNumber =0;
             }
-            Integer key = entry.getKey();
-            Country country = entry.getValue();
+            Country country = map.get(l_randomCountryID);
             country.setD_country_player_ID(p_listOfPlayers.get(playerNumber).getPlayerId());
-            p_listOfPlayers.get(playerNumber).setAssignedCountries(key);
+            p_listOfPlayers.get(playerNumber).setAssignedCountries(l_randomCountryID);
             playerNumber++;
         }
 
         System.out.println("Assigning of Countries Done");
         for(Player l_player: p_listOfPlayers){
             System.out.println("Number of Countries: " + l_player.getAssignedCountries().size());
-            System.out.println(" ");
+            System.out.println("List of Assigned Countries for Player: "+l_player.getName());
+            ArrayList<Integer> l_listOfAssignedCountries = l_player.getAssignedCountries();
+            for(Integer l_countryID : l_listOfAssignedCountries){
+                System.out.println(GameEngine.CURRENT_MAP.getCountry(l_countryID).getD_countryName());
+            }
+            System.out.println("-----------------------------------------------------------------");
+
+
         }
 
     }
@@ -99,8 +85,6 @@ public class PlayGame {
             if((l_playerNumber % l_totalplayers == 0) && l_playerNumber!=0){
                 l_playerNumber =0;}
             if(p_listOfPlayers.get(l_playerNumber).getReinforcements()!=0) {
-                //Issue Order View  -- To which country do you want to deploy and how much
-
                         p_listOfPlayers.get(l_playerNumber).issue_order();
             }
             l_playerNumber++;
@@ -171,7 +155,7 @@ public class PlayGame {
             if (user_in.strip().replace(" ", "").equalsIgnoreCase("showmap")) {
 
                 TerminalRenderer.showMap(true);
-                return;
+
 
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("startgame")) {
@@ -196,11 +180,6 @@ public class PlayGame {
         assignReinforcements(p_listOfPlayers);
         playerOrders(p_listOfPlayers);
         executingOrders(p_listOfPlayers);
-
-            //Call stringview for exit or not.
-
-
-
 
         //PostExecution View -> current state map. Current Players //Turn Information.
 
