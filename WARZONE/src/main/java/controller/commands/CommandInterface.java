@@ -15,20 +15,32 @@ import java.io.IOException;
 import java.util.HashMap;
 
 public class CommandInterface {
+    /**
+     * adds new continent with the continent name and its bonus army value in the current map
+     * @param p_continentName : name of the continent
+     * @param p_continentVal : bonus army value for the continent
+     * @throws ContinentAlreadyExistsException: when continent already exists
+     */
     public static void addContinentIdContinentVal(String p_continentName, String p_continentVal) throws ContinentAlreadyExistsException {
-        int highestId = 0;
+        int l_highestId = 0;
         for(int i : GameEngine.CURRENT_MAP.getContinents().keySet())
         {
-            highestId = Math.max(i,highestId);
+            l_highestId = Math.max(i,l_highestId);
         }
-        int bonus = Integer.parseInt(p_continentVal);
-        int continentId = GameEngine.CURRENT_MAP.getContinentID(p_continentName);
-        if(continentId!=0)
+        int l_bonus = Integer.parseInt(p_continentVal);
+        int l_continentId = GameEngine.CURRENT_MAP.getContinentID(p_continentName);
+        if(l_continentId!=0)
         {
             throw new ContinentAlreadyExistsException(p_continentName);
         }
-        GameEngine.CURRENT_MAP.addContinent(highestId+1,p_continentName,bonus);
+        GameEngine.CURRENT_MAP.addContinent(l_highestId+1,p_continentName,l_bonus);
     }
+
+    /**
+     *removes continent with the given continent name in the current map
+     * @param p_continentName : name of continent
+     * @throws ContinentDoesNotExistException : when continent with the given name does not exist
+     */
 
     public static void removeContinentId(String p_continentName) throws ContinentDoesNotExistException {
         int l_continentId = GameEngine.CURRENT_MAP.getContinentID(p_continentName);
@@ -38,30 +50,45 @@ public class CommandInterface {
         GameEngine.CURRENT_MAP.removeContinent(l_continentId);
     }
 
+    /**
+     *
+     * adds country with the given country name to the continent with the given continent name in the current map
+     * @param p_countryName : name of the country
+     * @param p_continentName: name of the continent
+     * @throws ContinentDoesNotExistException : when continent to which country is to be added does not exist
+     */
     public static void addCountryIdContinentId(String p_countryName, String p_continentName) throws ContinentDoesNotExistException {
-        int highestId = 0;
+        int l_highestId = 0;
         for(int i : GameEngine.CURRENT_MAP.getCountries().keySet())
         {
-            highestId = Math.max(i,highestId);
+            l_highestId = Math.max(i,l_highestId);
         }
         int l_continentId = GameEngine.CURRENT_MAP.getContinentID(p_continentName);
         if(l_continentId==0) {
             throw new ContinentDoesNotExistException(p_continentName);
         }
-        GameEngine.CURRENT_MAP.addCountry(highestId+1,l_continentId,p_countryName);
+        GameEngine.CURRENT_MAP.addCountry(l_highestId+1,l_continentId,p_countryName);
     }
 
+    /**
+     * removes country with the given country name from the current map
+     * @param p_removeCountryName : name of the country to be removed
+     * @throws CountryDoesNotExistException : when country to be removed does not already exist
+     */
     public static void removeCountryId(String p_removeCountryName) throws CountryDoesNotExistException {
-        System.out.println(GameEngine.CURRENT_MAP.getD_countries());
         int l_countryId = GameEngine.CURRENT_MAP.getCountryID(p_removeCountryName);
         if(l_countryId==0)
         {
             throw new CountryDoesNotExistException(p_removeCountryName);
         }
         GameEngine.CURRENT_MAP.removeCountry(l_countryId);
-        System.out.println(GameEngine.CURRENT_MAP.getD_countries());
     }
 
+    /**adds borders between both the given country and the to be neighboring country
+     * @param p_countryName : name of the country
+     * @param p_neighbourCountryName : name of the neighboring country
+     * @throws CountryDoesNotExistException : when country with the given doesn't exist. same in the case when neighboring country with given name doesn't exist
+     */
     public static void addCountryIdNeighborCountryId(String p_countryName, String p_neighbourCountryName) throws CountryDoesNotExistException {
         int l_countryId = GameEngine.CURRENT_MAP.getCountryID(p_countryName);
         if(l_countryId==0)
@@ -77,6 +104,11 @@ public class CommandInterface {
         GameEngine.CURRENT_MAP.addBorder(l_neighborCountryId,l_countryId);
     }
 
+    /**removes borders between the countries
+     * @param p_countryName : name of the country
+     * @param p_neighborCountryName : name of the neighboring country
+     * @throws CountryDoesNotExistException : when country does not already exist
+     */
     public static void removeCountryIdNeighborCountryId(String p_countryName, String p_neighborCountryName) throws CountryDoesNotExistException {
         int l_countryId = GameEngine.CURRENT_MAP.getCountryID(p_countryName);
         int l_neighborCountryId = GameEngine.CURRENT_MAP.getCountryID(p_neighborCountryName);
@@ -92,11 +124,20 @@ public class CommandInterface {
         GameEngine.CURRENT_MAP.removeBorder(l_neighborCountryId,l_countryId);
     }
 
+    /**
+     *adds new player to the player list
+     * @param p_playerName : name of the player
+     */
     public static void addPlayers(String p_playerName) {
         Player newPlayer = new Player(p_playerName);
-        GameEngine.PLAYER_LIST.add(newPlayer);
+        if(!GameEngine.PLAYER_LIST.contains(newPlayer)) GameEngine.PLAYER_LIST.add(newPlayer);
     }
 
+    /**
+     * removes existing player from the player list
+     * @param p_playerName
+     * @throws PlayerDoesNotExistException : when player to be removed does not exist in the player list
+     */
     public static void removePlayers(String p_playerName) throws PlayerDoesNotExistException {
         boolean playerExists = false;
         for(Player p : GameEngine.PLAYER_LIST)
@@ -112,14 +153,27 @@ public class CommandInterface {
         }
     }
 
+    /**
+     *loads the current map
+     * @param p_filename : name of the map file
+     * @throws FileNotFoundException : when map file is not found
+     */
     public static void loadCurrentMap(String p_filename) throws FileNotFoundException {
         MapInterface.loadMap(p_filename);
     }
 
+    /**
+     * validates the map
+     */
     public static void validateMap() {
-        MapInterface.validateMap(GameEngine.CURRENT_MAP); //check if this is correct/required
+        MapInterface.validateMap(GameEngine.CURRENT_MAP);
     }
 
+    /**
+     * saves map
+     * @param p_filename : name of the map file
+     * @throws IOException : If an I/O error occurs while writing to the file.
+     */
     public static void saveMap(String p_filename) throws IOException {
         MapInterface.saveMap(p_filename);
     }
