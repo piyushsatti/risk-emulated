@@ -267,12 +267,14 @@ public class TerminalRenderer {
      * @param p_player The name of the player issuing the order.
      * @return The order entered by the player.
      */
-    public static String issueOrderview(String p_player){
+    public static String issueOrderView(String p_player) {
 
-        System.out.println(p_player+" Please Enter Your Order");
+        TerminalRenderer.renderMessage(p_player + " Please Enter Your Order");
 
         Scanner in = new Scanner(System.in);
+
         return in.nextLine();
+
     }
 
     /**

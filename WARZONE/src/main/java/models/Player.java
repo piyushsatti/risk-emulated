@@ -58,7 +58,7 @@ public class Player {
 
             TerminalRenderer.renderMessage("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());
 
-            String command = TerminalRenderer.issueOrderview(this.getName());
+            String command = TerminalRenderer.issueOrderView(this.getName());
 
             CommandValidator commandValidator = new CommandValidator();
 

@@ -5,7 +5,6 @@ import main.java.models.Player;
 import main.java.models.worldmap.WorldMap;
 import main.java.utils.exceptions.*;
 import main.java.views.TerminalRenderer;
-import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
