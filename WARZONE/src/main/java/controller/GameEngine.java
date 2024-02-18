@@ -4,6 +4,7 @@ package main.java.controller;
 import main.java.controller.commands.CommandValidator;
 import main.java.models.Player;
 import main.java.models.worldmap.WorldMap;
+import main.java.utils.exceptions.ContinentAlreadyExistsException;
 import main.java.utils.exceptions.ContinentDoesNotExistException;
 import main.java.utils.exceptions.CountryDoesNotExistException;
 import main.java.utils.exceptions.PlayerDoesNotExistException;
@@ -201,7 +202,8 @@ public class GameEngine {
 
                 command.processValidCommand();
 
-            } catch (exceptions.InvalidCommandException | CountryDoesNotExistException |ContinentDoesNotExistException |IOException | PlayerDoesNotExistException e) {
+            } catch (exceptions.InvalidCommandException | CountryDoesNotExistException |
+                     ContinentAlreadyExistsException | ContinentDoesNotExistException | IOException | PlayerDoesNotExistException e) {
 
                 TerminalRenderer.renderError("Invalid Command Entered: " + input_command + "\n" + e.toString());
 
