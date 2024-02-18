@@ -3,21 +3,30 @@ package main.java.controller.commands;
 import main.java.controller.GameEngine;
 import main.java.controller.MapInterface;
 import main.java.models.Player;
+import main.java.models.worldmap.Border;
+import main.java.models.worldmap.Country;
+import main.java.utils.exceptions.ContinentAlreadyExistsException;
 import main.java.utils.exceptions.ContinentDoesNotExistException;
 import main.java.utils.exceptions.CountryDoesNotExistException;
 import main.java.utils.exceptions.PlayerDoesNotExistException;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.HashMap;
 
 public class CommandInterface {
-    public static void addContinentIdContinentVal(String p_continentName, String p_continentVal) {
+    public static void addContinentIdContinentVal(String p_continentName, String p_continentVal) throws ContinentAlreadyExistsException {
         int highestId = 0;
         for(int i : GameEngine.CURRENT_MAP.getContinents().keySet())
         {
             highestId = Math.max(i,highestId);
         }
         int bonus = Integer.parseInt(p_continentVal);
+        int continentId = GameEngine.CURRENT_MAP.getContinentID(p_continentName);
+        if(continentId!=0)
+        {
+            throw new ContinentAlreadyExistsException(p_continentName);
+        }
         GameEngine.CURRENT_MAP.addContinent(highestId+1,p_continentName,bonus);
     }
 
@@ -43,12 +52,14 @@ public class CommandInterface {
     }
 
     public static void removeCountryId(String p_removeCountryName) throws CountryDoesNotExistException {
+        System.out.println(GameEngine.CURRENT_MAP.getD_countries());
         int l_countryId = GameEngine.CURRENT_MAP.getCountryID(p_removeCountryName);
         if(l_countryId==0)
         {
             throw new CountryDoesNotExistException(p_removeCountryName);
         }
         GameEngine.CURRENT_MAP.removeCountry(l_countryId);
+        System.out.println(GameEngine.CURRENT_MAP.getD_countries());
     }
 
     public static void addCountryIdNeighborCountryId(String p_countryName, String p_neighbourCountryName) throws CountryDoesNotExistException {
@@ -113,8 +124,8 @@ public class CommandInterface {
         MapInterface.saveMap(p_filename);
     }
 
-
     public static void editMap() {
 
     }
+
 }
