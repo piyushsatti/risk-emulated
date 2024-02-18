@@ -63,7 +63,6 @@ public class GameEngine {
 
     }
 
-
     /**
      * Manages the loop for player actions during the gameplay phase.
      *
@@ -95,31 +94,60 @@ public class GameEngine {
             user_in = in.nextLine();
 
             if (user_in.strip().replace(" ", "").equalsIgnoreCase("showmap")) {
+
                 TerminalRenderer.showMap(!GameEngine.PLAYER_LIST.isEmpty());
+
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("loadmap")) {
+
                 System.out.println("Enter command-> loadmap followed by filename.map");
+
                 String input = in.nextLine();
+
                 CommandValidator command = new CommandValidator();
+
                 CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
+
                 command.addCommand(input);
+
                 command.processValidCommand();
-            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("Add/RemovePlayer")) {
+
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("add/removeplayer")) {
+
                 System.out.println("Please enter command to add and remove players");
+
                 String input = in.nextLine();
+
                 CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
+
                 CommandValidator command = new CommandValidator();
-                command.addCommand(input);
-                command.processValidCommand();
+
+                try {
+
+                    command.addCommand(input);
+
+                    command.processValidCommand();
+
+                } catch (InvalidCommandException e) {
+
+                    TerminalRenderer.renderError(e.toString());
+
+                }
+
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("assigncountries")) {
 
                 if (PLAYER_LIST.isEmpty()) {
-                    TerminalRenderer.renderMessage("!!!PLAYER LIST IS EMPTY!!! \n Please add players to the list");
-                } else if (CURRENT_MAP.getD_countries().size() >= PLAYER_LIST.size()) {
-                    PlayGame.startGame();
-                } else {
-                    TerminalRenderer.renderMessage("!!!Players are more than countries!!!");
-                }
 
+                    TerminalRenderer.renderMessage("!!!PLAYER LIST IS EMPTY!!! \n Please add players to the list");
+
+                } else if (CURRENT_MAP.getD_countries().size() >= PLAYER_LIST.size()) {
+
+                    PlayGame.startGame();
+
+                } else {
+
+                    TerminalRenderer.renderMessage("!!!Players are more than countries!!!");
+
+                }
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
 
@@ -131,7 +159,9 @@ public class GameEngine {
 
             }
 
+
         }
+
     }
 
     /**
