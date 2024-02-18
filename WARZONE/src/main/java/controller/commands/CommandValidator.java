@@ -352,12 +352,12 @@ public class CommandValidator {
 
         } else if (l_mainCommand.equals("editcountry")) {
 
-            d_addCountryIdContinentIdList = new ArrayList<>();
+            d_addCountryIdContinentIdList = new ArrayList<>(); //list to store country id and continent id given as add option parameters
 
-            d_removeCountryIdList = new ArrayList<>();
+            d_removeCountryIdList = new ArrayList<>(); //list to store country id as remove option parameter
 
             int l_j = 1;
-
+            //we are now iterating over the command array and adding parameters of add/remove options to the lists d_addCountryIdContinentIdList and d_removeCountryIdList respectively
             while (l_j < l_len) {
 
                 String l_currOption = p_lCommand[l_j];
@@ -387,21 +387,22 @@ public class CommandValidator {
                 l_j++;
 
             }
+            //iterating over the d_addCountryIdContinentIdList and d_removeCountryIdList lists and calling corresponding methods to process add/remove option parameters
             for(int i = 0; i< d_addCountryIdContinentIdList.size(); i++)
             {
                 List<String> pair = d_addCountryIdContinentIdList.get(i);
-                CommandInterface.addCountryIdContinentId(pair.get(0), pair.get(1));
+                CommandInterface.addCountryIdContinentId(pair.get(0), pair.get(1)); //calling method to add country to a particular continent in the map
             }
             for(int i=0;i<d_removeCountryIdList.size();i++)
             {
-                CommandInterface.removeCountryId(d_removeCountryIdList.get(i));
+                CommandInterface.removeCountryId(d_removeCountryIdList.get(i)); //calling method to remove a country from the map
             }
 
         } else if (l_mainCommand.equals("editneighbor")) {
 
-            d_addCountryIdNeighborCountryIdList = new ArrayList<>();
+            d_addCountryIdNeighborCountryIdList = new ArrayList<>(); //list to store add option parameters of the editneighbor command
 
-            d_removeCountryIdNeighborCountryIdList = new ArrayList<>();
+            d_removeCountryIdNeighborCountryIdList = new ArrayList<>(); //list to store remove option parameters of the editneighbor command
 
             int l_k = 1;
 
@@ -484,9 +485,11 @@ public class CommandValidator {
             {
                 CommandInterface.addPlayers(d_playersToAdd.get(i));
             }
-            for(int i=0;i<d_playersToRemove.size();i++)
+            int l_size = d_playersToRemove.size();
+            List<String> l_copyList = new ArrayList<>(d_playersToRemove);
+            for(int i=0;i<l_size;i++)
             {
-                CommandInterface.removePlayers(d_playersToRemove.get(i));
+                CommandInterface.removePlayers(l_copyList.get(i));
             }
 
         } else if (l_mainCommand.equals("deploy")) {
