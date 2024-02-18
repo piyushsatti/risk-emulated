@@ -15,8 +15,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * The GameEngine class manages the main logic of the game, including handling game phases, user input, and game loops.
+ * It coordinates between the map editor, gameplay, and other settings.
+ */
 public class GameEngine {
 
+    /**
+     * Enum representing different phases of the game.
+     */
     public enum GAME_PHASES {
         MAIN_MENU,
         MAP_EDITOR,
@@ -24,16 +31,29 @@ public class GameEngine {
         SETTINGS
     }
 
+    /**
+     * The current game phase.
+     */
     public static GAME_PHASES CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
 
+    /**
+     * The folder where map files are stored.
+     */
     public static String MAPS_FOLDER = "WARZONE/src/main/resources/maps/";
 
+    /**
+     * The currently loaded map.
+     */
     public static WorldMap CURRENT_MAP;
 
+    /**
+     * List of players in the game.
+     */
     public static ArrayList<Player> PLAYER_LIST = new ArrayList<Player>();
 
     static {
 
+        // Load a default map when the class is loaded
 
         try {
 
@@ -48,6 +68,16 @@ public class GameEngine {
     }
 
 
+    /**
+     * Manages the loop for player actions during the gameplay phase.
+     *
+     * @throws IOException                      if an I/O error occurs.
+     * @throws exceptions.InvalidCommandException if an invalid command is entered.
+     * @throws CountryDoesNotExistException     if the country does not exist.
+     * @throws ContinentDoesNotExistException   if the continent does not exist.
+     * @throws ContinentAlreadyExistsException if the continent already exists.
+     * @throws PlayerDoesNotExistException     if the player does not exist.
+     */
     public static void playerLoop() throws IOException, exceptions.InvalidCommandException, CountryDoesNotExistException, ContinentDoesNotExistException, ContinentAlreadyExistsException, PlayerDoesNotExistException {
 
 
@@ -123,7 +153,9 @@ public class GameEngine {
         }
     }
 
-
+    /**
+     * Displays the starting menu and handles user input to determine the next game phase.
+     */
     private static void startingMenu() {
 
         TerminalRenderer.renderWelcome();
@@ -174,7 +206,11 @@ public class GameEngine {
         }
 
     }
-
+    /**
+     * Manages the map editor phase where users can edit maps.
+     *
+     * @throws FileNotFoundException if the map file is not found.
+     */
     public static void mapEditor() throws FileNotFoundException {
 
         if (GameEngine.CURRENT_GAME_PHASE != GAME_PHASES.MAP_EDITOR) return;
@@ -215,7 +251,12 @@ public class GameEngine {
         }
 
     }
-
+    /**
+     * The main method that starts the game and controls the game loop.
+     *
+     * @param args command line arguments.
+     * @throws FileNotFoundException if a map file is not found.
+     */
     public static void main(String[] args) throws FileNotFoundException {
 
         while (CURRENT_GAME_PHASE == GAME_PHASES.MAIN_MENU) {
