@@ -41,6 +41,9 @@ public class TerminalRenderer {
         );
     }
 
+    /**
+     * Renders the exit message and exits the application.
+     */
     public static void renderExit() {
         System.out.println(
                 TerminalColors.ANSI_YELLOW +
@@ -112,12 +115,22 @@ public class TerminalRenderer {
 
     }
 
+    /**
+     * Renders an error message.
+     *
+     * @param error_string The error message to be rendered.
+     */
     public static void renderError(String error_string) {
 
         System.out.println(TerminalColors.ANSI_RED + error_string + TerminalColors.ANSI_RESET);
 
     }
 
+    /**
+     * Renders the request for a map filename.
+     *
+     * @return The filename entered by the user.
+     */
     public static String renderMapEditorMenu() {
 
         System.out.println(TerminalColors.ANSI_BLUE + """
@@ -129,7 +142,11 @@ public class TerminalRenderer {
         return in.nextLine();
 
     }
-
+    /**
+     * Renders the request for map editor commands.
+     *
+     * @return The command entered by the user.
+     */
     public static String renderMapEditorCommands() {
 
         System.out.println(TerminalColors.ANSI_BLUE + """
@@ -142,6 +159,11 @@ public class TerminalRenderer {
 
     }
 
+    /**
+     * Renders a message.
+     *
+     * @param message The message to be rendered.
+     */
     public static void renderMessage(String message) {
 
         System.out.println(
@@ -154,6 +176,8 @@ public class TerminalRenderer {
 
     /**
      * Displays the map loaded in the game engine.
+     *
+     * @param p_enable_gameview Indicates whether to enable the game view (show player info).
      */
     public static void showMap(boolean p_enable_gameview) {
         WorldMap map = GameEngine.CURRENT_MAP;
@@ -191,6 +215,9 @@ public class TerminalRenderer {
     }
 
     // this needs to be adjusted to reflect players
+    /**
+     * Displays the current game map.
+     */
     public static void showCurrentGameMap() {
         WorldMap map = GameEngine.CURRENT_MAP;
         StringBuilder out = new StringBuilder();
@@ -217,13 +244,29 @@ public class TerminalRenderer {
         }
         System.out.println(out);
     }
+    /**
+     * Renders the request for a map filename.
+     *
+     * @return The filename entered by the user.
+     */
     public static String renderRequestMapFileName(){
         return "usa9.map";
     }
+    /**
+     * Renders the request to assign countries.
+     *
+     * @return The filename entered by the user.
+     */
     public static String renderAssignCountries(){
         return "usa9.map";
     }
 
+    /**
+     * Renders the view for issuing orders by a player.
+     *
+     * @param p_player The name of the player issuing the order.
+     * @return The order entered by the player.
+     */
     public static String issueOrderview(String p_player){
 
         System.out.println(p_player+" Please Enter Your Order");
