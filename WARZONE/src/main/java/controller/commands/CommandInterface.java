@@ -131,6 +131,7 @@ public class CommandInterface {
     public static void addPlayers(String p_playerName) {
         Player newPlayer = new Player(p_playerName);
         if(!GameEngine.PLAYER_LIST.contains(newPlayer)) GameEngine.PLAYER_LIST.add(newPlayer);
+        System.out.println("added player(s) successfully");
     }
 
     /**
@@ -151,6 +152,7 @@ public class CommandInterface {
         if(!playerExists) {
             throw new PlayerDoesNotExistException("p_playerName");
         }
+        System.out.println("remove player(s) successfully");
     }
 
     /**
