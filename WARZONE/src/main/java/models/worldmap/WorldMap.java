@@ -1,5 +1,7 @@
 package main.java.models.worldmap;
 
+import main.java.utils.exceptions.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -51,29 +53,28 @@ public class WorldMap {
 
     }
 
+
     /**
-     * Adds a country to the world map.
      *
-     * @param p_countryID   The ID of the country to be added.
-     * @param p_continentID The ID of the continent to which the country belongs.
-     * @param p_countryName The name of the country to be added.
+     * @param p_countryID ID of country to be added
+     * @param p_continentID ID of continent to which country will be added
+     * @param p_countryName name of new country
+     * @throws ContinentDoesNotExistException if continent does not exist
+     * @throws DuplicateCountryException if country already exists
      */
-    public void addCountry(int p_countryID, int p_continentID, String p_countryName){
+    public void addCountry(int p_countryID, int p_continentID, String p_countryName) throws ContinentDoesNotExistException, DuplicateCountryException {
 
         if (!this.containsContinent(p_continentID)) { //does the continent exist?
 
-            //throw exception
-            return;
+            throw new ContinentDoesNotExistException(p_continentID);
 
         } else if (this.containsCountry(p_countryID)) { //duplicate country id
 
-            //throw exception
-            return;
+            throw new DuplicateCountryException(p_countryID);
 
         } else if (this.containsCountry(p_countryName)) { //duplicate country name
 
-            //throw exception
-            return;
+            throw new DuplicateCountryException(p_countryName);
 
         }
 
@@ -88,27 +89,23 @@ public class WorldMap {
         return this.d_countries;
     }
 
+
     /**
-     * Method which adds a border between a source and target country.
-     * This method is called from the map object but the border is created within
-     * the Country object
      *
-     * @param p_source Country which will contain the new Border
-     * @param p_target Country which border will "point" to
+     * @param p_source id of country to which border will be added
+     * @param p_target target country of new border
+     * @throws CountryDoesNotExistException if either source or target countries do not exist
      */
-    public void addBorder(int p_source, int p_target) {
+    public void addBorder(int p_source, int p_target) throws CountryDoesNotExistException {
 
         //check that both countries exist
         if (!this.containsCountry(p_source)) {
 
-            //throw exception
-            return;
+            throw new CountryDoesNotExistException(p_source);
 
         } else if (!this.containsCountry(p_target)) {
 
-            //throw exception
-
-            return;
+            throw new CountryDoesNotExistException(p_target);
 
         }
 
@@ -116,26 +113,19 @@ public class WorldMap {
 
     }
 
-
     /**
-     * Method which adds continent to map
      *
-     * @param p_id new continent identifier
+     * @param p_id new continent integer identifier
      * @param p_continentName new continent name
-     * @param p_bonus bonus value for new continent
+     * @param p_bonus control bonus of new continent
+     * @throws ContinentAlreadyExistsException if a continent with same name or id already exists
      */
-    public void addContinent(int p_id, String p_continentName, int p_bonus) {
+    public void addContinent(int p_id, String p_continentName, int p_bonus) throws ContinentAlreadyExistsException {
 
-        if (this.containsContinent(p_id)) { //duplicate continent
-
-            //throw error
-            return;
-
-        } else if (this.containsContinent(p_continentName)) { //duplicate name
-
-            //throw error
-            return;
-
+        if (this.containsContinent(p_id)) { //duplicate continent id
+            throw new ContinentAlreadyExistsException(p_id);
+        } else if (this.containsContinent(p_continentName)) { //duplicate country name
+            throw new ContinentAlreadyExistsException(p_continentName);
         }
 
         d_continents.put(p_id, new Continent(p_id, p_continentName, p_bonus));
@@ -222,12 +212,14 @@ public class WorldMap {
     }
 
     /**
-     * Method to remove a continent from the map.
-     *
-     * @param p_continentID The identifier of the continent to be removed.
+     * Method used to remove continent from map
+     * @param p_continentID id of continent to be removed
+     * @throws ContinentDoesNotExistException if continent does not exist
+     * @throws CountryDoesNotExistException if continent to be removed contains country that does not exist on map
      */
-    public void removeContinent(int p_continentID) {
+    public void removeContinent(int p_continentID) throws ContinentDoesNotExistException, CountryDoesNotExistException {
 
+        if(!this.containsContinent(p_continentID)) throw new ContinentDoesNotExistException(p_continentID);
         Continent l_continent = d_continents.get(p_continentID);
 
         for (Country l_country : getContinentCountries(l_continent).values()) {
@@ -241,12 +233,13 @@ public class WorldMap {
     }
 
     /**
-     * This method removes a country from the map.
-     *
-     * @param p_countryID The unique identifier of the country to be removed.
+     * This method removes a country from the map
+     * @param p_countryID Integer identifier of country to be removed
+     * @throws CountryDoesNotExistException if country does not exist
      */
-    public void removeCountry(int p_countryID) {
+    public void removeCountry(int p_countryID) throws CountryDoesNotExistException {
 
+        if(!this.containsCountry(p_countryID)) throw new CountryDoesNotExistException(p_countryID);
         Country l_country = d_countries.get(p_countryID);
 
         for (Country l_countryToCheck : this.d_countries.values()) {
@@ -286,6 +279,7 @@ public class WorldMap {
      * @return true if found false if not found
      */
     public boolean containsContinent(int p_continentID){
+
         return this.d_continents.containsKey(p_continentID);
     }
 
@@ -298,7 +292,6 @@ public class WorldMap {
     public boolean containsContinent(String p_continentName){
 
         return this.containsContinent(this.getContinentID(p_continentName));
-
     }
 
     /**
@@ -316,16 +309,16 @@ public class WorldMap {
      *
      * @param p_source The ID of the source country.
      * @param p_target The ID of the target country.
-     * @throws IllegalArgumentException if either the source or target country does not exist.
+     * @throws CountryDoesNotExistException if either the source or target country does not exist.
      */
-    public void removeBorder(int p_source, int p_target){
+    public void removeBorder(int p_source, int p_target) throws CountryDoesNotExistException {
 
         //check that both countries exist
-        if (!(this.containsCountry(p_source) && this.containsCountry(p_target))) {
-
-            //throw exception
-            return;
-
+        if (!this.containsCountry(p_source)){
+            throw new CountryDoesNotExistException(p_source);
+        }
+        else if(!this.containsCountry(p_target)) {
+            throw new CountryDoesNotExistException(p_target);
         }
 
         this.getCountry(p_source).removeBorder(this.getCountry(p_target));
