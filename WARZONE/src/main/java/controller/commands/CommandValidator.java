@@ -508,7 +508,7 @@ public class CommandValidator {
             CommandInterface.saveMap(p_lCommand[1]); //calling method to savemap
 
         } else if (l_mainCommand.equals("editmap")) { //calling method to edit map
-            CommandInterface.editMap();
+            CommandInterface.editMap(p_lCommand[1]);
 
         } else if (l_mainCommand.equals("validatemap")) { //calling method to validate map
             CommandInterface.validateMap();

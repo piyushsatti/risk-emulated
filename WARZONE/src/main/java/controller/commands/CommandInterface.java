@@ -8,6 +8,7 @@ import main.java.utils.exceptions.ContinentDoesNotExistException;
 import main.java.utils.exceptions.CountryDoesNotExistException;
 import main.java.utils.exceptions.PlayerDoesNotExistException;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Iterator;
@@ -183,8 +184,17 @@ public class CommandInterface {
         MapInterface.saveMap(p_filename);
     }
 
-    public static void editMap() {
-
+    public static void editMap(String p_filename) throws IOException {
+        File l_map_file_obj = new File(GameEngine.MAPS_FOLDER + p_filename);
+        if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory())
+        {
+            MapInterface.loadMap(p_filename);
+        }
+        else {
+            File outputFile = new File(GameEngine.MAPS_FOLDER + p_filename);
+            outputFile.createNewFile();
+            System.out.println("new map created, please use edit commands to add countries,continents");
+        }
     }
 
 }
