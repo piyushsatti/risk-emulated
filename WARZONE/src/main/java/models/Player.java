@@ -10,6 +10,9 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 
+/**
+ * The Player class represents a player in the game.
+ */
 public class Player{
    private static int d_latest_playerID =1;
     private final int d_playerId;
@@ -19,6 +22,11 @@ public class Player{
     private final Deque<Order> d_orderList = new ArrayDeque<>();
 
 
+    /**
+     * Constructs a new Player object with the specified name.
+     *
+     * @param p_playerName The name of the player.
+     */
     //Constructors
     public Player(String p_playerName){
         this.d_playerId=d_latest_playerID;
@@ -31,16 +39,38 @@ public class Player{
 
     //Getters
 
+    /**
+     * Gets the name of the player.
+     *
+     * @return The name of the player.
+     */
     public String getName() {
         return d_playerName;
     }
+    /**
+     * Gets the reinforcements available for the player.
+     *
+     * @return The reinforcements available for the player.
+     */
     public int getReinforcements() {
         return d_reinforcements;
     }
 
+    /**
+     * Gets the list of countries assigned to the player.
+     *
+     * @return The list of countries assigned to the player.
+     */
     public ArrayList<Integer> getAssignedCountries() {
         return this.d_assignedCountries;
     }
+    /**
+     * Gets a player from the list of players based on the player ID.
+     *
+     * @param p_listOfPlayers The list of players.
+     * @param p_playerID      The ID of the player to retrieve.
+     * @return The player with the specified ID, or null if not found.
+     */
     public static Player getPlayerFromList(ArrayList<Player> p_listOfPlayers, int p_playerID){
         for (Player l_player : p_listOfPlayers) {
             if (l_player.getPlayerId() == p_playerID) {
@@ -50,26 +80,55 @@ public class Player{
         return null;
     }
 
+    /**
+     * Retrieves the order list of the player.
+     *
+     * @return The order list of the player.
+     */
     public Deque<Order> getOrderList() {
         return this.d_orderList;
     }
 
+    /**
+     * Retrieves the ID of the player.
+     *
+     * @return The ID of the player.
+     */
     public int getPlayerId() {
         return this.d_playerId;
     }
 
+    /**
+     * Sets the name of the player.
+     *
+     * @param p_name The name to set for the player.
+     */
     public void setName(String p_name) {
         this.d_playerName= p_name;
     }
+    /**
+     * Sets the reinforcements of the player.
+     *
+     * @param p_reinforcements The reinforcements to set for the player.
+     */
     public void setReinforcements(int p_reinforcements) {
         this.d_reinforcements= p_reinforcements;
     }
 
+    /**
+     * Sets the assigned countries of the player.
+     *
+     * @param p_countryID The ID of the country to add to the player's assigned countries.
+     */
     public void setAssignedCountries(Integer p_countryID) {
         this.d_assignedCountries.add(p_countryID);
     }
 
-
+    /**
+     * Issues an order for the player.
+     *
+     * @throws InvalidCommandException If the command issued by the player is invalid.
+     */
     public void issue_order() throws InvalidCommandException {
 
         while(true) {
@@ -107,12 +166,13 @@ public class Player{
         }
     }
 
-
-
+    /**
+     * Gets the next order from the player's order list.
+     *
+     * @return The next order from the player's order list.
+     */
     public Order next_order(){
         return this.d_orderList.poll();
     }
-
-
 
 }
