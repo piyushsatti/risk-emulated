@@ -15,9 +15,8 @@ import java.util.*;
 public class PlayGame {
     /**
      * Starts the game by assigning countries to players and entering the game loop.
-     * @throws InvalidCommandException if an invalid command is issued.
      */
-    public static void startGame() throws InvalidCommandException {
+    public static void startGame()  {
 
         ArrayList<Player> l_listOfPlayers = GameEngine.PLAYER_LIST;
         System.out.println("Assigning countries");
@@ -160,9 +159,9 @@ public class PlayGame {
      * and executing game actions.
      *
      * @param p_listOfPlayers list of players participating in the game.
-     * @throws InvalidCommandException if an invalid command is issued.
+
      */
-    public static void gameLoop(ArrayList<Player> p_listOfPlayers) throws InvalidCommandException {
+    public static void gameLoop(ArrayList<Player> p_listOfPlayers)  {
 
         String[] menu_options = {"Show Map","Start Game"};
 
@@ -200,7 +199,11 @@ public class PlayGame {
 
 
         assignReinforcements(p_listOfPlayers);
-        playerOrders(p_listOfPlayers);
+        try {
+            playerOrders(p_listOfPlayers);
+        } catch (InvalidCommandException e) {
+            TerminalRenderer.renderError("!!Invalid Command!! Please enter valid command");
+        }
         executingOrders(p_listOfPlayers);
 
         //PostExecution View -> current state map. Current Players //Turn Information.

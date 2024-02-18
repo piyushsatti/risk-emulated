@@ -3,10 +3,8 @@ package main.java.controller.commands;
 import main.java.controller.GameEngine;
 import main.java.controller.MapInterface;
 import main.java.models.Player;
-import main.java.utils.exceptions.ContinentAlreadyExistsException;
-import main.java.utils.exceptions.ContinentDoesNotExistException;
-import main.java.utils.exceptions.CountryDoesNotExistException;
-import main.java.utils.exceptions.PlayerDoesNotExistException;
+import main.java.models.worldmap.WorldMap;
+import main.java.utils.exceptions.*;
 
 import java.io.*;
 import java.util.Iterator;
@@ -157,8 +155,17 @@ public class CommandInterface {
      * @param p_filename : name of the map file
      * @throws FileNotFoundException : when map file is not found
      */
-    public static void loadCurrentMap(String p_filename) throws FileNotFoundException {
-        GameEngine.CURRENT_MAP = MapInterface.loadMap(p_filename);
+    public static void loadCurrentMap(String p_filename) throws FileNotFoundException, InvalidMapException {
+
+        WorldMap l_map = MapInterface.loadMap(p_filename);
+        if(MapInterface.validateMap(l_map)) {
+            GameEngine.CURRENT_MAP = MapInterface.loadMap(p_filename);
+        }
+        else{
+            GameEngine.CURRENT_MAP = null;
+            throw new InvalidMapException(p_filename);
+        }
+
     }
 
     /**

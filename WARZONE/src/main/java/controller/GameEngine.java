@@ -5,6 +5,7 @@ import main.java.models.Player;
 import main.java.models.worldmap.WorldMap;
 import main.java.utils.exceptions.*;
 import main.java.views.TerminalRenderer;
+import org.apache.commons.lang3.ObjectUtils;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class GameEngine {
     /**
      * The currently loaded map.
      */
-    public static WorldMap CURRENT_MAP;
+    public static WorldMap CURRENT_MAP = null;
 
     /**
      * List of players in the game.
@@ -65,15 +66,9 @@ public class GameEngine {
 
     /**
      * Manages the loop for player actions during the gameplay phase.
-     *
-     * @throws IOException                      if an I/O error occurs.
-     * @throws InvalidCommandException if an invalid command is entered.
-     * @throws CountryDoesNotExistException     if the country does not exist.
-     * @throws ContinentDoesNotExistException   if the continent does not exist.
-     * @throws ContinentAlreadyExistsException if the continent already exists.
-     * @throws PlayerDoesNotExistException     if the player does not exist.
-     */
-    public static void playerLoop() throws IOException, InvalidCommandException, CountryDoesNotExistException, ContinentDoesNotExistException, ContinentAlreadyExistsException, PlayerDoesNotExistException {
+     **/
+
+    public static void playerLoop() {
 
 
         TerminalRenderer.renderWelcome();
@@ -95,7 +90,11 @@ public class GameEngine {
 
             if (user_in.strip().replace(" ", "").equalsIgnoreCase("showmap")) {
 
-                TerminalRenderer.showMap(!GameEngine.PLAYER_LIST.isEmpty());
+                if(CURRENT_MAP!=null)
+                    TerminalRenderer.showMap(!GameEngine.PLAYER_LIST.isEmpty());
+                else
+                    TerminalRenderer.renderError("No Map is currently loaded in the game!!!");
+
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("loadmap")) {
 
@@ -107,9 +106,17 @@ public class GameEngine {
 
                 CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
 
-                command.addCommand(input);
+                try {
 
-                command.processValidCommand();
+                    command.addCommand(input);
+
+                    command.processValidCommand();
+
+                } catch (Exception | InvalidMapException e) {
+
+                    TerminalRenderer.renderError(e.toString());
+
+                }
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("add/removeplayer")) {
 
@@ -127,7 +134,7 @@ public class GameEngine {
 
                     command.processValidCommand();
 
-                } catch (InvalidCommandException e) {
+                } catch (Exception | InvalidMapException e) {
 
                     TerminalRenderer.renderError(e.toString());
 
@@ -143,7 +150,13 @@ public class GameEngine {
 
                     PlayGame.startGame();
 
-                } else {
+                } else if (!MapInterface.validateMap(CURRENT_MAP)) {
+
+                    CURRENT_MAP = null;
+                    TerminalRenderer.renderMessage("Current map is not a valid map! Please load again");
+
+                }
+                else {
 
                     TerminalRenderer.renderMessage("!!!Players are more than countries!!!");
 
@@ -222,13 +235,22 @@ public class GameEngine {
      *
      * @throws FileNotFoundException if the map file is not found.
      */
-    public static void mapEditor() throws FileNotFoundException {
+    public static void mapEditor()  {
 
         if (GameEngine.CURRENT_GAME_PHASE != GAME_PHASES.MAP_EDITOR) return;
 
-        GameEngine.CURRENT_MAP = MapInterface.loadMap(
-                TerminalRenderer.renderMapEditorMenu()
-        );
+        while(GameEngine.CURRENT_MAP==null) {
+            String l_filename = TerminalRenderer.renderMapEditorMenu();
+
+            try {
+                GameEngine.CURRENT_MAP = MapInterface.loadMap(l_filename);
+            } catch (FileNotFoundException | NumberFormatException e) {
+                TerminalRenderer.renderError("Invalid File or not found");
+            }
+        }
+
+
+
 
         String input_command;
 
@@ -254,7 +276,7 @@ public class GameEngine {
                 command.processValidCommand();
 
             } catch (InvalidCommandException | CountryDoesNotExistException |
-                     ContinentAlreadyExistsException | ContinentDoesNotExistException | IOException | PlayerDoesNotExistException e) {
+                     ContinentAlreadyExistsException | ContinentDoesNotExistException | IOException | PlayerDoesNotExistException | InvalidMapException e) {
 
                 TerminalRenderer.renderError("Invalid Command Entered: " + input_command + "\n" + e);
 
@@ -268,42 +290,18 @@ public class GameEngine {
      * @param args command line arguments.
      * @throws FileNotFoundException if a map file is not found.
      */
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args)  {
 
         while (CURRENT_GAME_PHASE == GAME_PHASES.MAIN_MENU) {
 
             startingMenu();
 
             if (CURRENT_GAME_PHASE == GAME_PHASES.MAP_EDITOR) {
-
-                try {
-
                     mapEditor();
-
-                } catch (FileNotFoundException e) {
-
-                    TerminalRenderer.renderError("Map file entered does not exist" + e);
-
-                    CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
-
-                }
-
             }
 
             if (CURRENT_GAME_PHASE == GAME_PHASES.GAMEPLAY) {
-
-                try {
-
                     playerLoop();
-
-                } catch (Exception e) {
-
-                    TerminalRenderer.renderError("Error in GameLoop" + e);
-
-                    CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
-
-                }
-
             }
 
         }
