@@ -40,7 +40,7 @@ public class GameEngine {
     /**
      * The currently loaded map.
      */
-    public static WorldMap CURRENT_MAP = null;
+    public static WorldMap CURRENT_MAP;
 
     /**
      * List of players in the game.
@@ -231,8 +231,6 @@ public class GameEngine {
     }
     /**
      * Manages the map editor phase where users can edit maps.
-     *
-     * @throws FileNotFoundException if the map file is not found.
      */
     public static void mapEditor()  {
 
@@ -287,7 +285,6 @@ public class GameEngine {
      * The main method that starts the game and controls the game loop.
      *
      * @param args command line arguments.
-     * @throws FileNotFoundException if a map file is not found.
      */
     public static void main(String[] args)  {
 

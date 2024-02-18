@@ -83,7 +83,7 @@ public class WorldMap {
     }
 
     /**
-     * Method which returns list of country in form of a HashMap <CountryID,Country>
+     * Method which returns list of country in form of a HashMap CountryID, Country
      */
     public  HashMap<Integer, Country> getD_countries() {
         return this.d_countries;
