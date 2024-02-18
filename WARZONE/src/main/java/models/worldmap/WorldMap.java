@@ -22,10 +22,20 @@ public class WorldMap {
      */
     private final HashMap<Integer, Continent> d_continents;
 
+    /**
+     * Retrieves the map of countries.
+     *
+     * @return The map of countries, where the key is the country ID and the value is the corresponding country object.
+     */
     public HashMap<Integer, Country> getCountries() {
         return d_countries;
     }
 
+    /**
+     * Retrieves the map of continents.
+     *
+     * @return The map of continents, where the key is the continent ID and the value is the corresponding continent object.
+     */
     public HashMap<Integer, Continent> getContinents() {
         return d_continents;
     }
@@ -40,10 +50,11 @@ public class WorldMap {
 
 
     /**
-     * This method adds a country to the map. It is necessary to have an existing Continent to
-     * associate to the new country
-     * @param countryName Name of the country to be added
-     * @param continentID Continent name which will be associated to new country (if present)
+     * Adds a country to the world map.
+     *
+     * @param countryID   The ID of the country to be added.
+     * @param continentID The ID of the continent to which the country belongs.
+     * @param countryName The name of the country to be added.
      */
     public void addCountry(int countryID, int continentID, String countryName){
 
@@ -87,6 +98,12 @@ public class WorldMap {
 
     }
 
+    /**
+     * Adds borders between the source country and a list of target countries.
+     *
+     * @param source     The ID of the source country.
+     * @param borderList The list of IDs of target countries to add borders with.
+     */
     public void addBorders(int source, ArrayList<Integer> borderList){
         //check that both countries exist
         for(Integer i : borderList){
@@ -130,6 +147,12 @@ public class WorldMap {
         return connected;
     }
 
+    /**
+     * Checks if the countries in the provided list are all connected.
+     *
+     * @param countryList The list of countries to check for connectivity.
+     * @return true if all countries in the list are connected, false otherwise.
+     */
     public boolean isConnected(HashMap<Integer, Country> countryList){
         boolean connected = true;
         for (Country c : countryList.values()){
@@ -138,6 +161,11 @@ public class WorldMap {
         return connected;
     }
 
+    /**
+     * Checks if all countries within each continent are connected.
+     *
+     * @return true if all countries within each continent are connected, false otherwise.
+     */
     public boolean isContinentConnected(){
         boolean connected = true;
         for(Continent target: this.d_continents.values()){
@@ -196,6 +224,12 @@ public class WorldMap {
         return this.d_countries.containsKey(countryID);
     }
 
+    /**
+     * Checks if the world map contains a country with the specified name.
+     *
+     * @param countryName The name of the country to check.
+     * @return true if the world map contains a country with the specified name, false otherwise.
+     */
     public boolean containsCountry(String countryName){
         return this.containsCountry(this.getCountryID(countryName));
     }
@@ -209,6 +243,12 @@ public class WorldMap {
         return this.d_continents.containsKey(continentID);
     }
 
+    /**
+     * Checks if the world map contains a continent with the specified name.
+     *
+     * @param continentName The name of the continent to check.
+     * @return true if the world map contains a continent with the specified name, false otherwise.
+     */
     public boolean containsContinent(String continentName){
         return this.containsContinent(this.getContinentID(continentName));
     }
@@ -222,6 +262,13 @@ public class WorldMap {
         return this.d_countries.get(countryID);
     }
 
+    /**
+     * Removes a border between two countries.
+     *
+     * @param source The ID of the source country.
+     * @param target The ID of the target country.
+     * @throws IllegalArgumentException if either the source or target country does not exist.
+     */
     public void removeBorder(int source, int target){
         //check that both countries exist
         if(!(this.containsCountry(source) && this.containsCountry(target))){
@@ -232,7 +279,12 @@ public class WorldMap {
         this.getCountry(source).removeBorder(this.getCountry(target));
     }
 
-
+    /**
+     * Gets the ID of a country based on its name.
+     *
+     * @param countryName The name of the country.
+     * @return The ID of the country, or 0 if not found.
+     */
     public int getCountryID(String countryName){
         for (Country c : this.getCountries().values()){
             if(c.getD_countryName().equals(countryName)){
@@ -242,6 +294,12 @@ public class WorldMap {
         return 0;
     }
 
+    /**
+     * Gets the ID of a continent based on its name.
+     *
+     * @param continentName The name of the continent.
+     * @return The ID of the continent, or 0 if not found.
+     */
     public int getContinentID(String continentName){
         for(Continent c: this.d_continents.values()){
             if(c.getContinentName().equals(continentName)){
