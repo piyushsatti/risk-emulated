@@ -36,7 +36,7 @@ public class CommandValidator {
                 "GAMEPLAY",
                 new ArrayList<>(
                         List.of(
-                                "showmap", "gameplayer","deploy"
+                                "showmap", "gameplayer","deploy","loadmap"
                         )
                 )
         );
