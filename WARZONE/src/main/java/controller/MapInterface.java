@@ -3,6 +3,10 @@ package controller;
 import models.worldmap.Continent;
 import models.worldmap.Country;
 import models.worldmap.WorldMap;
+import helpers.exceptions.ContinentAlreadyExistsException;
+import helpers.exceptions.ContinentDoesNotExistException;
+import helpers.exceptions.CountryDoesNotExistException;
+import helpers.exceptions.DuplicateCountryException;
 import views.TerminalRenderer;
 
 import java.io.*;
@@ -49,7 +53,7 @@ public class MapInterface {
      * @throws FileNotFoundException    If the specified file does not exist.
      * @throws NumberFormatException    If there is an error in parsing numeric data.
      */
-    public static WorldMap loadMap(String p_map_name) throws FileNotFoundException, NumberFormatException {
+    public static WorldMap loadMap(String p_map_name) throws FileNotFoundException, NumberFormatException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, CountryDoesNotExistException {
 
         File l_map_file_obj;
 
@@ -259,7 +263,7 @@ public class MapInterface {
      * @param args The command-line arguments (not used in this method).
      * @throws IOException If an I/O error occurs while loading or saving the map.
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException {
 
         WorldMap map = MapInterface.loadMap("usa9.map");
 

@@ -1,4 +1,4 @@
-package utils.exceptions;
+package helpers.exceptions;
 
 public class InvalidMapException extends Throwable {
 

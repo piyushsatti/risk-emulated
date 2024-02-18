@@ -5,7 +5,7 @@ import models.Player;
 import models.worldmap.Continent;
 import models.worldmap.Country;
 import models.worldmap.WorldMap;
-import utils.TerminalColors;
+import helpers.TerminalColors;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

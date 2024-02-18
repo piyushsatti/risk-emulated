@@ -1,4 +1,4 @@
-package utils.exceptions;
+package helpers.exceptions;
 
 /**
  * The ContinentDoesNotExistException class represents an exception that is thrown

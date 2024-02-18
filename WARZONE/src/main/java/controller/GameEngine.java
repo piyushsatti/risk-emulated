@@ -3,7 +3,7 @@ package controller;
 import controller.commands.CommandValidator;
 import models.Player;
 import models.worldmap.WorldMap;
-import utils.exceptions.*;
+import helpers.exceptions.*;
 import views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
@@ -59,6 +59,14 @@ public class GameEngine {
             System.out.println("Error");
             throw new RuntimeException(e);
 
+        } catch (CountryDoesNotExistException e) {
+            throw new RuntimeException(e);
+        } catch (ContinentAlreadyExistsException e) {
+            throw new RuntimeException(e);
+        } catch (ContinentDoesNotExistException e) {
+            throw new RuntimeException(e);
+        } catch (DuplicateCountryException e) {
+            throw new RuntimeException(e);
         }
 
     }
@@ -243,6 +251,14 @@ public class GameEngine {
                 GameEngine.CURRENT_MAP = MapInterface.loadMap(l_filename);
             } catch (FileNotFoundException | NumberFormatException e) {
                 TerminalRenderer.renderError("Invalid File or not found");
+            } catch (CountryDoesNotExistException e) {
+                throw new RuntimeException(e);
+            } catch (ContinentAlreadyExistsException e) {
+                throw new RuntimeException(e);
+            } catch (ContinentDoesNotExistException e) {
+                throw new RuntimeException(e);
+            } catch (DuplicateCountryException e) {
+                throw new RuntimeException(e);
             }
         }
 
@@ -272,8 +288,9 @@ public class GameEngine {
 
                 command.processValidCommand();
 
-            } catch (InvalidCommandException | CountryDoesNotExistException |
-                     ContinentAlreadyExistsException | ContinentDoesNotExistException | IOException | PlayerDoesNotExistException | InvalidMapException e) {
+            } catch (InvalidCommandException | CountryDoesNotExistException | ContinentAlreadyExistsException |
+                     ContinentDoesNotExistException | IOException | PlayerDoesNotExistException | InvalidMapException |
+                     DuplicateCountryException e) {
 
                 TerminalRenderer.renderError("Invalid Command Entered: " + input_command + "\n" + e);
 

@@ -1,7 +1,7 @@
 package controller.commands;
 
 import controller.GameEngine;
-import utils.exceptions.*;
+import helpers.exceptions.*;
 import views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
@@ -272,7 +272,7 @@ public class CommandValidator {
      * @throws NumberFormatException : when number of reinforcements in deploy command is not of integer type
      * @throws FileNotFoundException : when map file is not found
      */
-    public void processValidCommand() throws NumberFormatException, IOException, ContinentDoesNotExistException, CountryDoesNotExistException, PlayerDoesNotExistException, ContinentAlreadyExistsException, InvalidMapException {
+    public void processValidCommand() throws NumberFormatException, IOException, ContinentDoesNotExistException, CountryDoesNotExistException, PlayerDoesNotExistException, ContinentAlreadyExistsException, InvalidMapException, DuplicateCountryException {
 
         String[] p_lCommand = d_command;
 

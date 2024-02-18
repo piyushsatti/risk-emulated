@@ -1,4 +1,4 @@
-package utils;
+package helpers;
 
 /**
  * The TerminalColors class provides constants for ANSI escape codes

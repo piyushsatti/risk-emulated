@@ -3,7 +3,7 @@ package controller;
 import models.Order;
 import models.Player;
 import models.worldmap.Country;
-import utils.exceptions.InvalidCommandException;
+import helpers.exceptions.InvalidCommandException;
 import views.TerminalRenderer;
 
 import java.util.*;
@@ -31,7 +31,7 @@ public class PlayGame {
      */
     public static void assignCountriesToPlayers(ArrayList<Player> p_listOfPlayers) {
 
-        HashMap<Integer,Country> map = GameEngine.CURRENT_MAP.getD_countries();
+        HashMap<Integer, Country> map = GameEngine.CURRENT_MAP.getD_countries();
         Set<Integer> l_countryIDSet = map.keySet();
         ArrayList<Integer> l_countryIDList = new ArrayList<>(l_countryIDSet);
 

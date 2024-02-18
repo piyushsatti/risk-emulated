@@ -4,7 +4,7 @@ import controller.GameEngine;
 import controller.MapInterface;
 import models.Player;
 import models.worldmap.WorldMap;
-import utils.exceptions.*;
+import helpers.exceptions.*;
 
 import java.io.*;
 import java.util.Iterator;
@@ -41,7 +41,7 @@ public class CommandInterface {
      * @throws ContinentDoesNotExistException : when continent with the given name does not exist
      */
 
-    public static void removeContinentId(String p_continentName) throws ContinentDoesNotExistException {
+    public static void removeContinentId(String p_continentName) throws ContinentDoesNotExistException, CountryDoesNotExistException {
         int l_continentId = GameEngine.CURRENT_MAP.getContinentID(p_continentName);
         if(l_continentId==0) {
             throw new ContinentDoesNotExistException(p_continentName);
@@ -56,7 +56,7 @@ public class CommandInterface {
      * @param p_continentName: name of the continent
      * @throws ContinentDoesNotExistException : when continent to which country is to be added does not exist
      */
-    public static void addCountryIdContinentId(String p_countryName, String p_continentName) throws ContinentDoesNotExistException {
+    public static void addCountryIdContinentId(String p_countryName, String p_continentName) throws ContinentDoesNotExistException, DuplicateCountryException {
         int l_highestId = 0;
         for(int i : GameEngine.CURRENT_MAP.getCountries().keySet())
         {
@@ -160,7 +160,7 @@ public class CommandInterface {
      * @throws FileNotFoundException : when map file is not found
      * @throws InvalidMapException : when map is invalid
      */
-    public static void loadCurrentMap(String p_filename) throws FileNotFoundException, InvalidMapException {
+    public static void loadCurrentMap(String p_filename) throws FileNotFoundException, InvalidMapException, CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException {
 
         WorldMap l_map = MapInterface.loadMap(p_filename);
         if(MapInterface.validateMap(l_map)) {
@@ -201,7 +201,7 @@ public class CommandInterface {
      * @param p_filename : name of the map file entered by the user
      * @throws IOException : an IO exception has occurred
      */
-    public static void editMap(String p_filename) throws IOException {
+    public static void editMap(String p_filename) throws IOException, CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException {
         File l_map_file_obj = new File(GameEngine.MAPS_FOLDER + p_filename);
         //checking if the map with the filename entered by the user exists in the maps folder or not
         if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory())

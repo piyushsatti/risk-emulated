@@ -1,4 +1,4 @@
-package utils.exceptions;
+package helpers.exceptions;
 
 /**
  * The DuplicateCountryException class represents an exception that is thrown
