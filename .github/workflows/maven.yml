@@ -32,5 +32,5 @@ jobs:
     - name: Publish Javadoc
       uses: actions/upload-artifact@v2
       with:
-        name: javadoc
+        name: javadoc -private *.java
         path: javadocs 
