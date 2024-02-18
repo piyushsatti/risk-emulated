@@ -2,9 +2,9 @@ package controller.commands;
 
 import controller.GameEngine;
 import controller.MapInterface;
+import helpers.exceptions.*;
 import models.Player;
 import models.worldmap.WorldMap;
-import helpers.exceptions.*;
 
 import java.io.*;
 import java.util.Iterator;
@@ -201,7 +201,7 @@ public class CommandInterface {
      * @param p_filename : name of the map file entered by the user
      * @throws IOException : an IO exception has occurred
      */
-    public static void editMap(String p_filename) throws IOException, CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException {
+    public static void editMap(String p_filename) throws IOException, CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, InvalidMapException {
         File l_map_file_obj = new File(GameEngine.MAPS_FOLDER + p_filename);
         //checking if the map with the filename entered by the user exists in the maps folder or not
         if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory())

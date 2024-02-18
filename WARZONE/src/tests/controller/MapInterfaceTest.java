@@ -1,18 +1,18 @@
 package controller;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
-class MapInterfaceTest {
+public class MapInterfaceTest {
 
     @Test
-    void loadMap() {
+    public void loadMap() {
     }
 
     @Test
-    void saveMap() {
+    public void saveMap() {
     }
 
     @Test
-    void validateMap() {
+    public void validateMap() {
     }
 }

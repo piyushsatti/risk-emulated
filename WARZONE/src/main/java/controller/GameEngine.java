@@ -1,11 +1,12 @@
 package controller;
 
 import controller.commands.CommandValidator;
+import helpers.exceptions.*;
 import models.Player;
 import models.worldmap.WorldMap;
-import helpers.exceptions.*;
 import views.TerminalRenderer;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -47,34 +48,9 @@ public class GameEngine {
      */
     public static ArrayList<Player> PLAYER_LIST = new ArrayList<>();
 
-    static {
-
-        // Load a default map when the class is loaded
-
-        try {
-
-            CURRENT_MAP = MapInterface.loadMap("usa9.map");
-
-        } catch (FileNotFoundException e) {
-            System.out.println("Error");
-            throw new RuntimeException(e);
-
-        } catch (CountryDoesNotExistException e) {
-            throw new RuntimeException(e);
-        } catch (ContinentAlreadyExistsException e) {
-            throw new RuntimeException(e);
-        } catch (ContinentDoesNotExistException e) {
-            throw new RuntimeException(e);
-        } catch (DuplicateCountryException e) {
-            throw new RuntimeException(e);
-        }
-
-    }
-
     /**
      * Manages the loop for player actions during the gameplay phase.
      **/
-
     public static void playerLoop() {
 
 
@@ -185,13 +161,111 @@ public class GameEngine {
     }
 
     /**
+     * Manages the map editor phase where users can edit maps.
+     */
+    public static void mapEditor() {
+
+        if (GameEngine.CURRENT_GAME_PHASE != GAME_PHASES.MAP_EDITOR) return;
+
+        String l_filename;
+
+        while (GameEngine.CURRENT_MAP == null) {
+
+            l_filename = TerminalRenderer.renderMapEditorMenu();
+
+            try {
+
+                GameEngine.CURRENT_MAP = MapInterface.loadMap(l_filename);
+
+            } catch (FileNotFoundException | NumberFormatException | InvalidMapException e) {
+
+                TerminalRenderer.renderError("Invalid File or not found");
+
+            }
+        }
+
+        String input_command;
+
+        CommandValidator command;
+
+        while (true) {
+
+            input_command = TerminalRenderer.renderMapEditorCommands();
+
+            if (input_command.equals("exit")) {
+
+                TerminalRenderer.renderExit();
+
+                break;
+
+            }
+
+            command = new CommandValidator();
+
+            try {
+
+                command.addCommand(input_command);
+
+                command.processValidCommand();
+
+            } catch (InvalidCommandException | CountryDoesNotExistException | ContinentAlreadyExistsException |
+                     ContinentDoesNotExistException | IOException | PlayerDoesNotExistException |
+                     InvalidMapException |
+                     DuplicateCountryException e) {
+
+                TerminalRenderer.renderError("Invalid Command Entered: " + input_command + "\n" + e);
+
+            }
+
+        }
+
+    }
+
+    /**
+     * Configure default settings for GameEngine
+     */
+    private static void settings() {
+
+        TerminalRenderer.renderMessage("Please enter map folder path: ");
+
+        Scanner in = new Scanner(System.in);
+
+        File in_file;
+
+        String inp_file_path;
+
+        while (true) {
+
+            inp_file_path = in.nextLine().strip();
+
+            in_file = new File(inp_file_path);
+
+            if (in_file.isDirectory()) {
+
+                GameEngine.MAPS_FOLDER = inp_file_path;
+
+                TerminalRenderer.renderMessage("Directory set: " + inp_file_path);
+
+                return;
+
+            } else {
+
+                TerminalRenderer.renderError("File path not a directory.");
+
+            }
+
+        }
+
+    }
+
+    /**
      * Displays the starting menu and handles user input to determine the next game phase.
      */
     private static void startingMenu() {
 
         TerminalRenderer.renderWelcome();
 
-        String[] menu_options = {"Map Editor", "Play Game"};
+        String[] menu_options = {"Map Editor", "Play Game", "Settings"};
 
         TerminalRenderer.renderMenu(
                 "Starting Menu",
@@ -237,87 +311,37 @@ public class GameEngine {
         }
 
     }
-    /**
-     * Manages the map editor phase where users can edit maps.
-     */
-    public static void mapEditor()  {
 
-        if (GameEngine.CURRENT_GAME_PHASE != GAME_PHASES.MAP_EDITOR) return;
-
-        while(GameEngine.CURRENT_MAP==null) {
-            String l_filename = TerminalRenderer.renderMapEditorMenu();
-
-            try {
-                GameEngine.CURRENT_MAP = MapInterface.loadMap(l_filename);
-            } catch (FileNotFoundException | NumberFormatException e) {
-                TerminalRenderer.renderError("Invalid File or not found");
-            } catch (CountryDoesNotExistException e) {
-                throw new RuntimeException(e);
-            } catch (ContinentAlreadyExistsException e) {
-                throw new RuntimeException(e);
-            } catch (ContinentDoesNotExistException e) {
-                throw new RuntimeException(e);
-            } catch (DuplicateCountryException e) {
-                throw new RuntimeException(e);
-            }
-        }
-
-
-
-
-        String input_command;
-
-        while (true) {
-
-            // render for help command and list of commands that can be used for mapeditor
-            CommandValidator command = new CommandValidator();
-
-            input_command = TerminalRenderer.renderMapEditorCommands();
-
-            if (input_command.equals("exit")) {
-
-                TerminalRenderer.renderExit();
-
-                break;
-
-            }
-
-            try {
-
-                command.addCommand(input_command);
-
-                command.processValidCommand();
-
-            } catch (InvalidCommandException | CountryDoesNotExistException | ContinentAlreadyExistsException |
-                     ContinentDoesNotExistException | IOException | PlayerDoesNotExistException | InvalidMapException |
-                     DuplicateCountryException e) {
-
-                TerminalRenderer.renderError("Invalid Command Entered: " + input_command + "\n" + e);
-
-            }
-        }
-
-    }
     /**
      * The main method that starts the game and controls the game loop.
      *
      * @param args command line arguments.
      */
-    public static void main(String[] args)  {
+    public static void main(String[] args) {
 
-        while (CURRENT_GAME_PHASE == GAME_PHASES.MAIN_MENU) {
+            while (CURRENT_GAME_PHASE == GAME_PHASES.MAIN_MENU) {
 
-            startingMenu();
+                startingMenu();
 
-            if (CURRENT_GAME_PHASE == GAME_PHASES.MAP_EDITOR) {
+                if (CURRENT_GAME_PHASE == GAME_PHASES.MAP_EDITOR) {
+
                     mapEditor();
-            }
 
-            if (CURRENT_GAME_PHASE == GAME_PHASES.GAMEPLAY) {
+                }
+
+                if (CURRENT_GAME_PHASE == GAME_PHASES.GAMEPLAY) {
+
                     playerLoop();
-            }
 
-        }
+                }
+
+                if (CURRENT_GAME_PHASE == GAME_PHASES.SETTINGS) {
+
+                    settings();
+
+                }
+
+            }
 
     }
 

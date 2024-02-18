@@ -1,12 +1,9 @@
 package controller;
 
+import helpers.exceptions.*;
 import models.worldmap.Continent;
 import models.worldmap.Country;
 import models.worldmap.WorldMap;
-import helpers.exceptions.ContinentAlreadyExistsException;
-import helpers.exceptions.ContinentDoesNotExistException;
-import helpers.exceptions.CountryDoesNotExistException;
-import helpers.exceptions.DuplicateCountryException;
 import views.TerminalRenderer;
 
 import java.io.*;
@@ -53,7 +50,7 @@ public class MapInterface {
      * @throws FileNotFoundException    If the specified file does not exist.
      * @throws NumberFormatException    If there is an error in parsing numeric data.
      */
-    public static WorldMap loadMap(String p_map_name) throws FileNotFoundException, NumberFormatException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, CountryDoesNotExistException {
+    public static WorldMap loadMap(String p_map_name) throws FileNotFoundException, NumberFormatException, InvalidMapException {
 
         File l_map_file_obj;
 
@@ -119,40 +116,49 @@ public class MapInterface {
 
             l_split_data = l_data.split(" ");
 
-            if (l_state[0]) {
+            try {
 
-                map.addContinent(i, l_split_data[0], Integer.parseInt(l_split_data[1]));
+                if (l_state[0]) {
 
-                i++;
+                    map.addContinent(i, l_split_data[0], Integer.parseInt(l_split_data[1]));
 
-                continue;
+                    i++;
 
-            } else if (l_state[1]) {
+                    continue;
 
-                map.addCountry(
+                } else if (l_state[1]) {
 
-                        Integer.parseInt(l_split_data[0]),
+                    map.addCountry(
 
-                        Integer.parseInt(l_split_data[2]),
-
-                        l_split_data[1]
-
-                );
-
-                continue;
-
-            } else if (l_state[2]) {
-
-                for (int j = 1; j < l_split_data.length; j++) {
-
-                    map.addBorder(
                             Integer.parseInt(l_split_data[0]),
-                            Integer.parseInt(l_split_data[j])
+
+                            Integer.parseInt(l_split_data[2]),
+
+                            l_split_data[1]
+
                     );
+
+                    continue;
+
+                } else if (l_state[2]) {
+
+                    for (int j = 1; j < l_split_data.length; j++) {
+
+                        map.addBorder(
+                                Integer.parseInt(l_split_data[0]),
+                                Integer.parseInt(l_split_data[j])
+                        );
+
+                    }
+
+                    continue;
 
                 }
 
-                continue;
+            } catch (ContinentAlreadyExistsException | ContinentDoesNotExistException | DuplicateCountryException |
+                     CountryDoesNotExistException e) {
+
+                throw new InvalidMapException("WorldMap Features Invalud: " + e);
 
             }
 
@@ -263,7 +269,7 @@ public class MapInterface {
      * @param args The command-line arguments (not used in this method).
      * @throws IOException If an I/O error occurs while loading or saving the map.
      */
-    public static void main(String[] args) throws IOException, CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException {
+    public static void main(String[] args) throws IOException, CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, InvalidMapException {
 
         WorldMap map = MapInterface.loadMap("usa9.map");
 

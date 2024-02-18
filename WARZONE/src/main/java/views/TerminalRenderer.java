@@ -1,11 +1,11 @@
 package views;
 
 import controller.GameEngine;
+import helpers.TerminalColors;
 import models.Player;
 import models.worldmap.Continent;
 import models.worldmap.Country;
 import models.worldmap.WorldMap;
-import helpers.TerminalColors;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -133,13 +133,13 @@ public class TerminalRenderer {
      */
     public static String renderMapEditorMenu() {
 
-        System.out.println(TerminalColors.ANSI_BLUE + """
+        TerminalRenderer.renderMessage(TerminalColors.ANSI_BLUE + """
                 Please Enter a valid .map filename from folder:\t
                 """ + TerminalColors.ANSI_GREEN + GameEngine.MAPS_FOLDER + TerminalColors.ANSI_RESET);
 
         Scanner in = new Scanner(System.in);
 
-        return in.nextLine();
+        return in.nextLine().strip();
 
     }
     /**
@@ -149,9 +149,14 @@ public class TerminalRenderer {
      */
     public static String renderMapEditorCommands() {
 
-        System.out.println(TerminalColors.ANSI_BLUE + """
+        TerminalRenderer.renderMessage(TerminalColors.ANSI_BLUE + """
                 Please Enter a valid command:\t
-                """ + TerminalColors.ANSI_GREEN + "Substitute an object to loop over valid commands" + TerminalColors.ANSI_RESET);
+                """ + TerminalColors.ANSI_GREEN +
+                "Super Commands: savemap, laodmap, editmap, showmap" +
+                "Map Edit Commands: editcountry, editneighbor, editcontinent" +
+                TerminalColors.ANSI_RESET);
+
+        TerminalRenderer.renderMessage("Type 'exit' to quit map editing.");
 
         Scanner in = new Scanner(System.in);
 
