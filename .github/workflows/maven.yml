@@ -27,7 +27,7 @@ jobs:
  #     run: mvn test --file WARZONE/pom.xml
       
     - name: Generate Javadoc
-      run: mvn javadoc:javadoc --private *.java --file WARZONE/pom.xml
+      run: mvn javadoc:javadoc  --file WARZONE/pom.xml --private *java
 
     - name: Publish Javadoc
       uses: actions/upload-artifact@v2
