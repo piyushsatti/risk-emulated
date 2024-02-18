@@ -1,5 +1,9 @@
 package main.java.utils;
 
+/**
+ * The TerminalColors class provides constants for ANSI escape codes
+ * representing text colors and background colors for terminal output.
+ */
 public class TerminalColors {
     // ANSI escape code constants for text colors
     public static final String ANSI_RESET = "\u001B[0m";
