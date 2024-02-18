@@ -1,10 +1,10 @@
-package main.java.controller;
+package controller;
 
-import main.java.controller.commands.CommandValidator;
-import main.java.models.Player;
-import main.java.models.worldmap.WorldMap;
-import main.java.utils.exceptions.*;
-import main.java.views.TerminalRenderer;
+import controller.commands.CommandValidator;
+import models.Player;
+import models.worldmap.WorldMap;
+import utils.exceptions.*;
+import views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -53,7 +53,7 @@ public class GameEngine {
 
         try {
 
-            CURRENT_MAP = MapInterface.loadMap("usa9.map");
+            GameEngine.CURRENT_MAP = MapInterface.loadMap("usa9.map");
 
         } catch (FileNotFoundException e) {
             System.out.println("Error");

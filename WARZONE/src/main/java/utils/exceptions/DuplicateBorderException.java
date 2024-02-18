@@ -1,4 +1,4 @@
-package main.java.utils.exceptions;
+package utils.exceptions;
 
 /**
  * The DuplicateBorderException class represents an exception that is thrown

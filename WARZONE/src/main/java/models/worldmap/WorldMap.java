@@ -1,6 +1,5 @@
-package main.java.models.worldmap;
+package models.worldmap;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**

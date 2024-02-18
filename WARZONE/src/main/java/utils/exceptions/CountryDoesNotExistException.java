@@ -1,4 +1,4 @@
-package main.java.utils.exceptions;
+package utils.exceptions;
 
 /**
  * The CountryDoesNotExistException class represents an exception that is thrown

@@ -1,11 +1,11 @@
-package main.java.views;
+package views;
 
-import main.java.controller.GameEngine;
-import main.java.models.Player;
-import main.java.models.worldmap.Continent;
-import main.java.models.worldmap.Country;
-import main.java.models.worldmap.WorldMap;
-import main.java.utils.TerminalColors;
+import controller.GameEngine;
+import models.Player;
+import models.worldmap.Continent;
+import models.worldmap.Country;
+import models.worldmap.WorldMap;
+import utils.TerminalColors;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

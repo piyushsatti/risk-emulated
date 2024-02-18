@@ -1,9 +1,9 @@
-package main.java.models;
+package models;
 
-import main.java.controller.GameEngine;
-import main.java.controller.commands.CommandValidator;
-import main.java.utils.exceptions.InvalidCommandException;
-import main.java.views.TerminalRenderer;
+import controller.GameEngine;
+import controller.commands.CommandValidator;
+import utils.exceptions.InvalidCommandException;
+import views.TerminalRenderer;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

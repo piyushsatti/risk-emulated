@@ -1,8 +1,8 @@
-package main.java.controller.commands;
+package controller.commands;
 
-import main.java.controller.GameEngine;
-import main.java.utils.exceptions.*;
-import main.java.views.TerminalRenderer;
+import controller.GameEngine;
+import utils.exceptions.*;
+import views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

@@ -1,9 +1,9 @@
-package main.java.controller;
+package controller;
 
-import main.java.models.worldmap.Continent;
-import main.java.models.worldmap.Country;
-import main.java.models.worldmap.WorldMap;
-import main.java.views.TerminalRenderer;
+import models.worldmap.Continent;
+import models.worldmap.Country;
+import models.worldmap.WorldMap;
+import views.TerminalRenderer;
 
 import java.io.*;
 import java.util.HashMap;

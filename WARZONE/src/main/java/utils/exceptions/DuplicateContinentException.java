@@ -1,4 +1,4 @@
-package main.java.utils.exceptions;
+package utils.exceptions;
 
 /**
  * The DuplicateContinentException class represents an exception that is thrown

@@ -1,4 +1,4 @@
-package main.java.utils.exceptions;
+package utils.exceptions;
 
 /**
  * The ContinentAlreadyExistsException class represents an exception that is thrown

@@ -1,6 +1,4 @@
-package main.java.utils.exceptions;
-
-import java.util.concurrent.ExecutionException;
+package utils.exceptions;
 
 /**
  * The ContinentDoesNotExistException class represents an exception that is thrown

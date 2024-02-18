@@ -1,7 +1,7 @@
-package main.java.models;
+package models;
 
-import main.java.controller.GameEngine;
-import main.java.views.TerminalRenderer;
+import controller.GameEngine;
+import views.TerminalRenderer;
 
 /**
  * The Order class represents a player's order in the game.

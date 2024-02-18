@@ -1,10 +1,10 @@
-package main.java.controller.commands;
+package controller.commands;
 
-import main.java.controller.GameEngine;
-import main.java.controller.MapInterface;
-import main.java.models.Player;
-import main.java.models.worldmap.WorldMap;
-import main.java.utils.exceptions.*;
+import controller.GameEngine;
+import controller.MapInterface;
+import models.Player;
+import models.worldmap.WorldMap;
+import utils.exceptions.*;
 
 import java.io.*;
 import java.util.Iterator;

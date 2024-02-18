@@ -1,10 +1,10 @@
-package main.java.controller;
+package controller;
 
-import main.java.models.Order;
-import main.java.models.Player;
-import main.java.models.worldmap.Country;
-import main.java.utils.exceptions.InvalidCommandException;
-import main.java.views.TerminalRenderer;
+import models.Order;
+import models.Player;
+import models.worldmap.Country;
+import utils.exceptions.InvalidCommandException;
+import views.TerminalRenderer;
 
 import java.util.*;
 
