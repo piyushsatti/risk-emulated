@@ -53,7 +53,7 @@ public class GameEngine {
 
         try {
 
-            GameEngine.CURRENT_MAP = MapInterface.loadMap("usa9.map");
+            CURRENT_MAP = MapInterface.loadMap("usa9.map");
 
         } catch (FileNotFoundException e) {
             System.out.println("Error");

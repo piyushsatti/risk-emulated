@@ -15,4 +15,8 @@ public class ContinentAlreadyExistsException extends Exception {
     public ContinentAlreadyExistsException(String name){
         super("Continent " +name+ " already exists, cannot add it again ");
     }
+
+    public ContinentAlreadyExistsException(int p_id){
+        super("Continent " +p_id+ " already exists, cannot add it again ");
+    }
 }
