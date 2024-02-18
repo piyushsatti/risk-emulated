@@ -21,7 +21,6 @@ public class Order {
 
     public void execute(){
         int l_currentReinforcements = GameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getReinforcements();
-
         GameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).setReinforcements(this.d_reinforcementsDeployed + l_currentReinforcements);
         System.out.print("Order Executed: ");
         System.out.println(this.d_reinforcementsDeployed +" troops deployed on "+ GameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getD_countryName() + " by " +this.d_playerOrderName);
