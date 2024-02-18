@@ -182,7 +182,7 @@ public class WorldMap {
     public void removeCountry(int countryID) {
         Country country = d_countries.get(countryID);
         for (Country countryToCheck : this.d_countries.values()) {
-            countryToCheck.removeBorder(countryToCheck);
+            countryToCheck.removeBorder(country);
         }
         d_countries.remove(countryID);
     }
