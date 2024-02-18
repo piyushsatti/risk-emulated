@@ -1,4 +1,3 @@
-
 package main.java.models;
 
 import main.java.controller.GameEngine;
@@ -13,12 +12,18 @@ import java.util.Deque;
 /**
  * The Player class represents a player in the game.
  */
-public class Player{
-   private static int d_latest_playerID =1;
+public class Player {
+
+    private static int d_latest_playerID = 1;
+
     private final int d_playerId;
+
     private String d_playerName;
+
     private int d_reinforcements;
+
     private final ArrayList<Integer> d_assignedCountries;
+
     private final Deque<Order> d_orderList = new ArrayDeque<>();
 
 
@@ -28,16 +33,92 @@ public class Player{
      * @param p_playerName The name of the player.
      */
     //Constructors
-    public Player(String p_playerName){
+    public Player(String p_playerName) {
+
         this.d_playerId=d_latest_playerID;
+
         this.d_playerName= p_playerName;
+
         this.d_reinforcements= 0;
+
         this.d_assignedCountries = new ArrayList<>();
+
         d_latest_playerID++;
+
     }
 
+    /**
+     * Issues an order for the player.
+     *
+     * @throws InvalidCommandException If the command issued by the player is invalid.
+     */
+    public void issue_order() throws InvalidCommandException {
 
-    //Getters
+        while(true) {
+
+            TerminalRenderer.renderMessage("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());
+
+            String command = TerminalRenderer.issueOrderview(this.getName());
+
+            CommandValidator commandValidator = new CommandValidator();
+
+            commandValidator.addCommand(command);
+
+            String[] arr = command.split(" ");
+
+            int l_countryID = GameEngine.CURRENT_MAP.getCountryID(arr[1]);
+
+            int l_numberTobeDeployed = Integer.parseInt(arr[2]);
+
+            if (l_countryID > 0 && l_numberTobeDeployed <= this.getReinforcements()) {
+
+                if (this.d_assignedCountries.contains(l_countryID)) {
+
+                    Order order = new Order(this.getName(),this.getPlayerId(), l_countryID, l_numberTobeDeployed);
+
+                    TerminalRenderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + GameEngine.CURRENT_MAP.getCountry(l_countryID).getD_countryName() + " by Player: " + this.d_playerName);
+
+                    this.d_orderList.add(order);
+
+                    this.setReinforcements(this.getReinforcements() - l_numberTobeDeployed);
+
+                    TerminalRenderer.renderMessage("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());
+
+                    return;
+
+                } else {
+
+                    TerminalRenderer.renderMessage("You (" + this.d_playerName + ") Cannot Deploy Troops here you don't own it.");
+
+                }
+
+            } else {
+
+                if (l_numberTobeDeployed > this.getReinforcements()) {
+
+                    TerminalRenderer.renderMessage("You (" + this.d_playerName + ") don't have enough troops for this deploy order");
+
+                } else {
+
+                    throw new InvalidCommandException("Invalid Command");
+
+                }
+
+            }
+
+        }
+
+    }
+
+    /**
+     * Gets the next order from the player's order list.
+     *
+     * @return The next order from the player's order list.
+     */
+    public Order next_order() {
+        return this.d_orderList.poll();
+    }
+
 
     /**
      * Gets the name of the player.
@@ -47,6 +128,7 @@ public class Player{
     public String getName() {
         return d_playerName;
     }
+
     /**
      * Gets the reinforcements available for the player.
      *
@@ -64,6 +146,7 @@ public class Player{
     public ArrayList<Integer> getAssignedCountries() {
         return this.d_assignedCountries;
     }
+
     /**
      * Gets a player from the list of players based on the player ID.
      *
@@ -71,7 +154,7 @@ public class Player{
      * @param p_playerID      The ID of the player to retrieve.
      * @return The player with the specified ID, or null if not found.
      */
-    public static Player getPlayerFromList(ArrayList<Player> p_listOfPlayers, int p_playerID){
+    public static Player getPlayerFromList(ArrayList<Player> p_listOfPlayers, int p_playerID) {
         for (Player l_player : p_listOfPlayers) {
             if (l_player.getPlayerId() == p_playerID) {
                 return l_player;
@@ -104,15 +187,16 @@ public class Player{
      * @param p_name The name to set for the player.
      */
     public void setName(String p_name) {
-        this.d_playerName= p_name;
+        this.d_playerName = p_name;
     }
+
     /**
      * Sets the reinforcements of the player.
      *
      * @param p_reinforcements The reinforcements to set for the player.
      */
     public void setReinforcements(int p_reinforcements) {
-        this.d_reinforcements= p_reinforcements;
+        this.d_reinforcements = p_reinforcements;
     }
 
     /**
@@ -122,57 +206,6 @@ public class Player{
      */
     public void setAssignedCountries(Integer p_countryID) {
         this.d_assignedCountries.add(p_countryID);
-    }
-
-    /**
-     * Issues an order for the player.
-     *
-     * @throws InvalidCommandException If the command issued by the player is invalid.
-     */
-    public void issue_order() throws InvalidCommandException {
-
-        while(true) {
-            System.out.println("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());
-            String command = TerminalRenderer.issueOrderview(this.getName());
-            CommandValidator commandValidator = new CommandValidator();
-            commandValidator.addCommand(command);
-
-            String[] arr = command.split(" ");
-
-            int l_countryID = GameEngine.CURRENT_MAP.getCountryID(arr[1]);
-            int l_numberTobeDeployed = Integer.parseInt(arr[2]);
-
-            if (l_countryID > 0 && l_numberTobeDeployed <= this.getReinforcements()) {
-
-                if (this.d_assignedCountries.contains(l_countryID)) {
-                    Order order = new Order(this.getName(),this.getPlayerId(), l_countryID, l_numberTobeDeployed);
-                    System.out.println("Order Created. Here are the Details: Deploy " +l_numberTobeDeployed+ " on "+ GameEngine.CURRENT_MAP.getCountry(l_countryID).getD_countryName() + " by Player: " + this.d_playerName);
-                    this.d_orderList.add(order);
-                    this.setReinforcements(this.getReinforcements() - l_numberTobeDeployed);
-                    System.out.println("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());
-                    return;
-
-
-                } else {
-                    System.out.println("You (" + this.d_playerName + ") Cannot Deploy Troops here you don't own it.");
-                }
-            } else {
-                if( l_numberTobeDeployed > this.getReinforcements()){
-                    System.out.println("You (" +this.d_playerName+") don't have enough troops for this deploy order");
-            }else{
-                   throw new InvalidCommandException("Invalid Command");
-                }
-            }
-        }
-    }
-
-    /**
-     * Gets the next order from the player's order list.
-     *
-     * @return The next order from the player's order list.
-     */
-    public Order next_order(){
-        return this.d_orderList.poll();
     }
 
 }
