@@ -48,10 +48,7 @@ public class GameEngine {
     }
 
 
-    public static void playerLoop() throws FileNotFoundException, exceptions.InvalidCommandException {
-
-
-        //Need A view for what needs to be done;
+    public static void playerLoop() throws IOException, exceptions.InvalidCommandException, CountryDoesNotExistException, ContinentDoesNotExistException, ContinentAlreadyExistsException, PlayerDoesNotExistException {
 
 
         TerminalRenderer.renderWelcome();
@@ -73,23 +70,30 @@ public class GameEngine {
 
 
             if (user_in.strip().replace(" ", "").equalsIgnoreCase("showmap")) {
-
-                TerminalRenderer.showMap(true);
-                return;
-
+               if(GameEngine.PLAYER_LIST.size()!=0){
+                   TerminalRenderer.showMap(true);
+               }
+               else{
+                   TerminalRenderer.showMap(false);
+               }
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("loadmap")) {
+                System.out.println("Enter command-> loadmap followed by filename.map");
+                String input = in.nextLine();
+                CommandValidator command = new CommandValidator();
+                CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
+                command.addCommand(input);
+                command.processValidCommand();
 
-                MapInterface.loadMap(
-                        TerminalRenderer.renderRequestMapFileName()
-                );
 
-                return;
+
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("Add/RemovePlayer")) {
-
+                System.out.println("Please enter command to add and remove players");
+                String input = in.nextLine();
                 CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
-
-                return;
+                CommandValidator command = new CommandValidator();
+                command.addCommand(input);
+                command.processValidCommand();
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("assigncountries")) {
 
@@ -102,7 +106,7 @@ public class GameEngine {
                 else{
                     TerminalRenderer.renderMessage("!!!Players are more than countries!!!");
                 }
-                return;
+
 
             }
 
@@ -127,7 +131,7 @@ public class GameEngine {
         String[] menu_options = {"Map Editor", "Play Game"};
 
         TerminalRenderer.renderMenu(
-                "Main Menu",
+                "Starting Menu",
                 menu_options
         );
 
@@ -213,14 +217,6 @@ public class GameEngine {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-
-     Player p = new Player("Priyanshu");
-     Player d = new Player("Dev");
-     PLAYER_LIST.add(p);
-     PLAYER_LIST.add(d);
-
-
-
 
         while (CURRENT_GAME_PHASE == GAME_PHASES.MAIN_MENU) {
 
