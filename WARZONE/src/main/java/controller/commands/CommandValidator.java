@@ -272,7 +272,7 @@ public class CommandValidator {
      * @throws NumberFormatException : when number of reinforcements in deploy command is not of integer type
      * @throws FileNotFoundException : when map file is not found
      */
-    public void processValidCommand() throws NumberFormatException, IOException, ContinentDoesNotExistException, CountryDoesNotExistException, PlayerDoesNotExistException, ContinentAlreadyExistsException {
+    public void processValidCommand() throws NumberFormatException, IOException, ContinentDoesNotExistException, CountryDoesNotExistException, PlayerDoesNotExistException, ContinentAlreadyExistsException, InvalidMapException {
 
         String[] p_lCommand = d_command;
 

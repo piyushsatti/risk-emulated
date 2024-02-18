@@ -74,4 +74,19 @@
     -  calculation of number of reinforcement armies;
     -  player cannot deploy more armies that there is in their reinforcement pool.
   - [ ] Coding standards—Consistent use of the coding conventions described below
+  
+  ## JUnit compulsory test cases
+  - [ ] map validation – map is a connected graph 
+  - [ ] continent validation – continent is a connected subgraph; 
+  - [ ] calculation of number of reinforcement armies; 
+  - [ ] player cannot deploy more armies that there is in their reinforcement pool.
+  - [ ] Assign countries logic sum of assigned countries=total countries, 1 country difference at max
+  - [ ] load map when game engine has a default map added
+  - [ ] save map if text file is created or not
+  - [ ] play game to check if load map is correct or not
+  - [ ] TBD
+  - [ ] TBD
+  
+  
+
  

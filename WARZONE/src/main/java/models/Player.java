@@ -160,7 +160,7 @@ public class Player{
                 if( l_numberTobeDeployed > this.getReinforcements()){
                     System.out.println("You (" +this.d_playerName+") don't have enough troops for this deploy order");
             }else{
-                    System.out.println("Invalid Command! The command should be in following format: deploy countryID num");
+                   throw new InvalidCommandException("Invalid Command");
                 }
             }
         }
