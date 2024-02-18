@@ -2,6 +2,7 @@ package main.java.controller.commands;
 
 import exceptions.InvalidCommandException;
 import main.java.controller.GameEngine;
+import main.java.utils.exceptions.ContinentAlreadyExistsException;
 import main.java.utils.exceptions.ContinentDoesNotExistException;
 import main.java.utils.exceptions.CountryDoesNotExistException;
 import main.java.utils.exceptions.PlayerDoesNotExistException;
@@ -300,7 +301,7 @@ public class CommandValidator {
      * @throws NumberFormatException
      * @throws FileNotFoundException
      */
-    public void processValidCommand() throws NumberFormatException, IOException, ContinentDoesNotExistException, CountryDoesNotExistException, PlayerDoesNotExistException {
+    public void processValidCommand() throws NumberFormatException, IOException, ContinentDoesNotExistException, CountryDoesNotExistException, PlayerDoesNotExistException, ContinentAlreadyExistsException {
 
         String[] p_lCommand = d_command;
 
