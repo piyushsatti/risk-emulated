@@ -1,13 +1,9 @@
 package main.java.controller;
 
-
 import main.java.controller.commands.CommandValidator;
 import main.java.models.Player;
 import main.java.models.worldmap.WorldMap;
-import main.java.utils.exceptions.ContinentAlreadyExistsException;
-import main.java.utils.exceptions.ContinentDoesNotExistException;
-import main.java.utils.exceptions.CountryDoesNotExistException;
-import main.java.utils.exceptions.PlayerDoesNotExistException;
+import main.java.utils.exceptions.*;
 import main.java.views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
@@ -49,7 +45,7 @@ public class GameEngine {
     /**
      * List of players in the game.
      */
-    public static ArrayList<Player> PLAYER_LIST = new ArrayList<Player>();
+    public static ArrayList<Player> PLAYER_LIST = new ArrayList<>();
 
     static {
 
@@ -72,13 +68,13 @@ public class GameEngine {
      * Manages the loop for player actions during the gameplay phase.
      *
      * @throws IOException                      if an I/O error occurs.
-     * @throws exceptions.InvalidCommandException if an invalid command is entered.
+     * @throws InvalidCommandException if an invalid command is entered.
      * @throws CountryDoesNotExistException     if the country does not exist.
      * @throws ContinentDoesNotExistException   if the continent does not exist.
      * @throws ContinentAlreadyExistsException if the continent already exists.
      * @throws PlayerDoesNotExistException     if the player does not exist.
      */
-    public static void playerLoop() throws IOException, exceptions.InvalidCommandException, CountryDoesNotExistException, ContinentDoesNotExistException, ContinentAlreadyExistsException, PlayerDoesNotExistException {
+    public static void playerLoop() throws IOException, InvalidCommandException, CountryDoesNotExistException, ContinentDoesNotExistException, ContinentAlreadyExistsException, PlayerDoesNotExistException {
 
 
         TerminalRenderer.renderWelcome();
@@ -92,20 +88,14 @@ public class GameEngine {
 
         Scanner in = new Scanner(System.in);
 
-        String user_in = "";
+        String user_in;
 
         while (true) {
 
             user_in = in.nextLine();
 
-
             if (user_in.strip().replace(" ", "").equalsIgnoreCase("showmap")) {
-               if(GameEngine.PLAYER_LIST.size()!=0){
-                   TerminalRenderer.showMap(true);
-               }
-               else{
-                   TerminalRenderer.showMap(false);
-               }
+                TerminalRenderer.showMap(!GameEngine.PLAYER_LIST.isEmpty());
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("loadmap")) {
                 System.out.println("Enter command-> loadmap followed by filename.map");
                 String input = in.nextLine();
@@ -113,10 +103,6 @@ public class GameEngine {
                 CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
                 command.addCommand(input);
                 command.processValidCommand();
-
-
-
-
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("Add/RemovePlayer")) {
                 System.out.println("Please enter command to add and remove players");
                 String input = in.nextLine();
@@ -124,23 +110,18 @@ public class GameEngine {
                 CommandValidator command = new CommandValidator();
                 command.addCommand(input);
                 command.processValidCommand();
-
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("assigncountries")) {
 
-                if(PLAYER_LIST.isEmpty()){
-                    TerminalRenderer.renderMessage("!!!PLAYER LIST IS EMPTY!!! \n Please add players to the list" );
-                }
-                else if(CURRENT_MAP.getD_countries().size()>=PLAYER_LIST.size()) {
+                if (PLAYER_LIST.isEmpty()) {
+                    TerminalRenderer.renderMessage("!!!PLAYER LIST IS EMPTY!!! \n Please add players to the list");
+                } else if (CURRENT_MAP.getD_countries().size() >= PLAYER_LIST.size()) {
                     PlayGame.startGame();
-                }
-                else{
+                } else {
                     TerminalRenderer.renderMessage("!!!Players are more than countries!!!");
                 }
 
 
-            }
-
-            else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
 
                 TerminalRenderer.renderExit();
 
@@ -242,10 +223,10 @@ public class GameEngine {
 
                 command.processValidCommand();
 
-            } catch (exceptions.InvalidCommandException | CountryDoesNotExistException |
+            } catch (InvalidCommandException | CountryDoesNotExistException |
                      ContinentAlreadyExistsException | ContinentDoesNotExistException | IOException | PlayerDoesNotExistException e) {
 
-                TerminalRenderer.renderError("Invalid Command Entered: " + input_command + "\n" + e.toString());
+                TerminalRenderer.renderError("Invalid Command Entered: " + input_command + "\n" + e);
 
             }
         }

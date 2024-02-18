@@ -11,8 +11,12 @@ public class PlayerDoesNotExistException extends Exception {
      *
      * @param p_playerName The name of the player that does not exist.
      */
-    public PlayerDoesNotExistException(String p_playerName){
+
+    public PlayerDoesNotExistException(String p_playerName) {
+
         super("player does not exist: " + p_playerName);
+
     }
+
 }
 

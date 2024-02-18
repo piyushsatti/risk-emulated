@@ -3,6 +3,7 @@ package main.java.models;
 
 import main.java.controller.GameEngine;
 import main.java.controller.commands.CommandValidator;
+import main.java.utils.exceptions.InvalidCommandException;
 import main.java.views.TerminalRenderer;
 
 import java.util.ArrayDeque;
@@ -11,11 +12,11 @@ import java.util.Deque;
 
 public class Player{
    private static int d_latest_playerID =1;
-    private int d_playerId;
+    private final int d_playerId;
     private String d_playerName;
     private int d_reinforcements;
-    private ArrayList<Integer> d_assignedCountries;
-    private final Deque<Order> d_orderList;
+    private final ArrayList<Integer> d_assignedCountries;
+    private final Deque<Order> d_orderList = new ArrayDeque<>();
 
 
     //Constructors
@@ -23,10 +24,8 @@ public class Player{
         this.d_playerId=d_latest_playerID;
         this.d_playerName= p_playerName;
         this.d_reinforcements= 0;
-        this.d_assignedCountries= new ArrayList<Integer>();
-        this.d_orderList = new ArrayDeque<Order>();
+        this.d_assignedCountries = new ArrayList<>();
         d_latest_playerID++;
-
     }
 
 
@@ -59,12 +58,6 @@ public class Player{
         return this.d_playerId;
     }
 
-
-    //Setters
-    public void setPlayerId(int d_playerId) {
-        this.d_playerId = d_playerId;
-    }
-
     public void setName(String p_name) {
         this.d_playerName= p_name;
     }
@@ -77,7 +70,7 @@ public class Player{
     }
 
 
-    public void issue_order() throws exceptions.InvalidCommandException {
+    public void issue_order() throws InvalidCommandException {
 
         while(true) {
             System.out.println("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());
@@ -85,7 +78,7 @@ public class Player{
             CommandValidator commandValidator = new CommandValidator();
             commandValidator.addCommand(command);
 
-            String arr[] = command.split(" ");
+            String[] arr = command.split(" ");
 
             int l_countryID = GameEngine.CURRENT_MAP.getCountryID(arr[1]);
             int l_numberTobeDeployed = Integer.parseInt(arr[2]);

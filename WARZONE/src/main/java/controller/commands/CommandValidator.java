@@ -1,11 +1,7 @@
 package main.java.controller.commands;
 
-import exceptions.InvalidCommandException;
 import main.java.controller.GameEngine;
-import main.java.utils.exceptions.ContinentAlreadyExistsException;
-import main.java.utils.exceptions.ContinentDoesNotExistException;
-import main.java.utils.exceptions.CountryDoesNotExistException;
-import main.java.utils.exceptions.PlayerDoesNotExistException;
+import main.java.utils.exceptions.*;
 import main.java.views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
@@ -93,7 +89,6 @@ public class CommandValidator {
     /**
      * this method checks if the command entered is of valid format or not.
      * @param p_enteredCommand : command entered by the user
-     * @return
      * @throws InvalidCommandException : when entered command is invalid
      * @throws NumberFormatException : when any required integer parameter is found to be of another data type
      */
@@ -131,18 +126,10 @@ public class CommandValidator {
         }
         //after we have checked if the command is valid for current gamephase and of proper length, we further check its validity
         switch (l_mainCommand) {
-            case "editcountry", "editcontinent", "editneighbor" -> {
-                this.checkEditCommandsValidity(d_command);
-                break;
-            }
-            case "gameplayer" -> {
-                this.checkGamePlayerCommandValidity(d_command);
-                break;
-            }
-            case "deploy" -> {
-                System.out.println("I am in deploy check");
-                this.checkDeployCommandValidity(d_command);
-            }
+            case "editcountry", "editcontinent", "editneighbor" -> this.checkEditCommandsValidity(d_command);
+            case "gameplayer" -> this.checkGamePlayerCommandValidity(d_command);
+            case "deploy" -> this.checkDeployCommandValidity(d_command);
+            default -> throw new IllegalStateException("Unexpected value: " + l_mainCommand);
         }
     }
 
@@ -152,8 +139,7 @@ public class CommandValidator {
      * @throws NumberFormatException: when the number of reinforcements is not an integer
      */
     private void checkDeployCommandValidity(String[] p_lCommand) throws NumberFormatException {
-        int b = Integer.parseInt(p_lCommand[2]);
-        return;
+        final int i = Integer.parseInt(p_lCommand[2]);
     }
 
     /**
@@ -302,226 +288,223 @@ public class CommandValidator {
             TerminalRenderer.showCurrentGameMap(); //calling method to show all countries, continents, armies on each country, ownership, connecitvity
         }
 
-        if (l_mainCommand.equals("editcontinent")) {
+        switch (l_mainCommand) {
 
-            d_addContinentIdContinentValList = new ArrayList<>(); //list to store continent id and continent val which need to be added to the map
+            case "editcontinent" -> {
 
-            d_removeContinentIdList = new ArrayList<>(); //list to store the continent ids of the continents which are to be removed from the map.
+                d_addContinentIdContinentValList = new ArrayList<>(); //list to store continent id and continent val which need to be added to the map
 
-            int l_i = 1;
-            //we are going to iterate over the command array to store the option parameters in the required lists
-            while (l_i < l_len) {
 
-                String l_currOption = p_lCommand[l_i];
+                d_removeContinentIdList = new ArrayList<>(); //list to store the continent ids of the continents which are to be removed from the map.
 
-                if (l_currOption.equals("-add")) {
 
-                    String l_addContinentId = p_lCommand[++l_i];
+                int l_i = 1;
+                //we are going to iterate over the command array to store the option parameters in the required lists
+                while (l_i < l_len) {
 
-                    String l_addContinentVal = p_lCommand[++l_i];
+                    String l_currOption = p_lCommand[l_i];
 
-                    List<String> l_pair = new ArrayList<>();
+                    if (l_currOption.equals("-add")) {
 
-                    l_pair.add(l_addContinentId);
+                        String l_addContinentId = p_lCommand[++l_i];
 
-                    l_pair.add(l_addContinentVal);
+                        String l_addContinentVal = p_lCommand[++l_i];
 
-                    d_addContinentIdContinentValList.add(l_pair); //adding the two parameters of the add option in the d_addContinentIdContinentValList
+                        List<String> l_pair = new ArrayList<>();
 
-                } else if (l_currOption.equals("-remove")) {
+                        l_pair.add(l_addContinentId);
 
-                    String l_removeContinentId = p_lCommand[++l_i];
+                        l_pair.add(l_addContinentVal);
 
-                    d_removeContinentIdList.add(l_removeContinentId); //adding the parameter of the remove option to d_removeContinentIdList list
+                        d_addContinentIdContinentValList.add(l_pair); //adding the two parameters of the add option in the d_addContinentIdContinentValList
 
-                }
+                    } else if (l_currOption.equals("-remove")) {
 
-                l_i++;
+                        String l_removeContinentId = p_lCommand[++l_i];
 
-            }
-            //now we iterate over the addContinentIdContinentVal and d_removeContinentIdList lists and call methods in the CommandInterface class to process the add/remove parameters
-            for(int j = 0; j< d_addContinentIdContinentValList.size(); j++)
-            {
-                List<String> pair = d_addContinentIdContinentValList.get(j);
-                CommandInterface.addContinentIdContinentVal(pair.get(0), pair.get(1)); //calling method to add new continent and its bonus army value to the map
-            }
-            for(int j=0;j<d_removeContinentIdList.size();j++)
-            {
-                CommandInterface.removeContinentId(d_removeContinentIdList.get(j)); //calling method to remove a continent from the map
-            }
+                        d_removeContinentIdList.add(l_removeContinentId); //adding the parameter of the remove option to d_removeContinentIdList list
 
-        } else if (l_mainCommand.equals("editcountry")) {
+                    }
 
-            d_addCountryIdContinentIdList = new ArrayList<>(); //list to store country id and continent id given as add option parameters
-
-            d_removeCountryIdList = new ArrayList<>(); //list to store country id as remove option parameter
-
-            int l_j = 1;
-            //we are now iterating over the command array and adding parameters of add/remove options to the lists d_addCountryIdContinentIdList and d_removeCountryIdList respectively
-            while (l_j < l_len) {
-
-                String l_currOption = p_lCommand[l_j];
-
-                if (l_currOption.equals("-add")) {
-
-                    String l_addCountryId = p_lCommand[++l_j];
-
-                    String l_addContinentId = p_lCommand[++l_j];
-
-                    List<String> l_pair = new ArrayList<>();
-
-                    l_pair.add(l_addCountryId);
-
-                    l_pair.add(l_addContinentId);
-
-                    d_addCountryIdContinentIdList.add(l_pair);
-
-                } else if (l_currOption.equals("-remove")) {
-
-                    String l_removeCountryId = p_lCommand[++l_j];
-
-                    d_removeCountryIdList.add(l_removeCountryId);
+                    l_i++;
 
                 }
-
-                l_j++;
-
+                //now we iterate over the addContinentIdContinentVal and d_removeContinentIdList lists and call methods in the CommandInterface class to process the add/remove parameters
+                for (List<String> pair : d_addContinentIdContinentValList) {
+                    CommandInterface.addContinentIdContinentVal(pair.get(0), pair.get(1)); //calling method to add new continent and its bonus army value to the map
+                }
+                for (String s : d_removeContinentIdList) {
+                    CommandInterface.removeContinentId(s); //calling method to remove a continent from the map
+                }
             }
-            //iterating over the d_addCountryIdContinentIdList and d_removeCountryIdList lists and calling corresponding methods to process add/remove option parameters
-            for(int i = 0; i< d_addCountryIdContinentIdList.size(); i++)
-            {
-                List<String> pair = d_addCountryIdContinentIdList.get(i);
-                CommandInterface.addCountryIdContinentId(pair.get(0), pair.get(1)); //calling method to add country to a particular continent in the map
-            }
-            for(int i=0;i<d_removeCountryIdList.size();i++)
-            {
-                CommandInterface.removeCountryId(d_removeCountryIdList.get(i)); //calling method to remove a country from the map
-            }
+            case "editcountry" -> {
 
-        } else if (l_mainCommand.equals("editneighbor")) {
+                d_addCountryIdContinentIdList = new ArrayList<>(); //list to store country id and continent id given as add option parameters
 
-            d_addCountryIdNeighborCountryIdList = new ArrayList<>(); //list to store add option parameters of the editneighbor command
 
-            d_removeCountryIdNeighborCountryIdList = new ArrayList<>(); //list to store remove option parameters of the editneighbor command
+                d_removeCountryIdList = new ArrayList<>(); //list to store country id as remove option parameter
 
-            int l_k = 1;
-            //we are now iterating over the command array and adding parameters of add/remove options to the lists d_addCountryIdNeighborCountryIdList and d_removeCountryIdNeighborCountryIdList respectively
-            while (l_k < l_len) {
 
-                String l_currOption = p_lCommand[l_k];
+                int l_j = 1;
+                //we are now iterating over the command array and adding parameters of add/remove options to the lists d_addCountryIdContinentIdList and d_removeCountryIdList respectively
+                while (l_j < l_len) {
 
-                if (l_currOption.equals("-add")) {
+                    String l_currOption = p_lCommand[l_j];
 
-                    String l_addCountryId = p_lCommand[++l_k];
+                    if (l_currOption.equals("-add")) {
 
-                    String l_addNeighborCountryId = p_lCommand[++l_k];
+                        String l_addCountryId = p_lCommand[++l_j];
 
-                    List<String> l_pair = new ArrayList<>();
+                        String l_addContinentId = p_lCommand[++l_j];
 
-                    l_pair.add(l_addCountryId);
+                        List<String> l_pair = new ArrayList<>();
 
-                    l_pair.add(l_addNeighborCountryId);
+                        l_pair.add(l_addCountryId);
 
-                    d_addCountryIdNeighborCountryIdList.add(l_pair);
+                        l_pair.add(l_addContinentId);
 
-                } else if (l_currOption.equals("-remove")) {
+                        d_addCountryIdContinentIdList.add(l_pair);
 
-                    List<String> l_pair = new ArrayList<>();
+                    } else if (l_currOption.equals("-remove")) {
 
-                    String l_removeCountryId = p_lCommand[++l_k];
+                        String l_removeCountryId = p_lCommand[++l_j];
 
-                    String l_removeNeighborCountryId = p_lCommand[++l_k];
+                        d_removeCountryIdList.add(l_removeCountryId);
 
-                    l_pair.add(l_removeCountryId);
+                    }
 
-                    l_pair.add(l_removeNeighborCountryId);
-
-                    d_removeCountryIdNeighborCountryIdList.add(l_pair);
+                    l_j++;
 
                 }
-
-                l_k++;
-
+                //iterating over the d_addCountryIdContinentIdList and d_removeCountryIdList lists and calling corresponding methods to process add/remove option parameters
+                for (List<String> pair : d_addCountryIdContinentIdList) {
+                    CommandInterface.addCountryIdContinentId(pair.get(0), pair.get(1)); //calling method to add country to a particular continent in the map
+                }
+                for (String s : d_removeCountryIdList) {
+                    CommandInterface.removeCountryId(s); //calling method to remove a country from the map
+                }
             }
-            //iterating over d_addCountryIdNeighborCountryIdList and d_removeCountryIdNeighborCountryIdList lists to call addCountryIdNeighborCountryId() and d_removeCountryIdNeighborCountryIdList() methods
-            for(int i=0;i<d_addCountryIdNeighborCountryIdList.size();i++)
-            {
-                List<String> l_pair = d_addCountryIdNeighborCountryIdList.get(i);
-                CommandInterface.addCountryIdNeighborCountryId(l_pair.get(0), l_pair.get(1)); //calling method to add country and its neighbor to the map
-            }
-            for(int i=0;i<d_removeCountryIdNeighborCountryIdList.size();i++)
-            {
-                List<String> l_pair = d_removeCountryIdNeighborCountryIdList.get(i);
-                CommandInterface.removeCountryIdNeighborCountryId(l_pair.get(0), l_pair.get(1)); //calling method to remove country and neighboring country from the map
-            }
-        } else if (l_mainCommand.equals("gameplayer")) {
+            case "editneighbor" -> {
 
-            d_playersToAdd = new ArrayList<>(); //list to store names of players to finally add in the player list
-            d_playersToRemove = new ArrayList<>(); //list to store names of players to finally remove from the player list
+                d_addCountryIdNeighborCountryIdList = new ArrayList<>(); //list to store add option parameters of the editneighbor command
 
-            int l_z = 1;
-            //iterating over the command to add parameters of add/remove options to d_playersToAdd and d_playersToRemove lists respectively
-            while (l_z < l_len) {
 
-                String l_currOption = p_lCommand[l_z];
+                d_removeCountryIdNeighborCountryIdList = new ArrayList<>(); //list to store remove option parameters of the editneighbor command
 
-                if (l_currOption.equals("-add")) {
 
-                    String l_playerToAdd = p_lCommand[++l_z];
+                int l_k = 1;
+                //we are now iterating over the command array and adding parameters of add/remove options to the lists d_addCountryIdNeighborCountryIdList and d_removeCountryIdNeighborCountryIdList respectively
+                while (l_k < l_len) {
 
-                    d_playersToAdd.add(l_playerToAdd);
+                    String l_currOption = p_lCommand[l_k];
 
-                } else if (l_currOption.equals("-remove")) {
+                    if (l_currOption.equals("-add")) {
 
-                    String l_playerToRemove = p_lCommand[++l_z];
+                        String l_addCountryId = p_lCommand[++l_k];
 
-                    d_playersToRemove.add(l_playerToRemove);
+                        String l_addNeighborCountryId = p_lCommand[++l_k];
+
+                        List<String> l_pair = new ArrayList<>();
+
+                        l_pair.add(l_addCountryId);
+
+                        l_pair.add(l_addNeighborCountryId);
+
+                        d_addCountryIdNeighborCountryIdList.add(l_pair);
+
+                    } else if (l_currOption.equals("-remove")) {
+
+                        List<String> l_pair = new ArrayList<>();
+
+                        String l_removeCountryId = p_lCommand[++l_k];
+
+                        String l_removeNeighborCountryId = p_lCommand[++l_k];
+
+                        l_pair.add(l_removeCountryId);
+
+                        l_pair.add(l_removeNeighborCountryId);
+
+                        d_removeCountryIdNeighborCountryIdList.add(l_pair);
+
+                    }
+
+                    l_k++;
 
                 }
-
-                l_z++;
+                //iterating over d_addCountryIdNeighborCountryIdList and d_removeCountryIdNeighborCountryIdList lists to call addCountryIdNeighborCountryId() and d_removeCountryIdNeighborCountryIdList() methods
+                for (List<String> l_pair : d_addCountryIdNeighborCountryIdList) {
+                    CommandInterface.addCountryIdNeighborCountryId(l_pair.get(0), l_pair.get(1)); //calling method to add country and its neighbor to the map
+                }
+                for (List<String> l_pair : d_removeCountryIdNeighborCountryIdList) {
+                    CommandInterface.removeCountryIdNeighborCountryId(l_pair.get(0), l_pair.get(1)); //calling method to remove country and neighboring country from the map
+                }
             }
-            for(int i=0;i<d_playersToAdd.size();i++)
-            {
-                CommandInterface.addPlayers(d_playersToAdd.get(i)); //for each player name, calling method to add this player to the player list in the game engine class
+            case "gameplayer" -> {
+
+                d_playersToAdd = new ArrayList<>(); //list to store names of players to finally add in the player list
+
+                d_playersToRemove = new ArrayList<>(); //list to store names of players to finally remove from the player list
+
+
+                int l_z = 1;
+                //iterating over the command to add parameters of add/remove options to d_playersToAdd and d_playersToRemove lists respectively
+                while (l_z < l_len) {
+
+                    String l_currOption = p_lCommand[l_z];
+
+                    if (l_currOption.equals("-add")) {
+
+                        String l_playerToAdd = p_lCommand[++l_z];
+
+                        d_playersToAdd.add(l_playerToAdd);
+
+                    } else if (l_currOption.equals("-remove")) {
+
+                        String l_playerToRemove = p_lCommand[++l_z];
+
+                        d_playersToRemove.add(l_playerToRemove);
+
+                    }
+
+                    l_z++;
+                }
+                for (String s : d_playersToAdd) {
+                    CommandInterface.addPlayers(s); //for each player name, calling method to add this player to the player list in the game engine class
+                }
+                int l_size = d_playersToRemove.size();
+                List<String> l_copyList = new ArrayList<>(d_playersToRemove);
+                for (int i = 0; i < l_size; i++) {
+                    CommandInterface.removePlayers(l_copyList.get(i)); //for each player name, calling method to remove this player from the player list in the game engine class
+                }
             }
-            int l_size = d_playersToRemove.size();
-            List<String> l_copyList = new ArrayList<>(d_playersToRemove);
-            for(int i=0;i<l_size;i++)
-            {
-                CommandInterface.removePlayers(l_copyList.get(i)); //for each player name, calling method to remove this player from the player list in the game engine class
+            case "deploy" -> {
+
+                d_countryIdNumList = new ArrayList<>(); //list to store country id at 0th index and corresponding number of reinforcement at 1st index
+
+
+                String l_countryId = p_lCommand[1];
+
+                int l_numReinforcements = Integer.parseInt(p_lCommand[2]); //if the number of reinforcements is not an integer, NumberFormatException will be thrown
+
+
+                d_countryIdNumList.add(l_countryId);
+
+                d_countryIdNumList.add(p_lCommand[2]);
             }
-
-        } else if (l_mainCommand.equals("deploy")) {
-
-            d_countryIdNumList = new ArrayList<>(); //list to store country id at 0th index and corresponding number of reinforcement at 1st index
-
-            String l_countryId = p_lCommand[1];
-
-            int l_numReinforcements = Integer.parseInt(p_lCommand[2]); //if the number of reinforcements is not an integer, NumberFormatException will be thrown
-
-            d_countryIdNumList.add(l_countryId);
-
-            d_countryIdNumList.add(p_lCommand[2]);
-
-        } else if (l_mainCommand.equals("savemap")) {
-            CommandInterface.saveMap(p_lCommand[1]); //calling method to savemap
-
-        } else if (l_mainCommand.equals("editmap")) { //calling method to edit map
-            CommandInterface.editMap(p_lCommand[1]);
-
-        } else if (l_mainCommand.equals("validatemap")) { //calling method to validate map
-            CommandInterface.validateMap();
-
-        } else if (l_mainCommand.equals("loadmap")) { //calling method to load map
-            CommandInterface.loadCurrentMap(p_lCommand[1]);
+            case "savemap" -> CommandInterface.saveMap(p_lCommand[1]); //calling method to savemap
+            case "editmap" ->  //calling method to edit map
+                    CommandInterface.editMap(p_lCommand[1]);
+            case "validatemap" ->  //calling method to validate map
+                    CommandInterface.validateMap();
+            case "loadmap" ->  //calling method to load map
+                    CommandInterface.loadCurrentMap(p_lCommand[1]);
         }
     }
 
     /**
      * main method
-     * @param args
-     * @throws InvalidCommandException
+     * @param args Terminal args.
+     * @throws InvalidCommandException Throws InvalidCommandException
      */
     public static void main(String[] args) throws InvalidCommandException {
 
