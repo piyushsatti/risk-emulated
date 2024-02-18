@@ -40,19 +40,19 @@ public class Country {
     /**
      * Country constructor
      *
-     * @param id Identifier integer
-     * @param name Name of country String
-     * @param continent Reference to associated continent
+     * @param p_id Identifier integer
+     * @param p_name Name of country String
+     * @param p_continent Reference to associated continent
      */
-    public Country(int id, String name, Continent continent){
+    public Country(int p_id, String p_name, Continent p_continent){
 
-        this.d_countryID = id;
+        this.d_countryID = p_id;
 
-        this.d_countryName = name;
+        this.d_countryName = p_name;
 
         this.d_borders = new HashMap<>();
 
-        this.d_continent = continent;
+        this.d_continent = p_continent;
 
         this.d_reinforcements = 0;
 
@@ -105,19 +105,19 @@ public class Country {
     /**
      * Method which adds Border to d_borders Hashmap
      *
-     * @param country country which the added border will point to
+     * @param p_country country which the added border will point to
      */
-    public void addBorder(Country country){
-        this.d_borders.put(country.getCountryID(), new Border(country));
+    public void addBorder(Country p_country){
+        this.d_borders.put(p_country.getCountryID(), new Border(p_country));
     }
 
     /**
      * Method which removes Border to d_borders Hashmap
      *
-     * @param country country which the border is removed from
+     * @param p_country country which the border is removed from
      */
-    public void removeBorder(Country country) {
-        this.d_borders.remove(country.getCountryID());
+    public void removeBorder(Country p_country) {
+        this.d_borders.remove(p_country.getCountryID());
     }
 
     /**
@@ -138,9 +138,9 @@ public class Country {
 
         HashMap <Integer, Country> borderCountries = new HashMap<>();
 
-        for (Border b : this.d_borders.values()) {
+        for (Border l_border : this.d_borders.values()) {
 
-            borderCountries.put(b.getTarget().getCountryID(), b.getTarget());
+            borderCountries.put(l_border.getTarget().getCountryID(), l_border.getTarget());
 
         }
 
@@ -151,40 +151,40 @@ public class Country {
      * Method which checks if a country can reach all the other
      * countries in the list while only moving through countries in the list
      *
-     * @param countriesToReach HashMap of countries the method is trying to reach
+     * @param p_countriesToReach HashMap of countries the method is trying to reach
      * @return true if all countries are reached, false if not
      */
-    public boolean canReach(HashMap<Integer,Country> countriesToReach){
+    public boolean canReach(HashMap<Integer,Country> p_countriesToReach){
 
 
-        ArrayList<Country> observed = new ArrayList<>();
+        ArrayList<Country> l_observed = new ArrayList<>();
 
-        Collection<Country> countryCollection = countriesToReach.values();
+        Collection<Country> l_countryCollection = p_countriesToReach.values();
 
-        ArrayList<Country> notObserved = new ArrayList<>(countryCollection);
+        ArrayList<Country> l_notObserved = new ArrayList<>(l_countryCollection);
 
-        observed.add(this); //add calling object to observed list (must be present in CountriesToReach)
+        l_observed.add(this); //add calling object to observed list (must be present in CountriesToReach)
 
         while (true){
 
-            int observedCount = observed.size();
+            int l_observedCount = l_observed.size();
 
-            notObserved.removeAll(observed); //remove observed countries from not observed list
+            l_notObserved.removeAll(l_observed); //remove observed countries from not observed list
 
-            if(notObserved.isEmpty()) return true; //if notObserved is empty => all countries found => success
+            if(l_notObserved.isEmpty()) return true; //if notObserved is empty => all countries found => success
 
-            ArrayList<Country> observedCopy = new ArrayList<>(observed);
+            ArrayList<Country> l_observedCopy = new ArrayList<>(l_observed);
             //copy of observed list, needed because we cannot iterate over a list and modify it at the same time
 
-            for (Country o: observed){  // for each observed country
+            for (Country l_o: l_observed){  // for each observed country
 
-                HashMap<Integer,Country> neighbors = o.getBorderCountries(); //get neighbors
+                HashMap<Integer,Country> l_neighbors = l_o.getBorderCountries(); //get neighbors
 
-                for(Country n: neighbors.values()){ //for each neighbor found
+                for(Country l_n: l_neighbors.values()){ //for each neighbor found
 
                     //if not observed and in search list, add to observed list
-                    if(!observedCopy.contains(n) && notObserved.contains(n)){
-                        observedCopy.add(n);
+                    if(!l_observedCopy.contains(l_n) && l_notObserved.contains(l_n)){
+                        l_observedCopy.add(l_n);
                     }
 
                 }
@@ -193,9 +193,9 @@ public class Country {
 
             //if size of observed countries hasn't changed => fail
 
-            if(observedCount == observedCopy.size()) return false;
+            if(l_observedCount == l_observedCopy.size()) return false;
 
-            observed = observedCopy; //assign new observed list
+            l_observed = l_observedCopy; //assign new observed list
 
         }
 
@@ -213,10 +213,10 @@ public class Country {
     /**
      * Setter method for reinforcement count of country
      *
-     * @param reinforcements count of reinforcements on country
+     * @param p_reinforcements count of reinforcements on country
      */
-    public void setReinforcements(int reinforcements) {
-        this.d_reinforcements = reinforcements;
+    public void setReinforcements(int p_reinforcements) {
+        this.d_reinforcements = p_reinforcements;
     }
 
     /**
@@ -236,25 +236,25 @@ public class Country {
     @Override
     public String toString() {
 
-        StringBuilder outPut = new StringBuilder("Name: " + this.d_countryName + "\n");
+        StringBuilder l_outPut = new StringBuilder("Name: " + this.d_countryName + "\n");
 
-        outPut.append("Continent: ").append(this.d_continent.d_continentName).append("\n");
+        l_outPut.append("Continent: ").append(this.d_continent.d_continentName).append("\n");
 
-        outPut.append("Border Countries: ");
+        l_outPut.append("Border Countries: ");
 
-        int loopIndex = 0;
+        int l_loopIndex = 0;
 
-        for (Country c : this.getBorderCountries().values()) {
+        for (Country l_c : this.getBorderCountries().values()) {
 
-            loopIndex++;
+            l_loopIndex++;
 
-            outPut.append(c.getCountryName());
+            l_outPut.append(l_c.getCountryName());
 
-            if (loopIndex < this.getBorderCountries().size()) outPut.append(", ");
+            if (l_loopIndex < this.getBorderCountries().size()) l_outPut.append(", ");
 
         }
 
-        return outPut.toString();
+        return l_outPut.toString();
 
     }
 
