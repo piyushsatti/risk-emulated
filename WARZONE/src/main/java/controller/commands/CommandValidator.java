@@ -136,7 +136,7 @@ public class CommandValidator {
     /**
      * this method checks if the deploy command is valid or not, no exception generated means command is valid
      * @param p_lCommand : the command array
-     * @throws NumberFormatException: when the number of reinforcements is not an integer
+     * @throws NumberFormatException : when the number of reinforcements is not an integer
      */
     private void checkDeployCommandValidity(String[] p_lCommand) throws NumberFormatException {
         final int i = Integer.parseInt(p_lCommand[2]);
@@ -144,8 +144,8 @@ public class CommandValidator {
 
     /**
      * this method checks the validity of gameplayer command, no exception means that the command is valid
-     * @param p_lCommand: command array
-     * @throws InvalidCommandException: when entered command is invalid
+     * @param p_lCommand : command array
+     * @throws InvalidCommandException : when entered command is invalid
      */
     private void checkGamePlayerCommandValidity(String[] p_lCommand) throws InvalidCommandException {
 

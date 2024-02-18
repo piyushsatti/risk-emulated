@@ -9,12 +9,16 @@ import main.java.utils.exceptions.*;
 import java.io.*;
 import java.util.Iterator;
 
+/**
+ * Command Interface functions JavaDoc
+ */
 public class CommandInterface {
     /**
      * adds new continent with the continent name and its bonus army value in the current map
-     * @param p_continentName : name of the continent
-     * @param p_continentVal : bonus army value for the continent
-     * @throws ContinentAlreadyExistsException: when continent already exists
+     *
+     * @param p_continentName name of the continent
+     * @param p_continentVal bonus army value for the continent
+     * @throws ContinentAlreadyExistsException when continent already exists
      */
     public static void addContinentIdContinentVal(String p_continentName, String p_continentVal) throws ContinentAlreadyExistsException {
         int l_highestId = 0;
@@ -131,8 +135,8 @@ public class CommandInterface {
 
     /**
      * removes existing player from the player list
-     * @param p_playerName
-     * @throws PlayerDoesNotExistException : when player to be removed does not exist in the player list
+     * @param p_playerName Name of the player
+     * @throws PlayerDoesNotExistException when player to be removed does not exist in the player list
      */
     public static void removePlayers(String p_playerName) throws PlayerDoesNotExistException {
         boolean playerExists = false;
@@ -154,6 +158,7 @@ public class CommandInterface {
      *loads the current map
      * @param p_filename : name of the map file
      * @throws FileNotFoundException : when map file is not found
+     * @throws InvalidMapException : when map is invalid
      */
     public static void loadCurrentMap(String p_filename) throws FileNotFoundException, InvalidMapException {
 
@@ -192,9 +197,9 @@ public class CommandInterface {
     /**
      *this method checks if the map with the filename entered by the user exists in the maps folder or not
      * if yes, the map is loaded and current map is set to this map
-     * if not, a new map with the filename given by the user is created and it is set as the current map
-     * @param p_filename: name of the map file entered by the user
-     * @throws IOException
+     * if not, a new map with the filename given by the user is created, and it is set as the current map
+     * @param p_filename : name of the map file entered by the user
+     * @throws IOException : an IO exception has occurred
      */
     public static void editMap(String p_filename) throws IOException {
         File l_map_file_obj = new File(GameEngine.MAPS_FOLDER + p_filename);

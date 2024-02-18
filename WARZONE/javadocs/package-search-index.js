@@ -1,1 +1,1 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"main.java"},{"l":"main.java.components"},{"l":"main.java.models"},{"l":"main.java.views"}];updateSearchResults();
+packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"main.java.controller"},{"l":"main.java.controller.commands"},{"l":"main.java.models"},{"l":"main.java.models.worldmap"},{"l":"main.java.utils"},{"l":"main.java.utils.exceptions"},{"l":"main.java.views"},{"l":"test.java.controller"}];updateSearchResults();
