@@ -14,16 +14,22 @@ import java.util.Deque;
  */
 public class Player {
 
+    /** The latest player ID. */
     private static int d_latest_playerID = 1;
 
+    /** The ID of the player. */
     private final int d_playerId;
 
+    /** The name of the player. */
     private String d_playerName;
 
+    /** The number of reinforcements available for the player. */
     private int d_reinforcements;
 
+    /** The list of countries assigned to the player. */
     private final ArrayList<Integer> d_assignedCountries;
 
+    /** The order list of the player. */
     private final Deque<Order> d_orderList = new ArrayDeque<>();
 
 
