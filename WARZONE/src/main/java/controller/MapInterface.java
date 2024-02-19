@@ -29,9 +29,7 @@ public class MapInterface {
         File l_map_file_obj = new File(GameEngine.MAPS_FOLDER + p_map_name);
 
         if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory()) {
-
-            System.out.println("Successfully Loaded Map: " + l_map_file_obj.getName());
-
+            
             return l_map_file_obj;
 
         } else {
