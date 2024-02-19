@@ -1,11 +1,5 @@
 # SOEN6441_Team24_Warzone
 
-# How to Run.
-
-## MapEditor Command
-
-## GamePlay Commands
-
 # Design and Project
 
 ![img.png](img.png)
