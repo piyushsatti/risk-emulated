@@ -1,7 +1,7 @@
 # SOEN6441_Team24_Warzone
 
 # Design and Project
-
+![img_1.png](img_1.png)
 ![img.png](img.png)
 
 ## Naming conventions
