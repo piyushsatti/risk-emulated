@@ -195,7 +195,6 @@ public class GameEngine {
 
                 GameEngine.CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
                 startingMenu();
-                //TerminalRenderer.renderExit();
 
                 break;
 
@@ -296,7 +295,7 @@ public class GameEngine {
                 TerminalRenderer.renderMessage("you are now entering settings phase");
                 GameEngine.CURRENT_MAP = null;
                 settings();
-                //return;
+
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("mapeditor")) {
 
@@ -305,7 +304,6 @@ public class GameEngine {
                 GameEngine.CURRENT_MAP = null;
                 mapEditor();
 
-                //return;
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("playgame")) {
 
@@ -314,7 +312,6 @@ public class GameEngine {
                 GameEngine.CURRENT_MAP = null;
                 playerLoop();
 
-                //return;
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
 
