@@ -4,9 +4,17 @@ import models.worldmap.WorldMap;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * The MapInterfaceTest class contains unit tests for the MapInterface class.
+ * It includes test methods to validate the functionality of map validation.
+ */
 public class MapInterfaceTest {
 
 
+    /**
+     * Tests the validateMap method of the MapInterface class with a valid world map.
+     * This method verifies if the validateMap method returns true when provided with a valid world map.
+     */
     @Test
     public void validateMapTestPositive() {
 
@@ -35,6 +43,10 @@ public class MapInterfaceTest {
         Assert.assertTrue(MapInterface.validateMap(l_testWorldMap));
     }
 
+    /**
+     * Tests the validateMap method of the MapInterface class with an invalid world map.
+     * This method verifies if the validateMap method returns false when provided with an invalid world map.
+     */
     @Test
     public void validateMapTestNegative() {
 
