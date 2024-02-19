@@ -176,7 +176,9 @@ public class CommandInterface {
     }
 
     /**
-     * validates the map
+     * Validates the current map by checking if it is connected graph.
+     * If the map is valid, it renders a message indicating that the map is valid.
+     * If the map is not valid, it renders a message indicating that the map is not valid.
      */
     public static void validateMap() {
         if(MapInterface.validateMap(GameEngine.CURRENT_MAP)){
