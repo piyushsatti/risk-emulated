@@ -1,4 +1,3 @@
-package tests;
 import models.worldmap.WorldMap;
 import org.junit.jupiter.api.Test;
 
