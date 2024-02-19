@@ -8,6 +8,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ *this class consists of methods which are used to validate the commands entered by the user and call the methods in CommandInterface class
+ * for further processing
+ */
 public class CommandValidator {
 
     private static final HashMap<String, List<String>> d_commandGamePhaseMap;  //saves phase of game as key and valid command for that game phase as value

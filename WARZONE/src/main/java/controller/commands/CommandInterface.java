@@ -11,7 +11,7 @@ import java.io.*;
 import java.util.Iterator;
 
 /**
- * Command Interface functions JavaDoc
+ * this class consists of methods which handle the valid commands along with the parameters mentioned for command options
  */
 public class CommandInterface {
     /**
