@@ -6,7 +6,6 @@ import models.Player;
 import models.worldmap.WorldMap;
 import views.TerminalRenderer;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class GameEngine {
     /**
      * The folder where map files are stored.
      */
-    public static String MAPS_FOLDER = "WARZONE\\src\\main\\resources\\maps\\";
+    public static String MAPS_FOLDER = "WARZONE/src/main/resources/maps/";
 
     /**
      * The currently loaded map.
@@ -56,7 +55,7 @@ public class GameEngine {
 
         TerminalRenderer.renderWelcome();
 
-        String[] menu_options = {"Show Map", "Load Map", "Add/RemovePlayer","Assign Countries"};
+        String[] menu_options = {"Show Map", "Load Map", "gameplayer to Add/Remove Player", "Assign Countries"};
 
         TerminalRenderer.renderMenu(
                 "Main Menu",
@@ -71,19 +70,17 @@ public class GameEngine {
 
             user_in = in.nextLine();
 
-            if (user_in.strip().replace(" ", "").equalsIgnoreCase("showmap")) {
+            if (user_in.strip().toLowerCase().startsWith("showmap")) {
 
                 if(CURRENT_MAP!=null)
+
                     TerminalRenderer.showMap(!GameEngine.PLAYER_LIST.isEmpty());
+
                 else
+
                     TerminalRenderer.renderError("No Map is currently loaded in the game!!!");
 
-
-            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("loadmap")) {
-
-                System.out.println("Enter command-> loadmap followed by filename.map");
-
-                String input = in.nextLine();
+            } else if (user_in.strip().toLowerCase().startsWith("loadmap")) {
 
                 CommandValidator command = new CommandValidator();
 
@@ -91,9 +88,11 @@ public class GameEngine {
 
                 try {
 
-                    command.addCommand(input);
+                    command.addCommand(user_in.strip().toLowerCase());
 
                     command.processValidCommand();
+
+                    TerminalRenderer.renderMessage("Loaded map.");
 
                 } catch (Exception | InvalidMapException e) {
 
@@ -101,11 +100,9 @@ public class GameEngine {
 
                 }
 
-            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("add/removeplayer")) {
+            } else if (user_in.strip().toLowerCase().startsWith("gameplayer")) {
 
-                System.out.println("Please enter command to add and remove players");
-
-                String input = in.nextLine();
+                TerminalRenderer.renderMessage("Please enter command to add and remove players");
 
                 CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
 
@@ -113,9 +110,15 @@ public class GameEngine {
 
                 try {
 
-                    command.addCommand(input);
+                    command.addCommand(user_in.strip().toLowerCase());
 
                     command.processValidCommand();
+
+                    for (Player l_player : PLAYER_LIST) {
+
+                        TerminalRenderer.renderMessage("Current players list: " + l_player.getName());
+
+                    }
 
                 } catch (Exception | InvalidMapException e) {
 
@@ -123,7 +126,7 @@ public class GameEngine {
 
                 }
 
-            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("assigncountries")) {
+            } else if (user_in.strip().toLowerCase().startsWith("assigncountries")) {
 
                 if (PLAYER_LIST.isEmpty()) {
 
@@ -136,17 +139,19 @@ public class GameEngine {
                 } else if (!MapInterface.validateMap(CURRENT_MAP)) {
 
                     CURRENT_MAP = null;
+
                     TerminalRenderer.renderMessage("Current map is not a valid map! Please load again");
 
                 }
                 else {
 
                     PlayGame.startGame();
+
                 }
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
 
-                TerminalRenderer.renderExit();
+                return;
 
             } else {
 
@@ -181,6 +186,7 @@ public class GameEngine {
                 TerminalRenderer.renderError("Invalid File or not found");
 
             }
+
         }
 
         String input_command;
@@ -194,6 +200,7 @@ public class GameEngine {
             if (input_command.equals("exit")) {
 
                 GameEngine.CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+
                 startingMenu();
 
                 break;
@@ -229,43 +236,6 @@ public class GameEngine {
     }
 
     /**
-     * Configure default settings for GameEngine
-     */
-    private static void settings() {
-
-        TerminalRenderer.renderMessage("Please enter map folder path: ");
-
-        Scanner in = new Scanner(System.in);
-
-        File in_file;
-
-        String inp_file_path;
-
-        while (true) {
-
-            inp_file_path = in.nextLine().strip();
-
-            in_file = new File(inp_file_path);
-
-            if (in_file.isDirectory()) {
-
-                GameEngine.MAPS_FOLDER = inp_file_path;
-
-                TerminalRenderer.renderMessage("Directory set: " + inp_file_path);
-
-                return;
-
-            } else {
-
-                TerminalRenderer.renderError("File path not a directory.");
-
-            }
-
-        }
-
-    }
-
-    /**
      * Displays the starting menu and handles user input to determine the next game phase.
      */
     private static void startingMenu() {
@@ -274,7 +244,7 @@ public class GameEngine {
 
         TerminalRenderer.renderWelcome();
 
-        String[] menu_options = {"Map Editor", "Play Game", "Settings"};
+        String[] menu_options = {"Map Editor", "Play Game"};
 
         TerminalRenderer.renderMenu(
                 "Starting Menu",
@@ -289,29 +259,23 @@ public class GameEngine {
 
             user_in = in.nextLine();
 
-            if (user_in.strip().replace(" ", "").equalsIgnoreCase("settings")) {
-
-                CURRENT_GAME_PHASE = GAME_PHASES.SETTINGS;
-                TerminalRenderer.renderMessage("you are now entering settings phase");
-                GameEngine.CURRENT_MAP = null;
-                settings();
-
-
-            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("mapeditor")) {
+            if (user_in.strip().replace(" ", "").equalsIgnoreCase("mapeditor")) {
 
                 CURRENT_GAME_PHASE = GAME_PHASES.MAP_EDITOR;
-                TerminalRenderer.renderMessage("you are entering map editor menu");
+                TerminalRenderer.renderMessage("you are entering `mapeditor` menu");
                 GameEngine.CURRENT_MAP = null;
                 mapEditor();
 
+                //return;
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("playgame")) {
 
                 CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
-                TerminalRenderer.renderMessage("you are now entering settings phase");
+                TerminalRenderer.renderMessage("you are now entering `playgame` phase");
                 GameEngine.CURRENT_MAP = null;
                 playerLoop();
 
+                //return;
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
 
@@ -342,17 +306,15 @@ public class GameEngine {
 
                     mapEditor();
 
+                    CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+
                 }
 
                 if (CURRENT_GAME_PHASE == GAME_PHASES.GAMEPLAY) {
 
                     playerLoop();
 
-                }
-
-                if (CURRENT_GAME_PHASE == GAME_PHASES.SETTINGS) {
-
-                    settings();
+                    CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
 
                 }
 

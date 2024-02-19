@@ -1,20 +1,11 @@
 package models.worldmap;
 
-import models.worldmap.WorldMap;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-/**
- * The WorldMapTest class contains unit tests for the WorldMap class.
- * It includes test methods to validate the connectivity of the map and continents.
- */
 class WorldMapTest {
 
-    /**
-     * Tests the isConnected method of the WorldMap class.
-     * This method checks if the entire map is connected properly.
-     */
     @Test
     void isConnected() {
 
@@ -40,10 +31,6 @@ class WorldMapTest {
         assertTrue(l_testWorldMap.isConnected());
     }
 
-    /**
-     * Tests the isContinentConnected method of the WorldMap class.
-     * This method verifies if each continent in the map is connected.
-     */
     @Test
     void isContinentConnected() {
         WorldMap l_testWorldMap = new WorldMap();
