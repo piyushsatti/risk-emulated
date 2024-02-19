@@ -57,7 +57,4 @@ public class MapInterfaceTest {
         Assert.assertFalse(MapInterface.validateMap(l_testWorldMap));
     }
 
-
-
-
 }
