@@ -1,13 +1,13 @@
 package models.worldmap;
 
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-class WorldMapTest {
+public class WorldMapTest {
 
     @Test
-    void isConnected() {
+    public void isConnected() {
 
         WorldMap l_testWorldMap = new WorldMap();
 
@@ -32,7 +32,7 @@ class WorldMapTest {
     }
 
     @Test
-    void isContinentConnected() {
+    public void isContinentConnected() {
         WorldMap l_testWorldMap = new WorldMap();
 
         try {
