@@ -79,6 +79,7 @@ public class Player {
 
             int l_numberTobeDeployed = Integer.parseInt(arr[2]);
 
+
             if (l_countryID > 0 && l_numberTobeDeployed <= this.getReinforcements()) {
 
                 if (this.d_assignedCountries.contains(l_countryID)) {
@@ -98,6 +99,7 @@ public class Player {
                 } else {
 
                     TerminalRenderer.renderMessage("You (" + this.d_playerName + ") Cannot Deploy Troops here you don't own it.");
+                    throw new InvalidCommandException("Invalid Command!!! You don't own the country");
 
                 }
 
@@ -106,6 +108,7 @@ public class Player {
                 if (!deployment_validator(l_numberTobeDeployed)) {
 
                     TerminalRenderer.renderMessage("You (" + this.d_playerName + ") don't have enough troops for this deploy order");
+                    throw new InvalidCommandException("Invalid Command!!! Not enough troops");
 
                 } else {
 

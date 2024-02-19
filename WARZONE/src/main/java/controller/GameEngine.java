@@ -129,9 +129,9 @@ public class GameEngine {
 
                     TerminalRenderer.renderMessage("!!!PLAYER LIST IS EMPTY!!! \n Please add players to the list");
 
-                } else if (CURRENT_MAP.getD_countries().size() >= PLAYER_LIST.size()) {
+                } else if (!assignCountriesValidator()) {
 
-                    PlayGame.startGame();
+                    TerminalRenderer.renderMessage("!!!Players are more than countries!!!");
 
                 } else if (!MapInterface.validateMap(CURRENT_MAP)) {
 
@@ -141,8 +141,7 @@ public class GameEngine {
                 }
                 else {
 
-                    TerminalRenderer.renderMessage("!!!Players are more than countries!!!");
-
+                    PlayGame.startGame();
                 }
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
@@ -219,6 +218,13 @@ public class GameEngine {
 
         }
 
+    }
+
+    /**
+     * Checks if the number of countries is greater than number of players
+     */
+    public static boolean assignCountriesValidator() {
+        return CURRENT_MAP.getD_countries().size() >= PLAYER_LIST.size();
     }
 
     /**
