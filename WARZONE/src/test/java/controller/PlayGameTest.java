@@ -55,8 +55,6 @@ public class PlayGameTest {
             }
         }
 
-        System.out.println(l_countriesCount);
-
         boolean flag = false;
         for (Player l_player : GameEngine.PLAYER_LIST) {
             if(l_player.getAssignedCountries().size()==l_min_count||l_player.getAssignedCountries().size()==l_min_count+1){
@@ -106,7 +104,7 @@ public class PlayGameTest {
         int l_numberTobeDeployed = Integer.MAX_VALUE;
 
         for (Player l_player : GameEngine.PLAYER_LIST) {
-            Assert.assertTrue(l_player.deployment_validator(l_numberTobeDeployed));
+            Assert.assertFalse(l_player.deployment_validator(l_numberTobeDeployed));
         }
 
     }
