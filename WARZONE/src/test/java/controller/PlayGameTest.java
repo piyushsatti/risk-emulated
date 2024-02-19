@@ -14,11 +14,16 @@ import org.junit.Test;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-
+/**
+ * The PlayGameTest class contains unit tests for the PlayGame class.
+ * It includes test methods to validate various functionalities related to game play.
+ */
 public class PlayGameTest {
 
-
-
+    /**
+     * Sets up the test environment before each test method is executed.
+     * It initializes a test world map and creates player instances for testing.
+     */
     @Before
     public void setUp()  {
 
@@ -50,6 +55,12 @@ public class PlayGameTest {
         GameEngine.PLAYER_LIST.add(new Player("Player2"));
     }
 
+    /**
+     * Tests the assignCountriesToPlayers method of the PlayGame class.
+     * This method verifies if countries are distributed among players properly.
+     *
+     * @throws FileNotFoundException If the file containing the map is not found.
+     */
     @Test
     public void assignCountriesToPlayersTestCount() throws FileNotFoundException {
 
@@ -82,11 +93,19 @@ public class PlayGameTest {
 
 
     }
-@Test
+    /**
+     * Tests the assignCountriesValidator method of the GameEngine class.
+     * This method checks if the countries assignment to players is valid.
+     */
+    @Test
     public void assignCountriesToPlayersValidTest(){
         Assert.assertTrue(GameEngine.assignCountriesValidator());
     }
 
+    /**
+     * Tests the assignReinforcements method of the PlayGame class.
+     * This method validates if reinforcements are assigned to players correctly.
+     */
     @Test
     public void assignReinforcementsValidTest() {
 
@@ -111,7 +130,11 @@ public class PlayGameTest {
 
     }
 
-@Test
+    /**
+     * Tests the deployment_validator method of the Player class.
+     * This method verifies the deployment validation logic for players.
+     */
+    @Test
     public void checkDeployementvalidation(){
 
         int l_numberTobeDeployed = Integer.MAX_VALUE;
