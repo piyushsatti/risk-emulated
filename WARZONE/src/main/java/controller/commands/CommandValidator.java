@@ -9,13 +9,21 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- *this class consists of methods which are used to validate the commands entered by the user and call the methods in CommandInterface class
- * for further processing
+ * The CommandValidator class validates user commands and processes valid commands
+ * based on the current game phase. It ensures that the commands entered by the user
+ * are valid and appropriate for the current phase of the game. It also processes
+ * the valid commands by calling appropriate methods to execute them.
  */
 public class CommandValidator {
 
+    /**
+     * Map that stores valid commands for each game phase.
+     */
     private static final HashMap<String, List<String>> d_commandGamePhaseMap;  //saves phase of game as key and valid command for that game phase as value
 
+    /**
+     * List of valid commands.
+     */
     private static final List<String> d_validCommandList; //list of valid commands
 
     static {
@@ -59,24 +67,54 @@ public class CommandValidator {
 
     }
 
+    /**
+     * List to store continent ID and continent value pairs to be added during editing.
+     */
     List<List<String>> d_addContinentIdContinentValList;
 
+    /**
+     * List to store country ID and continent ID pairs to be added during editing.
+     */
     List<List<String>> d_addCountryIdContinentIdList;
 
+    /**
+     * List to store country ID and neighboring country ID pairs to be added during editing.
+     */
     List<List<String>> d_addCountryIdNeighborCountryIdList;
 
+    /**
+     * List to store continent IDs to be removed during editing.
+     */
     List<String> d_removeContinentIdList;
 
+    /**
+     * List to store country IDs to be removed during editing.
+     */
     List<String> d_removeCountryIdList;
 
+    /**
+     * List to store country IDs and neighboring country IDs pairs to be removed during editing.
+     */
     List<List<String>> d_removeCountryIdNeighborCountryIdList;
 
+    /**
+     * List to store names of players to be added during editing.
+     */
     List<String> d_playersToAdd;
 
+    /**
+     * List to store names of players to be removed during editing.
+     */
     List<String> d_playersToRemove;
 
+    /**
+     * List to store country ID and number of reinforcements pairs for deployment.
+     */
     List<String> d_countryIdNumList;
 
+    /**
+     * Array to store the entered command split by whitespaces.
+     */
     private  String[] d_command;
 
 
