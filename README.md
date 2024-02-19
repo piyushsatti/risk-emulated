@@ -8,6 +8,8 @@
 
 # Design and Project
 
+![img.png](img.png)
+
 ## Naming conventions
 
 - class names in CamelCase that starts with a capital letter
