@@ -185,13 +185,25 @@ public class TerminalRenderer {
      * @param p_enable_gameview Indicates whether to enable the game view (show player info).
      */
     public static void showMap(boolean p_enable_gameview) {
+
         WorldMap map = GameEngine.CURRENT_MAP;
+
         StringBuilder out = new StringBuilder();
+
         HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
+
+
+
         for (Country c : map.getCountries().values()) {
             List<Country> temp = continentCountriesMap.getOrDefault(c.getContinent(), new ArrayList<>());
             temp.add(c);
             continentCountriesMap.put(c.getContinent(), temp);
+        }
+        for (Continent c : map.getContinents().values()){
+            if(continentCountriesMap.get(c)==null)
+            {
+                continentCountriesMap.put(c,new ArrayList<>());
+            }
         }
         for(Continent continent : continentCountriesMap.keySet())
         {
