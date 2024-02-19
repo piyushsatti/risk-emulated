@@ -11,8 +11,16 @@ import org.junit.Test;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-
+/**
+ * The PlayGameTest class contains unit tests for the PlayGame class.
+ * It includes test methods to validate the assignment of countries to players,
+ * the assignment of reinforcements, and deployment validation.
+ */
 public class PlayGameTest {
+    /**
+     * Sets up the test environment before each test method is executed.
+     * Initializes a test world map and adds players to the game engine.
+     */
     @Before
     public void setUp()  {
 
@@ -44,6 +52,12 @@ public class PlayGameTest {
         GameEngine.PLAYER_LIST.add(new Player("Player2"));
     }
 
+    /**
+     * Tests the assignment of countries to players and verifies that each player
+     * receives a comparable number of countries.
+     *
+     * @throws FileNotFoundException if the file for assigning countries is not found
+     */
     @Test
     public void assignCountriesToPlayersTestCount() throws FileNotFoundException {
 
@@ -78,6 +92,10 @@ public class PlayGameTest {
     }
 
 
+    /**
+     * Tests the assignment of reinforcements to players and verifies that each player
+     * receives an appropriate number of reinforcements based on the number of countries they own.
+     */
     @Test
     public void assignReinforcementsValidTest() {
 
@@ -102,6 +120,10 @@ public class PlayGameTest {
 
     }
 
+    /**
+     * Tests the deployment validation for each player, ensuring that a player cannot deploy
+     * more troops than they possess.
+     */
     @Test
     public void checkDeployementvalidation(){
 
