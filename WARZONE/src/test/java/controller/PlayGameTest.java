@@ -121,6 +121,14 @@ public class PlayGameTest {
     }
 
     /**
+     * Tests Validates if assigning can be done or not
+     */
+    @Test
+    public void assignCountriesToPlayersValidTest(){
+        Assert.assertTrue(GameEngine.assignCountriesValidator());
+    }
+
+    /**
      * Tests the deployment validation for each player, ensuring that a player cannot deploy
      * more troops than they possess.
      */
