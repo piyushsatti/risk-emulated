@@ -27,13 +27,13 @@ public class MapInterface {
     private static File createFileObjectFromFileName(String p_map_name) throws FileNotFoundException {
 
         File l_map_file_obj = new File(GameEngine.MAPS_FOLDER + p_map_name);
+         System.out.println(GameEngine.MAPS_FOLDER + p_map_name);
+         System.out.println("Map object"+ l_map_file_obj);
 
-        if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory()) {
-            
+        if (l_map_file_obj.exists() ) {
             return l_map_file_obj;
-
         } else {
-
+            System.out.println("Hello file does not exist");
             throw new FileNotFoundException("File does not exist.");
 
         }

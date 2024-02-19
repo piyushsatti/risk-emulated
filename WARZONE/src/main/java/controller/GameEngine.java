@@ -36,7 +36,7 @@ public class GameEngine {
     /**
      * The folder where map files are stored.
      */
-    public static String MAPS_FOLDER = "WARZONE/src/main/resources/maps/";
+    public static String MAPS_FOLDER = "WARZONE\\src\\main\\resources\\maps\\";
 
     /**
      * The currently loaded map.
