@@ -6,8 +6,16 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The GameEngineTest class contains unit tests for the GameEngine class.
+ * It includes test methods to validate various functionalities of the game engine.
+ */
 public class GameEngineTest {
 
+    /**
+     * Sets up the test environment before executing each test method.
+     * Initializes a test world map and adds players to the player list.
+     */
     @Before
     public void setUp() {
 
@@ -36,6 +44,10 @@ public class GameEngineTest {
         GameEngine.PLAYER_LIST.add(new Player("Player2"));
     }
 
+    /**
+     * Tests the functionality to assign countries to players.
+     * Verifies if countries are assigned to players correctly.
+     */
     @Test
     public void assignCountriesToPlayersValidTest(){
         PlayGame.assignCountriesToPlayers(GameEngine.PLAYER_LIST);
