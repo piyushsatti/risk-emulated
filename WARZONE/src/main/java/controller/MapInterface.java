@@ -30,7 +30,12 @@ public class MapInterface {
          System.out.println(GameEngine.MAPS_FOLDER + p_map_name);
          System.out.println("Map object"+ l_map_file_obj);
 
+<<<<<<< Updated upstream
         if (l_map_file_obj.exists() ) {
+=======
+        if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory()) {
+
+>>>>>>> Stashed changes
             return l_map_file_obj;
         } else {
             System.out.println("Hello file does not exist");
