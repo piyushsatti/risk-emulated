@@ -17,21 +17,34 @@ import java.util.ArrayList;
 
 public class PlayGameTest {
 
-    public static WorldMap map;
 
-    static {
-        try {
-            map = MapInterface.loadMap("usa9.map");
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (InvalidMapException e) {
-            throw new RuntimeException(e);
-        }
-    }
 
     @Before
-    public void setUp() {
-        GameEngine.CURRENT_MAP = map;
+    public void setUp()  {
+
+        WorldMap l_testWorldMap = new WorldMap();
+
+        try {
+            l_testWorldMap.addContinent(1, "X", 0);
+            l_testWorldMap.addContinent(2, "Y", 0);
+            l_testWorldMap.addCountry(3,1,"A");
+            l_testWorldMap.addCountry(4,1,"B");
+            l_testWorldMap.addCountry(5,2,"C");
+            l_testWorldMap.addCountry(6,2,"D");
+            l_testWorldMap.addBorder(3,4);
+            l_testWorldMap.addBorder(4,3);
+            l_testWorldMap.addBorder(5,6);
+            l_testWorldMap.addBorder(6,5);
+
+
+        }catch (Exception e){
+            System.out.println(e);
+        }
+
+
+            GameEngine.CURRENT_MAP = l_testWorldMap;
+
+
 
         GameEngine.PLAYER_LIST.add(new Player("Player1"));
         GameEngine.PLAYER_LIST.add(new Player("Player2"));
@@ -113,5 +126,6 @@ public class PlayGameTest {
 
 
 
-}
 
+
+}
