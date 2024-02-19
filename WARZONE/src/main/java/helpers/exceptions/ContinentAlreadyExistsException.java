@@ -16,6 +16,12 @@ public class ContinentAlreadyExistsException extends Exception {
         super("Continent " +name+ " already exists, cannot add it again ");
     }
 
+    /**
+     * Constructs a ContinentAlreadyExistsException with a message indicating that
+     * the continent with the given ID already exists in the map.
+     *
+     * @param p_id The ID of the continent that already exists.
+     */
     public ContinentAlreadyExistsException(int p_id){
         super("Continent " +p_id+ " already exists, cannot add it again ");
     }
