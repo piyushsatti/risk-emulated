@@ -3,8 +3,17 @@ package models.worldmap;
 import org.junit.Assert;
 import org.junit.Test;
 
+/**
+ * The WorldMapTest class contains unit tests for the WorldMap class.
+ * It includes test methods to check if the world map is connected overall
+ * and if continents within the map are connected.
+ */
 public class WorldMapTest {
 
+    /**
+     * Tests whether the world map is connected overall.
+     * Verifies if all countries and continents in the map are connected.
+     */
     @Test
     public void isConnected() {
 
@@ -30,6 +39,10 @@ public class WorldMapTest {
         Assert.assertTrue(l_testWorldMap.isConnected());
     }
 
+    /**
+     * Tests whether continents in the world map are connected internally.
+     * Verifies if all countries within each continent are connected.
+     */
     @Test
     public void isContinentConnected() {
         WorldMap l_testWorldMap = new WorldMap();
