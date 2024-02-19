@@ -193,7 +193,9 @@ public class GameEngine {
 
             if (input_command.equals("exit")) {
 
-                TerminalRenderer.renderExit();
+                GameEngine.CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+                startingMenu();
+                //TerminalRenderer.renderExit();
 
                 break;
 
@@ -269,6 +271,8 @@ public class GameEngine {
      */
     private static void startingMenu() {
 
+        TerminalRenderer.renderMessage("current game phase: " + CURRENT_GAME_PHASE.toString());
+
         TerminalRenderer.renderWelcome();
 
         String[] menu_options = {"Map Editor", "Play Game", "Settings"};
@@ -289,20 +293,28 @@ public class GameEngine {
             if (user_in.strip().replace(" ", "").equalsIgnoreCase("settings")) {
 
                 CURRENT_GAME_PHASE = GAME_PHASES.SETTINGS;
-
-                return;
+                TerminalRenderer.renderMessage("you are now entering settings phase");
+                GameEngine.CURRENT_MAP = null;
+                settings();
+                //return;
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("mapeditor")) {
 
                 CURRENT_GAME_PHASE = GAME_PHASES.MAP_EDITOR;
+                TerminalRenderer.renderMessage("you are entering map editor menu");
+                GameEngine.CURRENT_MAP = null;
+                mapEditor();
 
-                return;
+                //return;
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("playgame")) {
 
                 CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
+                TerminalRenderer.renderMessage("you are now entering settings phase");
+                GameEngine.CURRENT_MAP = null;
+                playerLoop();
 
-                return;
+                //return;
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
 
