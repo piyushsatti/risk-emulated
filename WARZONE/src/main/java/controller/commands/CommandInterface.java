@@ -8,7 +8,10 @@ import models.worldmap.WorldMap;
 import views.TerminalRenderer;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * this class consists of methods which handle the valid commands along with the parameters mentioned for command options
@@ -126,33 +129,51 @@ public class CommandInterface {
 
     /**
      *adds new player to the player list
-     * @param p_playerName : name of the player
+     * @param p_playersToAdd : name of the player
      */
-    public static void addPlayers(String p_playerName) {
-        Player newPlayer = new Player(p_playerName);
-        if(!GameEngine.PLAYER_LIST.contains(newPlayer)) GameEngine.PLAYER_LIST.add(newPlayer);
-        System.out.println("added player(s) successfully");
+    public static void addPlayers(List<String> p_playersToAdd) {
+        List<String> l_playersAdded = new ArrayList<>();
+        List<String> l_existingPlayers = new ArrayList<>();
+        for(Player l_player : GameEngine.PLAYER_LIST)
+        {
+            if(!l_existingPlayers.contains(l_player.getName())) l_existingPlayers.add(l_player.getName());
+        }
+        for(String l_playertoAdd : p_playersToAdd)
+        {
+            if(!l_existingPlayers.contains(l_playertoAdd))
+            {
+                GameEngine.PLAYER_LIST.add(new Player(l_playertoAdd));
+                l_playersAdded.add(l_playertoAdd);
+            }
+        }
+        if(!l_playersAdded.isEmpty()) System.out.println("added players sucessfully: "+ List.of(l_playersAdded));
     }
 
     /**
      * removes existing player from the player list
-     * @param p_playerName Name of the player
-     * @throws PlayerDoesNotExistException when player to be removed does not exist in the player list
+     * @param p_copyList Name of the player
      */
-    public static void removePlayers(String p_playerName) throws PlayerDoesNotExistException {
-        boolean playerExists = false;
-        Iterator<Player> it = GameEngine.PLAYER_LIST.iterator();
-        while (it.hasNext()) {
-            Player player = it.next();
-            if (player.getName().equals(p_playerName)) {
-                playerExists = true;
-                it.remove();
+    public static void removePlayers(List<String> p_copyList) {
+        List<String> l_playerNotExist = new ArrayList<>();
+        List<String> l_playersRemoved = new ArrayList<>();
+        for(String l_playerCheck : p_copyList)
+        {   boolean found = false;
+            Iterator<Player> it = GameEngine.PLAYER_LIST.iterator();
+            while (it.hasNext()) {
+                Player l_player = it.next();
+                if (l_player.getName().equals(l_playerCheck)) {
+                    found = true;
+                    it.remove();
+                    l_playersRemoved.add(l_playerCheck);
+                }
             }
+            if(!found) l_playerNotExist.add(l_playerCheck);
         }
-        if(!playerExists) {
-            throw new PlayerDoesNotExistException("p_playerName");
+        System.out.println("players removed successfully: "+List.of(l_playersRemoved));
+        if(!l_playerNotExist.isEmpty())
+        {
+            System.out.println("could not remove players as they don't exist: "+List.of(l_playerNotExist));
         }
-        System.out.println("remove player(s) successfully");
     }
 
     /**

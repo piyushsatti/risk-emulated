@@ -501,26 +501,21 @@ public class CommandValidator {
 
                         String l_playerToAdd = p_lCommand[++l_z];
 
-                        d_playersToAdd.add(l_playerToAdd);
+                        if(!d_playersToAdd.contains(l_playerToAdd)) d_playersToAdd.add(l_playerToAdd);
 
                     } else if (l_currOption.equals("-remove")) {
 
                         String l_playerToRemove = p_lCommand[++l_z];
 
-                        d_playersToRemove.add(l_playerToRemove);
+                        if(!d_playersToRemove.contains(l_playerToRemove)) d_playersToRemove.add(l_playerToRemove);
 
                     }
 
                     l_z++;
                 }
-                for (String s : d_playersToAdd) {
-                    CommandInterface.addPlayers(s); //for each player name, calling method to add this player to the player list in the game engine class
-                }
-                int l_size = d_playersToRemove.size();
-                List<String> l_copyList = new ArrayList<>(d_playersToRemove);
-                for (int i = 0; i < l_size; i++) {
-                    CommandInterface.removePlayers(l_copyList.get(i)); //for each player name, calling method to remove this player from the player list in the game engine class
-                }
+
+                CommandInterface.addPlayers(d_playersToAdd);
+                CommandInterface.removePlayers(d_playersToRemove);
             }
             case "deploy" -> {
 
