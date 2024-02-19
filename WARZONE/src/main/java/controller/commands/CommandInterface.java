@@ -29,7 +29,7 @@ public class CommandInterface {
         }
         int l_bonus = Integer.parseInt(p_continentVal);
         int l_continentId = GameEngine.CURRENT_MAP.getContinentID(p_continentName);
-        if(l_continentId!=0)
+        if(l_continentId!=-1)
         {
             throw new ContinentAlreadyExistsException(p_continentName);
         }
@@ -44,7 +44,7 @@ public class CommandInterface {
 
     public static void removeContinentId(String p_continentName) throws ContinentDoesNotExistException, CountryDoesNotExistException {
         int l_continentId = GameEngine.CURRENT_MAP.getContinentID(p_continentName);
-        if(l_continentId==0) {
+        if(l_continentId==-1) {
             throw new ContinentDoesNotExistException(p_continentName);
         }
         GameEngine.CURRENT_MAP.removeContinent(l_continentId);
@@ -64,7 +64,7 @@ public class CommandInterface {
             l_highestId = Math.max(i,l_highestId);
         }
         int l_continentId = GameEngine.CURRENT_MAP.getContinentID(p_continentName);
-        if(l_continentId==0) {
+        if(l_continentId==-1) {
             throw new ContinentDoesNotExistException(p_continentName);
         }
         GameEngine.CURRENT_MAP.addCountry(l_highestId+1,l_continentId,p_countryName);
@@ -77,7 +77,7 @@ public class CommandInterface {
      */
     public static void removeCountryId(String p_removeCountryName) throws CountryDoesNotExistException {
         int l_countryId = GameEngine.CURRENT_MAP.getCountryID(p_removeCountryName);
-        if(l_countryId==0)
+        if(l_countryId==-1)
         {
             throw new CountryDoesNotExistException(p_removeCountryName);
         }
@@ -91,12 +91,12 @@ public class CommandInterface {
      */
     public static void addCountryIdNeighborCountryId(String p_countryName, String p_neighbourCountryName) throws CountryDoesNotExistException {
         int l_countryId = GameEngine.CURRENT_MAP.getCountryID(p_countryName);
-        if(l_countryId==0)
+        if(l_countryId==-1)
         {
             throw new CountryDoesNotExistException(p_countryName);
         }
         int l_neighborCountryId = GameEngine.CURRENT_MAP.getCountryID(p_neighbourCountryName);
-        if(l_neighborCountryId==0)
+        if(l_neighborCountryId==-1)
         {
             throw new CountryDoesNotExistException(l_neighborCountryId);
         }
@@ -112,11 +112,11 @@ public class CommandInterface {
     public static void removeCountryIdNeighborCountryId(String p_countryName, String p_neighborCountryName) throws CountryDoesNotExistException {
         int l_countryId = GameEngine.CURRENT_MAP.getCountryID(p_countryName);
         int l_neighborCountryId = GameEngine.CURRENT_MAP.getCountryID(p_neighborCountryName);
-        if(l_countryId==0)
+        if(l_countryId==-1)
         {
             throw new CountryDoesNotExistException(p_countryName);
         }
-        if(l_neighborCountryId==0)
+        if(l_neighborCountryId==-1)
         {
             throw new CountryDoesNotExistException(l_neighborCountryId);
         }
