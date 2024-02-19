@@ -231,7 +231,6 @@ public class TerminalRenderer {
         System.out.println(out);
     }
 
-    // this needs to be adjusted to reflect players
     /**
      * Displays the current game map.
      */
