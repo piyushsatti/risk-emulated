@@ -5,6 +5,7 @@ import controller.MapInterface;
 import helpers.exceptions.*;
 import models.Player;
 import models.worldmap.WorldMap;
+import views.TerminalRenderer;
 
 import java.io.*;
 import java.util.Iterator;
@@ -163,11 +164,12 @@ public class CommandInterface {
     public static void loadCurrentMap(String p_filename) throws FileNotFoundException, InvalidMapException {
 
         WorldMap l_map = MapInterface.loadMap(p_filename);
-        if(MapInterface.validateMap(l_map)) {
+        if (MapInterface.validateMap(l_map)) {
             GameEngine.CURRENT_MAP = MapInterface.loadMap(p_filename);
         }
         else{
             GameEngine.CURRENT_MAP = null;
+            TerminalRenderer.renderError("Invalid map, setting map to null.");
             throw new InvalidMapException(p_filename);
         }
 

@@ -158,7 +158,7 @@ public class MapInterface {
             } catch (ContinentAlreadyExistsException | ContinentDoesNotExistException | DuplicateCountryException |
                      CountryDoesNotExistException e) {
 
-                throw new InvalidMapException("WorldMap Features Invalud: " + e);
+                throw new InvalidMapException("WorldMap Features Invalid: " + e);
 
             }
 
