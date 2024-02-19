@@ -34,11 +34,13 @@ public class GameEngineTest {
 
         GameEngine.PLAYER_LIST.add(new Player("Player1"));
         GameEngine.PLAYER_LIST.add(new Player("Player2"));
+
+
+        PlayGame.assignCountriesToPlayers(GameEngine.PLAYER_LIST);
     }
 
     @Test
     public void assignCountriesToPlayersValidTest(){
-        PlayGame.assignCountriesToPlayers(GameEngine.PLAYER_LIST);
         Assert.assertTrue(GameEngine.assignCountriesValidator());
     }
 
