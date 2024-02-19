@@ -20,6 +20,9 @@ public class Country {
      */
     private final String d_countryName;
 
+    /**
+     * The ID of the player who owns the country.
+     */
     private int d_country_player_ID;
 
     /**
@@ -58,6 +61,11 @@ public class Country {
 
     }
 
+    /**
+     * Returns a string containing details about the country, including its ID, name, and deployed reinforcements.
+     *
+     * @return A string containing the country details.
+     */
     public String returnCountryDetails() {
 
         return "Country ID: " + this.d_countryID +
