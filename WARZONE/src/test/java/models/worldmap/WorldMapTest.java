@@ -1,8 +1,7 @@
 package models.worldmap;
 
+import org.junit.Assert;
 import org.junit.Test;
-
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class WorldMapTest {
 
@@ -22,13 +21,13 @@ public class WorldMapTest {
             l_testWorldMap.addBorder(4,5);
             l_testWorldMap.addBorder(5,6);
             l_testWorldMap.addBorder(6,3);
-            assertTrue(l_testWorldMap.isConnected());
+            Assert.assertTrue(l_testWorldMap.isConnected());
 
         }catch (Exception e){
             System.out.println(e);
         }
 
-        assertTrue(l_testWorldMap.isConnected());
+        Assert.assertTrue(l_testWorldMap.isConnected());
     }
 
     @Test
@@ -52,6 +51,6 @@ public class WorldMapTest {
             System.out.println(e);
         }
 
-        assertTrue(l_testWorldMap.isContinentConnected());
+        Assert.assertTrue(l_testWorldMap.isContinentConnected());
     }
 }
