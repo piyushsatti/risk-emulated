@@ -160,7 +160,7 @@ public class CommandInterface {
      * @throws FileNotFoundException : when map file is not found
      * @throws InvalidMapException : when map is invalid
      */
-    public static void loadCurrentMap(String p_filename) throws FileNotFoundException, InvalidMapException, CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException {
+    public static void loadCurrentMap(String p_filename) throws FileNotFoundException, InvalidMapException {
 
         WorldMap l_map = MapInterface.loadMap(p_filename);
         if(MapInterface.validateMap(l_map)) {
