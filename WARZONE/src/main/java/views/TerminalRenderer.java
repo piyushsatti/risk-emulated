@@ -35,7 +35,7 @@ public class TerminalRenderer {
                                    \\  ( )  /     /  /\\  \\  ( ( \\ \\_))   / /____   \\ \\__/ /   / /  \\ \\/ /    \\ \\___ \s
                                     \\_/ \\_/     /__(  )__\\  )_) \\__/   (_______)   \\____/   (_/    \\__/      \\____\\\s
                                 \s
-                                Welcome to WarZone. Built by Team24.
+                                Welcome to WarZone. Built by Team 20.
                                 """ +
                         TerminalColors.ANSI_RESET
         );
@@ -57,7 +57,7 @@ public class TerminalRenderer {
                                    \\  ( )  /     /  /\\  \\  ( ( \\ \\_))   / /____   \\ \\__/ /   / /  \\ \\/ /    \\ \\___ \s
                                     \\_/ \\_/     /__(  )__\\  )_) \\__/   (_______)   \\____/   (_/    \\__/      \\____\\\s
                                 \s
-                                Thank you for playing WarZone. Team24 will see you next build.
+                                Thank you for playing WarZone. Team 20 will see you next build.
                                 """ +
                         TerminalColors.ANSI_RESET
         );
