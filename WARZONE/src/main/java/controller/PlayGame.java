@@ -197,7 +197,6 @@ public class PlayGame {
 
         }
 
-
         assignReinforcements(p_listOfPlayers);
         try {
             playerOrders(p_listOfPlayers);
@@ -205,11 +204,6 @@ public class PlayGame {
             TerminalRenderer.renderError("!!Invalid Command!! Please enter valid command");
         }
         executingOrders(p_listOfPlayers);
-
-        //PostExecution View -> current state map. Current Players //Turn Information.
-
-
-
 
     }
 
