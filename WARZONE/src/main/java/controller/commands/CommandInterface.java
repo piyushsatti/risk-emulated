@@ -180,9 +180,9 @@ public class CommandInterface {
      */
     public static void validateMap() {
         if(MapInterface.validateMap(GameEngine.CURRENT_MAP)){
-            System.out.println("Map is Valid");
+            TerminalRenderer.renderMessage("Map is Valid");
         }else{
-            System.out.println("Map is Not Valid");
+            TerminalRenderer.renderMessage("Map is Not Valid");
         }
     }
 
