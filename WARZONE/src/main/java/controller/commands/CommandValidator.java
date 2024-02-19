@@ -129,6 +129,9 @@ public class CommandValidator {
             case "editcountry", "editcontinent", "editneighbor" -> this.checkEditCommandsValidity(d_command);
             case "gameplayer" -> this.checkGamePlayerCommandValidity(d_command);
             case "deploy" -> this.checkDeployCommandValidity(d_command);
+            case "savemap", "editmap", "loadmap","showmap","validatemap" -> {
+                break;
+            }
             default -> throw new IllegalStateException("Unexpected value: " + l_mainCommand);
         }
     }
