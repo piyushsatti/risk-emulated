@@ -1,4 +1,8 @@
-main.java
 main.java.controller
+main.java.controller.commands
 main.java.models
+main.java.models.worldmap
+main.java.helpers
+main.java.helpers.exceptions
 main.java.views
+test.java.controller

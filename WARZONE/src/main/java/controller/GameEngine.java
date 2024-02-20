@@ -1,144 +1,325 @@
-package main.java.controller;
+package controller;
 
-import main.java.models.Order;
-import main.java.models.Player;
+import controller.commands.CommandValidator;
+import helpers.exceptions.*;
+import models.Player;
+import models.worldmap.WorldMap;
+import views.TerminalRenderer;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Scanner;
+
+/**
+ * The GameEngine class manages the main logic of the game, including handling game phases, user input, and game loops.
+ * It coordinates between the map editor, gameplay, and other settings.
+ */
 public class GameEngine {
+
+    /**
+     * Enum representing different phases of the game.
+     */
+    public enum GAME_PHASES {
+        MAIN_MENU,
+        MAP_EDITOR,
+        GAMEPLAY,
+        SETTINGS
+    }
+
+    /**
+     * The current game phase.
+     */
+    public static GAME_PHASES CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+
+    /**
+     * The folder where map files are stored.
+     */
+    public static String MAPS_FOLDER = "WARZONE/src/main/resources/maps/";
+
+    /**
+     * The currently loaded map.
+     */
+    public static WorldMap CURRENT_MAP;
+
+    /**
+     * List of players in the game.
+     */
+    public static ArrayList<Player> PLAYER_LIST = new ArrayList<>();
+
+    /**
+     * Manages the loop for player actions during the gameplay phase.
+     **/
+    public static void playerLoop() {
+
+
+        TerminalRenderer.renderWelcome();
+
+        String[] menu_options = {"Show Map", "Load Map", "gameplayer to Add/Remove Player", "Assign Countries"};
+
+        TerminalRenderer.renderMenu(
+                "Main Menu",
+                menu_options
+        );
+
+        Scanner in = new Scanner(System.in);
+
+        String user_in;
+
+        while (true) {
+
+            user_in = in.nextLine();
+
+            if (user_in.strip().toLowerCase().startsWith("showmap")) {
+
+                if(CURRENT_MAP!=null)
+
+                    TerminalRenderer.showMap(!GameEngine.PLAYER_LIST.isEmpty());
+
+                else
+
+                    TerminalRenderer.renderError("No Map is currently loaded in the game!!!");
+
+            } else if (user_in.strip().toLowerCase().startsWith("loadmap")) {
+
+                CommandValidator command = new CommandValidator();
+
+                CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
+
+                try {
+
+                    command.addCommand(user_in.strip().toLowerCase());
+
+                    command.processValidCommand();
+
+                    TerminalRenderer.renderMessage("Loaded map.");
+
+                } catch (Exception | InvalidMapException e) {
+
+                    TerminalRenderer.renderError(e.toString());
+
+                }
+
+            } else if (user_in.strip().toLowerCase().startsWith("gameplayer")) {
+
+                TerminalRenderer.renderMessage("Please enter command to add and remove players");
+
+                CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
+
+                CommandValidator command = new CommandValidator();
+
+                try {
+
+                    command.addCommand(user_in.strip().toLowerCase());
+
+                    command.processValidCommand();
+
+                    for (Player l_player : PLAYER_LIST) {
+
+                        TerminalRenderer.renderMessage("Current players list: " + l_player.getName());
+
+                    }
+
+                } catch (Exception | InvalidMapException e) {
+
+                    TerminalRenderer.renderError(e.toString());
+
+                }
+
+            } else if (user_in.strip().toLowerCase().startsWith("assigncountries")) {
+
+                if (PLAYER_LIST.isEmpty()) {
+
+                    TerminalRenderer.renderMessage("!!!PLAYER LIST IS EMPTY!!! \n Please add players to the list");
+
+                } else if (!assignCountriesValidator()) {
+
+                    TerminalRenderer.renderMessage("!!!Players are more than countries!!!");
+
+                } else if (!MapInterface.validateMap(CURRENT_MAP)) {
+
+                    CURRENT_MAP = null;
+
+                    TerminalRenderer.renderMessage("Current map is not a valid map! Please load again");
+
+                }
+                else {
+
+                    PlayGame.startGame();
+
+                }
+
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
+
+                return;
+
+            } else {
+
+                TerminalRenderer.renderMessage("Not an option. Try again.");
+
+            }
+
+
+        }
+
+    }
+
+    /**
+     * Manages the map editor phase where users can edit maps.
+     */
+    public static void mapEditor() {
+
+        if (GameEngine.CURRENT_GAME_PHASE != GAME_PHASES.MAP_EDITOR) return;
+
+        String l_filename;
+
+        while (GameEngine.CURRENT_MAP == null) {
+
+            l_filename = TerminalRenderer.renderMapEditorMenu();
+
+            try {
+
+                GameEngine.CURRENT_MAP = MapInterface.loadMap(l_filename);
+
+            } catch (FileNotFoundException | NumberFormatException | InvalidMapException e) {
+
+                TerminalRenderer.renderError("Invalid File or not found");
+
+            }
+
+        }
+
+        String input_command;
+
+        CommandValidator command;
+
+        while (true) {
+
+            input_command = TerminalRenderer.renderMapEditorCommands();
+
+            if (input_command.equals("exit")) {
+
+                GameEngine.CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+
+                startingMenu();
+
+                break;
+
+            }
+
+            command = new CommandValidator();
+
+            try {
+
+                command.addCommand(input_command);
+
+                command.processValidCommand();
+
+            } catch (InvalidCommandException | CountryDoesNotExistException | ContinentAlreadyExistsException |
+                     ContinentDoesNotExistException | IOException | PlayerDoesNotExistException |
+                     InvalidMapException |
+                     DuplicateCountryException e) {
+
+                TerminalRenderer.renderError("Invalid Command Entered: " + input_command + "\n" + e);
+
+            }
+
+        }
+
+    }
+
+    /**
+     * Checks if the number of countries is greater than number of players
+     */
+    public static boolean assignCountriesValidator() {
+        return CURRENT_MAP.getD_countries().size() >= PLAYER_LIST.size();
+    }
+
+    /**
+     * Displays the starting menu and handles user input to determine the next game phase.
+     */
+    private static void startingMenu() {
+
+        TerminalRenderer.renderMessage("current game phase: " + CURRENT_GAME_PHASE.toString());
+
+        TerminalRenderer.renderWelcome();
+
+        String[] menu_options = {"Map Editor", "Play Game"};
+
+        TerminalRenderer.renderMenu(
+                "Starting Menu",
+                menu_options
+        );
+
+        Scanner in = new Scanner(System.in);
+
+        String user_in;
+
+        while (true) {
+
+            user_in = in.nextLine();
+
+            if (user_in.strip().replace(" ", "").equalsIgnoreCase("mapeditor")) {
+
+                CURRENT_GAME_PHASE = GAME_PHASES.MAP_EDITOR;
+                TerminalRenderer.renderMessage("you are entering `mapeditor` menu");
+                GameEngine.CURRENT_MAP = null;
+                mapEditor();
+
+                //return;
+
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("playgame")) {
+
+                CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
+                TerminalRenderer.renderMessage("you are now entering `playgame` phase");
+                GameEngine.CURRENT_MAP = null;
+                playerLoop();
+
+                //return;
+
+            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
+
+                TerminalRenderer.renderExit();
+
+            } else {
+
+                TerminalRenderer.renderMessage("Not an option. Try again.");
+
+            }
+
+        }
+
+    }
+
+    /**
+     * The main method that starts the game and controls the game loop.
+     *
+     * @param args command line arguments.
+     */
     public static void main(String[] args) {
 
-        System.out.println("Start of the Game");
+            while (CURRENT_GAME_PHASE == GAME_PHASES.MAIN_MENU) {
 
-       //Show Map
-       //LoadMap
+                startingMenu();
 
-       // Instance of Map -List of countries(deployed armies),continent,neighbours,
-     /********************************************************* Adding Players and Assigncountries *************/
-       //Add and remove player - Player arraylist
-       //Example of how Add Player works
-		ArrayList<String> names = new ArrayList<>();
-		names.add("Dev");
-		names.add("Priyanshu");
-		names.add("Piyush");
-        Player.addPlayer(names);
-        System.out.println("Displaying.........");
-//         Player.displayPlayers();
-        //Assigning Countries to each player
-        Player.assignCountriesToPlayers();
-        List<Player> d_listOfPlayers = Player.getD_Players();
-        //************************************** MAIN LOOP **************************************//
-	      //****************ASSIGN REINFORCEMENTS ***************************//
-        for(Player player : d_listOfPlayers){
-            int l_numberOfTroops = Math.max((int)player.getassignedCountries().size()/3,3);
-            player.setReinforcements(l_numberOfTroops);
-//            player.printPlayerDetails();
-//            System.out.println(" ");
-        }
-        //****************issue order ***************************//
-        int totalplayers = d_listOfPlayers.size();
-        int playerNumber =0;
-        for(int i=0;i<3;i++){
-            //NOTE isse_order should not have parameters according to project requirements it is just for testing.
-            d_listOfPlayers.get(0).issue_order(1,4);
-            d_listOfPlayers.get(1).issue_order(1,2);
-            d_listOfPlayers.get(2).issue_order(1,3);
-        }
-//        while(!Player.allTroopsPlaced(d_listOfPlayers)){
-//            if((playerNumber % totalplayers == 0) && playerNumber!=0){
-//                playerNumber =0;
-//            }
-//            if(d_listOfPlayers.get(playerNumber).getReinforcements()!=0){
-//                d_listOfPlayers.get(playerNumber).issue_order();
-//            }
-//
-//        }
-     //****************EXECUTE order ***************************//
-        while(!Player.allOrdersExecuted(d_listOfPlayers)){
-            if((playerNumber % totalplayers == 0) && playerNumber!=0){
-                playerNumber =0;
+                if (CURRENT_GAME_PHASE == GAME_PHASES.MAP_EDITOR) {
+
+                    mapEditor();
+
+                    CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+
+                }
+
+                if (CURRENT_GAME_PHASE == GAME_PHASES.GAMEPLAY) {
+
+                    playerLoop();
+
+                    CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+
+                }
+
             }
-            if(!d_listOfPlayers.get(playerNumber).getD_orderList().isEmpty()){
-                Order order = d_listOfPlayers.get(playerNumber).next_order();
-                order.execute_order();
-            }
-            playerNumber++;
 
-        }
-
-////////////////////////// Only Notes BELOW IT IGNORE //////////////////////////////////////////////////////////////////////////////////
-
-
-//        while(true){
-//            for(Player player : d_listOfPlayers){
-//                int l_numberOfTroops = Math.max((int)player.getassignedCountries().size()/3,3);
-//                player.setReinforcements(l_numberOfTroops);
-//                player.printPlayerDetails();
-//            }
-//
-//        }
-
-
-
-       //Testing Player
-
-//            ArrayList<Player> playerList = new ArrayList<>();
-//      		Player testPlayer  = new Player();
-//      		Player testPlayer_2  = new Player();
-//      		testPlayer.setName("Dev");
-//      		testPlayer_2.setName("Priyanshu");
-//
-//      		playerList.add(testPlayer_2);
-//      		playerList.add(testPlayer);
-//
-//      		ArrayList<Country> countryList = new ArrayList<>();   //To be given by Map Team
-//      		Country a = new Country(1,"a",new Continent(1,"a"));
-//    		Country b = new Country(2,"b",new Continent(1,"a"));
-//    		Country c = new Country(3,"c",new Continent(1,"a"));
-//    		Country d = new Country(4,"d",new Continent(1,"a"));
-//
-//    		countryList.add(a);
-//    		countryList.add(b);
-//    		countryList.add(c);
-//    		countryList.add(d);
-
-
-
-        // Implementation of add Players assuming the function gets a list of player names from Command Line
-
-
-           //Start up phase  AssignCountry - Country objects that are assigned to player basis of id,continent and deployed_forces
-
-//      	   int player_no=0;
-//      	   for(int i=0;i<countryList.size();i++){
-//
-//      		   playerList.get(player_no).setassignedCountries(countryList.get(i));
-//
-//      		   player_no++;
-//      		   if(player_no>2)player_no=0;
-//      	   }
-//      	   //Player gets intial reinforments 10
-//
-//      	 for(int i=0;i<playerList.size();i++){
-//
-//      		 int army= (int)playerList.get(player_no).getassignedCountries().size()/3;
-//      		 playerList.get(player_no).setReinforcements(Math.max(army,3));
-//      	 }
-//
-
-
-
-
-
-      	   //Deployment - only owned countries can allow deployment --Done by player
-
-      		//{
-      		//issue orders - player is assigning armies to countries
-      		//next order - execute order
-
-      		//execute methods-assigning to map instance player order execute method
-      		//}
-
-      		//Attack
     }
+
 }

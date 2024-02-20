@@ -1,226 +1,229 @@
-package main.java.models;
+package models;
 
-import main.java.controller.MapInterface;
-import main.java.models.worldmap.Country;
-import main.java.models.worldmap.WorldMap;
+import controller.GameEngine;
+import controller.commands.CommandValidator;
+import helpers.exceptions.InvalidCommandException;
+import views.TerminalRenderer;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
 
-public class Player{
+/**
+ * The Player class represents a player in the game.
+ */
+public class Player {
 
+    /** The latest player ID. */
+    private static int d_latest_playerID = 1;
+
+    /** The ID of the player. */
+    private final int d_playerId;
+
+    /** The name of the player. */
     private String d_playerName;
+
+    /** The number of reinforcements available for the player. */
     private int d_reinforcements;
-    private final Map<Integer, Country> d_assignedCountries;
 
-    public static WorldMap getMap() {
-        return map;
-    }
+    /** The list of countries assigned to the player. */
+    private final ArrayList<Integer> d_assignedCountries;
 
-    private static WorldMap map;
+    /** The order list of the player. */
+    private final Deque<Order> d_orderList = new ArrayDeque<>();
 
-    public Queue<Order> getD_orderList() {
-        return d_orderList;
-    }
 
-    private final Queue<Order> d_orderList;
-    public static List<Player> getD_Players() {
-        return d_Players;
-    }
-
-    private static List<Player> d_Players = new ArrayList<>();
-
-    //Getters
-    public String getName() {
-        return d_playerName;
-    }
-    public int getReinforcements() {
-        return d_reinforcements;
-    }
-    public Map<Integer,Country> getassignedCountries() {
-        return this.d_assignedCountries;
-    }
-
-    //Setters
-    public void setName(String p_name) {
-        this.d_playerName= p_name;
-    }
-    public void setReinforcements(int p_reinforcements) {
-        this.d_reinforcements= p_reinforcements;
-    }
-    public void setassignedCountries(Integer p_countryID, Country p_assignedCountry) {
-        this.d_assignedCountries.put(p_countryID, p_assignedCountry);
-    }
-
+    /**
+     * Constructs a new Player object with the specified name.
+     *
+     * @param p_playerName The name of the player.
+     */
     //Constructors
-    public Player(String p_playerName){
+    public Player(String p_playerName) {
+
+        this.d_playerId=d_latest_playerID;
+
         this.d_playerName= p_playerName;
+
         this.d_reinforcements= 0;
-        this.d_assignedCountries= new HashMap<>();
-        this.d_orderList = new LinkedList<>();
-        //d_Players.add(this);
+
+        this.d_assignedCountries = new ArrayList<>();
+
+        d_latest_playerID++;
+
+    }
+    /**
+     * Validates player's order by checking if the player has available reinforcements to place the order or not.
+     *
+     * @param p_numberTobeDeployed The number of troops to be deployed in the given order
+     * @return whether the player has more reinforcements than the number of troops to be deployed.
+     */
+    public boolean deployment_validator(int p_numberTobeDeployed) {
+        return p_numberTobeDeployed < this.getReinforcements();
     }
 
+    /**
+     * Issues an order for the player.
+     *
+     * @throws InvalidCommandException If the command issued by the player is invalid.
+     */
+    public void issue_order() throws InvalidCommandException {
 
-//    public Player(String d_playerName,int d_reinforcements,ArrayList<Country> d_assignedCountries){
-//        this.d_playerName= "";
-//        this.d_reinforcements= 0;
-//        this.d_assignedCountries= d_assignedCountries;
-//       }
+        while(true) {
 
-    //issue order
+            TerminalRenderer.renderMessage("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());
 
-    //addPlayer assuming a list of players to be added is given as parameter
-    public static void addPlayer(ArrayList<String> p_names){
-        for(String l_name: p_names){
-            System.out.println("Name of the Player to be added: "+  l_name);
-            System.out.println("Total list of Player: "+  d_Players.size());
-            boolean l_found = false;
-            for (Player l_player : d_Players) {
-                if (l_player.getName().equals(l_name)) {
+            String command = TerminalRenderer.issueOrderView(this.getName());
 
-                    d_Players.remove(l_player);
-                    System.out.println("Hi" + d_Players);
-                    l_found = true;
-                    break;
+            CommandValidator commandValidator = new CommandValidator();
+
+            commandValidator.addCommand(command);
+
+            String[] arr = command.split(" ");
+
+            int l_countryID = GameEngine.CURRENT_MAP.getCountryID(arr[1]);
+
+            int l_numberTobeDeployed = Integer.parseInt(arr[2]);
+
+
+            if (l_countryID > 0 && l_numberTobeDeployed <= this.getReinforcements()) {
+
+                if (this.d_assignedCountries.contains(l_countryID)) {
+
+                    Order order = new Order(this.getName(),this.getPlayerId(), l_countryID, l_numberTobeDeployed);
+
+                    TerminalRenderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + GameEngine.CURRENT_MAP.getCountry(l_countryID).getCountryName() + " by Player: " + this.d_playerName);
+
+                    this.d_orderList.add(order);
+
+                    this.setReinforcements(this.getReinforcements() - l_numberTobeDeployed);
+
+                    TerminalRenderer.renderMessage("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());
+
+                    return;
+
+                } else {
+
+                    TerminalRenderer.renderMessage("You (" + this.d_playerName + ") Cannot Deploy Troops here you don't own it.");
+                    throw new InvalidCommandException("Invalid Command!!! You don't own the country");
+
                 }
-            }
-            d_Players.add(new Player(l_name));
-        }
-    }
-    //removePlayer assuming a list of players to be added is given as parameter
-    public static void removePlayer(ArrayList<String> p_names){
-        for(String l_name: p_names){
-            for (Player l_player : d_Players) {
-                if (l_player.getName().equals(l_name)) {
-                    d_Players.remove(l_player);
+
+            } else {
+
+                if (!deployment_validator(l_numberTobeDeployed)) {
+
+                    TerminalRenderer.renderMessage("You (" + this.d_playerName + ") don't have enough troops for this deploy order");
+                    throw new InvalidCommandException("Invalid Command!!! Not enough troops");
+
+                } else {
+
+                    throw new InvalidCommandException("Invalid Command");
+
                 }
+
             }
 
         }
-    }
-    public void printPlayerDetails(){
-        System.out.print("Name: "+this.d_playerName +" ");
-        System.out.print("Reinforcements: "+this.d_reinforcements+" ");
-        for(Map.Entry<Integer, Country> entry : this.d_assignedCountries.entrySet()){
-            System.out.print("Country ID: " +entry.getKey() +" Country Details: "+ entry.getValue() +" ");
-        }
-    }
-    public static void displayPlayers(){
-        System.out.print("Number of Players: " + d_Players.size());
-        for(Player l_player: d_Players){
-            l_player.printPlayerDetails();
-        }
-    }
-//        public static void addPlayer(ArrayList<String> p_names){
-//            for(String l_name: p_names){
-//                System.out.println("Name of the Player to be added: "+  l_name);
-//                System.out.println("Total list of Player: "+  d_Players.size());
-//                boolean l_found = false;
-//                for (Player l_player : d_Players) {
-//                    if (l_player.getName().equals(l_name)) {
-//
-//                        d_Players.remove(l_player);
-//                        System.out.println("Hi" + d_Players);
-//                        l_found = true;
-//                        break;
-//                    }
-//                }
-//                d_Players.add(new Player(l_name));
-//            }
-//        }
-//// Create new player objects for each name in the p_names list
-//        for (String name : p_names) {
-//            if (!addedNames.contains(name)) { // Check if name has already been added
-//                Player player = new Player(name);
-//                d_Players.add(player);
-//                addedNames.add(name); // Add name to the set of added names
-//            }
-//        }
-//
-//        for(Player py : d_Players){
-//            System.out.println("Current Object Name: "+py.getName());
-//        }
-//
-//    }
-    //removePlayer assuming a list of players to be added is given as parameter
-
-
-    public static void assignCountriesToPlayers(){
-        map = MapInterface.loadMap("usa8");
-        Map<Integer, Country> listOfCountries = map.getCountries();
-        int totalplayers = d_Players.size();
-        int playerNumber =0;
-        for(Map.Entry<Integer, Country> entry : listOfCountries.entrySet()) {
-            if((playerNumber%totalplayers ==0) && playerNumber!=0){
-                playerNumber =0;
-            }
-            Integer key = entry.getKey();
-            Country value = entry.getValue();
-            Player p = d_Players.get(playerNumber);
-            p.setassignedCountries(key,value);
-
-            playerNumber++;
-        }
-
-        for(Player l_player: d_Players){
-            l_player.printPlayerDetails();
-            System.out.println(" ");
-        }
-        for(Player l_player: d_Players){
-            System.out.println("Number of Countries: " + l_player.getassignedCountries().size());
-            System.out.println(" ");
-        }
 
     }
-    public void issue_order(int l_numberTobeDeployed, int l_countryID) {
-//         int l_numberTobeDeployed = 1; //To be acquired from command prompt
-//         int l_countryID = 4; //To be acquired from command prompt
-        if(this.d_assignedCountries.containsKey(l_countryID)){
-            System.out.println("You own the Country: "+this.d_playerName);
-            System.out.println("The country is: "+ this.d_assignedCountries.get(l_countryID).getD_countryName());
-        }else{
-            System.out.println("Cannot Deploy Troops here you dont own it."+this.d_playerName);
-            return;
-        }
-        if(this.d_reinforcements<l_numberTobeDeployed){
-            System.out.println("Not enough Troops! for "+this.d_playerName);
-            return;
-        }else{
-         Order order = new Order(this.getName(),"deploy",l_countryID,l_numberTobeDeployed);
-         System.out.println("Order Created for Player: "+this.d_playerName);
-         this.d_orderList.add(order);
-         this.setReinforcements(this.getReinforcements()-l_numberTobeDeployed);
-            System.out.println("Player "+this.d_playerName+" Updated Reinforcements: "+this.getReinforcements());
 
-        }
-        System.out.println("The order list is:");
-        for(Order order: d_orderList){
-            order.printOrder();
-        }
-
-
-    }
-    public static boolean allTroopsPlaced(List<Player> p_Players){
-        for(Player l_player : p_Players){
-            if(l_player.getReinforcements()!=0){
-                return false;
-            }
-        }
-        return true;
-    }
-    public static boolean allOrdersExecuted(List<Player> p_Players){
-        for(Player l_player : p_Players){
-            if(!l_player.d_orderList.isEmpty()){
-                return false;
-            }
-        }
-        return true;
-    }
-    public Order next_order(){
+    /**
+     * Gets the next order from the player's order list.
+     *
+     * @return The next order from the player's order list.
+     */
+    public Order next_order() {
         return this.d_orderList.poll();
     }
 
 
+    /**
+     * Gets the name of the player.
+     *
+     * @return The name of the player.
+     */
+    public String getName() {
+        return d_playerName;
+    }
 
+    /**
+     * Gets the reinforcements available for the player.
+     *
+     * @return The reinforcements available for the player.
+     */
+    public int getReinforcements() {
+        return d_reinforcements;
+    }
+
+    /**
+     * Gets the list of countries assigned to the player.
+     *
+     * @return The list of countries assigned to the player.
+     */
+    public ArrayList<Integer> getAssignedCountries() {
+        return this.d_assignedCountries;
+    }
+
+    /**
+     * Gets a player from the list of players based on the player ID.
+     *
+     * @param p_listOfPlayers The list of players.
+     * @param p_playerID      The ID of the player to retrieve.
+     * @return The player with the specified ID, or null if not found.
+     */
+    public static Player getPlayerFromList(ArrayList<Player> p_listOfPlayers, int p_playerID) {
+        for (Player l_player : p_listOfPlayers) {
+            if (l_player.getPlayerId() == p_playerID) {
+                return l_player;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Retrieves the order list of the player.
+     *
+     * @return The order list of the player.
+     */
+    public Deque<Order> getOrderList() {
+        return this.d_orderList;
+    }
+
+    /**
+     * Retrieves the ID of the player.
+     *
+     * @return The ID of the player.
+     */
+    public int getPlayerId() {
+        return this.d_playerId;
+    }
+
+    /**
+     * Sets the name of the player.
+     *
+     * @param p_name The name to set for the player.
+     */
+    public void setName(String p_name) {
+        this.d_playerName = p_name;
+    }
+
+    /**
+     * Sets the reinforcements of the player.
+     *
+     * @param p_reinforcements The reinforcements to set for the player.
+     */
+    public void setReinforcements(int p_reinforcements) {
+        this.d_reinforcements = p_reinforcements;
+    }
+
+    /**
+     * Sets the assigned countries of the player.
+     *
+     * @param p_countryID The ID of the country to add to the player's assigned countries.
+     */
+    public void setAssignedCountries(Integer p_countryID) {
+        this.d_assignedCountries.add(p_countryID);
+    }
 
 }

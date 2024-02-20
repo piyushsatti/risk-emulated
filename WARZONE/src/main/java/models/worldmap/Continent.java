@@ -1,4 +1,4 @@
-package main.java.models.worldmap;
+package models.worldmap;
 
 /**
  * Class representing the Continents on the Warzone map
@@ -10,7 +10,7 @@ public class Continent {
     /**
      * Integer identifier
      */
-    private int d_continentID;
+    private final int d_continentID;
 
     /**
      * Name of continent
@@ -20,33 +20,49 @@ public class Continent {
     /**
      * Value of bonus associated with control of the continent
      */
-    private int bonus;
-
+    private final int d_bonus;
 
     /**
      * Constructor
-     * @param id Integer identifier
-     * @param name Continent name
+     *
+     * @param p_id Integer identifier
+     * @param p_name Continent name
      */
-    public Continent(int id, String name){
-        this.d_continentID = id;
-        this.d_continentName = name;
-        this.bonus = 0; //bonus set to zero for now (to be used in the future)
+    public Continent(int p_id, String p_name, int p_bonus) {
+
+        this.d_continentID = p_id;
+
+        this.d_continentName = p_name;
+
+        this.d_bonus = p_bonus; //bonus set to zero for now (to be used in the future)
+
     }
 
     /**
      * Accessor method
+     *
      * @return Continent integer identifier
      */
-    public int getD_continentID() {
+    public int getContinentID() {
         return d_continentID;
     }
 
     /**
      * Accessor method
+     *
      * @return Bonus value
      */
     public int getBonus() {
-        return bonus;
+        return d_bonus;
+    }
+
+    /**
+     * Getter method for continent name
+     *
+     * @return continent name string
+     */
+    public String getContinentName()
+    {
+        return d_continentName;
     }
 }

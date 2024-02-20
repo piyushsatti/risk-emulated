@@ -1,30 +1,31 @@
-package main.java.models.worldmap;
-
+package models.worldmap;
 /**
- * Class representing the borders of a country.
- * Each Country object will hold a hashmap of borders (key = target country name)
+ * The Border class represents a border between two countries on a world map.
+ * It connects two countries and provides access to the target country.
  */
 public class Border {
 
     /**
-     * Variable which is a reference to the target country
-     * Meaning this border "points" to the target (directed graph)
+     * The target country that shares the border.
      */
     private final Country d_target;
 
     /**
-     * Accessor method for private d_target variable
-     * @return reference to target Country
+     * Constructs a new Border object connecting to the specified target country.
+     *
+     * @param p_country The country beyond this border.
      */
-    public Country getD_target() {
-        return d_target;
+    public Border(Country p_country) {
+        this.d_target = p_country;
     }
 
     /**
-     * Border constructor, requires a Country object
-     * @param country reference to target Country for Border object
+     * Retrieves the target country beyond this border.
+     *
+     * @return The target country connected by this border.
      */
-    public Border(Country country){
-        this.d_target = country;
+    public Country getTarget() {
+        return d_target;
     }
+
 }

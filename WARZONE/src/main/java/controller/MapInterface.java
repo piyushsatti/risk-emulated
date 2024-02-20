@@ -1,122 +1,280 @@
-package main.java.controller;
+package controller;
 
-import main.java.models.worldmap.WorldMap;
+import helpers.exceptions.*;
+import models.worldmap.Continent;
+import models.worldmap.Country;
+import models.worldmap.WorldMap;
+import views.TerminalRenderer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
+import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * The MapInterface class provides functionality for loading, saving, and validating world maps.
+ * It includes methods to load a map from a file, save a map to a file, and validate the integrity
+ * of a map.
+ */
 public class MapInterface {
-    private static File d_map_file_obj;
 
-    private static void createFileObjectFromFileName(String p_map_name) {
-        try {
-            d_map_file_obj = new File(
-                    "WARZONE/src/main/resources/maps/" +
-                            p_map_name + "/" +
-                            p_map_name + "regions.map"
-            );
-            if (d_map_file_obj.exists() && !d_map_file_obj.isDirectory()) {
-                System.out.println(
-                        "Successfully Loaded Map: " +
-                                d_map_file_obj.getName()
-                );
-            } else {
-                throw new Exception("File Does not Exist.");
-            }
-        } catch (IOException e) {
+    /**
+     * Creates a File object from the given map name.
+     *
+     * @param p_map_name The name of the map file.
+     * @return The File object representing the map file.
+     * @throws FileNotFoundException If the specified file does not exist.
+     */
+    private static File createFileObjectFromFileName(String p_map_name) throws FileNotFoundException {
 
-            System.out.println(
-                    "IOException: \n" + e
-            );
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        File l_map_file_obj = new File(GameEngine.MAPS_FOLDER + p_map_name);
+        TerminalRenderer.renderMessage(GameEngine.MAPS_FOLDER + p_map_name);
+        TerminalRenderer.renderMessage("Map object" + l_map_file_obj);
+
+        if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory()) {
+
+            return l_map_file_obj;
+        } else {
+            TerminalRenderer.renderMessage("Hello file does not exist");
+            throw new FileNotFoundException("File does not exist.");
+
         }
     }
 
-    public static boolean validateMap(WorldMap map) {
-        return (map.isConnected()) && (map.isContinentConnected());
-    }
+    /**
+     * Loads a world map from the specified file.
+     *
+     * @param p_map_name The name of the map file to load.
+     * @return The loaded WorldMap object.
+     * @throws FileNotFoundException    If the specified file does not exist.
+     * @throws NumberFormatException    If there is an error in parsing numeric data.
+     */
+    public static WorldMap loadMap(String p_map_name) throws FileNotFoundException, NumberFormatException, InvalidMapException {
 
-    public static WorldMap loadMap(String p_map_name) {
-        Scanner file_reader = null;
+        File l_map_file_obj;
+
+        Scanner l_file_reader;
+
         WorldMap map = new WorldMap();
-        try {
-            createFileObjectFromFileName(p_map_name);
-            file_reader = new Scanner(d_map_file_obj);
-        } catch (FileNotFoundException e) {
-            System.out.println("File not found: " + e);
-        }
-        String data;
-        String[] split_data;
-        Boolean[] state = {false, false, false};
+
+        l_map_file_obj = createFileObjectFromFileName(p_map_name);
+
+        l_file_reader = new Scanner(l_map_file_obj);
+
+        String l_data;
+
+        String[] l_split_data;
+
+        Boolean[] l_state = {false, false, false};
+
         int i = 1;
-        while (true) {
-            assert file_reader != null;
-            if (!file_reader.hasNextLine()) break;
-            data = file_reader.nextLine();
-            /*
-              Manages the state of the file reading program
-             */
-            if (data.equals("[continents]")) {
-                state[0] = true;
-                state[1] = false;
-                state[2] = false;
+
+        while (l_file_reader.hasNextLine()) {
+
+            l_data = l_file_reader.nextLine();
+
+            if (l_data.equals("[continents]")) {
+
+                l_state[0] = true;
+
+                l_state[1] = false;
+
+                l_state[2] = false;
+
                 continue;
-            } else if (data.equals("[countries]")) {
-                state[0] = false;
-                state[1] = true;
-                state[2] = false;
+
+            } else if (l_data.equals("[countries]")) {
+
+                l_state[0] = false;
+
+                l_state[1] = true;
+
+                l_state[2] = false;
+
                 continue;
-            } else if (data.equals("[borders]")) {
-                state[0] = false;
-                state[1] = false;
-                state[2] = true;
+
+            } else if (l_data.equals("[borders]")) {
+
+                l_state[0] = false;
+
+                l_state[1] = false;
+
+                l_state[2] = true;
+
                 continue;
-            } else if (data.isEmpty()) {
-                state[0] = false;
-                state[1] = false;
-                state[2] = false;
+
+            } else if (l_data.isEmpty()) {
+
+                l_state[0] = false;
+
+                l_state[1] = false;
+
+                l_state[2] = false;
+
             }
-            /*
-              Executes object initialization based on current state
-             */
-            split_data = data.split(" ");
-            if (state[0]) {
-                map.addContinent(i, split_data[0]);
-                i++;
-                continue;
-            } else if (state[1]) {
-                map.addCountry(
-                        Integer.parseInt(split_data[0]),
-                        Integer.parseInt(split_data[2]),
-                        split_data[1]
-                );
-                continue;
-            } else if (state[2]) {
-                for (int j = 1; j < split_data.length; j++) {
-                    map.addBorder(
-                            Integer.parseInt(split_data[0]),
-                            Integer.parseInt(split_data[j])
+
+            l_split_data = l_data.split(" ");
+
+            try {
+
+                if (l_state[0]) {
+
+                    map.addContinent(i, l_split_data[0], Integer.parseInt(l_split_data[1]));
+
+                    i++;
+
+                    continue;
+
+                } else if (l_state[1]) {
+
+                    map.addCountry(
+
+                            Integer.parseInt(l_split_data[0]),
+
+                            Integer.parseInt(l_split_data[2]),
+
+                            l_split_data[1]
+
                     );
+
+                    continue;
+
+                } else if (l_state[2]) {
+
+                    for (int j = 1; j < l_split_data.length; j++) {
+
+                        map.addBorder(
+                                Integer.parseInt(l_split_data[0]),
+                                Integer.parseInt(l_split_data[j])
+                        );
+
+                    }
+
+                    continue;
+
                 }
-                continue;
+
+            } catch (ContinentAlreadyExistsException | ContinentDoesNotExistException | DuplicateCountryException |
+                     CountryDoesNotExistException e) {
+
+                throw new InvalidMapException("WorldMap Features Invalid: " + e);
+
             }
-            state[0] = false;
-            state[1] = false;
-            state[2] = false;
+
+            l_state[0] = false;
+
+            l_state[1] = false;
+
+            l_state[2] = false;
+
         }
+
         return map;
+
+
     }
 
-    public static void saveMap(String p_file_name, WorldMap p_map) {
-        // pass
+    /**
+     * Saves the provided map to a file with the given file name.
+     *
+     * @param p_file_name The name of the file to save the map to.
+     * @throws IOException If an I/O error occurs while writing to the file.
+     */
+    public static void saveMap(String p_file_name) throws IOException {
+
+        WorldMap p_map = GameEngine.CURRENT_MAP;
+
+        File outputFile = new File(GameEngine.MAPS_FOLDER + p_file_name);
+
+        TerminalRenderer.renderMessage("Was file created? " + outputFile.createNewFile());
+
+        String file_signature = """
+                ; map: estonia.map
+                ; map made with the map maker
+                ; yura.net Risk 1.0.9.3
+                                
+                [files]
+                pic estonia_pic.png
+                map estonia_map.gif
+                crd estonia.cards
+                """;
+
+        BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+
+        StringBuilder added_line = new StringBuilder();
+
+        added_line.append(file_signature);
+
+        added_line.append("\n[continents]\n");
+
+        for (Continent continent_obj : p_map.getContinents().values()) {
+
+            added_line.append(continent_obj.d_continentName)
+                    .append(" ").append(continent_obj.getBonus())
+                    .append(" ").append("xxx").append("\n");
+
+        }
+
+        added_line.append("\n[countries]\n");
+
+        for (Country country_obj : p_map.getCountries().values()) {
+
+            added_line.append(country_obj.getCountryID())
+                    .append(" ").append(country_obj.getCountryName())
+                    .append(" ").append(country_obj.getContinent().getContinentID())
+                    .append(" 0 0").append("\n");
+
+        }
+
+        added_line.append("\n[borders]");
+
+        for (Integer country_id : p_map.getCountries().keySet()) {
+
+            HashMap<Integer, Country> border_countries = p_map.getCountry(country_id).getBorderCountries();
+
+            added_line.append("\n");
+
+            added_line.append(country_id);
+
+            for (Integer border_country_id : border_countries.keySet()) {
+
+                added_line.append(" ").append(border_country_id);
+
+            }
+
+        }
+
+        writer.write(added_line.toString());
+
+        writer.close();
+
     }
 
-    public static void main(String[] args) {
-        WorldMap map = MapInterface.loadMap("usa8");
-        System.out.println(map.getContinents().values());
-        System.out.println(map.getCountries().values());
+    /**
+     * Validates the integrity of the provided map.
+     *
+     * @param map The WorldMap object to validate.
+     * @return True if the map is valid, false otherwise.
+     */
+    public static boolean validateMap(WorldMap map) {
+
+        return (map.isConnected()) && (map.isContinentConnected());
+
     }
+
+    /**
+     * The main method demonstrates loading a map, validating it, and then saving it to a file.
+     *
+     * @param args The command-line arguments (not used in this method).
+     * @throws IOException If an I/O error occurs while loading or saving the map.
+     */
+    public static void main(String[] args) throws IOException, CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, InvalidMapException {
+
+        WorldMap map = MapInterface.loadMap("usa9.map");
+
+        System.out.println(MapInterface.validateMap(map));
+
+        MapInterface.saveMap("test_out.map");
+
+    }
+
 }

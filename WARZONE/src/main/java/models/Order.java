@@ -1,51 +1,66 @@
-package main.java.models;
+package models;
 
-import main.java.models.worldmap.Country;
+import controller.GameEngine;
+import views.TerminalRenderer;
 
-import java.util.Map;
-
+/**
+ * The Order class represents a player's order in the game.
+ * It specifies the movement of reinforcements from one country to another.
+ */
 public class Order {
-    String d_PlayerName;
-    private final String d_orderType;
-    private final int d_countryID;
-    private final int d_deployedTroops;
-    public Order(String p_PlayerName,String p_orderType,int p_countryID, int p_deployedTroops){
-        this.d_PlayerName = p_PlayerName;
-        this.d_orderType = p_orderType;
-        this.d_countryID = p_countryID;
-        this.d_deployedTroops = p_deployedTroops;
-    }
 
-    public void printOrder() {
-        System.out.println(
-                "Name: " +
-                        this.d_PlayerName +
-                        " Order Type: " +
-                        this.d_orderType +
-                        " Country ID: " +
-                        this.d_countryID +
-                        "Troops to Be Deployed: " +
-                        this.d_deployedTroops
-        );
-    }
-    public void printExecutedOrder(Country p_selectedCountry){
-        System.out.println(
-                "Name: " +
-                        this.d_PlayerName +
-                        " Order Type: " +
-                        this.d_orderType + " " +
-                        "Country ID: " +
-                        this.d_countryID +
-                        "Troops Deployed on Country: " +
-                        p_selectedCountry.getD_deployedReinforcements()
-        );
-    }
-    public  void execute_order(){
-        Map<Integer, Country> listOfCountries = Player.getMap().getCountries();
-        Country l_selectedCountry = listOfCountries.get(this.d_countryID);
-        l_selectedCountry.setD_deployedReinforcements(l_selectedCountry.getD_deployedReinforcements() + this.d_deployedTroops);
-        System.out.println("Order Executed");
-        this.printExecutedOrder(l_selectedCountry);
+    int d_playerOrderID;
+
+    String d_playerOrderName;
+
+    private final int d_fromCountryID;
+
+    private final int d_toCountryID;
+
+    private final int d_reinforcementsDeployed;
+
+    /**
+     * Constructs an Order object with specified attributes.
+     *
+     * @param p_playerOrderName The name of the player issuing the order.
+     * @param p_playerOrderID The ID of the player issuing the order.
+     * @param p_fromCountryID The ID of the country from which reinforcements are deployed.
+     * @param p_reinforcementsDeployed The number of reinforcements deployed.
+     */
+    public Order(String p_playerOrderName, int p_playerOrderID,int p_fromCountryID,int p_reinforcementsDeployed){
+
+        this.d_playerOrderName = p_playerOrderName;
+
+        this.d_playerOrderID = p_playerOrderID;
+
+        this.d_fromCountryID = p_fromCountryID;
+
+        this.d_toCountryID = -1;
+
+        this.d_reinforcementsDeployed = p_reinforcementsDeployed;
 
     }
+
+    /**
+     * Executes the order by deploying reinforcements to the specified country.
+     */
+    public void execute(){
+
+        int l_currentReinforcements = GameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getReinforcements();
+
+        GameEngine.CURRENT_MAP
+                .getCountry(this.d_fromCountryID)
+                .setReinforcements(this.d_reinforcementsDeployed + l_currentReinforcements);
+
+        TerminalRenderer.renderMessage(
+                "Order Executed: " +
+                        this.d_reinforcementsDeployed +
+                        " troops deployed on " +
+                        GameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getCountryName() +
+                        " by " +
+                        this.d_playerOrderName
+        );
+
+    }
+
 }
