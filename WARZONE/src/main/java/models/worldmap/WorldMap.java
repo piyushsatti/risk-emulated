@@ -55,6 +55,20 @@ public class WorldMap {
     }
 
     /**
+     * This method removes a country from the map.
+     * @param countryID The unique identifier of the country to be removed.
+     */
+    public void removeCountry(int countryID) {
+        if (d_countries.containsKey(countryID)) {
+            d_countries.remove(countryID);
+            System.out.println("Country removed successfully.");
+        } else {
+            System.out.println("Country with ID " + countryID + " does not exist.");
+        }
+    }
+
+
+    /**
      * Method which adds a border between a source and target country.
      * This method is called from the map object but the border is created within
      * the Country object
@@ -90,11 +104,25 @@ public class WorldMap {
 
     /**
      * Method which adds continent to map
-     * @param id new continent identifier
+     * @param continentID new continent identifier
      * @param continentName new continent name
      */
-    public void addContinent(int id, String continentName){
-        d_continents.put(id, new Continent(id,continentName));
+    public void addContinent(int continentID, String continentName){
+        d_continents.put(continentID, new Continent(continentID,continentName));
+    }
+    /**
+     * Method to remove a continent from the map.
+     * @param continentID The identifier of the continent to be removed.
+     */
+    public void removeContinent(int continentID){
+        if (d_continents.containsKey(continentID)){
+            d_continents.remove(continentID);
+            System.out.println("Continent removed successfully");
+        }
+        else {
+            System.out.println("Continent with ID " + continentID + " does not exist.");
+        }
+
     }
 
     /**
