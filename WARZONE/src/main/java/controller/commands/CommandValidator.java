@@ -181,10 +181,18 @@ public class CommandValidator {
     /**
      * this method checks if the deploy command is valid or not, no exception generated means command is valid
      * @param p_lCommand : the command array
-     * @throws NumberFormatException : when the number of reinforcements is not an integer
+     * @throws NumberFormatException : when the number of reinforcements is not an integer or is zero or a negative integer
      */
-    private void checkDeployCommandValidity(String[] p_lCommand) throws NumberFormatException {
-        final int i = Integer.parseInt(p_lCommand[2]);
+    protected void checkDeployCommandValidity(String[] p_lCommand) throws NumberFormatException {
+        try {
+            final int l_i = Integer.parseInt(p_lCommand[2]);
+        }
+        catch (NumberFormatException e)
+        {
+            throw new NumberFormatException("invalid command format, number of reinforcements must be an integer");
+        }
+        int l_j = Integer.parseInt(p_lCommand[2]);
+        if(l_j<0 || l_j==0) throw new NumberFormatException("cannot enter negative numbers/zero for number of reinforcements");
     }
 
     /**
@@ -192,124 +200,123 @@ public class CommandValidator {
      * @param p_lCommand : command array
      * @throws InvalidCommandException : when entered command is invalid
      */
-    private void checkGamePlayerCommandValidity(String[] p_lCommand) throws InvalidCommandException {
-
-        int l_countAddOption = 0;
-
-        int l_countRemoveOption = 0;
-
+    protected void checkGamePlayerCommandValidity(String[] p_lCommand) throws InvalidCommandException {
         int l_len = p_lCommand.length;
-
-        for (String l_s : p_lCommand) {
-
-            if (l_s.equals("-add")) l_countAddOption++;
-
-            else if (l_s.equals("-remove")) l_countRemoveOption++;
-
-        }
-        //we first checked if the command has add or remove options, now if both add or remove options were not entered by the user, the command is invalid
-
-        if (l_countAddOption == 0 && l_countRemoveOption == 0) {
-
-            throw new InvalidCommandException("incorrect command, no options added");
-
-        }
-
         int l_i=1;
-
         while (l_i < l_len) {
-
             String l_currOption = p_lCommand[l_i];
-
             if (!(l_currOption.equals("-add") || l_currOption.equals("-remove"))) { //checking whether gameplayer keyword is followed by an add/remove option
 
                 throw new InvalidCommandException("invalid command format");
 
-            } else if (l_currOption.equals("-add") && l_i + 1 >= l_len || l_currOption.equals("-remove") && l_i + 1 >= l_len) { //checking if there is one parameter value after add/remove option
+            }
+            else if (l_currOption.equals("-add") && l_i + 1 >= l_len || l_currOption.equals("-remove") && l_i + 1 >= l_len) { //checking if there is one parameter value after add/remove option
 
-                throw new InvalidCommandException("invalid command format");
+                throw new InvalidCommandException("invalid command format, -add/-remove should be followed by a player name");
 
             } else if (l_currOption.equals("-add") && (p_lCommand[l_i + 1].equals("-add") || p_lCommand[l_i + 1].equals("-remove"))) { //checking if add option is followed by another add/remove options
 
-                throw new InvalidCommandException("invalid command format");
+                throw new InvalidCommandException("invalid command format. -add should not be immediately followed by -add/-remove");
 
             } else if (l_currOption.equals("-remove") && (p_lCommand[l_i + 1].equals("-add") || p_lCommand[l_i + 1].equals("-remove"))) { //checking if checking if remove options are followed by another add/remove options
 
-                throw new InvalidCommandException("invalid command format");
+                throw new InvalidCommandException("invalid command format, -remove should not be immediately followed by -add/-remove");
             }
-
             l_i+=2;
-
         }
     }
 
+    /**
+     *this method checks if the editcountry,editcontinent and editneighbor commands are valid wrt parameters added after the '-add' option
+     * @param p_lCommand  entered command
+     * @param p_currIndex current index
+     * @throws InvalidCommandException when the command entered is of invalid format
+     * @throws NumberFormatException when the continentval in the editcontinent command is not an integer
+     */
+    public void checkEditCommandAddValidity(String[] p_lCommand,int p_currIndex) throws InvalidCommandException,NumberFormatException
+    {
+        int l_len = p_lCommand.length;
+        String l_mainCommand = p_lCommand[0];
+        //if after add option, there are not two parameters present, entered command is invalid
+        if (p_lCommand[p_currIndex].equals("-add") && p_currIndex + 2 >= l_len) {
+
+            throw new InvalidCommandException("invalid command format, -add should be followed by two parameters");
+        } //checking if -add is followed by another -add/-remove
+        else if(p_lCommand[p_currIndex].equals("-add") && (p_lCommand[p_currIndex+1].equals("-add") || p_lCommand[p_currIndex+1].equals("-remove")))
+        {
+            throw new InvalidCommandException("invalid command format, -add cannot be immediately followed by another -add/-remove");
+        }
+        else if(p_lCommand[p_currIndex].equals("-add") && l_mainCommand.equals("editcontinent")) //checking if continent value is an integer
+        {
+            try {
+                final int i = Integer.parseInt(p_lCommand[p_currIndex + 2]);
+            }
+            catch(NumberFormatException e)
+            {
+                throw new NumberFormatException("continentVal must be an integer");
+            }
+        }
+    }
+
+    /**
+     * this method checks if the editcountry,editcontinent and editneighbor commands are valid wrt parameters added after the '-remove' option
+     * @param p_lCommand
+     * @param p_currIndex
+     * @throws InvalidCommandException
+     * @throws NumberFormatException
+     */
+    public void checkEditCommandRemoveValidity(String[] p_lCommand,int p_currIndex) throws InvalidCommandException,NumberFormatException
+    {
+        int l_len = p_lCommand.length;
+        String l_mainCommand = p_lCommand[0];
+        if (p_lCommand[p_currIndex].equals("-remove") && (l_mainCommand.equals("editcontinent") || l_mainCommand.equals("editcountry")) && p_currIndex + 1 >= l_len) {
+            //in case of editcontinent and editcountry commands, there must be one parameter after -remove option
+            throw new InvalidCommandException("invalid command format, -remove in editcontinent/editcountry commands should be followed by one parameters");
+
+        }
+        else if(p_lCommand[p_currIndex].equals("-remove") && (p_lCommand[p_currIndex].equals("-remove") || p_lCommand[p_currIndex].equals("-add")))
+        {
+            throw new InvalidCommandException("invalid command format, -remove cannot be immediately followed by another -add/-remove");
+        }
+        else if (p_lCommand[p_currIndex].equals("-remove") && l_mainCommand.equals("editneighbor") && p_currIndex + 2 >= l_len) {
+            //in case of editneighbor commands, there must be two parameters after -remove option
+            throw new InvalidCommandException("invalid command format,-remove in editneighbor command should be followed by two parameters");
+        }
+    }
     /**
      * this method checks the validity of the editcountry, editcontinent and editneighbor commands, if there is no exception generated, that means the entered command is valid
      * @param p_lCommand :entered command
      * @throws InvalidCommandException : when entered command is not valid
      */
-    private void checkEditCommandsValidity(String[] p_lCommand) throws InvalidCommandException {
-
-        int l_countAddOption = 0;
-
-        int l_countRemoveOption = 0;
-
+    protected void checkEditCommandsValidity(String[] p_lCommand) throws InvalidCommandException,NumberFormatException {
         int l_len = p_lCommand.length;
-        //checking how many add/remove options are there in the command
-        for (String l_s : p_lCommand) {
-
-            if (l_s.equals("-add")) l_countAddOption++;
-
-            else if (l_s.equals("-remove")) l_countRemoveOption++;
-
-        }
-        //if there are no add/remove options in the command, the entered command is invalid
-        if (l_countAddOption == 0 && l_countRemoveOption == 0) {
-
-            throw new InvalidCommandException("no options added");
-
-        }
-
-        int l_i = 1;
-
+        int l_currIndex = 1;
         String l_mainCommand = p_lCommand[0];
         //iterating over the command array to check the validity of the entered command
-        while (l_i < l_len) {
-            //if the edit command is not immediately followed by an add or remove option, the entered command is invalid
-            if (!(p_lCommand[l_i].equals("-add") || p_lCommand[l_i].equals("-remove"))) {
+        while (l_currIndex < l_len) {
+
+            if (!(p_lCommand[l_currIndex].equals("-add") || p_lCommand[l_currIndex].equals("-remove"))) {
 
                 throw new InvalidCommandException("invalid command format");
 
             }
-            //if after add option, there are not two parameters present, entered command is invalid
-            if (p_lCommand[l_i].equals("-add") && l_i + 2 >= l_len) {
+            checkEditCommandAddValidity(p_lCommand,l_currIndex);
+            checkEditCommandRemoveValidity(p_lCommand,l_currIndex);
 
-                throw new InvalidCommandException("invalid command format");
+            if (p_lCommand[l_currIndex].equals("-add")) {
 
-            } else if (p_lCommand[l_i].equals("-remove") && (l_mainCommand.equals("editcontinent") || l_mainCommand.equals("editcountry")) && l_i + 1 >= l_len) {
+                l_currIndex += 3;
 
-                throw new InvalidCommandException("invalid command format"); //in case of editcontinent and editcountry commands, there must be one parameter after after remove option, unless the command is invalid
+            } else if ((l_mainCommand.equals("editcontinent") || l_mainCommand.equals("editcountry")) && p_lCommand[l_currIndex].equals("-remove")) {
 
-            } else if (p_lCommand[l_i].equals("-remove") && l_mainCommand.equals("editneighbor") && l_i + 2 >= l_len) {
-                throw new InvalidCommandException("invalid command format"); //in case of editneighbor commands, there must be two parameters after after remove option, unless the command is invalid
-            }
+                l_currIndex += 2;
 
-            if (p_lCommand[l_i].equals("-add")) {
+            } else if (l_mainCommand.equals("editneighbor") && p_lCommand[l_currIndex].equals("-remove")) {
 
-                l_i += 3;
-
-            } else if ((l_mainCommand.equals("editcontinent") || l_mainCommand.equals("editcountry")) && p_lCommand[l_i].equals("-remove")) {
-
-                l_i += 2;
-
-            } else if (l_mainCommand.equals("editneighbor") && p_lCommand[l_i].equals("-remove")) {
-
-                l_i += 3;
+                l_currIndex += 3;
 
             }
-
         }
-
     }
 
     /**
@@ -370,9 +377,7 @@ public class CommandValidator {
                         d_removeContinentIdList.add(l_removeContinentId); //adding the parameter of the remove option to d_removeContinentIdList list
 
                     }
-
                     l_i++;
-
                 }
                 //now we iterate over the addContinentIdContinentVal and d_removeContinentIdList lists and call methods in the CommandInterface class to process the add/remove parameters
                 for (List<String> pair : d_addContinentIdContinentValList) {
