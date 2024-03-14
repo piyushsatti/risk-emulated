@@ -1,10 +1,15 @@
 package controller;
 
+import controller.States.End;
+import controller.States.MainMenu;
+import controller.States.MapEditor;
+import controller.States.State;
 import controller.commands.CommandValidator;
 import helpers.exceptions.*;
 import models.Player;
 import models.worldmap.WorldMap;
-import view.TerminalRenderer;
+import org.iq80.snappy.Main;
+import views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -33,6 +38,8 @@ public class GameEngine {
      * The folder where map files are stored.
      */
     public String MAPS_FOLDER;
+
+    private State currentState;
 
     /**
      * The currently loaded map.
