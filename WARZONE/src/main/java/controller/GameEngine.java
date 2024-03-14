@@ -37,7 +37,7 @@ public class GameEngine {
     /**
      * The currently loaded map.
      */
-    private WorldMap CURRENT_MAP;
+    public WorldMap CURRENT_MAP;
 
     /**
      * List of players in the game.
@@ -134,7 +134,7 @@ public class GameEngine {
                     renderer.renderMessage("!!!Players are more than countries!!!");
 
                 }
-                else if (!MapInterface.validateMap(CURRENT_MAP))
+                else if (!MapInterface.validateMap(this))
                 {
                     CURRENT_MAP = null;
                     renderer.renderMessage("Current map is not a valid map! Please load again");
@@ -171,7 +171,7 @@ public class GameEngine {
 
             try {
 
-                CURRENT_MAP = MapInterface.loadMap(l_filename);
+                MapInterface.loadMap(this, l_filename);
 
             } catch (FileNotFoundException | NumberFormatException | InvalidMapException e) {
 
