@@ -1,9 +1,14 @@
 package controller;
 
+import controller.States.End;
+import controller.States.MainMenu;
+import controller.States.MapEditor;
+import controller.States.State;
 import controller.commands.CommandValidator;
 import helpers.exceptions.*;
 import models.Player;
 import models.worldmap.WorldMap;
+import org.iq80.snappy.Main;
 import views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
@@ -37,6 +42,8 @@ public class GameEngine {
      */
     public static String MAPS_FOLDER = "WARZONE/src/main/resources/maps/";
 
+    private State currentState;
+
     /**
      * The currently loaded map.
      */
@@ -46,6 +53,22 @@ public class GameEngine {
      * List of players in the game.
      */
     public static ArrayList<Player> PLAYER_LIST = new ArrayList<>();
+
+    public GameEngine(){
+        currentState = new MainMenu(this);
+    }
+
+    public void setCurrentState(State s){
+        this.currentState = s;
+    }
+
+    public void runState(){
+        Scanner in = new Scanner(System.in);
+        while(currentState.getClass() != End.class) {
+            currentState.run();
+            in.next();
+        }
+    }
 
     /**
      * Manages the loop for player actions during the gameplay phase.
