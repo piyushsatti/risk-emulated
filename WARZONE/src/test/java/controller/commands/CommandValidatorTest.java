@@ -9,10 +9,11 @@ import org.junit.Test;
  *
  */
 public class CommandValidatorTest {
+
     /**
-     * String array to store 'deploy' commands
+     String array to store commands with number of armies as a parameter
      */
-    private static String[] testDeployCommands;
+    private static String[] testNumArmies;
     /**
      * String array to store 'gameplayer' commands
      */
@@ -44,19 +45,21 @@ public class CommandValidatorTest {
     @BeforeClass
     public static void setTestCommands()
     {
-        testDeployCommands = new String[12];
-        testDeployCommands[0] = "deploy alaska 1.90f";
-        testDeployCommands[1] = "deploy south_carolina elephant";
-        testDeployCommands[2] = "deploy south_carolina true";
-        testDeployCommands[3] = "deploy south_carolina false";
-        testDeployCommands[4] = "deploy south_carolina 123.456";
-        testDeployCommands[5] = "deploy south_carolina 9879573210L";
-        testDeployCommands[6] = "deploy south_carolina -12";
-        testDeployCommands[7] = "deploy south_carolina -0.002";
-        testDeployCommands[8] = "deploy south_carolina -0.000";
-        testDeployCommands[9] = "deploy south_carolina 0.000";
-        testDeployCommands[10] = "deploy south_carolina 0.002";
-        testDeployCommands[11] = "deploy south_carolina 0";
+        testNumArmies = new String[14];
+        testNumArmies[0] = "deploy alaska 1.90f";
+        testNumArmies[1] = "deploy south_carolina elephant";
+        testNumArmies[2] = "deploy south_carolina true";
+        testNumArmies[3] = "deploy south_carolina false";
+        testNumArmies[4] = "deploy south_carolina 123.456";
+        testNumArmies[5] = "deploy south_carolina 9879573210L";
+        testNumArmies[6] = "deploy south_carolina -12";
+        testNumArmies[7] = "deploy south_carolina -0.002";
+        testNumArmies[8] = "deploy south_carolina -0.000";
+        testNumArmies[9] = "deploy south_carolina 0.000";
+        testNumArmies[10] = "deploy south_carolina 0.002";
+        testNumArmies[11] = "deploy south_carolina 0";
+        testNumArmies[12] = "advance India Bangladesh twenty";
+        testNumArmies[13] = "airlift Australia New_Zealand numarmies";
 
         testGamePlayerCommands = new String[8];
         testGamePlayerCommands[0] = "gameplayer india brazil argentina concordia";
@@ -112,85 +115,127 @@ public class CommandValidatorTest {
      * this method to used to test deploy command validity for 0th index string of testDeployCommands string array
      */
     @Test(expected = NumberFormatException.class)
-    public void testCheckDeployCommandValidity1() {
-        cmd.checkDeployCommandValidity(testDeployCommands[0].split(" "));
+    public void testNumArmiesFormat1() {
+        String[] l_command = testNumArmies[0].split(" ");
+        String l_numArmies = l_command[l_command.length-1];
+        cmd.checkNumArmiesType(l_numArmies);
     }
     /**
      * this method to used to test deploy command validity for 1st index string of testDeployCommands string array
      */
     @Test(expected = NumberFormatException.class)
-    public void testCheckDeployCommandValidity2() {
-        cmd.checkDeployCommandValidity(testDeployCommands[1].split(" "));
+    public void testNumArmiesFormat2() {
+        String[] l_command = testNumArmies[1].split(" ");
+        String l_numArmies = l_command[l_command.length-1];
+        cmd.checkNumArmiesType(l_numArmies);
     }
     /**
      * this method to used to test deploy command validity for 2nd index string of testDeployCommands string array
      */
     @Test(expected = NumberFormatException.class)
-    public void testCheckDeployCommandValidity3() {
-        cmd.checkDeployCommandValidity(testDeployCommands[2].split(" "));
+    public void testNumArmiesFormat3() {
+        String[] l_command = testNumArmies[2].split(" ");
+        String l_numArmies = l_command[l_command.length-1];
+        cmd.checkNumArmiesType(l_numArmies);
     }
     /**
      * this method to used to test deploy command validity for 3rd index string of testDeployCommands string array
      */
     @Test(expected = NumberFormatException.class)
-    public void testCheckDeployCommandValidity4() {
-        cmd.checkDeployCommandValidity(testDeployCommands[3].split(" "));
+    public void testNumArmiesFormat4() {
+        String[] l_command = testNumArmies[3].split(" ");
+        String l_numArmies = l_command[l_command.length-1];
+        cmd.checkNumArmiesType(l_numArmies);
     }
     /**
      * this method to used to test deploy command validity for 4th index string of testDeployCommands string array
      */
     @Test(expected = NumberFormatException.class)
-    public void testCheckDeployCommandValidity5() {
-        cmd.checkDeployCommandValidity(testDeployCommands[4].split(" "));
+    public void testNumArmiesFormat5() {
+        String[] l_command = testNumArmies[4].split(" ");
+        String l_numArmies = l_command[l_command.length-1];
+        cmd.checkNumArmiesType(l_numArmies);
     }
     /**
      * this method to used to test deploy command validity for 5th index string of testDeployCommands string array
      */
     @Test(expected = NumberFormatException.class)
-    public void testCheckDeployCommandValidity6() {
-        cmd.checkDeployCommandValidity(testDeployCommands[5].split(" "));
+    public void testNumArmiesFormat6() {
+        String[] l_command = testNumArmies[5].split(" ");
+        String l_numArmies = l_command[l_command.length-1];
+        cmd.checkNumArmiesType(l_numArmies);
     }
     /**
      * this method to used to test deploy command validity for 6th index string of testDeployCommands string array
      */
     @Test(expected = NumberFormatException.class)
-    public void testCheckDeployCommandValidity7() {
-        cmd.checkDeployCommandValidity(testDeployCommands[6].split(" "));
+    public void testNumArmiesFormat7() {
+        String[] l_command = testNumArmies[6].split(" ");
+        String l_numArmies = l_command[l_command.length-1];
+        cmd.checkNumArmiesType(l_numArmies);
     }
     /**
      * this method to used to test deploy command validity for 7th index string of testDeployCommands string array
      */
     @Test(expected = NumberFormatException.class)
-    public void testCheckDeployCommandValidity8() {
-        cmd.checkDeployCommandValidity(testDeployCommands[7].split(" "));
+    public void testNumArmiesFormat8() {
+        String[] l_command = testNumArmies[7].split(" ");
+        String l_numArmies = l_command[l_command.length-1];
+        cmd.checkNumArmiesType(l_numArmies);
     }
     /**
      * this method to used to test deploy command validity for 8th index string of testDeployCommands string array
      */
     @Test(expected = NumberFormatException.class)
-    public void testCheckDeployCommandValidity9() {
-        cmd.checkDeployCommandValidity(testDeployCommands[8].split(" "));
+    public void testNumArmiesFormat9() {
+        String[] l_command = testNumArmies[8].split(" ");
+        String l_numArmies = l_command[l_command.length-1];
+        cmd.checkNumArmiesType(l_numArmies);
     }
     /**
      * this method to used to test deploy command validity for 9th index string of testDeployCommands string array
      */
     @Test(expected = NumberFormatException.class)
-    public void testCheckDeployCommandValidity10() {
-        cmd.checkDeployCommandValidity(testDeployCommands[9].split(" "));
+    public void testNumArmiesFormat10() {
+        String[] l_command = testNumArmies[9].split(" ");
+        String l_numArmies = l_command[l_command.length-1];
+        cmd.checkNumArmiesType(l_numArmies);
     }
     /**
      * this method to used to test deploy command validity for 10th index string of testDeployCommands string array
      */
     @Test(expected = NumberFormatException.class)
-    public void testCheckDeployCommandValidity11() {
-        cmd.checkDeployCommandValidity(testDeployCommands[10].split(" "));
+    public void testNumArmiesFormat11() {
+        String[] l_command = testNumArmies[10].split(" ");
+        String l_numArmies = l_command[l_command.length-1];
+        cmd.checkNumArmiesType(l_numArmies);
     }
     /**
      * this method to used to test deploy command validity for 11th index string of testDeployCommands string array
      */
     @Test(expected = NumberFormatException.class)
-    public void testCheckDeployCommandValidity12() {
-        cmd.checkDeployCommandValidity(testDeployCommands[11].split(" "));
+    public void testNumArmiesFormat12() {
+        String[] l_command = testNumArmies[11].split(" ");
+        String l_numArmies = l_command[l_command.length-1];
+        cmd.checkNumArmiesType(l_numArmies);
+    }
+    /**
+     * this method to used to test deploy command validity for 12th index string of testDeployCommands string array
+     */
+    @Test(expected = NumberFormatException.class)
+    public void testNumArmiesFormat13() {
+        String[] l_command = testNumArmies[12].split(" ");
+        String l_numArmies = l_command[l_command.length-1];
+        cmd.checkNumArmiesType(l_numArmies);
+    }
+    /**
+     * this method to used to test deploy command validity for 13th index string of testDeployCommands string array
+     */
+    @Test(expected = NumberFormatException.class)
+    public void testNumArmiesFormat14() {
+        String[] l_command = testNumArmies[12].split(" ");
+        String l_numArmies = l_command[l_command.length-1];
+        cmd.checkNumArmiesType(l_numArmies);
     }
     /**
      * this method to used to test gameplayer command validity for 0th index string of testGamePlayerCommands string array
