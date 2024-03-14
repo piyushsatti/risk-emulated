@@ -15,8 +15,8 @@ public class MapEditor extends State{
     }
 
     @Override
-    public void userInput() {
-
+    public String userInput() {
+        return null;
     }
 
     @Override
@@ -35,6 +35,11 @@ public class MapEditor extends State{
         this.ge.setCurrentState(new End(ge));
         //issueOrder();
         //ExecuteOrder();
+
+    }
+
+    @Override
+    public void processInput(String input) {
 
     }
 }

@@ -63,10 +63,8 @@ public class GameEngine {
     }
 
     public void runState(){
-        Scanner in = new Scanner(System.in);
         while(currentState.getClass() != End.class) {
             currentState.run();
-            in.next();
         }
     }
 

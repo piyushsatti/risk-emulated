@@ -13,8 +13,9 @@ public class End extends State{
     }
 
     @Override
-    public void userInput() {
+    public String userInput() {
 
+        return null;
     }
 
     @Override
@@ -29,6 +30,11 @@ public class End extends State{
 
     @Override
     public void run() {
+
+    }
+
+    @Override
+    public void processInput(String input) {
 
     }
 }
