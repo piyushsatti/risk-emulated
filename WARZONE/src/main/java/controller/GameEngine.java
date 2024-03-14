@@ -9,7 +9,7 @@ import helpers.exceptions.*;
 import models.Player;
 import models.worldmap.WorldMap;
 import org.iq80.snappy.Main;
-import views.TerminalRenderer;
+import view.TerminalRenderer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
