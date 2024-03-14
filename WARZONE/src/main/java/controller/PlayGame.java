@@ -4,7 +4,7 @@ import models.Order;
 import models.Player;
 import models.worldmap.Country;
 import helpers.exceptions.InvalidCommandException;
-import views.TerminalRenderer;
+import view.TerminalRenderer;
 
 import java.util.*;
 
@@ -192,7 +192,7 @@ public class PlayGame {
 
             } else {
 
-                TerminalRenderer.renderMessage("Not an option. Try again.");
+                this.renderMessage("Not an option. Try again.");
             }
 
         }

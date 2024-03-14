@@ -3,7 +3,7 @@ package models;
 import controller.GameEngine;
 import controller.commands.CommandValidator;
 import helpers.exceptions.InvalidCommandException;
-import views.TerminalRenderer;
+import view.TerminalRenderer;
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;

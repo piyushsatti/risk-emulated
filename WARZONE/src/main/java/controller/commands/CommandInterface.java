@@ -5,11 +5,10 @@ import controller.MapInterface;
 import helpers.exceptions.*;
 import models.Player;
 import models.worldmap.WorldMap;
-import views.TerminalRenderer;
+import view.TerminalRenderer;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 

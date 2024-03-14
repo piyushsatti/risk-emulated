@@ -1,7 +1,7 @@
 package models;
 
 import controller.GameEngine;
-import views.TerminalRenderer;
+import view.TerminalRenderer;
 
 /**
  * The Order class represents a player's order in the game.
@@ -18,6 +18,13 @@ public class Order {
     private final int d_toCountryID;
 
     private final int d_reinforcementsDeployed;
+
+    public GameEngine ge;
+
+    public Order(GameEngine ge)
+    {
+        ge = ge;
+    }
 
     /**
      * Constructs an Order object with specified attributes.
@@ -44,7 +51,8 @@ public class Order {
     /**
      * Executes the order by deploying reinforcements to the specified country.
      */
-    public void execute(){
+    public void execute()
+    {
 
         int l_currentReinforcements = GameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getReinforcements();
 

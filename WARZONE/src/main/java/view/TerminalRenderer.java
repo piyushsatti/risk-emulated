@@ -1,4 +1,4 @@
-package views;
+package view;
 
 import controller.GameEngine;
 import helpers.TerminalColors;
@@ -7,7 +7,6 @@ import models.worldmap.Continent;
 import models.worldmap.Country;
 import models.worldmap.WorldMap;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +21,7 @@ public class TerminalRenderer {
     /**
      * Renders a welcome message for the terminal interface.
      */
-    public static void renderWelcome() {
+    public void renderWelcome() {
         System.out.println(
                 TerminalColors.ANSI_CYAN +
                         """
@@ -44,7 +43,7 @@ public class TerminalRenderer {
     /**
      * Renders the exit message and exits the application.
      */
-    public static void renderExit() {
+    public void renderExit() {
         System.out.println(
                 TerminalColors.ANSI_YELLOW +
                         """
@@ -72,7 +71,7 @@ public class TerminalRenderer {
      * @param menu_type The type of the menu.
      * @param options   The options to be displayed in the menu.
      */
-    public static void renderMenu(String menu_type, String[] options) {
+    public void renderMenu(String menu_type, String[] options) {
 
         StringBuilder out = new StringBuilder();
 
@@ -120,7 +119,7 @@ public class TerminalRenderer {
      *
      * @param error_string The error message to be rendered.
      */
-    public static void renderError(String error_string) {
+    public void renderError(String error_string) {
 
         System.out.println(TerminalColors.ANSI_RED + error_string + TerminalColors.ANSI_RESET);
 
@@ -131,9 +130,9 @@ public class TerminalRenderer {
      *
      * @return The filename entered by the user.
      */
-    public static String renderMapEditorMenu() {
+    public String renderMapEditorMenu() {
 
-        TerminalRenderer.renderMessage(TerminalColors.ANSI_BLUE + """
+        this.renderMessage(TerminalColors.ANSI_BLUE + """
                 Please Enter a valid .map filename from folder:\t
                 """ + TerminalColors.ANSI_GREEN + GameEngine.MAPS_FOLDER + TerminalColors.ANSI_RESET);
 
@@ -147,16 +146,16 @@ public class TerminalRenderer {
      *
      * @return The command entered by the user.
      */
-    public static String renderMapEditorCommands() {
+    public String renderMapEditorCommands() {
 
-        TerminalRenderer.renderMessage(TerminalColors.ANSI_BLUE + """
+        this.renderMessage(TerminalColors.ANSI_BLUE + """
                 Please Enter a valid command:\t
                 """ + TerminalColors.ANSI_GREEN +
                 "Super Commands: savemap, laodmap, editmap, showmap" +
                 "Map Edit Commands: editcountry, editneighbor, editcontinent" +
                 TerminalColors.ANSI_RESET);
 
-        TerminalRenderer.renderMessage("Type 'exit' to quit map editing.");
+        this.renderMessage("Type 'exit' to quit map editing.");
 
         Scanner in = new Scanner(System.in);
 
@@ -169,7 +168,7 @@ public class TerminalRenderer {
      *
      * @param message The message to be rendered.
      */
-    public static void renderMessage(String message) {
+    public void renderMessage(String message) {
 
         System.out.println(
                 TerminalColors.ANSI_BLUE +
@@ -184,15 +183,11 @@ public class TerminalRenderer {
      *
      * @param p_enable_gameview Indicates whether to enable the game view (show player info).
      */
-    public static void showMap(boolean p_enable_gameview) {
+    public void showMap(boolean p_enable_gameview) {
 
         WorldMap map = GameEngine.CURRENT_MAP;
-
         StringBuilder out = new StringBuilder();
-
         HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
-
-
 
         for (Country c : map.getCountries().values()) {
             List<Country> temp = continentCountriesMap.getOrDefault(c.getContinent(), new ArrayList<>());
@@ -200,10 +195,7 @@ public class TerminalRenderer {
             continentCountriesMap.put(c.getContinent(), temp);
         }
         for (Continent c : map.getContinents().values()){
-            if(continentCountriesMap.get(c)==null)
-            {
-                continentCountriesMap.put(c,new ArrayList<>());
-            }
+            continentCountriesMap.computeIfAbsent(c, k -> new ArrayList<>());
         }
         for(Continent continent : continentCountriesMap.keySet())
         {
@@ -215,13 +207,14 @@ public class TerminalRenderer {
                 if (p_enable_gameview) {
                     out.append(" Reinforcements Deployed: ").append(country.getReinforcements());
                     int l_ownerPlayerID = country.getCountryPlayerID();
-                    if( Player.getPlayerFromList(GameEngine.PLAYER_LIST,l_ownerPlayerID)!=null){
+                    if( Player.getPlayerFromList(GameEngine.PLAYER_LIST,l_ownerPlayerID)!=null)
+                    {
                         out.append(" Player Name: ").append(Player.getPlayerFromList(GameEngine.PLAYER_LIST, l_ownerPlayerID).getName());
                     }
-
                 }
                 out.append("\n\t\t");
-                for (Country borderCountries : country.getBorderCountries().values()) {
+                for (Country borderCountries : country.getBorderCountries().values())
+                {
                     out.append(borderCountries.getCountryName()).append(" ");
                 }
                 out.append("\n\t");
@@ -234,7 +227,7 @@ public class TerminalRenderer {
     /**
      * Displays the current game map.
      */
-    public static void showCurrentGameMap() {
+    public void showCurrentGameMap() {
         WorldMap map = GameEngine.CURRENT_MAP;
         StringBuilder out = new StringBuilder();
         HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
@@ -265,7 +258,7 @@ public class TerminalRenderer {
      *
      * @return The filename entered by the user.
      */
-    public static String renderRequestMapFileName(){
+    public String renderRequestMapFileName(){
         return "usa9.map";
     }
     /**
@@ -273,7 +266,7 @@ public class TerminalRenderer {
      *
      * @return The filename entered by the user.
      */
-    public static String renderAssignCountries(){
+    public String renderAssignCountries(){
         return "usa9.map";
     }
 
@@ -283,31 +276,11 @@ public class TerminalRenderer {
      * @param p_player The name of the player issuing the order.
      * @return The order entered by the player.
      */
-    public static String issueOrderView(String p_player) {
-
-        TerminalRenderer.renderMessage(p_player + " Please Enter Your Order");
-
+    public String issueOrderView(String p_player)
+    {
+        this.renderMessage(p_player + " Please Enter Your Order");
         Scanner in = new Scanner(System.in);
-
         return in.nextLine();
-
-    }
-
-    /**
-     * The main method demonstrates the usage of the TerminalRenderer class by rendering a welcome message,
-     * rendering a sample menu, and displaying a map.
-     *
-     * @param args The command-line arguments (not used in this method).
-     * @throws FileNotFoundException If the map file is not found.
-     */
-    public static void main(String[] args) throws FileNotFoundException {
-
-        renderWelcome();
-
-        String[] pop = {"Hi", "Bye", "Option"};
-
-        renderMenu("Main Menu", pop);
-
     }
 
 }

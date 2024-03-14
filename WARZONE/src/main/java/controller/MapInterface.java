@@ -4,7 +4,7 @@ import helpers.exceptions.*;
 import models.worldmap.Continent;
 import models.worldmap.Country;
 import models.worldmap.WorldMap;
-import views.TerminalRenderer;
+import view.TerminalRenderer;
 
 import java.io.*;
 import java.util.HashMap;

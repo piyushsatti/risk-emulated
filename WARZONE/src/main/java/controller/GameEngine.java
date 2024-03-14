@@ -4,7 +4,7 @@ import controller.commands.CommandValidator;
 import helpers.exceptions.*;
 import models.Player;
 import models.worldmap.WorldMap;
-import views.TerminalRenderer;
+import view.TerminalRenderer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,169 +21,161 @@ public class GameEngine {
      * Enum representing different phases of the game.
      */
     public enum GAME_PHASES {
-        MAIN_MENU,
-        MAP_EDITOR,
-        GAMEPLAY,
-        SETTINGS
+        MAIN_MENU, MAP_EDITOR, GAMEPLAY, SETTINGS
     }
 
     /**
      * The current game phase.
      */
-    public static GAME_PHASES CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+    public GAME_PHASES CURRENT_GAME_PHASE;
 
     /**
      * The folder where map files are stored.
      */
-    public static String MAPS_FOLDER = "WARZONE/src/main/resources/maps/";
+    public String MAPS_FOLDER;
 
     /**
      * The currently loaded map.
      */
-    public static WorldMap CURRENT_MAP;
+    private WorldMap CURRENT_MAP;
 
     /**
      * List of players in the game.
      */
-    public static ArrayList<Player> PLAYER_LIST = new ArrayList<>();
+    public ArrayList<Player> PLAYER_LIST;
+
+    public TerminalRenderer renderer;
+    public WorldMap worldmap;
+    public GameEngine()
+    {
+        CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+        MAPS_FOLDER = "WARZONE/src/main/resources/maps/";
+        renderer = new TerminalRenderer();
+        CURRENT_MAP = new WorldMap();
+        PLAYER_LIST = new ArrayList<>();
+    }
 
     /**
      * Manages the loop for player actions during the gameplay phase.
      **/
-    public static void playerLoop() {
-
-
-        TerminalRenderer.renderWelcome();
+    public void playerLoop() {
+        renderer.renderWelcome();
 
         String[] menu_options = {"Show Map", "Load Map", "gameplayer to Add/Remove Player", "Assign Countries"};
 
-        TerminalRenderer.renderMenu(
-                "Main Menu",
-                menu_options
-        );
+        renderer.renderMenu("Main Menu", menu_options);
 
         Scanner in = new Scanner(System.in);
 
         String user_in;
 
-        while (true) {
-
+        while (true)
+        {
             user_in = in.nextLine();
 
-            if (user_in.strip().toLowerCase().startsWith("showmap")) {
+            if (user_in.strip().toLowerCase().startsWith("showmap"))
+            {
 
-                if(CURRENT_MAP!=null)
-
-                    TerminalRenderer.showMap(!GameEngine.PLAYER_LIST.isEmpty());
+                if (CURRENT_MAP != null)
+                    renderer.showMap(!PLAYER_LIST.isEmpty());
 
                 else
-
-                    TerminalRenderer.renderError("No Map is currently loaded in the game!!!");
-
-            } else if (user_in.strip().toLowerCase().startsWith("loadmap")) {
-
-                CommandValidator command = new CommandValidator();
-
-                CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
-
-                try {
-
-                    command.addCommand(user_in.strip().toLowerCase());
-
-                    command.processValidCommand();
-
-                    TerminalRenderer.renderMessage("Loaded map.");
-
-                } catch (Exception | InvalidMapException e) {
-
-                    TerminalRenderer.renderError(e.toString());
-
-                }
-
-            } else if (user_in.strip().toLowerCase().startsWith("gameplayer")) {
-
-                TerminalRenderer.renderMessage("Please enter command to add and remove players");
-
-                CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
-
-                CommandValidator command = new CommandValidator();
-
-                try {
-
-                    command.addCommand(user_in.strip().toLowerCase());
-
-                    command.processValidCommand();
-
-                    for (Player l_player : PLAYER_LIST) {
-
-                        TerminalRenderer.renderMessage("Current players list: " + l_player.getName());
-
-                    }
-
-                } catch (Exception | InvalidMapException e) {
-
-                    TerminalRenderer.renderError(e.toString());
-
-                }
-
-            } else if (user_in.strip().toLowerCase().startsWith("assigncountries")) {
-
-                if (PLAYER_LIST.isEmpty()) {
-
-                    TerminalRenderer.renderMessage("!!!PLAYER LIST IS EMPTY!!! \n Please add players to the list");
-
-                } else if (!assignCountriesValidator()) {
-
-                    TerminalRenderer.renderMessage("!!!Players are more than countries!!!");
-
-                } else if (!MapInterface.validateMap(CURRENT_MAP)) {
-
-                    CURRENT_MAP = null;
-
-                    TerminalRenderer.renderMessage("Current map is not a valid map! Please load again");
-
-                }
-                else {
-
-                    PlayGame.startGame();
-
-                }
-
-            } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
-
-                return;
-
-            } else {
-
-                TerminalRenderer.renderMessage("Not an option. Try again.");
+                    renderer.renderError("No Map is currently loaded in the game!!!");
 
             }
+            else if (user_in.strip().toLowerCase().startsWith("loadmap"))
+            {
+                CommandValidator command = new CommandValidator();
+                CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
 
+                try
+                {
+                    command.addCommand(user_in.strip().toLowerCase());
+                    command.processValidCommand();
+                    renderer.renderMessage("Loaded map.");
+                }
+                catch (Exception | InvalidMapException e)
+                {
+                    renderer.renderError(e.toString());
+                }
 
+            }
+            else if (user_in.strip().toLowerCase().startsWith("gameplayer"))
+            {
+                renderer.renderMessage("Please enter command to add and remove players");
+                CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
+                CommandValidator command = new CommandValidator();
+
+                try
+                {
+                    command.addCommand(user_in.strip().toLowerCase());
+                    command.processValidCommand();
+                    for (Player l_player : PLAYER_LIST)
+                    {
+                        renderer.renderMessage("Current players list: " + l_player.getName());
+                    }
+
+                }
+                catch (Exception | InvalidMapException e)
+                {
+                    renderer.renderError(e.toString());
+                }
+
+            }
+            else if (user_in.strip().toLowerCase().startsWith("assigncountries"))
+            {
+                if (PLAYER_LIST.isEmpty())
+                {
+                    renderer.renderMessage("!!!PLAYER LIST IS EMPTY!!! \n Please add players to the list");
+
+                }
+                else if (!assignCountriesValidator())
+                {
+                    renderer.renderMessage("!!!Players are more than countries!!!");
+
+                }
+                else if (!MapInterface.validateMap(CURRENT_MAP))
+                {
+                    CURRENT_MAP = null;
+                    renderer.renderMessage("Current map is not a valid map! Please load again");
+                }
+                else
+                {
+                    PlayGame.startGame();
+                }
+
+            }
+            else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit"))
+            {
+                return;
+            }
+            else
+            {
+                renderer.renderMessage("Not an option. Try again.");
+            }
         }
-
     }
 
     /**
      * Manages the map editor phase where users can edit maps.
      */
-    public static void mapEditor() {
+    public void mapEditor() {
 
-        if (GameEngine.CURRENT_GAME_PHASE != GAME_PHASES.MAP_EDITOR) return;
+        if (CURRENT_GAME_PHASE != GAME_PHASES.MAP_EDITOR) return;
 
         String l_filename;
 
-        while (GameEngine.CURRENT_MAP == null) {
+        while (CURRENT_MAP == null) {
 
-            l_filename = TerminalRenderer.renderMapEditorMenu();
+            l_filename = renderer.renderMapEditorMenu();
 
             try {
 
-                GameEngine.CURRENT_MAP = MapInterface.loadMap(l_filename);
+                CURRENT_MAP = MapInterface.loadMap(l_filename);
 
             } catch (FileNotFoundException | NumberFormatException | InvalidMapException e) {
 
-                TerminalRenderer.renderError("Invalid File or not found");
+                renderer.renderError("Invalid File or not found");
 
             }
 
@@ -195,11 +187,11 @@ public class GameEngine {
 
         while (true) {
 
-            input_command = TerminalRenderer.renderMapEditorCommands();
+            input_command = renderer.renderMapEditorCommands();
 
             if (input_command.equals("exit")) {
 
-                GameEngine.CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+                CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
 
                 startingMenu();
 
@@ -216,11 +208,10 @@ public class GameEngine {
                 command.processValidCommand();
 
             } catch (InvalidCommandException | CountryDoesNotExistException | ContinentAlreadyExistsException |
-                     ContinentDoesNotExistException | IOException | PlayerDoesNotExistException |
-                     InvalidMapException |
+                     ContinentDoesNotExistException | IOException | PlayerDoesNotExistException | InvalidMapException |
                      DuplicateCountryException e) {
 
-                TerminalRenderer.renderError("Invalid Command Entered: " + input_command + "\n" + e);
+                renderer.renderError("Invalid Command Entered: " + input_command + "\n" + e);
 
             }
 
@@ -231,25 +222,22 @@ public class GameEngine {
     /**
      * Checks if the number of countries is greater than number of players
      */
-    public static boolean assignCountriesValidator() {
+    public boolean assignCountriesValidator() {
         return CURRENT_MAP.getD_countries().size() >= PLAYER_LIST.size();
     }
 
     /**
      * Displays the starting menu and handles user input to determine the next game phase.
      */
-    private static void startingMenu() {
+    private void startingMenu() {
 
-        TerminalRenderer.renderMessage("current game phase: " + CURRENT_GAME_PHASE.toString());
+        renderer.renderMessage("current game phase: " + CURRENT_GAME_PHASE.toString());
 
-        TerminalRenderer.renderWelcome();
+        renderer.renderWelcome();
 
         String[] menu_options = {"Map Editor", "Play Game"};
 
-        TerminalRenderer.renderMenu(
-                "Starting Menu",
-                menu_options
-        );
+        renderer.renderMenu("Starting Menu", menu_options);
 
         Scanner in = new Scanner(System.in);
 
@@ -262,8 +250,8 @@ public class GameEngine {
             if (user_in.strip().replace(" ", "").equalsIgnoreCase("mapeditor")) {
 
                 CURRENT_GAME_PHASE = GAME_PHASES.MAP_EDITOR;
-                TerminalRenderer.renderMessage("you are entering `mapeditor` menu");
-                GameEngine.CURRENT_MAP = null;
+                renderer.renderMessage("you are entering `mapeditor` menu");
+                CURRENT_MAP = null;
                 mapEditor();
 
                 //return;
@@ -271,19 +259,19 @@ public class GameEngine {
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("playgame")) {
 
                 CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
-                TerminalRenderer.renderMessage("you are now entering `playgame` phase");
-                GameEngine.CURRENT_MAP = null;
+                renderer.renderMessage("you are now entering `playgame` phase");
+                CURRENT_MAP = null;
                 playerLoop();
 
                 //return;
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
 
-                TerminalRenderer.renderExit();
+                renderer.renderExit();
 
             } else {
 
-                TerminalRenderer.renderMessage("Not an option. Try again.");
+                renderer.renderMessage("Not an option. Try again.");
 
             }
 
@@ -296,29 +284,29 @@ public class GameEngine {
      *
      * @param args command line arguments.
      */
-    public static void main(String[] args) {
+    public void main(String[] args) {
 
-            while (CURRENT_GAME_PHASE == GAME_PHASES.MAIN_MENU) {
+        while (CURRENT_GAME_PHASE == GAME_PHASES.MAIN_MENU) {
 
-                startingMenu();
+            startingMenu();
 
-                if (CURRENT_GAME_PHASE == GAME_PHASES.MAP_EDITOR) {
+            if (CURRENT_GAME_PHASE == GAME_PHASES.MAP_EDITOR) {
 
-                    mapEditor();
+                mapEditor();
 
-                    CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
-
-                }
-
-                if (CURRENT_GAME_PHASE == GAME_PHASES.GAMEPLAY) {
-
-                    playerLoop();
-
-                    CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
-
-                }
+                CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
 
             }
+
+            if (CURRENT_GAME_PHASE == GAME_PHASES.GAMEPLAY) {
+
+                playerLoop();
+
+                CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+
+            }
+
+        }
 
     }
 

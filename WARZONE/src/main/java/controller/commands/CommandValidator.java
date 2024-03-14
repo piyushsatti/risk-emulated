@@ -2,7 +2,7 @@ package controller.commands;
 
 import controller.GameEngine;
 import helpers.exceptions.*;
-import views.TerminalRenderer;
+import view.TerminalRenderer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
