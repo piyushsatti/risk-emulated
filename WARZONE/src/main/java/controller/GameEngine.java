@@ -3,6 +3,7 @@ package controller;
 import controller.states.End;
 import controller.states.MainMenu;
 import controller.states.MapEditor;
+import controller.states.Starting;
 import controller.states.State;
 import controller.commands.CommandValidator;
 import helpers.exceptions.*;
@@ -58,9 +59,13 @@ public class GameEngine {
         this.currentState = s;
     }
 
+    public void runState(){
+        this.currentState.run();
+    }
+
     public GameEngine()
     {
-        CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+        this.currentState = new Starting(this);
         MAPS_FOLDER = "WARZONE/src/main/resources/maps/";
         renderer = new TerminalRenderer();
         CURRENT_MAP = new WorldMap();
