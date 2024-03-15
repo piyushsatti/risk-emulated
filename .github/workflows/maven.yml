@@ -5,7 +5,7 @@ on:
     branches: 
     - main
     - dev
-    -command_pattern
+    - command_pattern
     
     
 jobs:
