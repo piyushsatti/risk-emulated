@@ -3,7 +3,7 @@ package controller.states;
 import controller.GameEngine;
 
 public class MapEditorState extends State {
-    public MapEditor(GameEngine g) {
+    public MapEditorState(GameEngine g) {
         super(g);
     }
 

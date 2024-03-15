@@ -5,7 +5,7 @@ import controller.GameEngine;
 public class MainMenuState extends State {
 
 
-    public MainMenu(GameEngine ge){
+    public MainMenuState(GameEngine ge) {
         super(ge);
     }
 
