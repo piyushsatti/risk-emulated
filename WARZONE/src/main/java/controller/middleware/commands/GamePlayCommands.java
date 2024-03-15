@@ -8,13 +8,7 @@ public class GamePlayCommands extends Commands{
         super(p_command, new String[]{
                 "loadmap",
                 "gameplayer",
-                "assigncountries",
-                "deploy",
-                "advance",
-                "bomb",
-                "blockade",
-                "airlift",
-                "negotiate"
+                "assigncountries"
         });
     }
     @Override
@@ -23,13 +17,7 @@ public class GamePlayCommands extends Commands{
         Pattern pattern = Pattern.compile(
                 "^loadmap\\s\\w+\\.map$|"+
                         "^assigncountries$|"+
-                        "^gameplayer(?:\\s+-add\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*$|"+
-                        "^deploy\\s+\\w+\\s+\\d+$|"+
-                        "^advance\\s+\\w+\\s+\\w+\\s+\\d+$|"+
-                        "^bomb\\s+\\w+\\s*$|"+
-                        "^blockade\\s+\\w+\\s*$|"+
-                        "^negotiate\\s+\\w+\\s*$|"+
-                        "^airlift\\s+\\w+\\s+\\w+\\s+\\d+$"
+                        "^gameplayer(?:\\s+-add\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*$"
         );
         Matcher matcher = pattern.matcher(d_command);
         return matcher.matches();
