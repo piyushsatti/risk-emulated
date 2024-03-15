@@ -1,4 +1,4 @@
-package controller.States;
+package controller.states;
 import controller.GameEngine;
 import views.TerminalRenderer;
 
