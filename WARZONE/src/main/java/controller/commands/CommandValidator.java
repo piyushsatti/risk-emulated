@@ -74,7 +74,7 @@ public class CommandValidator {
         cmdErrorMap = new HashMap<>();
         cmdErrorMap.put("editcontinent","invalid command format. Enter: editcontinent -add continentID continentvalue -remove continentID" +
                 "\n Note: enter atleast one -add/-remove option & each can be used multiple times");
-        cmdErrorMap.put("editcountry","invalid command format. Enter: editcountry -add countryID continentID -remove countryID"+"" +
+        cmdErrorMap.put("editcountry", "invalid command format. Enter: editcountry -add countryID continentID -remove countryID"+
                 "\n Note: enter atleast one -add/-remove option & each can be used multiple times");
         cmdErrorMap.put("editneighbor","invalid command format. Enter: editneighbor -add countryID neighborcountryID -remove countryID neighborcountryIDshowmap"+
                 "\n Note: enter atleast one -add/-remove option & each can be used multiple times");

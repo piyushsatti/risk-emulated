@@ -29,8 +29,8 @@ public class MapInterfaceTest {
                 l_testWorldMap.addCountry(5,2,"C");
                 l_testWorldMap.addCountry(6,2,"D");
                 l_testWorldMap.addBorder(3,4);
-                l_testWorldMap.addBorder(4,3);;
-                l_testWorldMap.addBorder(4,5);;
+                l_testWorldMap.addBorder(4,3);
+                l_testWorldMap.addBorder(4,5);
                 l_testWorldMap.addBorder(5,6);
                 l_testWorldMap.addBorder(6,3);
                 l_testWorldMap.addBorder(6,5);
