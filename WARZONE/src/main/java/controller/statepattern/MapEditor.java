@@ -2,8 +2,8 @@ package controller.statepattern;
 
 import controller.GameEngine;
 
-public class MapEditorState extends State {
-    public MapEditorState(GameEngine g) {
+public class MapEditor extends State {
+    public MapEditor(GameEngine g) {
         super(g);
     }
 

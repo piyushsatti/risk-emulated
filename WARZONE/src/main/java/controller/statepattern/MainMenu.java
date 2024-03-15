@@ -2,12 +2,12 @@ package controller.statepattern;
 
 import controller.GameEngine;
 
-public class MainMenuState extends State {
+public class MainMenu extends State {
 
 
     String[] menu_options = {"Show Map", "Load Map", "gameplayer to Add/Remove Player", "Assign Countries"};
 
-    public MainMenuState(GameEngine ge) {
+    public MainMenu(GameEngine ge) {
         super(ge);
     }
 
