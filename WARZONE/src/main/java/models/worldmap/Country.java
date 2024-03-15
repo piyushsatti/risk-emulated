@@ -40,6 +40,8 @@ public class Country {
      */
     private final Continent d_continent;
 
+    private boolean blockade;
+
     /**
      * Country constructor
      *
@@ -59,7 +61,10 @@ public class Country {
 
         this.d_reinforcements = 0;
 
+        this.blockade = false;
+
     }
+
 
     /**
      * Returns a string containing details about the country, including its ID, name, and deployed reinforcements.

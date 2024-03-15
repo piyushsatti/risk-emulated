@@ -39,6 +39,16 @@ public class Continent {
     }
 
     /**
+     * Copy constructor
+     * @param p_toCopy Continent to copy
+     */
+    public Continent(Continent p_toCopy){
+        this.d_continentID = p_toCopy.getContinentID();
+        this.d_continentName = p_toCopy.d_continentName;
+        this.d_bonus = p_toCopy.getBonus();
+    }
+
+    /**
      * Accessor method
      *
      * @return Continent integer identifier
