@@ -5,6 +5,7 @@ import controller.GameEngine;
 public class Setup extends State{
     public Setup(GameEngine ge) {
         super(ge);
+        this.d_stateName = "Setup";
     }
 
     @Override

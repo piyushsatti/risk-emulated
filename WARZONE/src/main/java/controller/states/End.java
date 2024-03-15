@@ -13,12 +13,6 @@ public class End extends State{
     }
 
     @Override
-    public String userInput() {
-
-        return null;
-    }
-
-    @Override
     public void next() {
 
     }

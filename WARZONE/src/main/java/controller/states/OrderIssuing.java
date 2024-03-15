@@ -5,6 +5,7 @@ import controller.GameEngine;
 public class OrderIssuing extends State {
     public OrderIssuing(GameEngine g) {
         super(g);
+        this.d_stateName = "Order Issuing";
     }
 
     @Override
