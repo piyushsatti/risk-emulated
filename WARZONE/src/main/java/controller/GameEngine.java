@@ -1,7 +1,7 @@
 package controller;
 
 import controller.states.End;
-import controller.states.MainMenu;
+import controller.states.Starting;
 import controller.states.State;
 import controller.commands.CommandValidator;
 import helpers.exceptions.*;
@@ -53,7 +53,7 @@ public class GameEngine {
     public static ArrayList<Player> PLAYER_LIST = new ArrayList<>();
 
     public GameEngine(){
-        currentState = new MainMenu(this);
+        currentState = new Starting(this);
     }
 
     public void setCurrentState(State s){

@@ -7,7 +7,7 @@ import java.util.Scanner;
 public abstract class State {
 
     GameEngine ge;
-
+    String d_stateName;
     public State(GameEngine g){
         this.ge = g;
     }
@@ -22,5 +22,5 @@ public abstract class State {
     abstract public void next();
     abstract public void endGame();
     abstract  public void run();
-    abstract public void processInput(String input);
+    abstract public void processInput();
 }

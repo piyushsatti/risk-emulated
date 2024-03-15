@@ -34,7 +34,9 @@ public class End extends State{
     }
 
     @Override
-    public void processInput(String input) {
+    public void processInput() {
 
     }
+
+
 }
