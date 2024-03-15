@@ -1,15 +1,11 @@
 package controller;
 
-import controller.states.End;
-import controller.states.MainMenu;
-import controller.states.MapEditor;
-import controller.states.Starting;
-import controller.states.State;
 import controller.commands.CommandValidator;
+import controller.statepattern.Starting;
+import controller.statepattern.State;
 import helpers.exceptions.*;
 import models.Player;
 import models.worldmap.WorldMap;
-import org.iq80.snappy.Main;
 import view.TerminalRenderer;
 
 import java.io.FileNotFoundException;
