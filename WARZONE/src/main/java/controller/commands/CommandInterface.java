@@ -248,12 +248,11 @@ public class CommandInterface {
                 crd estonia.cards
                 """;
             BufferedWriter writer = new BufferedWriter(new FileWriter(l_outputFile));
-            StringBuilder l_added_line = new StringBuilder();
-            l_added_line.append(file_signature);
-            l_added_line.append("\n[continents]\n");
-            l_added_line.append("\n[countries]\n");
-            l_added_line.append("\n[borders]");
-            writer.write(l_added_line.toString());
+            String l_added_line = file_signature +
+                    "\n[continents]\n" +
+                    "\n[countries]\n" +
+                    "\n[borders]";
+            writer.write(l_added_line);
             writer.close();
             GameEngine.CURRENT_MAP = MapInterface.loadMap(p_filename); //setting this new map as the current map
             System.out.println("new map created: "+p_filename+" , please use edit commands to add countries,continents");

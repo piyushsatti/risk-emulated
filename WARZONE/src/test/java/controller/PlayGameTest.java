@@ -78,12 +78,7 @@ public class PlayGameTest {
 
         boolean flag = false;
         for (Player l_player : GameEngine.PLAYER_LIST) {
-            if(l_player.getAssignedCountries().size()==l_min_count||l_player.getAssignedCountries().size()==l_min_count+1){
-                flag = true;
-            }
-            else{
-                flag=false;
-            }
+            flag = l_player.getAssignedCountries().size() == l_min_count || l_player.getAssignedCountries().size() == l_min_count + 1;
         }
 
         Assert.assertTrue(flag);
@@ -110,10 +105,7 @@ public class PlayGameTest {
 
         boolean flag=false;
         for (Player l_player : GameEngine.PLAYER_LIST) {
-            if(l_player.getReinforcements()==3||l_player.getReinforcements() == l_player.getAssignedCountries().size() / 3){
-                flag = true;
-            }
-            else flag=false;
+            flag = l_player.getReinforcements() == 3 || l_player.getReinforcements() == l_player.getAssignedCountries().size() / 3;
         }
 
         Assert.assertTrue(flag);
