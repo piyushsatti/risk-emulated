@@ -5,10 +5,10 @@ import views.TerminalRenderer;
 
 import java.util.Scanner;
 
-public class Starting extends State {
+public class StartingMenu extends State {
 
 
-    public Starting(GameEngine g) {
+    public StartingMenu(GameEngine g) {
         super(g);
         this.d_stateName = "Starting Phase";
     }
@@ -61,7 +61,7 @@ public class Starting extends State {
 
         } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("playgame")) {
 
-            ge.setCurrentState(new Setup(ge));
+            ge.setCurrentState(new SetupMenu(ge));
 
 
         } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {

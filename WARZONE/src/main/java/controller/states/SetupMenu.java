@@ -2,8 +2,8 @@ package controller.states;
 
 import controller.GameEngine;
 
-public class Setup extends State{
-    public Setup(GameEngine ge) {
+public class SetupMenu extends State{
+    public SetupMenu(GameEngine ge) {
         super(ge);
         this.d_stateName = "Setup";
     }

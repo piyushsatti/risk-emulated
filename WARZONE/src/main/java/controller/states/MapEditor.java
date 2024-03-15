@@ -8,7 +8,6 @@ import views.TerminalRenderer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Scanner;
 
 public class MapEditor extends State {
     public MapEditor(GameEngine g) {
@@ -77,7 +76,7 @@ public class MapEditor extends State {
 
         if (input_command.equals("exit")) {
 
-            ge.setCurrentState(new Starting(ge));
+            ge.setCurrentState(new StartingMenu(ge));
             return;
         }
 

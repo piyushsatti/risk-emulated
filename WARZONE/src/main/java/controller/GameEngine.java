@@ -1,7 +1,7 @@
 package controller;
 
 import controller.states.End;
-import controller.states.Starting;
+import controller.states.StartingMenu;
 import controller.states.State;
 import controller.commands.CommandValidator;
 import helpers.exceptions.*;
@@ -20,56 +20,46 @@ import java.util.Scanner;
  */
 public class GameEngine {
 
-    /**
-     * Enum representing different phases of the game.
-     */
-    public enum GAME_PHASES {
-        MAIN_MENU,
-        MAP_EDITOR,
-        GAMEPLAY,
-        SETTINGS
-    }
 
-    /**
-     * The current game phase.
-     */
-    public static GAME_PHASES CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
+
+
 
     /**
      * The folder where map files are stored.
      */
-    public static String MAPS_FOLDER = "WARZONE/src/main/resources/maps/";
+    public  String d_mapsFolder = "WARZONE/src/main/resources/maps/";
 
-    private State currentState;
+    private State d_currentState;
 
     /**
      * The currently loaded map.
      */
-    public static WorldMap CURRENT_MAP;
+    public  WorldMap d_currentMap;
 
     /**
      * List of players in the game.
      */
-    public static ArrayList<Player> PLAYER_LIST = new ArrayList<>();
+    public  ArrayList<Player> d_playerList;
 
     public GameEngine(){
-        currentState = new Starting(this);
+        d_currentState = new StartingMenu(this);
+        d_playerList = new ArrayList<Player>();
     }
 
     public void setCurrentState(State s){
-        this.currentState = s;
+        this.d_currentState = s;
     }
 
     public void runState(){
-        while(currentState.getClass() != End.class) {
-            currentState.run();
+        while(d_currentState.getClass() != End.class) {
+            d_currentState.run();
         }
     }
 
     /**
      * Manages the loop for player actions during the gameplay phase.
      **/
-    public static void playerLoop() {
+    public  void playerLoop() {
 
 
         TerminalRenderer.renderWelcome();
@@ -91,9 +81,9 @@ public class GameEngine {
 
             if (user_in.strip().toLowerCase().startsWith("showmap")) {
 
-                if(CURRENT_MAP!=null)
+                if(this.d_currentMap!=null)
 
-                    TerminalRenderer.showMap(!GameEngine.PLAYER_LIST.isEmpty());
+                    TerminalRenderer.showMap(!this.d_playerList.isEmpty());
 
                 else
 
@@ -103,7 +93,7 @@ public class GameEngine {
 
                 CommandValidator command = new CommandValidator();
 
-                CURRENT_GAME_PHASE = GAME_PHASES.GAMEPLAY;
+                this.d_currentState = new ;
 
                 try {
 
