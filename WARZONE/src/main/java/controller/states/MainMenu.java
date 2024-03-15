@@ -1,6 +1,5 @@
-package controller.States;
+package controller.states;
 import controller.GameEngine;
-import views.TerminalRenderer;
 
 import java.util.Scanner;
 
@@ -15,8 +14,8 @@ public class MainMenu extends State{
 
     @Override
     public void displayMenu() {
-        TerminalRenderer.renderWelcome();
-        TerminalRenderer.renderMenu(
+        ge.renderer.renderWelcome();
+        ge.renderer.renderMenu(
                 "Main Menu",
                 menu_options
         );

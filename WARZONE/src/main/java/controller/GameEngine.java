@@ -1,9 +1,9 @@
 package controller;
 
-import controller.States.End;
-import controller.States.MainMenu;
-import controller.States.MapEditor;
-import controller.States.State;
+import controller.states.End;
+import controller.states.MainMenu;
+import controller.states.MapEditor;
+import controller.states.State;
 import controller.commands.CommandValidator;
 import helpers.exceptions.*;
 import models.Player;
@@ -53,6 +53,11 @@ public class GameEngine {
 
     public TerminalRenderer renderer;
     public WorldMap worldmap;
+
+    public void setCurrentState(State s){
+        this.currentState = s;
+    }
+
     public GameEngine()
     {
         CURRENT_GAME_PHASE = GAME_PHASES.MAIN_MENU;
