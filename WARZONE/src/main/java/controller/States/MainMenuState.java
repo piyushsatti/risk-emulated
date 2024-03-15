@@ -1,10 +1,8 @@
 package controller.states;
+
 import controller.GameEngine;
-import view.TerminalRenderer;
 
-import java.util.Scanner;
-
-public class MainMenu extends State{
+public class MainMenuState extends State {
 
 
     public MainMenu(GameEngine ge){
@@ -56,7 +54,7 @@ public class MainMenu extends State{
             System.out.println("run assigncountries()");
         }
         else if(input.strip().toLowerCase().startsWith("exit")){
-                ge.setCurrentState(new End(ge));
+            ge.setCurrentState(new End(ge));
         }else{
             System.out.println("Invalid");
         }

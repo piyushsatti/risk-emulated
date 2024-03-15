@@ -1,9 +1,8 @@
 package controller.states;
 
 import controller.GameEngine;
-import view.TerminalRenderer;
 
-public class MapEditor extends State{
+public class MapEditorState extends State {
     public MapEditor(GameEngine g) {
         super(g);
     }
@@ -47,12 +46,12 @@ public class MapEditor extends State{
 
 //Command
 
-    //MapEditCommand
-        //AddCountry
-        //RemovedNeighbor
+//MapEditCommand
+//AddCountry
+//RemovedNeighbor
 
 
-    //GamePlayCommand
-        //Deploy
-        //Advance
+//GamePlayCommand
+//Deploy
+//Advance
 
