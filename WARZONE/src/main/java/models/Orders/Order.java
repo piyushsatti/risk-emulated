@@ -1,4 +1,4 @@
-package models;
+package models.Orders;
 
 import controller.GameEngine;
 import views.TerminalRenderer;

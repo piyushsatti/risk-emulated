@@ -1,6 +1,6 @@
 package controller;
 
-import models.Order;
+import models.Orders.Order;
 import models.Player;
 import models.worldmap.Country;
 import helpers.exceptions.InvalidCommandException;
