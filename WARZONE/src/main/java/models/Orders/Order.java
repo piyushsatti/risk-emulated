@@ -7,7 +7,7 @@ import views.TerminalRenderer;
  * The Order class represents a player's order in the game.
  * It specifies the movement of reinforcements from one country to another.
  */
-public class Order {
+public abstract class Order {
 
     int d_playerOrderID;
 
@@ -44,23 +44,23 @@ public class Order {
     /**
      * Executes the order by deploying reinforcements to the specified country.
      */
-    public void execute(){
-
-        int l_currentReinforcements = GameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getReinforcements();
-
-        GameEngine.CURRENT_MAP
-                .getCountry(this.d_fromCountryID)
-                .setReinforcements(this.d_reinforcementsDeployed + l_currentReinforcements);
-
-        TerminalRenderer.renderMessage(
-                "Order Executed: " +
-                        this.d_reinforcementsDeployed +
-                        " troops deployed on " +
-                        GameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getCountryName() +
-                        " by " +
-                        this.d_playerOrderName
-        );
-
-    }
+  public  abstract void execute();//{
+//
+//        int l_currentReinforcements = GameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getReinforcements();
+//
+//        GameEngine.CURRENT_MAP
+//                .getCountry(this.d_fromCountryID)
+//                .setReinforcements(this.d_reinforcementsDeployed + l_currentReinforcements);
+//
+//        TerminalRenderer.renderMessage(
+//                "Order Executed: " +
+//                        this.d_reinforcementsDeployed +
+//                        " troops deployed on " +
+//                        GameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getCountryName() +
+//                        " by " +
+//                        this.d_playerOrderName
+//        );
+//
+//    }
 
 }
