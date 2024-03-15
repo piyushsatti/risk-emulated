@@ -21,10 +21,7 @@ public class MapEditor extends State {
         TerminalRenderer.renderMessage("current game phase: " + this.d_stateName);
     }
 
-    @Override
-    public String userInput() {
-        return null;
-    }
+
 
     @Override
     public void next() {
