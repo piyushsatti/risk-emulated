@@ -1,7 +1,7 @@
-package controller.states;
+package controller.States;
 
 import controller.GameEngine;
-
+import views.TerminalRenderer;
 
 public class MapEditor extends State{
     public MapEditor(GameEngine g) {
@@ -10,8 +10,8 @@ public class MapEditor extends State{
 
     @Override
     public void displayMenu() {
-        ge.renderer.renderMapEditorMenu();
-        ge.renderer.renderMapEditorCommands();
+        TerminalRenderer.renderMapEditorMenu();
+        TerminalRenderer.renderMapEditorCommands();
     }
 
     @Override
