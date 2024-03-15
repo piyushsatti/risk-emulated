@@ -1,8 +1,6 @@
 package controller.states;
 import controller.GameEngine;
 
-import java.util.Scanner;
-
 public class MainMenu extends State{
 
 
@@ -64,7 +62,6 @@ public class MainMenu extends State{
 
 
     public void  showmap(){
-
     }
 }
 
