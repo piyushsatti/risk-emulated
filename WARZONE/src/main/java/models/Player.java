@@ -104,9 +104,7 @@ public class Player {
      * @param p_numberTobeDeployed The number of troops to be deployed in the given order
      * @return whether the player has more reinforcements than the number of troops to be deployed.
      */
-    public boolean deployment_validator(int p_numberTobeDeployed) {
-        return p_numberTobeDeployed < this.getReinforcements();
-    }
+
 
     /**
      * Issues an order for the player.
@@ -222,7 +220,12 @@ public class Player {
 
             } else {
 
+                if (!deployment_validator(l_numberTobeDeployed)) {
 
+                    this.d_terminalRenderer.renderMessage("You (" + this.d_playerName + ") don't have enough troops for this deploy order");
+                    throw new InvalidCommandException("Invalid Command!!! Not enough troops");
+
+                }
 
             }
 

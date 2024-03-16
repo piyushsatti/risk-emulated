@@ -50,13 +50,21 @@ public class Deploy implements Order {
 
     }
 
-    @Override
-    public boolean validateCommand(){
+    public boolean deployment_validator(int p_numberTobeDeployed) {
+        return p_numberTobeDeployed < this.getReinforcements();
+    }
 
-        if (!deployment_validator(l_numberTobeDeployed)) {
+    @Override
+    public boolean validateCommand() throws InvalidCommandException {
+
+        if (!this.deployment_validator(this.d_reinforcementsDeployed)) {
 
             this.d_terminalRenderer.renderMessage("You (" + this.d_playerName + ") don't have enough troops for this deploy order");
             throw new InvalidCommandException("Invalid Command!!! Not enough troops");
+
+        }
+
+        if (l_countryID > 0 && l_numberTobeDeployed <= this.getReinforcements()){
 
         }
 

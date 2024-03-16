@@ -1,5 +1,7 @@
 package models.orders;
 
+import helpers.exceptions.InvalidCommandException;
+
 /**
  * The Order class represents a player's order in the game.
  * It specifies the movement of reinforcements from one country to another.
@@ -65,7 +67,7 @@ package models.orders;
 public interface Order {
 
 
-    public boolean validateCommand();
+    public boolean validateCommand() throws InvalidCommandException;
 
     /**
      * used to execute the order. Is implemented by the Concrete Command classes.
