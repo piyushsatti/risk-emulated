@@ -44,7 +44,7 @@ public class MapEditorCommands extends Commands{
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command: " + this.d_command.split(" ")[0]);
         }
 
-        String[] l_command = d_command.trim().split("//s+");
+        String[] l_command = d_command.split(" ");
 
         switch (l_command[0]) {
             case "showmap":
@@ -61,7 +61,7 @@ public class MapEditorCommands extends Commands{
                 }
             case "editmap":
                 try {
-                    MapInterface.loadMap(ge, l_command[1]);
+                    MapInterface.loadMap2(ge, l_command[1]);
                 } catch (FileNotFoundException e) {
                     ge.d_renderer.renderError("FileNotFoundException : File does not exist.");
                     ge.d_renderer.renderMessage("Creating file by the name : " + l_command[1]);
@@ -71,7 +71,8 @@ public class MapEditorCommands extends Commands{
                     me.execute(ge);
                 } catch (NumberFormatException e) {
                     ge.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
-                } catch (InvalidMapException e) {
+                } catch (ContinentAlreadyExistsException | ContinentDoesNotExistException |
+                         DuplicateCountryException | CountryDoesNotExistException e) {
                     ge.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
                 }
                 break;
