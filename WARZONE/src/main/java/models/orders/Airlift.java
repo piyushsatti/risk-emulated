@@ -19,8 +19,10 @@ public class Airlift implements Order{
 
     private final int d_airliftedTroops;
 
+    GameEngine d_gameEngine;
 
-    public Airlift(Player p_sourcePlayer, String p_playerOrderName, int p_playerOrderID, int p_fromCountryID, int p_toCountryID, int p_airliftedTroops) {
+
+    public Airlift(Player p_sourcePlayer, String p_playerOrderName, int p_playerOrderID, int p_fromCountryID, int p_toCountryID, int p_airliftedTroops, GameEngine p_gameEngine) {
         this.d_sourcePlayer = p_sourcePlayer;
 
         this.d_playerOrderName = p_playerOrderName;
@@ -32,6 +34,7 @@ public class Airlift implements Order{
         this.d_toCountryID = p_toCountryID;
 
         this.d_airliftedTroops = p_airliftedTroops ;
+        this.d_gameEngine = p_gameEngine;
     }
 
     @Override
@@ -44,11 +47,11 @@ public class Airlift implements Order{
             System.out.println("Player does not own the target country");
             return;
         }
-        int l_currentReinforcementsFromCountry = GameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getReinforcements();
+        int l_currentReinforcementsFromCountry = this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getReinforcements();
         if(this.d_airliftedTroops <= l_currentReinforcementsFromCountry && this.d_airliftedTroops >0){
-            int l_currentReinforcementsToCountry = GameEngine.CURRENT_MAP.getCountry(this.d_toCountryID).getReinforcements();
-            GameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_airliftedTroops);
-            GameEngine.CURRENT_MAP.getCountry(this.d_toCountryID).setReinforcements(l_currentReinforcementsToCountry + this.d_airliftedTroops);
+            int l_currentReinforcementsToCountry = this.d_gameEngine.CURRENT_MAP.getCountry(this.d_toCountryID).getReinforcements();
+            this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_airliftedTroops);
+            this.d_gameEngine.CURRENT_MAP.getCountry(this.d_toCountryID).setReinforcements(l_currentReinforcementsToCountry + this.d_airliftedTroops);
             return;
         }else{
             System.out.println("Invalid troops. Either troops are not enough or in negative.");
