@@ -18,6 +18,12 @@ import java.util.Scanner;
  */
 public class TerminalRenderer {
 
+    GameEngine d_ge;
+
+    public TerminalRenderer(GameEngine p_ge) {
+        d_ge = p_ge;
+    }
+
     /**
      * Renders a welcome message for the terminal interface.
      */
@@ -134,7 +140,7 @@ public class TerminalRenderer {
 
         this.renderMessage(TerminalColors.ANSI_BLUE + """
                 Please Enter a valid .map filename from folder:\t
-                """ + TerminalColors.ANSI_GREEN + GameEngine.MAPS_FOLDER + TerminalColors.ANSI_RESET);
+                """ + TerminalColors.ANSI_GREEN + d_ge.MAPS_FOLDER + TerminalColors.ANSI_RESET);
 
         Scanner in = new Scanner(System.in);
 
@@ -185,7 +191,7 @@ public class TerminalRenderer {
      */
     public void showMap(boolean p_enable_gameview) {
 
-        WorldMap map = GameEngine.CURRENT_MAP;
+        WorldMap map = d_ge.CURRENT_MAP;
         StringBuilder out = new StringBuilder();
         HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
 
@@ -207,9 +213,9 @@ public class TerminalRenderer {
                 if (p_enable_gameview) {
                     out.append(" Reinforcements Deployed: ").append(country.getReinforcements());
                     int l_ownerPlayerID = country.getCountryPlayerID();
-                    if( Player.getPlayerFromList(GameEngine.PLAYER_LIST,l_ownerPlayerID)!=null)
+                    if (Player.getPlayerFromList(d_ge.PLAYER_LIST, l_ownerPlayerID) != null)
                     {
-                        out.append(" Player Name: ").append(Player.getPlayerFromList(GameEngine.PLAYER_LIST, l_ownerPlayerID).getName());
+                        out.append(" Player Name: ").append(Player.getPlayerFromList(d_ge.PLAYER_LIST, l_ownerPlayerID).getName());
                     }
                 }
                 out.append("\n\t\t");
@@ -228,7 +234,7 @@ public class TerminalRenderer {
      * Displays the current game map.
      */
     public void showCurrentGameMap() {
-        WorldMap map = GameEngine.CURRENT_MAP;
+        WorldMap map = d_ge.CURRENT_MAP;
         StringBuilder out = new StringBuilder();
         HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
         for (Country c : map.getCountries().values()) {
