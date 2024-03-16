@@ -32,7 +32,7 @@ public class GameEngine {
         this.d_current_phase = new Starting(this);
         d_maps_folder = "WARZONE/src/main/resources/maps/";
         d_renderer = new TerminalRenderer(this);
-        d_worldmap = null;
+        d_worldmap = new WorldMap();
         d_players = new ArrayList<>();
     }
 
