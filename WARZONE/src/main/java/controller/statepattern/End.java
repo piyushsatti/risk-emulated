@@ -1,21 +1,15 @@
 package controller.statepattern;
-
 import controller.GameEngine;
 
-public class End extends State {
+public class End extends Phase {
     public End(GameEngine g) {
         super(g);
+        g.renderer.renderExit();
     }
 
     @Override
     public void displayMenu() {
 
-    }
-
-    @Override
-    public String userInput() {
-
-        return null;
     }
 
     @Override

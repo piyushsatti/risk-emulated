@@ -2,7 +2,7 @@ package controller.statepattern;
 
 import controller.GameEngine;
 
-public class MainMenu extends State {
+public class MainMenu extends Phase {
 
 
     String[] menu_options = {"Show Map", "Load Map", "gameplayer to Add/Remove Player", "Assign Countries"};
@@ -13,8 +13,8 @@ public class MainMenu extends State {
 
     @Override
     public void displayMenu() {
-        ge.renderer.renderWelcome();
-        ge.renderer.renderMenu(
+        d_ge.renderer.renderWelcome();
+        d_ge.renderer.renderMenu(
                 "Main Menu",
                 menu_options
         );
@@ -23,7 +23,7 @@ public class MainMenu extends State {
 
     @Override
     public void next() {
-        this.ge.setCurrentState(new MapEditor(ge));
+        this.d_ge.setCurrentState(new MapEditor(d_ge));
     }
 
     @Override
@@ -34,7 +34,6 @@ public class MainMenu extends State {
     @Override
     public void run() {
         displayMenu();
-        processInput(userInput());
 
     }
 
@@ -50,7 +49,7 @@ public class MainMenu extends State {
         } else if (input.strip().toLowerCase().startsWith("assigncountries")) {
             System.out.println("run assigncountries()");
         } else if (input.strip().toLowerCase().startsWith("exit")) {
-            ge.setCurrentState(new End(ge));
+            d_ge.setCurrentState(new End(d_ge));
         } else {
             System.out.println("Invalid");
         }

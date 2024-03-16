@@ -1,21 +1,19 @@
 package controller.statepattern;
 
 import controller.GameEngine;
+import controller.MapInterface;
+import controller.middleware.commands.MapEditorCommands;
+import helpers.exceptions.InvalidMapException;
 
-public class MapEditor extends State {
+import java.io.FileNotFoundException;
+
+public class MapEditor extends Phase {
     public MapEditor(GameEngine g) {
         super(g);
     }
 
     @Override
     public void displayMenu() {
-        ge.renderer.renderMapEditorMenu();
-        ge.renderer.renderMapEditorCommands();
-    }
-
-    @Override
-    public String userInput() {
-        return null;
     }
 
     @Override
@@ -28,30 +26,21 @@ public class MapEditor extends State {
 
     }
 
+
+
     @Override
     public void run() {
-        this.displayMenu();
-        this.ge.setCurrentState(new End(ge));
-        //issueOrder();
-        //ExecuteOrder();
-
+        MapEditorCommands mec = new MapEditorCommands(d_ge.renderer.renderMapEditorCommands());
+        mec.execute(this.d_ge);
     }
 
     @Override
     public void processInput(String input) {
 
     }
+
+
 }
 
 
-//Command
-
-//MapEditCommand
-//AddCountry
-//RemovedNeighbor
-
-
-//GamePlayCommand
-//Deploy
-//Advance
 

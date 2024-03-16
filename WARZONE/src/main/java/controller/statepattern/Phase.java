@@ -4,23 +4,16 @@ import controller.GameEngine;
 
 import java.util.Scanner;
 
-public abstract class State {
+public abstract class Phase {
 
-    GameEngine ge;
+    GameEngine d_ge;
+    String d_phaseName;
 
-    public State(GameEngine g) {
-        this.ge = g;
+    public Phase(GameEngine g) {
+        this.d_ge = g;
     }
 
     abstract public void displayMenu();
-
-    public String userInput() {
-        Scanner in = new Scanner(System.in);
-        String user_in;
-        user_in = in.nextLine();
-        in.close();
-        return user_in;
-    }
 
     abstract public void next();
 

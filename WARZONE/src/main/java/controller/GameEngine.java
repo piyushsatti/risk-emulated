@@ -1,9 +1,12 @@
 package controller;
 
+
 // import controller.middleware.commands.CommandValidator;
 
+import controller.statepattern.End;
+import controller.statepattern.MainMenu;
 import controller.statepattern.Starting;
-import controller.statepattern.State;
+import controller.statepattern.Phase;
 import models.worldmap.WorldMap;
 import view.TerminalRenderer;
 
@@ -32,7 +35,7 @@ public class GameEngine {
      */
     public String MAPS_FOLDER;
 
-    private State currentState;
+    private Phase d_currentPhase;
 
     /**
      * The currently loaded map.
@@ -47,17 +50,20 @@ public class GameEngine {
     public TerminalRenderer renderer;
     public WorldMap worldmap;
 
-    public void setCurrentState(State s){
-        this.currentState = s;
+    public void setCurrentState(Phase p_p){
+        this.d_currentPhase = p_p;
     }
 
     public void runState(){
-        this.currentState.run();
+        while(this.d_currentPhase.getClass() != End.class){
+            this.d_currentPhase.run();
+        }
+
     }
 
     public GameEngine()
     {
-        this.currentState = new Starting(this);
+        this.d_currentPhase = new Starting(this);
         MAPS_FOLDER = "WARZONE/src/main/resources/maps/";
         renderer = new TerminalRenderer(this);
         CURRENT_MAP = new WorldMap();
