@@ -48,6 +48,24 @@ public class Player {
     private final Deque<Order> d_orderList = new ArrayDeque<>();
 
 
+    private final ArrayList<Player> d_listOfNegotiatedPlayers;
+
+
+    public ArrayList<Player> getListOfNegotiatedPlayers() {
+        return d_listOfNegotiatedPlayers;
+    }
+
+    public void addToListOfNegotiatedPlayers(Player p_player) {
+        d_listOfNegotiatedPlayers.add(p_player);
+        return;
+    }
+
+    public void removeFromListOfNegotiatedPlayers(Player p_player) {
+        d_listOfNegotiatedPlayers.remove(p_player);
+        return;
+    }
+
+
     /**
      * Constructs a new Player object with the specified name.
      *
@@ -65,6 +83,7 @@ public class Player {
         this.d_assignedCountries = new ArrayList<>();
 
         this.d_listOfCards = new ArrayList<>();
+        this.d_listOfNegotiatedPlayers = new ArrayList<>();
 
         d_latest_playerID++;
 
@@ -257,8 +276,8 @@ public class Player {
         return d_listOfCards;
     }
     public void addCard(){
-         Card card = Card.createCard();
-         this.d_listOfCards.add(card);
+        Card card = Card.createCard();
+        this.d_listOfCards.add(card);
 
     }
 
