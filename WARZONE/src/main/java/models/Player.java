@@ -1,13 +1,12 @@
 package models;
 
 import controller.GameEngine;
-import controller.commands.CommandValidator;
+import controller.middleware.commands.OrderExecutionCommands;
 import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.InvalidCommandException;
-import models.orders.Deploy;
-import models.orders.Order;
+import models.orders.*;
 import view.TerminalRenderer;
-import views.TerminalRenderer;
+
 
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -122,22 +121,86 @@ public class Player {
 
             String command =  this.d_terminalRenderer.issueOrderView(this.getName());
 
-            CommandValidator commandValidator = new CommandValidator();
+            OrderExecutionCommands commandValidator = new OrderExecutionCommands(command);
 
-            commandValidator.addCommand(command);
+            commandValidator.validateCommand();
 
-            String[] arr = command.split(" ");
+            String[] l_arr = command.split(" ");
 
-            int l_countryID = this.d_gameEngine.CURRENT_MAP.getCountryID(arr[1]);
+            String l_order = l_arr[0];
 
-            int l_numberTobeDeployed = Integer.parseInt(arr[2]);
+            switch(l_order){
+                case "deploy":
+
+                    int l_countryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
+                    int l_numberTobeDeployed = Integer.parseInt(l_arr[2]);
+                    Order order = new Deploy(this.getName(), this.getPlayerId(), l_countryID, l_numberTobeDeployed,this.d_gameEngine);
+                    if(order.validateCommand()) {
+                        order.execute();
+                    } else throw new InvalidCommandException("Invalid Command");
+                    break;
+
+                case "advance":
+
+                    int l_fromCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
+                    int l_toCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[2]);
+                    l_numberTobeDeployed = Integer.parseInt(l_arr[3]);
+                    //Source player will call this so no need for that parameter
+                     order = new Advance(this.getName(),this.getPlayerId(), l_fromCountryID,l_toCountryID,l_numberTobeDeployed,this.d_gameEngine);
+                    if(order.validateCommand()) {
+                        order.execute();
+                    } else throw new InvalidCommandException("Invalid Command");
+                    break;
+
+                case "airlift":
+
+                    l_fromCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
+                    l_toCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[2]);
+                    l_numberTobeDeployed = Integer.parseInt(l_arr[3]);
+                    order = new Airlift(this.getName(),this.getPlayerId(), l_fromCountryID,l_toCountryID,l_numberTobeDeployed,this.d_gameEngine);
+                    if(order.validateCommand()) {
+                        order.execute();
+                    } else throw new InvalidCommandException("Invalid Command");
+                    break;
+
+                case "bomb":
+
+                    int l_bombCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
+                    order = new Bomb(this.getPlayerId(),this.getName(), l_bombCountryID,this.d_gameEngine);
+                    if(order.validateCommand()) {
+                        order.execute();
+                    } else throw new InvalidCommandException("Invalid Command");
+                    break;
+
+                case "blockade":
+
+                    int l_blockadeCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
+                    order = new Blockade(this.getPlayerId(),this.getName(), l_blockadeCountryID,this.d_gameEngine);
+                    if(order.validateCommand()) {
+                        order.execute();
+                    } else throw new InvalidCommandException("Invalid Command");
+                    break;
+
+                case "negotiate":
+                    int l_targetPlayerID = Integer.parseInt(l_arr[1]);
+                    //Source player will call this so no need for that parameter
+                    order = new Diplomacy(this.getName(),this.getPlayerId(), l_targetPlayerID,this.d_gameEngine);
+                    if(order.validateCommand()) {
+                        order.execute();
+                    } else throw new InvalidCommandException("Invalid Command");
+                    break;
+            }
+
+            int l_countryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
+
+            int l_numberTobeDeployed = Integer.parseInt(l_arr[2]);
 
 
             if (l_countryID > 0 && l_numberTobeDeployed <= this.getReinforcements()) {
 
                 if (this.d_assignedCountries.contains(l_countryID)) {
 
-                    Order order = new Deploy(this.getName(), this.getPlayerId(), l_countryID, l_numberTobeDeployed);
+                    //Order order = new Deploy(this.getName(), this.getPlayerId(), l_countryID, l_numberTobeDeployed);
 
                     this.d_terminalRenderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + GameEngine.CURRENT_MAP.getCountry(l_countryID).getCountryName() + " by Player: " + this.d_playerName);
 

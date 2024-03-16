@@ -38,6 +38,12 @@ public class Airlift implements Order{
     }
 
     @Override
+    public boolean validateCommand(){
+
+        return true;
+    }
+
+    @Override
     public void execute() {
         if (!d_sourcePlayer.getAssignedCountries().contains(d_fromCountryID)) {
             System.out.println("Player does not own the source country");

@@ -14,6 +14,12 @@ public class Blockade implements Order{
 
     GameEngine d_gameEngine;
 
+    @Override
+    public boolean validateCommand(){
+
+        return true;
+    }
+
     public Blockade(Player p_sourcePlayer, int p_playerOrderID, String p_playerOrderName, int p_blockadeCountryID, GameEngine p_gameEngine) {
         this.d_sourcePlayer = p_sourcePlayer;
         this.d_playerOrderID = p_playerOrderID;

@@ -64,6 +64,9 @@ package models.orders;
 
 public interface Order {
 
+
+    public boolean validateCommand();
+
     /**
      * used to execute the order. Is implemented by the Concrete Command classes.
      * @return true if execution is successful, false if it fails

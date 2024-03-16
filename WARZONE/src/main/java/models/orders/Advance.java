@@ -24,9 +24,9 @@ public class Advance implements Order {
     TerminalRenderer d_terminalRenderer;
 
 
-    public Advance(Player p_sourcePlayer, Player p_targetPlayer, String p_playerOrderName, int p_playerOrderID, int p_fromCountryID, int p_toCountryID, int p_advancingtroops, GameEngine p_gameEngine) {
+    public Advance(Player p_sourcePlayer, String p_playerOrderName, int p_playerOrderID, int p_fromCountryID, int p_toCountryID, int p_advancingtroops, GameEngine p_gameEngine) {
         this.d_sourcePlayer = p_sourcePlayer;
-        this.d_targetPlayer = p_targetPlayer;
+        //this.d_targetPlayer = p_targetPlayer;
         this.d_playerOrderName = p_playerOrderName;
 
         this.d_playerOrderID = p_playerOrderID;
@@ -43,16 +43,24 @@ public class Advance implements Order {
 
     }
 
-    @Override
-    public void execute() {
+   @Override
+    public boolean validateCommand(){
+
         if (!d_sourcePlayer.getAssignedCountries().contains(d_fromCountryID)) {
             System.out.println("Player does not own the source country");
-            return;
-        } else if (!this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getBorderCountries().containsKey(d_toCountryID)) {
-            System.out.println("Cannot move to a non neighbouring country.");
-            return;
-
+            return false;
         }
+        if (!this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getBorderCountries().containsKey(d_toCountryID)) {
+            System.out.println("Cannot move to a non neighbouring country.");
+            return false;
+        }
+
+        return true;
+    }
+
+    @Override
+    public void execute() {
+
         if (this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getReinforcements() - this.d_advancingtroops >= 1) {
             if (d_sourcePlayer.getAssignedCountries().contains(d_toCountryID)) {
 

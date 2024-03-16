@@ -34,6 +34,12 @@ public class Bomb  implements  Order{
    }
 
     @Override
+    public boolean validateCommand(){
+
+        return true;
+    }
+
+    @Override
     public void execute(){
         if(this.d_sourcePlayer.getAssignedCountries().contains(d_bombCountryID)){
             System.out.println("Cannot bomb own country!");

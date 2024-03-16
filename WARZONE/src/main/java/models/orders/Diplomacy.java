@@ -13,6 +13,11 @@ public class Diplomacy implements Order{
         this.d_targetPlayer = p_targetPlayer;
     }
 
+    @Override
+    public boolean validateCommand(){
+
+        return true;
+    }
 
     @Override
     public void execute(){

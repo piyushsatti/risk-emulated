@@ -1,7 +1,7 @@
 package models.orders;
 import controller.GameEngine;
 import view.TerminalRenderer;
-import views.TerminalRenderer;
+
 
 /**
  * The Deploy class implements Order inteface.
@@ -47,6 +47,12 @@ public class Deploy implements Order {
 
         this.d_terminalRenderer = new TerminalRenderer(this.d_gameEngine);
 
+    }
+
+    @Override
+    public boolean validateCommand(){
+
+        return true;
     }
 
     /**

@@ -4,7 +4,7 @@ import models.orders.Order;
 import models.Player;
 import models.worldmap.Country;
 import helpers.exceptions.InvalidCommandException;
-import views.TerminalRenderer;
+import view.TerminalRenderer;
 
 import java.util.*;
 
