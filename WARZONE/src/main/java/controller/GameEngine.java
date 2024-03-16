@@ -3,6 +3,9 @@ package controller;
 import controller.statepattern.End;
 import controller.statepattern.Phase;
 import controller.statepattern.Starting;
+import controller.statepattern.gameplay.IssueOrder;
+import controller.statepattern.gameplay.OrderExecution;
+import controller.statepattern.gameplay.Reinforcement;
 import models.Player;
 import models.worldmap.WorldMap;
 import view.TerminalRenderer;
@@ -49,6 +52,15 @@ public class GameEngine {
         while (this.d_current_phase.getClass() != End.class) {
             this.d_current_phase.run();
         }
+    }
+
+    public void runGameplayTest(){
+        this.setCurrentState(new IssueOrder(this));
+        this.d_current_phase.run();
+        this.setCurrentState(new OrderExecution(this));
+        this.d_current_phase.run();
+        this.setCurrentState(new Reinforcement(this));
+        this.d_current_phase.run();
     }
 
 }

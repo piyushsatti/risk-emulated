@@ -1,7 +1,14 @@
 package controller.middleware.commands;
 
 import controller.GameEngine;
+import controller.MapInterface;
+import helpers.exceptions.ContinentAlreadyExistsException;
+import helpers.exceptions.ContinentDoesNotExistException;
+import helpers.exceptions.CountryDoesNotExistException;
+import helpers.exceptions.DuplicateCountryException;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -29,6 +36,21 @@ public class StartupCommands extends Commands {
 
     @Override
     void execute(GameEngine ge) {
+
+        if (!this.validateCommandName()) {
+            ge.d_renderer.renderError("InvalidCommandException : Invalid Command: " + this.d_command.split(" ")[0]);
+        }
+
+        String[] l_command = d_command.split(" ");
+
+        switch (l_command[0]) {
+            case "assigncountries":
+                ge.d_renderer.showMap(false);
+                break;
+        }
+    }
+
+    private void assignCountries(GameEngine ge){
 
     }
 }
