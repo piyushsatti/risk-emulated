@@ -26,9 +26,9 @@ public class MapInterface {
     private static File createFileObjectFromFileName(GameEngine ge, String p_map_name) throws FileNotFoundException
     {
 
-        File l_map_file_obj = new File(ge.MAPS_FOLDER + p_map_name);
-        ge.renderer.renderMessage(ge.MAPS_FOLDER + p_map_name);
-        ge.renderer.renderMessage("Map object" + l_map_file_obj);
+        File l_map_file_obj = new File(ge.d_maps_folder + p_map_name);
+        ge.d_renderer.renderMessage(ge.d_maps_folder + p_map_name);
+        ge.d_renderer.renderMessage("Map object" + l_map_file_obj);
 
         if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory())
         {
@@ -36,7 +36,7 @@ public class MapInterface {
         }
         else
         {
-            ge.renderer.renderMessage("Hello file does not exist");
+            ge.d_renderer.renderMessage("Hello file does not exist");
             throw new FileNotFoundException("File does not exist.");
         }
     }
@@ -96,11 +96,11 @@ public class MapInterface {
             {
                 if (l_state[0])
                 {
-                    ge.CURRENT_MAP.addContinent(l_split_data[0], Integer.parseInt(l_split_data[1]));
+                    ge.d_worldmap.addContinent(l_split_data[0], Integer.parseInt(l_split_data[1]));
                     continue;
                 }
                 else if (l_state[1]) {
-                    ge.CURRENT_MAP.addCountry(
+                    ge.d_worldmap.addCountry(
                             l_split_data[1],
                             Integer.parseInt(l_split_data[0]),
                             Integer.parseInt(l_split_data[2])
@@ -110,7 +110,7 @@ public class MapInterface {
                 else if (l_state[2])
                 {
                     for (int j = 1; j < l_split_data.length; j++) {
-                        ge.CURRENT_MAP.addBorder(
+                        ge.d_worldmap.addBorder(
                                 Integer.parseInt(l_split_data[0]),
                                 Integer.parseInt(l_split_data[j])
                         );
@@ -139,9 +139,9 @@ public class MapInterface {
      */
     public static void saveMap(GameEngine ge, String p_file_name) throws IOException
     {
-        WorldMap p_map = ge.CURRENT_MAP;
-        File outputFile = new File(ge.MAPS_FOLDER + p_file_name);
-        ge.renderer.renderMessage("Was file created? " + outputFile.createNewFile());
+        WorldMap p_map = ge.d_worldmap;
+        File outputFile = new File(ge.d_maps_folder + p_file_name);
+        ge.d_renderer.renderMessage("Was file created? " + outputFile.createNewFile());
 
         String file_signature = """
                 ; map: estonia.map
@@ -201,6 +201,6 @@ public class MapInterface {
      */
     public static boolean validateMap(GameEngine ge)
     {
-        return (ge.CURRENT_MAP.isConnected()) && (ge.CURRENT_MAP.isContinentConnected());
+        return (ge.d_worldmap.isConnected()) && (ge.d_worldmap.isContinentConnected());
     }
 }

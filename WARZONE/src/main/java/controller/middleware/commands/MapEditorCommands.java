@@ -39,14 +39,14 @@ public class MapEditorCommands extends Commands{
     public void execute(GameEngine ge) {
 
         if (!this.validateCommand()) {
-            ge.renderer.renderError("InvalidCommandException : Invalid Command Format.");
+            ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format.");
         }
 
         String[] l_command = d_command.trim().split("//s+");
 
         switch (l_command[0]) {
             case "showmap":
-                ge.renderer.showMap(false);
+                ge.d_renderer.showMap(false);
                 break;
             case "validatemap":
                 MapInterface.validateMap(ge);
@@ -55,22 +55,22 @@ public class MapEditorCommands extends Commands{
                 try {
                     MapInterface.saveMap(ge, l_command[1]);
                 } catch (IOException e) {
-                    ge.renderer.renderError("IOException : Encountered File I/O Error");
+                    ge.d_renderer.renderError("IOException : Encountered File I/O Error");
                 }
             case "editmap":
                 try {
                     MapInterface.loadMap(ge, l_command[1]);
                 } catch (FileNotFoundException e) {
-                    ge.renderer.renderError("FileNotFoundException : File does not exist.");
-                    ge.renderer.renderMessage("Creating file by the name : " + l_command[1]);
+                    ge.d_renderer.renderError("FileNotFoundException : File does not exist.");
+                    ge.d_renderer.renderMessage("Creating file by the name : " + l_command[1]);
                     MapEditorCommands me = new MapEditorCommands("savemap " + l_command[1]);
                     me.execute(ge);
                     me = new MapEditorCommands("loadmap " + l_command[1]);
                     me.execute(ge);
                 } catch (NumberFormatException e) {
-                    ge.renderer.renderError("NumberFormatException : File has incorrect formatting.");
+                    ge.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
                 } catch (InvalidMapException e) {
-                    ge.renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
+                    ge.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
                 }
                 break;
             case "editcontinent":
@@ -88,7 +88,7 @@ public class MapEditorCommands extends Commands{
     public void editContinent(GameEngine ge, String[] p_command, int i) {
         if (p_command[i].equals("-add")) {
             try {
-                ge.CURRENT_MAP.addContinent(
+                ge.d_worldmap.addContinent(
                         p_command[i + 1],
                         Integer.parseInt(p_command[i + 2])
                 );
@@ -98,11 +98,11 @@ public class MapEditorCommands extends Commands{
             editContinent(ge, p_command, i += 3);
         } else {
             try {
-                ge.CURRENT_MAP.removeContinent(
-                        ge.CURRENT_MAP.getContinentID(p_command[i + 1])
+                ge.d_worldmap.removeContinent(
+                        ge.d_worldmap.getContinentID(p_command[i + 1])
                 );
             } catch (ContinentDoesNotExistException e) {
-                ge.renderer.renderError("ContinentDoesNotExist : " + e.getMessage());
+                ge.d_renderer.renderError("ContinentDoesNotExist : " + e.getMessage());
             }
 
             editContinent(ge, p_command, i += 2);
@@ -112,9 +112,9 @@ public class MapEditorCommands extends Commands{
     public void editCountry(GameEngine ge, String[] p_command, int i) {
         if (p_command[i].equals("-add")) {
             try {
-                ge.CURRENT_MAP.addCountry(
+                ge.d_worldmap.addCountry(
                         p_command[i + 1],
-                        ge.CURRENT_MAP.getContinentID(p_command[i + 2])
+                        ge.d_worldmap.getContinentID(p_command[i + 2])
                 );
             } catch (ContinentDoesNotExistException e) {
                 // something
@@ -124,11 +124,11 @@ public class MapEditorCommands extends Commands{
             editCountry(ge, p_command, i += 3);
         } else {
             try {
-                ge.CURRENT_MAP.removeCountry(
-                        ge.CURRENT_MAP.getCountryID(p_command[i + 1])
+                ge.d_worldmap.removeCountry(
+                        ge.d_worldmap.getCountryID(p_command[i + 1])
                 );
             } catch (CountryDoesNotExistException e) {
-                ge.renderer.renderError("CountryDoesNotExist : " + e.getMessage());
+                ge.d_renderer.renderError("CountryDoesNotExist : " + e.getMessage());
             }
             editCountry(ge, p_command, i += 2);
         }
@@ -137,9 +137,9 @@ public class MapEditorCommands extends Commands{
     public void editNeighbor(GameEngine ge, String[] p_command, int i) {
         if (p_command[i].equals("-add")) {
             try {
-                ge.CURRENT_MAP.addBorder(
-                        ge.CURRENT_MAP.getCountryID(p_command[i + 1]),
-                        ge.CURRENT_MAP.getCountryID(p_command[i + 2])
+                ge.d_worldmap.addBorder(
+                        ge.d_worldmap.getCountryID(p_command[i + 1]),
+                        ge.d_worldmap.getCountryID(p_command[i + 2])
                 );
             } catch (CountryDoesNotExistException e) {
                 //somthing
@@ -147,9 +147,9 @@ public class MapEditorCommands extends Commands{
             editNeighbor(ge, p_command, i += 3);
         } else {
             try {
-                ge.CURRENT_MAP.removeBorder(
-                        ge.CURRENT_MAP.getCountryID(p_command[i + 1]),
-                        ge.CURRENT_MAP.getCountryID(p_command[i + 2])
+                ge.d_worldmap.removeBorder(
+                        ge.d_worldmap.getCountryID(p_command[i + 1]),
+                        ge.d_worldmap.getCountryID(p_command[i + 2])
                 );
             } catch (CountryDoesNotExistException e) {
                 //something
