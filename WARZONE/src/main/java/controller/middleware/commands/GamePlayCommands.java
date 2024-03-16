@@ -19,9 +19,9 @@ public class GamePlayCommands extends Commands {
     public boolean validateCommand()
     {
         Pattern pattern = Pattern.compile(
-                "^loadmap\\s\\w+\\.map$|"+
-                        "^assigncountries$|"+
-                        "^gameplayer(?:\\s+-add\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*$"
+                "^loadmap\\s\\w+\\.map(\\s)*$|"+
+                        "^assigncountries(\\s)*$|"+
+                        "^gameplayer(?:(?:\\s+-add\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$"
         );
         Matcher matcher = pattern.matcher(d_command);
         return matcher.matches();

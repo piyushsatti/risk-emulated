@@ -179,7 +179,7 @@ public class MapEditorCommandsTest {
     public void testEditContinent11() {
         String cmd = "editcontinent -shashi Asia 100 -remove Africa";
         MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand());
+        assertFalse(obj.validateCommand());
     }
 
     @Test
