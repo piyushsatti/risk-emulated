@@ -17,11 +17,11 @@ public class PlayGame {
     /**
      * Starts the game by assigning countries to players and entering the game loop.
      */
-    public static void startGame()  {
+    public static void startGame( GameEngine gameEngine)  {
 
-        ArrayList<Player> l_listOfPlayers = GameEngine.PLAYER_LIST;
+        ArrayList<Player> l_listOfPlayers = gameEngine.PLAYER_LIST;
         System.out.println("Assigning countries");
-        assignCountriesToPlayers(l_listOfPlayers);
+        assignCountriesToPlayers(gameEngine,l_listOfPlayers);
         gameLoop(l_listOfPlayers);
 
     }
@@ -30,9 +30,9 @@ public class PlayGame {
      *
      * @param p_listOfPlayers list of players participating in the game.
      */
-    public static void assignCountriesToPlayers(ArrayList<Player> p_listOfPlayers) {
+    public static void assignCountriesToPlayers(GameEngine ge, ArrayList<Player> p_listOfPlayers) {
 
-        HashMap<Integer, Country> map = GameEngine.CURRENT_MAP.getD_countries();
+        HashMap<Integer, Country> map = ge.CURRENT_MAP.getD_countries();
         Set<Integer> l_countryIDSet = map.keySet();
         ArrayList<Integer> l_countryIDList = new ArrayList<>(l_countryIDSet);
 
@@ -58,7 +58,7 @@ public class PlayGame {
             System.out.println("List of Assigned Countries for Player: "+l_player.getName());
             ArrayList<Integer> l_listOfAssignedCountries = l_player.getAssignedCountries();
             for(Integer l_countryID : l_listOfAssignedCountries){
-                System.out.println(GameEngine.CURRENT_MAP.getCountry(l_countryID).getCountryName());
+                System.out.println(ge.CURRENT_MAP.getCountry(l_countryID).getCountryName());
             }
             System.out.println("-----------------------------------------------------------------");
 
@@ -201,7 +201,7 @@ public class PlayGame {
         assignReinforcements(p_listOfPlayers);
         try {
             playerOrders(p_listOfPlayers);
-        } catch (InvalidCommandException e) {
+        } catch (InvalidCommandException | CountryDoesNotExistException e) {
             TerminalRenderer.renderError("!!Invalid Command!! Please enter valid command");
         }
         executingOrders(p_listOfPlayers);
