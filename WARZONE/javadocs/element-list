@@ -4,5 +4,5 @@ main.java.models
 main.java.models.worldmap
 main.java.helpers
 main.java.helpers.exceptions
-main.java.views
+main.java.view
 test.java.controller

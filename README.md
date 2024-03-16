@@ -81,6 +81,6 @@
   - [x] save map if text file is created or not
   - [x] play game to check if load map is correct or not
   
-  
-
- 
+  ## Refactoring Targets
+- [ ] Target 1
+- [ ] Target 2
