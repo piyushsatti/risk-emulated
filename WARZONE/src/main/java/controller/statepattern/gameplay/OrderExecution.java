@@ -26,5 +26,9 @@ public class OrderExecution extends Phase {
     @Override
     public void run() {
 
+        //Loop through player
+        //execute orders
+
+        //change state to reinforcement state
     }
 }

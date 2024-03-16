@@ -6,6 +6,7 @@ import controller.statepattern.Starting;
 import controller.statepattern.gameplay.IssueOrder;
 import controller.statepattern.gameplay.OrderExecution;
 import controller.statepattern.gameplay.Reinforcement;
+import controller.statepattern.gameplay.Startup;
 import models.Player;
 import models.worldmap.WorldMap;
 import view.TerminalRenderer;
@@ -55,6 +56,8 @@ public class GameEngine {
     }
 
     public void runGameplayTest(){
+        this.setCurrentState(new Startup(this));
+        this.d_current_phase.run();
         this.setCurrentState(new IssueOrder(this));
         this.d_current_phase.run();
         this.setCurrentState(new OrderExecution(this));
