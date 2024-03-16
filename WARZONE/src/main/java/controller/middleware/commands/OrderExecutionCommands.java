@@ -36,5 +36,21 @@ public class OrderExecutionCommands extends Commands{
         if (!this.validateCommand()) {
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format.");
         }
+        String[] l_command = d_command.trim().split("\\s+");
+        switch (l_command[0])
+        {
+            case "deploy":
+                break;
+            case "advance":
+                break;
+            case "bomb":
+                break;
+            case "blockade":
+                break;
+            case "negotiate":
+                break;
+            case "airlift":
+                break;
+        }
     }
 }

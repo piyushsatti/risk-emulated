@@ -31,7 +31,7 @@ public class MainMenuCommands extends Commands {
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format.");
         }
 
-        String[] l_command = d_command.trim().split("//s+");
+        String[] l_command = d_command.trim().split("\\s+");
 
         switch (l_command[0]) {
             case "loadmap":
