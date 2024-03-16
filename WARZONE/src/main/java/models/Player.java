@@ -3,6 +3,7 @@ package models;
 import controller.GameEngine;
 import controller.commands.CommandValidator;
 import helpers.exceptions.InvalidCommandException;
+import models.Orders.Deploy;
 import models.Orders.Order;
 import views.TerminalRenderer;
 
@@ -15,22 +16,35 @@ import java.util.Deque;
  */
 public class Player {
 
-    /** The latest player ID. */
+    /**
+     * The latest player ID.
+     */
     private static int d_latest_playerID = 1;
 
-    /** The ID of the player. */
+    /**
+     * The ID of the player.
+     */
     private final int d_playerId;
 
-    /** The name of the player. */
+    /**
+     * The name of the player.
+     */
     private String d_playerName;
 
-    /** The number of reinforcements available for the player. */
+    /**
+     * The number of reinforcements available for the player.
+     */
     private int d_reinforcements;
 
-    /** The list of countries assigned to the player. */
+    /**
+     * The list of countries assigned to the player.
+     */
     private final ArrayList<Integer> d_assignedCountries;
+    private final ArrayList<Card> d_listOfCards;
 
-    /** The order list of the player. */
+    /**
+     * The order list of the player.
+     */
     private final Deque<Order> d_orderList = new ArrayDeque<>();
 
 
@@ -42,17 +56,20 @@ public class Player {
     //Constructors
     public Player(String p_playerName) {
 
-        this.d_playerId=d_latest_playerID;
+        this.d_playerId = d_latest_playerID;
 
-        this.d_playerName= p_playerName;
+        this.d_playerName = p_playerName;
 
-        this.d_reinforcements= 0;
+        this.d_reinforcements = 0;
 
         this.d_assignedCountries = new ArrayList<>();
+
+        this.d_listOfCards = new ArrayList<>();
 
         d_latest_playerID++;
 
     }
+
     /**
      * Validates player's order by checking if the player has available reinforcements to place the order or not.
      *
@@ -70,62 +87,62 @@ public class Player {
      */
     public void issue_order() throws InvalidCommandException {
 
-//        while(true) {
-//
-//            TerminalRenderer.renderMessage("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());
-//
-//            String command = TerminalRenderer.issueOrderView(this.getName());
-//
-//            CommandValidator commandValidator = new CommandValidator();
-//
-//            commandValidator.addCommand(command);
-//
-//            String[] arr = command.split(" ");
-//
-//            int l_countryID = GameEngine.CURRENT_MAP.getCountryID(arr[1]);
-//
-//            int l_numberTobeDeployed = Integer.parseInt(arr[2]);
-//
-//
-//            if (l_countryID > 0 && l_numberTobeDeployed <= this.getReinforcements()) {
-//
-//                if (this.d_assignedCountries.contains(l_countryID)) {
-//
-//                    Order order = new Order(this.getName(),this.getPlayerId(), l_countryID, l_numberTobeDeployed);
-//
-//                    TerminalRenderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + GameEngine.CURRENT_MAP.getCountry(l_countryID).getCountryName() + " by Player: " + this.d_playerName);
-//
-//                    this.d_orderList.add(order);
-//
-//                    this.setReinforcements(this.getReinforcements() - l_numberTobeDeployed);
-//
-//                    TerminalRenderer.renderMessage("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());
-//
-//                    return;
-//
-//                } else {
-//
-//                    TerminalRenderer.renderMessage("You (" + this.d_playerName + ") Cannot Deploy Troops here you don't own it.");
-//                    throw new InvalidCommandException("Invalid Command!!! You don't own the country");
-//
-//                }
-//
-//            } else {
-//
-//                if (!deployment_validator(l_numberTobeDeployed)) {
-//
-//                    TerminalRenderer.renderMessage("You (" + this.d_playerName + ") don't have enough troops for this deploy order");
-//                    throw new InvalidCommandException("Invalid Command!!! Not enough troops");
-//
-//                } else {
-//
-//                    throw new InvalidCommandException("Invalid Command");
-//
-//                }
-//
-//            }
-//
-//        }
+        while (true) {
+
+            TerminalRenderer.renderMessage("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());
+
+            String command = TerminalRenderer.issueOrderView(this.getName());
+
+            CommandValidator commandValidator = new CommandValidator();
+
+            commandValidator.addCommand(command);
+
+            String[] arr = command.split(" ");
+
+            int l_countryID = GameEngine.CURRENT_MAP.getCountryID(arr[1]);
+
+            int l_numberTobeDeployed = Integer.parseInt(arr[2]);
+
+
+            if (l_countryID > 0 && l_numberTobeDeployed <= this.getReinforcements()) {
+
+                if (this.d_assignedCountries.contains(l_countryID)) {
+
+                    Order order = new Deploy(this.getName(), this.getPlayerId(), l_countryID, l_numberTobeDeployed);
+
+                    TerminalRenderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + GameEngine.CURRENT_MAP.getCountry(l_countryID).getCountryName() + " by Player: " + this.d_playerName);
+
+                    this.d_orderList.add(order);
+
+                    this.setReinforcements(this.getReinforcements() - l_numberTobeDeployed);
+
+                    TerminalRenderer.renderMessage("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());
+
+                    return;
+
+                } else {
+
+                    TerminalRenderer.renderMessage("You (" + this.d_playerName + ") Cannot Deploy Troops here you don't own it.");
+                    throw new InvalidCommandException("Invalid Command!!! You don't own the country");
+
+                }
+
+            } else {
+
+                if (!deployment_validator(l_numberTobeDeployed)) {
+
+                    TerminalRenderer.renderMessage("You (" + this.d_playerName + ") don't have enough troops for this deploy order");
+                    throw new InvalidCommandException("Invalid Command!!! Not enough troops");
+
+                } else {
+
+                    throw new InvalidCommandException("Invalid Command");
+
+                }
+
+            }
+
+        }
 
     }
 
@@ -225,6 +242,24 @@ public class Player {
      */
     public void setAssignedCountries(Integer p_countryID) {
         this.d_assignedCountries.add(p_countryID);
+    }
+
+    /**
+     * Remove a country from the list of owned countries for the player.
+     *
+     * @param p_countryID The ID of the country to add to the player's assigned countries.
+     */
+    public void removeAssignedCountries(Integer p_countryID) {
+        this.d_assignedCountries.remove(p_countryID);
+    }
+
+    public ArrayList<Card> getListOfCards() {
+        return d_listOfCards;
+    }
+    public void addCard(){
+         Card card = Card.createCard();
+         this.d_listOfCards.add(card);
+
     }
 
 }
