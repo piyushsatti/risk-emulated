@@ -5,9 +5,9 @@ import controller.GameEngine;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GamePlayCommands extends Commands {
+public class StartupCommands extends Commands {
 
-    public GamePlayCommands(String p_command) {
+    public StartupCommands(String p_command) {
         super(p_command, new String[]{
                 "loadmap",
                 "gameplayer",

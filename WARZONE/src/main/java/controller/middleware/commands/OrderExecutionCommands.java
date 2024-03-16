@@ -34,7 +34,7 @@ public class OrderExecutionCommands extends Commands{
     @Override
     void execute(GameEngine ge) {
         if (!this.validateCommand()) {
-            ge.renderer.renderError("InvalidCommandException : Invalid Command Format.");
+            ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format.");
         }
     }
 }

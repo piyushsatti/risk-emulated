@@ -2,6 +2,7 @@ package view;
 
 import controller.GameEngine;
 import helpers.TerminalColors;
+import models.LogEntryBuffer;
 import models.worldmap.Continent;
 import models.worldmap.Country;
 import models.worldmap.WorldMap;
@@ -17,10 +18,15 @@ import java.util.Scanner;
  */
 public class TerminalRenderer {
 
+    public LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+    public Logger lw = new Logger(logEntryBuffer);
+
     GameEngine d_ge;
+    Scanner in;
 
     public TerminalRenderer(GameEngine p_ge) {
         d_ge = p_ge;
+        in = new Scanner(System.in);
     }
 
     /**
@@ -139,7 +145,7 @@ public class TerminalRenderer {
 
         this.renderMessage(TerminalColors.ANSI_BLUE + """
                 Please Enter a valid .map filename from folder:\t
-                """ + TerminalColors.ANSI_GREEN + d_ge.MAPS_FOLDER + TerminalColors.ANSI_RESET);
+                """ + TerminalColors.ANSI_GREEN + d_ge.d_maps_folder + TerminalColors.ANSI_RESET);
 
         Scanner in = new Scanner(System.in);
 
@@ -151,21 +157,21 @@ public class TerminalRenderer {
      *
      * @return The command entered by the user.
      */
-    public String renderMapEditorCommands() {
-
-        this.renderMessage(TerminalColors.ANSI_BLUE + """
+    public void renderMapEditorCommands() {
+        this.renderMessage(
+                TerminalColors.ANSI_BLUE + """
                 Please Enter a valid command:\t
                 """ + TerminalColors.ANSI_GREEN +
                 "Super Commands: savemap, laodmap, editmap, showmap" +
                 "Map Edit Commands: editcountry, editneighbor, editcontinent" +
-                TerminalColors.ANSI_RESET);
+                        TerminalColors.ANSI_RESET + "\n" +
+                        "Type 'exit' to quit map editing."
+        );
+    }
 
-        this.renderMessage("Type 'exit' to quit map editing.");
-
-        Scanner in = new Scanner(System.in);
-
-        return in.nextLine();
-
+    public String renderUserInput(String message) {
+        renderMessage(message);
+        return this.in.nextLine();
     }
 
     /**
@@ -190,7 +196,7 @@ public class TerminalRenderer {
      */
     public void showMap(boolean p_enable_gameview) {
 
-        WorldMap map = d_ge.CURRENT_MAP;
+        WorldMap map = d_ge.d_worldmap;
         StringBuilder out = new StringBuilder();
         HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
 
@@ -227,13 +233,15 @@ public class TerminalRenderer {
             out.append("\n");
         }
         System.out.println(out);
+
+        logEntryBuffer.setString("showing current map :"+ d_ge.CURRENT_MAP.toString());
     }
 
     /**
      * Displays the current game map.
      */
     public void showCurrentGameMap() {
-        WorldMap map = d_ge.CURRENT_MAP;
+        WorldMap map = d_ge.d_worldmap;
         StringBuilder out = new StringBuilder();
         HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
         for (Country c : map.getCountries().values()) {
