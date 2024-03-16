@@ -129,7 +129,6 @@ public class Player {
 
             String l_order = l_arr[0];
 
-           //       2 Airlift order command (requires the airlift card): airlift sourcecountryID targetcountryID numarmies
 
             switch(l_order){
                 case "deploy":
@@ -223,16 +222,7 @@ public class Player {
 
             } else {
 
-                if (!deployment_validator(l_numberTobeDeployed)) {
 
-                    this.d_terminalRenderer.renderMessage("You (" + this.d_playerName + ") don't have enough troops for this deploy order");
-                    throw new InvalidCommandException("Invalid Command!!! Not enough troops");
-
-                } else {
-
-                    throw new InvalidCommandException("Invalid Command");
-
-                }
 
             }
 

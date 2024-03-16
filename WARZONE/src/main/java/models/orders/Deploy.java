@@ -1,5 +1,6 @@
 package models.orders;
 import controller.GameEngine;
+import helpers.exceptions.InvalidCommandException;
 import view.TerminalRenderer;
 
 
@@ -51,6 +52,13 @@ public class Deploy implements Order {
 
     @Override
     public boolean validateCommand(){
+
+        if (!deployment_validator(l_numberTobeDeployed)) {
+
+            this.d_terminalRenderer.renderMessage("You (" + this.d_playerName + ") don't have enough troops for this deploy order");
+            throw new InvalidCommandException("Invalid Command!!! Not enough troops");
+
+        }
 
         return true;
     }

@@ -36,26 +36,23 @@ public class Bomb  implements  Order{
     @Override
     public boolean validateCommand(){
 
+        if(this.d_sourcePlayer.getAssignedCountries().contains(d_bombCountryID)){
+            System.out.println("Cannot bomb own country!");
+            return false;
+        }
+        if(!checkIfNeighbour()) {
+            System.out.println("Cannot Bomb non neighbouring countries");
+            return false;
+        }
+
         return true;
     }
 
     @Override
     public void execute(){
-        if(this.d_sourcePlayer.getAssignedCountries().contains(d_bombCountryID)){
-            System.out.println("Cannot bomb own country!");
-            return;
-        }
 
-        if(!checkIfNeighbour()){
-            System.out.println("Cannot Bomb non neighbouring countries");
-        }else{
             int l_currentReinforcementsBombCountry = this.d_gameEngine.CURRENT_MAP.getCountry(this.d_bombCountryID).getReinforcements();
             this.d_gameEngine.CURRENT_MAP.getCountry(this.d_bombCountryID).setReinforcements(l_currentReinforcementsBombCountry/2);
-            return;
-        }
-
-
-
 
     }
 

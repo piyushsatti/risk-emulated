@@ -1,5 +1,6 @@
 package controller;
 
+import helpers.exceptions.CountryDoesNotExistException;
 import models.orders.Order;
 import models.Player;
 import models.worldmap.Country;
@@ -85,7 +86,7 @@ public class PlayGame {
      * @param p_listOfPlayers list of players participating in the game.
      * @throws InvalidCommandException if an invalid command is issued.
      */
-    public static void playerOrders(ArrayList<Player> p_listOfPlayers) throws InvalidCommandException {
+    public static void playerOrders(ArrayList<Player> p_listOfPlayers) throws InvalidCommandException, CountryDoesNotExistException {
 
         System.out.println("Please Start issuing orders");
         int l_totalplayers = p_listOfPlayers.size();
