@@ -4,7 +4,6 @@ import helpers.exceptions.*;
 import models.worldmap.Continent;
 import models.worldmap.Country;
 import models.worldmap.WorldMap;
-import view.TerminalRenderer;
 
 import java.io.*;
 import java.util.HashMap;
@@ -58,7 +57,6 @@ public class MapInterface {
         String l_data;
         String[] l_split_data;
         Boolean[] l_state = {false, false, false};
-        int i = 1;
 
         while (l_file_reader.hasNextLine())
         {
@@ -98,15 +96,14 @@ public class MapInterface {
             {
                 if (l_state[0])
                 {
-                    ge.CURRENT_MAP.addContinent(i, l_split_data[0], Integer.parseInt(l_split_data[1]));
-                    i++;
+                    ge.CURRENT_MAP.addContinent(l_split_data[0], Integer.parseInt(l_split_data[1]));
                     continue;
                 }
                 else if (l_state[1]) {
                     ge.CURRENT_MAP.addCountry(
+                            l_split_data[1],
                             Integer.parseInt(l_split_data[0]),
-                            Integer.parseInt(l_split_data[2]),
-                            l_split_data[1]
+                            Integer.parseInt(l_split_data[2])
                     );
                     continue;
                 }
