@@ -30,7 +30,7 @@ public class MapInterface {
 
         File l_map_file_obj = new File(ge.d_maps_folder + p_map_name);
         ge.d_renderer.renderMessage(ge.d_maps_folder + p_map_name);
-        ge.d_renderer.renderMessage("Map object" + l_map_file_obj);
+        ge.d_renderer.renderMessage("Map object: " + l_map_file_obj);
 
         if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory())
         {
@@ -38,7 +38,7 @@ public class MapInterface {
         }
         else
         {
-            ge.d_renderer.renderMessage("Hello file does not exist");
+            ge.d_renderer.renderMessage("File does not exist");
             throw new FileNotFoundException("File does not exist.");
         }
     }
@@ -219,4 +219,74 @@ public class MapInterface {
         }
         return false;
     }
+
+    public static void loadMap2(GameEngine ge, String mapName) throws FileNotFoundException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, CountryDoesNotExistException {
+
+        File l_map_file_obj;
+        Scanner l_file_reader;
+        l_map_file_obj = createFileObjectFromFileName(ge, mapName);
+        l_file_reader = new Scanner(l_map_file_obj);
+        String[] l_split_data;
+        while(l_file_reader.hasNextLine()){
+
+             l_split_data = l_file_reader.nextLine().split(" ");
+
+            switch (l_split_data[0]) {
+                case "[continents]" -> loadContinents(l_file_reader, ge.d_worldmap);
+                case "[countries]" -> loadCountries(l_file_reader, ge.d_worldmap);
+                case "[borders]" -> loadBorders(l_file_reader, ge.d_worldmap);
+            }
+        }
+
+    }
+
+
+    public static void loadContinents(Scanner fileReader, WorldMap wm) throws ContinentAlreadyExistsException {
+
+        String[] inputData;
+        while(fileReader.hasNextLine()){
+            inputData = fileReader.nextLine().split(" ");
+
+            if(inputData[0].isBlank())return;
+            else{
+                String continentName = inputData[0];
+                int bonus = Integer.parseInt(inputData[1]);
+                wm.addContinent(continentName, bonus);
+            }
+        }
+    }
+
+    public static void loadCountries(Scanner fileReader, WorldMap wm) throws ContinentDoesNotExistException, DuplicateCountryException {
+        String[] inputData;
+        while(fileReader.hasNextLine()){
+            inputData = fileReader.nextLine().split(" ");
+
+            if(inputData[0].isBlank())return;
+            else{
+                int countryID = Integer.parseInt(inputData[0]);
+                String countryName = inputData[1];
+                int continentID = Integer.parseInt(inputData[2]);
+                wm.addCountry(countryName,continentID,countryID);
+            }
+        }
+    }
+
+    public static void loadBorders(Scanner fileReader, WorldMap wm) throws CountryDoesNotExistException {
+        String[] inputData;
+        while(fileReader.hasNextLine()){
+
+            inputData = fileReader.nextLine().split(" ");
+            if(inputData[0].isBlank())return;
+            else{
+                int sourceCountry = Integer.parseInt(inputData[0]);
+                for(String s: inputData){
+                    int targetCountry = Integer.parseInt(s);
+                    if(sourceCountry != targetCountry){
+                        wm.addBorder(sourceCountry,targetCountry);
+                    }
+                }
+            }
+        }
+    }
+
 }
