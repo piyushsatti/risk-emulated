@@ -42,7 +42,7 @@ public class MapEditorCommands extends Commands{
             ge.renderer.renderError("InvalidCommandException : Invalid Command: " + this.d_command.split(" ")[0]);
         }
 
-        String[] l_command = d_command.trim().split("//s+");
+        String[] l_command = d_command.trim().split("\\s+");
 
         switch (l_command[0]) {
             case "showmap":
