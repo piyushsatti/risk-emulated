@@ -1,14 +1,12 @@
-package controller.states;
+package controller.phases;
 
 import controller.GameEngine;
 
-import java.util.Scanner;
-
-public abstract class State {
+public abstract class Phase {
 
     GameEngine ge;
     String d_stateName;
-    public State(GameEngine g){
+    public Phase(GameEngine g){
         this.ge = g;
     }
     abstract public void displayMenu();

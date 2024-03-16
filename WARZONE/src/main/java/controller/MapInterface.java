@@ -24,10 +24,10 @@ public class MapInterface {
      * @return The File object representing the map file.
      * @throws FileNotFoundException If the specified file does not exist.
      */
-    private static File createFileObjectFromFileName(String p_map_name) throws FileNotFoundException {
+    private static File createFileObjectFromFileName(String p_map_name, GameEngine ge) throws FileNotFoundException {
 
-        File l_map_file_obj = new File(GameEngine.MAPS_FOLDER + p_map_name);
-        TerminalRenderer.renderMessage(GameEngine.MAPS_FOLDER + p_map_name);
+        File l_map_file_obj = new File(ge.d_mapsFolder + p_map_name);
+        TerminalRenderer.renderMessage(ge.d_mapsFolder + p_map_name);
         TerminalRenderer.renderMessage("Map object" + l_map_file_obj);
 
         if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory()) {
@@ -48,7 +48,7 @@ public class MapInterface {
      * @throws FileNotFoundException    If the specified file does not exist.
      * @throws NumberFormatException    If there is an error in parsing numeric data.
      */
-    public static WorldMap loadMap(String p_map_name) throws FileNotFoundException, NumberFormatException, InvalidMapException {
+    public static WorldMap loadMap(String p_map_name, GameEngine ge) throws FileNotFoundException, NumberFormatException, InvalidMapException {
 
         File l_map_file_obj;
 
@@ -56,7 +56,7 @@ public class MapInterface {
 
         WorldMap map = new WorldMap();
 
-        l_map_file_obj = createFileObjectFromFileName(p_map_name);
+        l_map_file_obj = createFileObjectFromFileName(p_map_name ,ge);
 
         l_file_reader = new Scanner(l_map_file_obj);
 
@@ -179,11 +179,11 @@ public class MapInterface {
      * @param p_file_name The name of the file to save the map to.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public static void saveMap(String p_file_name) throws IOException {
+    public static void saveMap(String p_file_name, GameEngine ge) throws IOException {
 
-        WorldMap p_map = GameEngine.CURRENT_MAP;
+        WorldMap p_map = ge.d_map;
 
-        File outputFile = new File(GameEngine.MAPS_FOLDER + p_file_name);
+        File outputFile = new File(ge.d_mapsFolder + p_file_name);
 
         TerminalRenderer.renderMessage("Was file created? " + outputFile.createNewFile());
 
@@ -261,20 +261,6 @@ public class MapInterface {
 
     }
 
-    /**
-     * The main method demonstrates loading a map, validating it, and then saving it to a file.
-     *
-     * @param args The command-line arguments (not used in this method).
-     * @throws IOException If an I/O error occurs while loading or saving the map.
-     */
-    public static void main(String[] args) throws IOException, CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, InvalidMapException {
 
-        WorldMap map = MapInterface.loadMap("usa9.map");
-
-        System.out.println(MapInterface.validateMap(map));
-
-        MapInterface.saveMap("test_out.map");
-
-    }
 
 }

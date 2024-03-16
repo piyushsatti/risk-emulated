@@ -19,6 +19,11 @@ import java.util.Scanner;
  */
 public class TerminalRenderer {
 
+    GameEngine d_ge;
+
+    public TerminalRenderer(GameEngine g){
+        d_ge = g;
+    }
     /**
      * Renders a welcome message for the terminal interface.
      */
@@ -113,6 +118,8 @@ public class TerminalRenderer {
             TerminalColors.ANSI_RESET
         );
 
+        System.out.print("Enter Selection: ");
+
     }
 
     /**
@@ -131,11 +138,11 @@ public class TerminalRenderer {
      *
      * @return The filename entered by the user.
      */
-    public static String renderMapEditorMenu() {
+    public  String renderMapEditorMenu() {
 
-        TerminalRenderer.renderMessage(TerminalColors.ANSI_BLUE + """
+        renderMessage(TerminalColors.ANSI_BLUE + """
                 Please Enter a valid .map filename from folder:\t
-                """ + TerminalColors.ANSI_GREEN + GameEngine.MAPS_FOLDER + TerminalColors.ANSI_RESET);
+                """ + TerminalColors.ANSI_GREEN + d_ge.d_mapsFolder + TerminalColors.ANSI_RESET);
 
         Scanner in = new Scanner(System.in);
 
@@ -147,7 +154,7 @@ public class TerminalRenderer {
      *
      * @return The command entered by the user.
      */
-    public static String renderMapEditorCommands() {
+    public  String renderMapEditorCommands() {
 
         TerminalRenderer.renderMessage(TerminalColors.ANSI_BLUE + """
                 Please Enter a valid command:\t
@@ -184,9 +191,9 @@ public class TerminalRenderer {
      *
      * @param p_enable_gameview Indicates whether to enable the game view (show player info).
      */
-    public static void showMap(boolean p_enable_gameview) {
+    public  void showMap(boolean p_enable_gameview) {
 
-        WorldMap map = GameEngine.CURRENT_MAP;
+        WorldMap map = d_ge.d_map;
 
         StringBuilder out = new StringBuilder();
 
@@ -215,8 +222,8 @@ public class TerminalRenderer {
                 if (p_enable_gameview) {
                     out.append(" Reinforcements Deployed: ").append(country.getReinforcements());
                     int l_ownerPlayerID = country.getCountryPlayerID();
-                    if( Player.getPlayerFromList(GameEngine.PLAYER_LIST,l_ownerPlayerID)!=null){
-                        out.append(" Player Name: ").append(Player.getPlayerFromList(GameEngine.PLAYER_LIST, l_ownerPlayerID).getName());
+                    if( Player.getPlayerFromList(d_ge.d_playerList,l_ownerPlayerID)!=null){
+                        out.append(" Player Name: ").append(Player.getPlayerFromList(d_ge.d_playerList, l_ownerPlayerID).getName());
                     }
 
                 }
@@ -234,8 +241,8 @@ public class TerminalRenderer {
     /**
      * Displays the current game map.
      */
-    public static void showCurrentGameMap() {
-        WorldMap map = GameEngine.CURRENT_MAP;
+    public void showCurrentGameMap() {
+        WorldMap map = d_ge.d_map;
         StringBuilder out = new StringBuilder();
         HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
         for (Country c : map.getCountries().values()) {

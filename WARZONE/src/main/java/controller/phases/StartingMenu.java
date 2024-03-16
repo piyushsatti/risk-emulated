@@ -1,12 +1,13 @@
-package controller.states;
+package controller.phases;
 
 import controller.GameEngine;
 import views.TerminalRenderer;
 
 import java.util.Scanner;
 
-public class StartingMenu extends State {
+public class StartingMenu extends Phase {
 
+    boolean first = true;
 
     public StartingMenu(GameEngine g) {
         super(g);
@@ -18,7 +19,10 @@ public class StartingMenu extends State {
 
         TerminalRenderer.renderMessage("current game phase: " + this.d_stateName);
 
-        TerminalRenderer.renderWelcome();
+        if(first) {
+            TerminalRenderer.renderWelcome();
+        }
+        first = false;
 
         String[] menu_options = {"Map Editor", "Play Game"};
 
@@ -50,23 +54,21 @@ public class StartingMenu extends State {
 
         Scanner in = new Scanner(System.in);
 
-        String user_in;
+        int user_selection;
 
-        user_in = in.nextLine();
+        user_selection = in.nextInt();
 
-        if (user_in.strip().replace(" ", "").equalsIgnoreCase("mapeditor")) {
+        if (user_selection == 1) {
 
-            ge.setCurrentState(new MapEditor(ge));
+            ge.setCurrentPhase(new MapEditor(ge));
 
+        } else if (user_selection == 2) {
 
-        } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("playgame")) {
+            ge.setCurrentPhase(new Startup(ge));
 
-            ge.setCurrentState(new SetupMenu(ge));
+        } else if (user_selection == 3) {
 
-
-        } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
-
-            ge.setCurrentState(new End(ge));
+            ge.setCurrentPhase(new End(ge));
 
         } else {
 

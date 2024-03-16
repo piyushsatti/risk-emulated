@@ -1,9 +1,9 @@
-package controller.states;
+package controller.phases;
 
 import controller.GameEngine;
 
-public class End extends State{
-    public End(GameEngine g) {
+public class Startup extends Phase{
+    public Startup(GameEngine g) {
         super(g);
     }
 
@@ -31,6 +31,4 @@ public class End extends State{
     public void processInput() {
 
     }
-
-
 }

@@ -1,13 +1,10 @@
-package controller.states;
+package controller.phases;
 
 import controller.GameEngine;
 
-public class OrderExecution extends State{
-
-
-    public OrderExecution(GameEngine g) {
+public class IssueOrder extends Phase{
+    public IssueOrder(GameEngine g) {
         super(g);
-        this.d_stateName = "Order Execution";
     }
 
     @Override

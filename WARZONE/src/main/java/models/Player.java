@@ -1,7 +1,5 @@
 package models;
-
 import controller.GameEngine;
-import controller.commands.CommandValidator;
 import helpers.exceptions.InvalidCommandException;
 import views.TerminalRenderer;
 
@@ -69,62 +67,7 @@ public class Player {
      */
     public void issue_order() throws InvalidCommandException {
 
-        while(true) {
 
-            TerminalRenderer.renderMessage("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());
-
-            String command = TerminalRenderer.issueOrderView(this.getName());
-
-            CommandValidator commandValidator = new CommandValidator();
-
-            commandValidator.addCommand(command);
-
-            String[] arr = command.split(" ");
-
-            int l_countryID = GameEngine.CURRENT_MAP.getCountryID(arr[1]);
-
-            int l_numberTobeDeployed = Integer.parseInt(arr[2]);
-
-
-            if (l_countryID > 0 && l_numberTobeDeployed <= this.getReinforcements()) {
-
-                if (this.d_assignedCountries.contains(l_countryID)) {
-
-                    Order order = new Order(this.getName(),this.getPlayerId(), l_countryID, l_numberTobeDeployed);
-
-                    TerminalRenderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + GameEngine.CURRENT_MAP.getCountry(l_countryID).getCountryName() + " by Player: " + this.d_playerName);
-
-                    this.d_orderList.add(order);
-
-                    this.setReinforcements(this.getReinforcements() - l_numberTobeDeployed);
-
-                    TerminalRenderer.renderMessage("Player: " + this.d_playerName + " Reinforcements Available: " + this.getReinforcements());
-
-                    return;
-
-                } else {
-
-                    TerminalRenderer.renderMessage("You (" + this.d_playerName + ") Cannot Deploy Troops here you don't own it.");
-                    throw new InvalidCommandException("Invalid Command!!! You don't own the country");
-
-                }
-
-            } else {
-
-                if (!deployment_validator(l_numberTobeDeployed)) {
-
-                    TerminalRenderer.renderMessage("You (" + this.d_playerName + ") don't have enough troops for this deploy order");
-                    throw new InvalidCommandException("Invalid Command!!! Not enough troops");
-
-                } else {
-
-                    throw new InvalidCommandException("Invalid Command");
-
-                }
-
-            }
-
-        }
 
     }
 

@@ -1,11 +1,11 @@
-package controller.states;
+package controller.phases;
 
 import controller.GameEngine;
 
-public class OrderIssuing extends State {
-    public OrderIssuing(GameEngine g) {
+public class Reinforcement extends Phase {
+    public Reinforcement(GameEngine g) {
         super(g);
-        this.d_stateName = "Order Issuing";
+        this.d_stateName = "Reinforcement";
     }
 
     @Override

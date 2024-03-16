@@ -1,11 +1,10 @@
-package controller.states;
+package controller.phases;
 
 import controller.GameEngine;
 
-public class SetupMenu extends State{
-    public SetupMenu(GameEngine ge) {
-        super(ge);
-        this.d_stateName = "Setup";
+public class End extends Phase {
+    public End(GameEngine g) {
+        super(g);
     }
 
     @Override
