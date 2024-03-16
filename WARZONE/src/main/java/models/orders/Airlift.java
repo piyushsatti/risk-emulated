@@ -40,19 +40,20 @@ public class Airlift implements Order{
     @Override
     public boolean validateCommand(){
 
+        if (!d_sourcePlayer.getAssignedCountries().contains(d_fromCountryID)) {
+            System.out.println("Player does not own the source country");
+            return false;
+        }
+        if(!d_sourcePlayer.getAssignedCountries().contains(d_toCountryID)){
+            System.out.println("Player does not own the target country");
+            return false;
+        }
         return true;
     }
 
     @Override
     public void execute() {
-        if (!d_sourcePlayer.getAssignedCountries().contains(d_fromCountryID)) {
-            System.out.println("Player does not own the source country");
-            return;
-        }
-        if(!d_sourcePlayer.getAssignedCountries().contains(d_toCountryID)){
-            System.out.println("Player does not own the target country");
-            return;
-        }
+
         int l_currentReinforcementsFromCountry = this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getReinforcements();
         if(this.d_airliftedTroops <= l_currentReinforcementsFromCountry && this.d_airliftedTroops >0){
             int l_currentReinforcementsToCountry = this.d_gameEngine.CURRENT_MAP.getCountry(this.d_toCountryID).getReinforcements();
