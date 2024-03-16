@@ -95,7 +95,7 @@ public class MapEditorCommands extends Commands{
                         Integer.parseInt(p_command[i + 2])
                 );
             } catch (ContinentAlreadyExistsException e) {
-                ge.renderer.renderError("ContinentAlreadyExists : " + e.getMessage());
+                ge.d_renderer.renderError("ContinentAlreadyExists : " + e.getMessage());
             }
             editContinent(ge, p_command, i += 3);
         } else {
@@ -119,9 +119,9 @@ public class MapEditorCommands extends Commands{
                         ge.d_worldmap.getContinentID(p_command[i + 2])
                 );
             } catch (ContinentDoesNotExistException e) {
-                ge.renderer.renderError("ContinentDoesNotExistException : " + e.getMessage());
+                ge.d_renderer.renderError("ContinentDoesNotExistException : " + e.getMessage());
             } catch (DuplicateCountryException e) {
-                ge.renderer.renderError("DuplicateCountryException : " + e.getMessage());
+                ge.d_renderer.renderError("DuplicateCountryException : " + e.getMessage());
             }
             editCountry(ge, p_command, i += 3);
         } else {
@@ -144,7 +144,8 @@ public class MapEditorCommands extends Commands{
                         ge.d_worldmap.getCountryID(p_command[i + 2])
                 );
             } catch (CountryDoesNotExistException e) {
-                ge.renderer.renderError("CountryDoesNotExistException : " + e.getMessage());
+                ge.d_renderer.renderError("CountryDoesNotExistException : " + e.getMessage());
+
             }
             editNeighbor(ge, p_command, i += 3);
         } else {
@@ -154,7 +155,7 @@ public class MapEditorCommands extends Commands{
                         ge.d_worldmap.getCountryID(p_command[i + 2])
                 );
             } catch (CountryDoesNotExistException e) {
-                ge.renderer.renderError("CountryDoesNotExistException : " + e.getMessage());
+                ge.d_renderer.renderError("CountryDoesNotExistException : " + e.getMessage());
             }
 
             editNeighbor(ge, p_command, i += 3);

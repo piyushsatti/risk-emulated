@@ -1,6 +1,7 @@
 package view;
 
 import controller.GameEngine;
+import controller.statepattern.Phase;
 import models.LogEntryBuffer;
 import models.Subject;
 
@@ -23,7 +24,7 @@ public class Logger implements Observer{
         }
         catch(IOException e)
         {
-            ge.renderer.renderError("IOException: error in creating/loading log file");
+            ge.d_renderer.renderError("IOException: error in creating/loading log file");
         }
     }
     public Logger(Subject model)
