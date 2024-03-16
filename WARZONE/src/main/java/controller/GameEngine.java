@@ -45,7 +45,7 @@ public class GameEngine {
     /**
      * List of players in the game.
      */
-    // public ArrayList<Player> PLAYER_LIST;
+    public ArrayList<Player> PLAYER_LIST;
 
     public TerminalRenderer renderer;
     public WorldMap worldmap;
@@ -67,7 +67,7 @@ public class GameEngine {
         MAPS_FOLDER = "WARZONE/src/main/resources/maps/";
         renderer = new TerminalRenderer(this);
         CURRENT_MAP = new WorldMap();
-        // PLAYER_LIST = new ArrayList<>();
+        PLAYER_LIST = new ArrayList<>();
     }
 
     /**
