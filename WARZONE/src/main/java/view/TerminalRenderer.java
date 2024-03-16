@@ -156,7 +156,7 @@ public class TerminalRenderer {
         this.renderMessage(TerminalColors.ANSI_BLUE + """
                 Please Enter a valid command:\t
                 """ + TerminalColors.ANSI_GREEN +
-                "Super Commands: savemap, laodmap, editmap, showmap" +
+                "Super Commands: savemap, loadmap, editmap, showmap\n" +
                 "Map Edit Commands: editcountry, editneighbor, editcontinent" +
                 TerminalColors.ANSI_RESET);
 
