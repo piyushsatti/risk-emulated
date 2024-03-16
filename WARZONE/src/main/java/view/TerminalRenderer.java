@@ -162,7 +162,7 @@ public class TerminalRenderer {
                 TerminalColors.ANSI_BLUE + """
                 Please Enter a valid command:\t
                 """ + TerminalColors.ANSI_GREEN +
-                "Super Commands: savemap, laodmap, editmap, showmap" +
+                "Super Commands: savemap, loadmap, editmap, showmap\n" +
                 "Map Edit Commands: editcountry, editneighbor, editcontinent" +
                         TerminalColors.ANSI_RESET + "\n" +
                         "Type 'exit' to quit map editing."
@@ -234,7 +234,7 @@ public class TerminalRenderer {
         }
         System.out.println(out);
 
-        logEntryBuffer.setString("showing current map :"+ d_ge.CURRENT_MAP.toString());
+        logEntryBuffer.setString("showing current map :"+ d_ge.d_worldmap.toString());
     }
 
     /**

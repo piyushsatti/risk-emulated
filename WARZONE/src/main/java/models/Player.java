@@ -1,8 +1,9 @@
 package models;
 
 import controller.GameEngine;
-import controller.middleware.commands.CommandValidator;
+//import controller.middleware.commands.CommandValidator;
 import helpers.exceptions.InvalidCommandException;
+import org.junit.jupiter.api.Order;
 import view.TerminalRenderer;
 
 import java.util.ArrayDeque;
@@ -87,12 +88,13 @@ public class Player {
         return p_numberTobeDeployed < this.getReinforcements();
     }
 
+
     /**
      * Issues an order for the player.
      *
      * @throws InvalidCommandException If the command issued by the player is invalid.
      */
-    public void issue_order() throws InvalidCommandException {
+   /* public void issue_order() throws InvalidCommandException {
 
         while (true) {
 
@@ -151,7 +153,7 @@ public class Player {
 
         }
 
-    }
+    }*/
 
     /**
      * Gets the next order from the player's order list.

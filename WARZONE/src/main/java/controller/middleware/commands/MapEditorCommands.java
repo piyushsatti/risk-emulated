@@ -40,8 +40,8 @@ public class MapEditorCommands extends Commands{
     @Override
     public void execute(GameEngine ge) {
 
-        if (!this.validateCommand()) {
-            ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format.");
+        if (!this.validateCommandName()) {
+            ge.d_renderer.renderError("InvalidCommandException : Invalid Command: " + this.d_command.split(" ")[0]);
         }
 
         String[] l_command = d_command.trim().split("//s+");
