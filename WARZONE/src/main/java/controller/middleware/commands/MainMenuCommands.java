@@ -28,7 +28,7 @@ public class MainMenuCommands extends Commands {
     void execute(GameEngine ge) {
 
         if (!this.validateCommand()) {
-            ge.renderer.renderError("InvalidCommandException : Invalid Command Format.");
+            ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format.");
         }
 
         String[] l_command = d_command.trim().split("//s+");
@@ -38,11 +38,11 @@ public class MainMenuCommands extends Commands {
                 try {
                     MapInterface.loadMap(ge, l_command[1]);
                 } catch (FileNotFoundException e) {
-                    ge.renderer.renderError("FileNotFoundException : File does not exist.");
+                    ge.d_renderer.renderError("FileNotFoundException : File does not exist.");
                 } catch (NumberFormatException e) {
-                    ge.renderer.renderError("NumberFormatException : File has incorrect formatting.");
+                    ge.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
                 } catch (InvalidMapException e) {
-                    ge.renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
+                    ge.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
                 }
         }
     }

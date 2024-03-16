@@ -1,18 +1,16 @@
 package controller;
 
-
-// import controller.middleware.commands.CommandValidator;
-
 import controller.statepattern.End;
-import controller.statepattern.MainMenu;
-import controller.statepattern.Starting;
 import controller.statepattern.Phase;
+import models.Player;
+import controller.statepattern.Starting;
 import models.Player;
 import models.worldmap.WorldMap;
 import view.TerminalRenderer;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 /**
  * The GameEngine class manages the main logic of the game, including handling game phases, user input, and game loops.
@@ -21,46 +19,40 @@ import java.util.Scanner;
 public class GameEngine {
 
     /**
-     * Enum representing different phases of the game.
-     */
-    public enum GAME_PHASES {
-        MAIN_MENU, MAP_EDITOR, GAMEPLAY, SETTINGS
-    }
-
-    /**
-     * The current game phase.
-     */
-    public GAME_PHASES CURRENT_GAME_PHASE;
-
-    /**
      * The folder where map files are stored.
      */
-    public String MAPS_FOLDER;
-
-    private Phase d_currentPhase;
-
-    /**
-     * The currently loaded map.
-     */
-    public WorldMap CURRENT_MAP;
-
+    public String d_maps_folder;
     /**
      * List of players in the game.
      */
     public ArrayList<Player> PLAYER_LIST;
+    public ArrayList<Player> d_players;
+    public TerminalRenderer d_renderer;
+    public WorldMap d_worldmap;
+    private Phase d_current_phase;
 
-    public TerminalRenderer renderer;
-    public WorldMap worldmap;
-
-    public void setCurrentState(Phase p_p){
-        this.d_currentPhase = p_p;
+    public GameEngine()
+    {
+        this.d_current_phase = new Starting(this);
+        d_maps_folder = "WARZONE/src/main/resources/maps/";
+        d_renderer = new TerminalRenderer(this);
+        d_worldmap = new WorldMap();
+        d_players = new ArrayList<>();
     }
 
-    public void runState(){
-        while(this.d_currentPhase.getClass() != End.class){
-            this.d_currentPhase.run();
-        }
+    public static void main(String[] args) {
+        GameEngine testEngine = new GameEngine();
+        testEngine.runState();
+    }
 
+    public void setCurrentState(Phase p_p) {
+        this.d_current_phase = p_p;
+    }
+
+    public void runState() {
+        while (this.d_current_phase.getClass() != End.class) {
+            this.d_current_phase.run();
+        }
     }
 
     public GameEngine()

@@ -2,12 +2,10 @@ package controller.statepattern;
 
 import controller.GameEngine;
 
-import java.util.Scanner;
-
 public abstract class Phase {
 
-    GameEngine d_ge;
-    String d_phaseName;
+    public GameEngine d_ge;
+    public String d_phaseName;
 
     public Phase(GameEngine g) {
         this.d_ge = g;
@@ -21,5 +19,4 @@ public abstract class Phase {
 
     abstract public void run();
 
-    abstract public void processInput(String input);
 }

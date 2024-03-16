@@ -12,6 +12,10 @@ import java.util.regex.Pattern;
 
 import static controller.PlayGame.assignCountriesToPlayers;
 
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class StartupCommands extends Commands {
 
     public StartupCommands(String p_command) {

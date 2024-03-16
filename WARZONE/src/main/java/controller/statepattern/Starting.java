@@ -14,12 +14,11 @@ public class Starting extends Phase {
 
     @Override
     public void displayMenu() {
-
-        if (first) d_ge.renderer.renderWelcome();
+        if (first) d_ge.d_renderer.renderWelcome();
         first = false;
-        d_ge.renderer.renderMessage("current game phase: " + this.d_phaseName);
+        d_ge.d_renderer.renderMessage("current game phase: " + this.d_phaseName);
         String[] menu_options = {"Map Editor", "Play Game"};
-        d_ge.renderer.renderMenu("Starting Menu", menu_options);
+        d_ge.d_renderer.renderMenu("Starting Menu", menu_options);
         System.out.print("Enter Selection: ");
     }
 
@@ -57,12 +56,5 @@ public class Starting extends Phase {
         }else{
             System.out.println("Invalid selection!");
         }
-
-
-    }
-
-    @Override
-    public void processInput(String input) {
-
     }
 }

@@ -13,6 +13,7 @@ import java.io.IOException;
 public class Logger implements Observer{
     public void update(Subject model) {
         //GameEngine ge = new GameEngine();
+        GameEngine ge = new GameEngine();
         String outputDirectoryPath = ((LogEntryBuffer)model).getLogFolder() +"log_file";
         File outputFile = new File(outputDirectoryPath);
         String logMessage = ((LogEntryBuffer)model).getLog();
@@ -26,6 +27,7 @@ public class Logger implements Observer{
         {
             //ge.renderer.renderError("IOException: error in creating/loading log file");
             System.out.println("IOException: error in creating/loading log file");
+            ge.d_renderer.renderError("IOException: error in creating/loading log file");
         }
     }
     public Logger(Subject model)
