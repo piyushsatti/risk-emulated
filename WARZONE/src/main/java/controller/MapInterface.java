@@ -130,9 +130,9 @@ public class MapInterface {
             l_state[1] = false;
             l_state[2] = false;
 
-            LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
-            Logger lw = new Logger(logEntryBuffer);
-            logEntryBuffer.setString("loaded map :"+ p_map_name);
+//            LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+//            Logger lw = new Logger(logEntryBuffer);
+//            logEntryBuffer.setString("loaded map :"+ p_map_name);
 
         }
     }

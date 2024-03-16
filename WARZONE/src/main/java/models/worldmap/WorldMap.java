@@ -17,8 +17,8 @@ import java.util.HashMap;
  */
 public class WorldMap {
 
-    LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
-    Logger lw = new Logger(logEntryBuffer);
+//    LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+//    Logger lw = new Logger(logEntryBuffer);
 
     /**
      * HashMap containing all countries.
@@ -86,7 +86,7 @@ public class WorldMap {
         } else {
             d_countries.put(Country.id, new Country(Country.id, p_countryName, d_continents.get(p_continentID)));
             Country.id++;
-            logEntryBuffer.setString("added country"+p_countryName+" in continent: "+d_continents.get(p_continentID).getContinentName());
+           //logEntryBuffer.setString("added country"+p_countryName+" in continent: "+d_continents.get(p_continentID).getContinentName());
         }
     }
 
@@ -118,7 +118,7 @@ public class WorldMap {
         }
 
         this.getCountry(p_source).addBorder(this.getCountry(p_target));
-        logEntryBuffer.setString("added border between"+this.getCountry(p_source).getCountryName()+" and "+this.getCountry(p_target).getCountryName());
+       // logEntryBuffer.setString("added border between"+this.getCountry(p_source).getCountryName()+" and "+this.getCountry(p_target).getCountryName());
 
     }
 
@@ -139,7 +139,7 @@ public class WorldMap {
         d_continents.put(Continent.id, new Continent(Continent.id, p_continentName, p_bonus));
         Continent.id++;
 
-        logEntryBuffer.setString("added continent"+p_continentName);
+       // logEntryBuffer.setString("added continent"+p_continentName);
     }
 
     /**
@@ -241,7 +241,7 @@ public class WorldMap {
         }
 
         d_continents.remove(p_continentID);
-        logEntryBuffer.setString("removed continent"+l_continent.getContinentName());
+       // logEntryBuffer.setString("removed continent"+l_continent.getContinentName());
     }
 
     /**
@@ -261,7 +261,7 @@ public class WorldMap {
         }
 
         d_countries.remove(p_countryID);
-        logEntryBuffer.setString("removed country"+d_countries.get(p_countryID).getCountryName());
+        //logEntryBuffer.setString("removed country"+d_countries.get(p_countryID).getCountryName());
 
     }
 
@@ -342,7 +342,7 @@ public class WorldMap {
         }
 
         this.getCountry(p_source).removeBorder(this.getCountry(p_target));
-        logEntryBuffer.setString("removed border between"+this.getCountry(p_source).getCountryName()+" and "+this.getCountry(p_target).getCountryName());
+        //logEntryBuffer.setString("removed border between"+this.getCountry(p_source).getCountryName()+" and "+this.getCountry(p_target).getCountryName());
 
     }
 
