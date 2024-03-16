@@ -2,6 +2,7 @@ package view;
 
 import controller.GameEngine;
 import helpers.TerminalColors;
+import models.LogEntryBuffer;
 import models.worldmap.Continent;
 import models.worldmap.Country;
 import models.worldmap.WorldMap;
@@ -16,6 +17,9 @@ import java.util.Scanner;
  * such as a welcome message, a menu, and displaying a map.
  */
 public class TerminalRenderer {
+
+    public LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+    public Logger lw = new Logger(logEntryBuffer);
 
     GameEngine d_ge;
     Scanner in;
@@ -229,6 +233,8 @@ public class TerminalRenderer {
             out.append("\n");
         }
         System.out.println(out);
+
+        logEntryBuffer.setString("showing current map :"+ d_ge.CURRENT_MAP.toString());
     }
 
     /**
