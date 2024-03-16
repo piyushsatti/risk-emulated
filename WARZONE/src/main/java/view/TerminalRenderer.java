@@ -2,7 +2,6 @@ package view;
 
 import controller.GameEngine;
 import helpers.TerminalColors;
-import models.Player;
 import models.worldmap.Continent;
 import models.worldmap.Country;
 import models.worldmap.WorldMap;
@@ -213,10 +212,10 @@ public class TerminalRenderer {
                 if (p_enable_gameview) {
                     out.append(" Reinforcements Deployed: ").append(country.getReinforcements());
                     int l_ownerPlayerID = country.getCountryPlayerID();
-                    if (Player.getPlayerFromList(d_ge.PLAYER_LIST, l_ownerPlayerID) != null)
-                    {
-                        out.append(" Player Name: ").append(Player.getPlayerFromList(d_ge.PLAYER_LIST, l_ownerPlayerID).getName());
-                    }
+//                    if (Player.getPlayerFromList(d_ge.PLAYER_LIST, l_ownerPlayerID) != null)
+//                    {
+//                        out.append(" Player Name: ").append(Player.getPlayerFromList(d_ge.PLAYER_LIST, l_ownerPlayerID).getName());
+//                    }
                 }
                 out.append("\n\t\t");
                 for (Country borderCountries : country.getBorderCountries().values())

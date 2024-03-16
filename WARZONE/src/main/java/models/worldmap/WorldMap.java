@@ -272,7 +272,7 @@ public class WorldMap {
      * @param p_countryName The name of the country to check.
      * @return true if the world map contains a country with the specified name, false otherwise.
      */
-    public boolean containsCountry(String p_countryName) throws CountryDoesNotExistException {
+    public boolean containsCountry(String p_countryName) {
         try {
             return this.containsCountry(this.getCountryID(p_countryName));
         } catch (CountryDoesNotExistException e) {
