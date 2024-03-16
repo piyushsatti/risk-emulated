@@ -1,7 +1,6 @@
-package models.Orders;
+package models.orders;
 
 import controller.GameEngine;
-import models.Card;
 import models.Player;
 
 public class Advance implements Order {

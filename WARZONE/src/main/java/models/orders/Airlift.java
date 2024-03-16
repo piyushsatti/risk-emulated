@@ -1,8 +1,7 @@
-package models.Orders;
+package models.orders;
 
 import controller.GameEngine;
 import models.Player;
-import org.apache.commons.compress.utils.OsgiUtils;
 
 public class Airlift implements Order{
 

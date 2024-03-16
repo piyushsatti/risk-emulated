@@ -1,4 +1,4 @@
-package models.Orders;
+package models.orders;
 
 import models.Player;
 

@@ -1,7 +1,4 @@
-package models.Orders;
-
-import controller.GameEngine;
-import views.TerminalRenderer;
+package models.orders;
 
 /**
  * The Order class represents a player's order in the game.

@@ -3,8 +3,8 @@ package models;
 import controller.GameEngine;
 import controller.commands.CommandValidator;
 import helpers.exceptions.InvalidCommandException;
-import models.Orders.Deploy;
-import models.Orders.Order;
+import models.orders.Deploy;
+import models.orders.Order;
 import views.TerminalRenderer;
 
 import java.util.ArrayDeque;
