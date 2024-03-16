@@ -1,5 +1,7 @@
 package controller.middleware.commands;
 
+import controller.GameEngine;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,5 +29,12 @@ public class OrderExecutionCommands extends Commands{
         );
         Matcher matcher = pattern.matcher(d_command);
         return matcher.matches();
+    }
+
+    @Override
+    void execute(GameEngine ge) {
+        if (!this.validateCommand()) {
+            ge.renderer.renderError("InvalidCommandException : Invalid Command Format.");
+        }
     }
 }

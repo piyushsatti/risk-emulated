@@ -1,9 +1,12 @@
 package controller.middleware.commands;
 
+import controller.GameEngine;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class GamePlayCommands extends Commands{
+public class GamePlayCommands extends Commands {
+
     public GamePlayCommands(String p_command) {
         super(p_command, new String[]{
                 "loadmap",
@@ -11,6 +14,7 @@ public class GamePlayCommands extends Commands{
                 "assigncountries"
         });
     }
+
     @Override
     public boolean validateCommand()
     {
@@ -21,5 +25,10 @@ public class GamePlayCommands extends Commands{
         );
         Matcher matcher = pattern.matcher(d_command);
         return matcher.matches();
+    }
+
+    @Override
+    void execute(GameEngine ge) {
+
     }
 }
