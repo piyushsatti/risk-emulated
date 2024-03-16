@@ -21,7 +21,7 @@ public class PlayGame {
 
         ArrayList<Player> l_listOfPlayers = gameEngine.PLAYER_LIST;
         System.out.println("Assigning countries");
-        assignCountriesToPlayers(gameEngine,l_listOfPlayers);
+        assignCountriesToPlayers(gameEngine);
         gameLoop(l_listOfPlayers);
 
     }
@@ -30,13 +30,13 @@ public class PlayGame {
      *
      * @param p_listOfPlayers list of players participating in the game.
      */
-    public static void assignCountriesToPlayers(GameEngine ge, ArrayList<Player> p_listOfPlayers) {
+    public static void assignCountriesToPlayers(GameEngine ge) {
 
         HashMap<Integer, Country> map = ge.CURRENT_MAP.getD_countries();
         Set<Integer> l_countryIDSet = map.keySet();
         ArrayList<Integer> l_countryIDList = new ArrayList<>(l_countryIDSet);
 
-        int total_players = p_listOfPlayers.size();
+        int total_players = ge.PLAYER_LIST.size();
         int playerNumber =0;
         while (!l_countryIDList.isEmpty()) {
             Random rand = new Random();
@@ -47,13 +47,13 @@ public class PlayGame {
                 playerNumber =0;
             }
             Country country = map.get(l_randomCountryID);
-            country.setCountryPlayerID(p_listOfPlayers.get(playerNumber).getPlayerId());
-            p_listOfPlayers.get(playerNumber).setAssignedCountries(l_randomCountryID);
+            country.setCountryPlayerID(ge.PLAYER_LIST.get(playerNumber).getPlayerId());
+            ge.PLAYER_LIST.get(playerNumber).setAssignedCountries(l_randomCountryID);
             playerNumber++;
         }
 
         System.out.println("Assigning of Countries Done");
-        for(Player l_player: p_listOfPlayers){
+        for(Player l_player: ge.PLAYER_LIST){
             System.out.println("Number of Countries: " + l_player.getAssignedCountries().size());
             System.out.println("List of Assigned Countries for Player: "+l_player.getName());
             ArrayList<Integer> l_listOfAssignedCountries = l_player.getAssignedCountries();
