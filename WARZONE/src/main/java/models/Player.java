@@ -133,7 +133,7 @@ public class Player {
 
                     int l_countryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
                     int l_numberTobeDeployed = Integer.parseInt(l_arr[2]);
-                    Order order = new Deploy(this.getName(), this.getPlayerId(), l_countryID, l_numberTobeDeployed,this.d_gameEngine);
+                    Order order = new Deploy(this, this.getName(), this.getPlayerId(), l_countryID, l_numberTobeDeployed,this.d_gameEngine);
                     if(order.validateCommand()) {
                         this.d_orderList.add(order);
                     } else throw new InvalidCommandException("Invalid Command");
@@ -181,9 +181,15 @@ public class Player {
                     break;
 
                 case "negotiate":
-                    int l_targetPlayerID = Integer.parseInt(l_arr[1]);
-                    //Source player will call this so no need for that parameter
-                    order = new Diplomacy(this,this.getName(),this.getPlayerId(), l_targetPlayerID,this.d_gameEngine);
+                    String l_targetPlayerID = l_arr[1];
+                    Player targetPlayer = null;
+
+                    for(Player player: d_gameEngine.PLAYER_LIST){
+                        if(player.getName().equals(l_targetPlayerID)){
+                            targetPlayer = player;
+                        }
+                    }
+                    order = new Diplomacy(this, targetPlayer,this.getPlayerId(), this.getName());
                     if(order.validateCommand()) {
                         this.d_orderList.add(order);
                     } else throw new InvalidCommandException("Invalid Command");
@@ -199,9 +205,9 @@ public class Player {
 
                 if (this.d_assignedCountries.contains(l_countryID)) {
 
-                    //Order order = new Deploy(this.getName(), this.getPlayerId(), l_countryID, l_numberTobeDeployed);
+                    Order order = new Deploy(this, this.getName(), this.getPlayerId(), l_countryID, l_numberTobeDeployed, this.d_gameEngine);
 
-                    this.d_terminalRenderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + GameEngine.CURRENT_MAP.getCountry(l_countryID).getCountryName() + " by Player: " + this.d_playerName);
+                    this.d_terminalRenderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + this.d_gameEngine.CURRENT_MAP.getCountry(l_countryID).getCountryName() + " by Player: " + this.d_playerName);
 
                     this.d_orderList.add(order);
 
