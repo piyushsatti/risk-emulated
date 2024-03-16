@@ -7,9 +7,11 @@ import controller.statepattern.End;
 import controller.statepattern.MainMenu;
 import controller.statepattern.Starting;
 import controller.statepattern.Phase;
+import models.Player;
 import models.worldmap.WorldMap;
 import view.TerminalRenderer;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
