@@ -1,9 +1,11 @@
 package controller;
 
 import helpers.exceptions.*;
+import models.LogEntryBuffer;
 import models.worldmap.Continent;
 import models.worldmap.Country;
 import models.worldmap.WorldMap;
+import view.Logger;
 
 import java.io.*;
 import java.util.HashMap;
@@ -128,6 +130,10 @@ public class MapInterface {
             l_state[1] = false;
             l_state[2] = false;
 
+            LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+            Logger lw = new Logger(logEntryBuffer);
+            logEntryBuffer.setString("loaded map :"+ p_map_name);
+
         }
     }
 
@@ -192,6 +198,10 @@ public class MapInterface {
         }
         writer.write(added_line.toString());
         writer.close();
+        LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+        Logger lw = new Logger(logEntryBuffer);
+        logEntryBuffer.setString("saved map :"+ p_file_name);
+
     }
 
     /**
@@ -200,7 +210,13 @@ public class MapInterface {
      * @return True if the map is valid, false otherwise.
      */
     public static boolean validateMap(GameEngine ge)
-    {
-        return (ge.d_worldmap.isConnected()) && (ge.d_worldmap.isContinentConnected());
+    {   if((ge.d_worldmap.isConnected()) && (ge.d_worldmap.isContinentConnected()))
+        {
+            LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+            Logger lw = new Logger(logEntryBuffer);
+            logEntryBuffer.setString("validated map :"+ge.d_worldmap.toString());
+            return true;
+        }
+        return false;
     }
 }
