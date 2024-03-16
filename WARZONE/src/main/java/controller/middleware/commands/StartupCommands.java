@@ -3,8 +3,10 @@ package controller.middleware.commands;
 import controller.GameEngine;
 import controller.MapInterface;
 import helpers.exceptions.InvalidMapException;
+import models.Player;
 
 import java.io.FileNotFoundException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -63,11 +65,18 @@ public class StartupCommands extends Commands {
         {
             if(p_command[i].equals("-add") && !ge.PLAYER_LIST.contains(p_command[i+1]))
             {
-                ge.PLAYER_LIST.add(p_command[i+1]);
+                ge.PLAYER_LIST.add(new Player(p_command[i+1],ge));
             }
-            else if(ge.PLAYER_LIST.contains(p_command[i+1]);
+            else if(p_command[i].equals("-remove"))
             {
-                ge.PLAYER_LIST.remove(p_command[i+1]);
+                List<Player> playerList = ge.PLAYER_LIST;
+                for(Player player : playerList)
+                {
+                    if(player.getName().equals(p_command[i+1]))
+                    {
+                        ge.PLAYER_LIST.remove(player);
+                    }
+                }
             }
         }
     }
