@@ -3,6 +3,8 @@ package controller.middleware.commands;
 import controller.GameEngine;
 import controller.MapInterface;
 import helpers.exceptions.*;
+import models.LogEntryBuffer;
+import view.Logger;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -93,7 +95,7 @@ public class MapEditorCommands extends Commands{
                         Integer.parseInt(p_command[i + 2])
                 );
             } catch (ContinentAlreadyExistsException e) {
-                // something
+                ge.renderer.renderError("ContinentAlreadyExists : " + e.getMessage());
             }
             editContinent(ge, p_command, i += 3);
         } else {
@@ -117,9 +119,9 @@ public class MapEditorCommands extends Commands{
                         ge.d_worldmap.getContinentID(p_command[i + 2])
                 );
             } catch (ContinentDoesNotExistException e) {
-                // something
+                ge.renderer.renderError("ContinentDoesNotExistException : " + e.getMessage());
             } catch (DuplicateCountryException e) {
-                // something
+                ge.renderer.renderError("DuplicateCountryException : " + e.getMessage());
             }
             editCountry(ge, p_command, i += 3);
         } else {
@@ -142,7 +144,7 @@ public class MapEditorCommands extends Commands{
                         ge.d_worldmap.getCountryID(p_command[i + 2])
                 );
             } catch (CountryDoesNotExistException e) {
-                //somthing
+                ge.renderer.renderError("CountryDoesNotExistException : " + e.getMessage());
             }
             editNeighbor(ge, p_command, i += 3);
         } else {
@@ -152,7 +154,7 @@ public class MapEditorCommands extends Commands{
                         ge.d_worldmap.getCountryID(p_command[i + 2])
                 );
             } catch (CountryDoesNotExistException e) {
-                //something
+                ge.renderer.renderError("CountryDoesNotExistException : " + e.getMessage());
             }
 
             editNeighbor(ge, p_command, i += 3);
