@@ -18,7 +18,7 @@ public class MainMenuCommands extends Commands {
     @Override
     public boolean validateCommand() {
         Pattern pattern = Pattern.compile(
-                "^loadmap\\s\\w+\\.map$"
+                "^loadmap\\s\\w+\\.map(\\s)*$"
         );
         Matcher matcher = pattern.matcher(d_command);
         return matcher.matches();

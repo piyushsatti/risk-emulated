@@ -20,12 +20,12 @@ public class OrderExecutionCommands extends Commands{
     public boolean validateCommand()
     {
         Pattern pattern = Pattern.compile(
-                        "^deploy\\s+\\w+\\s+\\d+$|"+
-                        "^advance\\s+\\w+\\s+\\w+\\s+\\d+$|"+
-                        "^bomb\\s+\\w+\\s*$|"+
-                        "^blockade\\s+\\w+\\s*$|"+
-                        "^negotiate\\s+\\w+\\s*$|"+
-                        "^airlift\\s+\\w+\\s+\\w+\\s+\\d+$"
+                        "^deploy\\s+\\w+\\s+\\d+(\\s)*$|"+
+                        "^advance\\s+\\w+\\s+\\w+\\s+\\d+(\\s)*$|"+
+                        "^bomb\\s+\\w+\\s*(\\s)*$|"+
+                        "^blockade\\s+\\w+\\s*(\\s)*$|"+
+                        "^negotiate\\s+\\w+\\s*(\\s)*$|"+
+                        "^airlift\\s+\\w+\\s+\\w+\\s+\\d+(\\s)*$"
         );
         Matcher matcher = pattern.matcher(d_command);
         return matcher.matches();
