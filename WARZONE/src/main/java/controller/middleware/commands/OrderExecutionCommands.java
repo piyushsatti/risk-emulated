@@ -20,7 +20,7 @@ public class OrderExecutionCommands extends Commands{
     public boolean validateCommand()
     {
         Pattern pattern = Pattern.compile(
-                        "^deploy\\s+\\w+\\s+\\d+(\\s)*$|"+
+                "^deploy\\s+\\w+\\s+\\d+(\\s)*$|"+
                         "^advance\\s+\\w+\\s+\\w+\\s+\\d+(\\s)*$|"+
                         "^bomb\\s+\\w+\\s*(\\s)*$|"+
                         "^blockade\\s+\\w+\\s*(\\s)*$|"+
@@ -34,7 +34,7 @@ public class OrderExecutionCommands extends Commands{
     @Override
     void execute(GameEngine ge) {
         if (!this.validateCommand()) {
-            ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format.");
+            ge.renderer.renderError("InvalidCommandException : Invalid Command Format.");
         }
     }
 }
