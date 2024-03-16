@@ -23,10 +23,10 @@ public class LogEntryBuffer extends Subject{
         notifyAllViews(this);
     }
 
-//    public static void main(String[] args) {
-//        LogEntryBuffer lg = new LogEntryBuffer();
-//        Logger lw = new Logger(lg);
-//        lg.setString(" virat is the best");
-//    }
+    public static void main(String[] args) {
+        LogEntryBuffer lg = new LogEntryBuffer();
+        Logger lw = new Logger(lg);
+        lg.setString(" devdutt was here!");
+    }
 
 }
