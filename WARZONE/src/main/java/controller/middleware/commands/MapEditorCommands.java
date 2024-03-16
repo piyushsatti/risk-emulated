@@ -15,18 +15,15 @@ public class MapEditorCommands extends Commands{
             "editcontinent",
                     "editcountry",
                     "editneighbor",
-                    "loadmap",
                     "showmap",
                     "savemap",
                     "editmap",
-                    "validatemap",
-                    "exit"
+                    "validatemap"
         });
     }
     @Override
     public boolean validateCommand()
     {
-        /*
         Pattern pattern = Pattern.compile("^editcontinent(?:(?:\\s+-add\\s+\\w+\\s+\\d+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$|"+
                 "^editcountry(?:(?:\\s+-add\\s+\\w+\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$|"+
                 "^editneighbor(?:(?:\\s+-add\\s+\\w+\\s+\\w+)*(?:\\s+-remove\\s+\\w+\\s+\\w+)*)*(\\s)*$|" +
@@ -35,21 +32,14 @@ public class MapEditorCommands extends Commands{
                 "^savemap\\s\\w+\\.map(\\s)*$|"+
                 "^editmap\\s\\w+\\.map(\\s)*$");
         Matcher matcher = pattern.matcher(d_command);
-        return matcher.matches();*/
-        //return this.d_valid_commands.
-        //this.d_command.split(" ")[0];
-        return false;
+        return matcher.matches();
     }
-
-
 
     @Override
     public void execute(GameEngine ge) {
 
-        if (!this.validCommand()) {
+        if (!this.validateCommand()) {
             ge.renderer.renderError("InvalidCommandException : Invalid Command Format.");
-        }else{
-            ge.renderer.renderMessage("Good command");
         }
 
         String[] l_command = d_command.trim().split("//s+");
