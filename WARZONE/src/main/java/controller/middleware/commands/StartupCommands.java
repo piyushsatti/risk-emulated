@@ -24,7 +24,8 @@ public class StartupCommands extends Commands {
         super(p_command, new String[]{
                 "loadmap",
                 "gameplayer",
-                "assigncountries"
+                "assigncountries",
+                "showmap"
         });
     }
 
@@ -52,8 +53,22 @@ public class StartupCommands extends Commands {
             case "assigncountries":
                 assignCountries(ge);
                 break;
+            case "showmap":
+                showmap(ge);
+                break;
+            case "loadmap":
+                loadMap(ge);
+                break;
+            case "gameplayer":
+                break;
+            case "exit":
+
         }
     }
+
+
+
+
 
     private void assignCountries(GameEngine ge) {
 
@@ -91,4 +106,32 @@ public class StartupCommands extends Commands {
         }
 
     }
+
+    private void showmap(GameEngine ge){
+
+        if(ge.d_worldmap == null){
+            ge.d_renderer.renderError("No map loaded into game! Please use 'loadmap' command");
+        }else{
+            ge.d_renderer.showMap(false);
+        }
+    }
+
+    private void loadMap(GameEngine ge){
+        if(this.splitCommand.length < 2){
+            ge.d_renderer.renderError("Invalid command! Correct format is loadmap <mapname>");
+        }else{
+
+            try {
+                MapInterface.loadMap2(ge, splitCommand[1]);
+            }
+            catch(Exception e){
+                System.out.println(e);
+            }
+
+            if(!MapInterface.validateMap(ge)){
+                ge.d_renderer.renderError("Invalid Map! Cannot load into game");
+            }
+        }
+    }
+
 }
