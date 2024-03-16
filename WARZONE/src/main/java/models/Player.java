@@ -129,6 +129,8 @@ public class Player {
 
             String l_order = l_arr[0];
 
+           //       2 Airlift order command (requires the airlift card): airlift sourcecountryID targetcountryID numarmies
+
             switch(l_order){
                 case "deploy":
 
@@ -136,7 +138,7 @@ public class Player {
                     int l_numberTobeDeployed = Integer.parseInt(l_arr[2]);
                     Order order = new Deploy(this.getName(), this.getPlayerId(), l_countryID, l_numberTobeDeployed,this.d_gameEngine);
                     if(order.validateCommand()) {
-                        order.execute();
+                        this.d_orderList.add(order);
                     } else throw new InvalidCommandException("Invalid Command");
                     break;
 
@@ -146,9 +148,9 @@ public class Player {
                     int l_toCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[2]);
                     l_numberTobeDeployed = Integer.parseInt(l_arr[3]);
                     //Source player will call this so no need for that parameter
-                     order = new Advance(this.getName(),this.getPlayerId(), l_fromCountryID,l_toCountryID,l_numberTobeDeployed,this.d_gameEngine);
+                     order = new Advance(this,this.getName(),this.getPlayerId(), l_fromCountryID,l_toCountryID,l_numberTobeDeployed,this.d_gameEngine);
                     if(order.validateCommand()) {
-                        order.execute();
+                        this.d_orderList.add(order);
                     } else throw new InvalidCommandException("Invalid Command");
                     break;
 
@@ -157,36 +159,36 @@ public class Player {
                     l_fromCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
                     l_toCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[2]);
                     l_numberTobeDeployed = Integer.parseInt(l_arr[3]);
-                    order = new Airlift(this.getName(),this.getPlayerId(), l_fromCountryID,l_toCountryID,l_numberTobeDeployed,this.d_gameEngine);
+                    order = new Airlift(this,this.getName(),this.getPlayerId(), l_fromCountryID,l_toCountryID,l_numberTobeDeployed,this.d_gameEngine);
                     if(order.validateCommand()) {
-                        order.execute();
+                        this.d_orderList.add(order);
                     } else throw new InvalidCommandException("Invalid Command");
                     break;
 
                 case "bomb":
 
                     int l_bombCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
-                    order = new Bomb(this.getPlayerId(),this.getName(), l_bombCountryID,this.d_gameEngine);
+                    order = new Bomb(this,this.getPlayerId(),this.getName(), l_bombCountryID,this.d_gameEngine);
                     if(order.validateCommand()) {
-                        order.execute();
+                        this.d_orderList.add(order);
                     } else throw new InvalidCommandException("Invalid Command");
                     break;
 
                 case "blockade":
 
                     int l_blockadeCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
-                    order = new Blockade(this.getPlayerId(),this.getName(), l_blockadeCountryID,this.d_gameEngine);
+                    order = new Blockade(this,this.getPlayerId(),this.getName(), l_blockadeCountryID,this.d_gameEngine);
                     if(order.validateCommand()) {
-                        order.execute();
+                        this.d_orderList.add(order);
                     } else throw new InvalidCommandException("Invalid Command");
                     break;
 
                 case "negotiate":
                     int l_targetPlayerID = Integer.parseInt(l_arr[1]);
                     //Source player will call this so no need for that parameter
-                    order = new Diplomacy(this.getName(),this.getPlayerId(), l_targetPlayerID,this.d_gameEngine);
+                    order = new Diplomacy(this,this.getName(),this.getPlayerId(), l_targetPlayerID,this.d_gameEngine);
                     if(order.validateCommand()) {
-                        order.execute();
+                        this.d_orderList.add(order);
                     } else throw new InvalidCommandException("Invalid Command");
                     break;
             }
