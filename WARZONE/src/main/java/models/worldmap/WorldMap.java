@@ -1,6 +1,9 @@
 package models.worldmap;
 
-import helpers.exceptions.*;
+import helpers.exceptions.ContinentAlreadyExistsException;
+import helpers.exceptions.ContinentDoesNotExistException;
+import helpers.exceptions.CountryDoesNotExistException;
+import helpers.exceptions.DuplicateCountryException;
 
 import java.util.HashMap;
 
@@ -56,21 +59,16 @@ public class WorldMap {
 
     /**
      *
-     * @param p_countryID ID of country to be added
      * @param p_continentID ID of continent to which country will be added
      * @param p_countryName name of new country
      * @throws ContinentDoesNotExistException if continent does not exist
      * @throws DuplicateCountryException if country already exists
      */
-    public void addCountry(int p_countryID, int p_continentID, String p_countryName) throws ContinentDoesNotExistException, DuplicateCountryException {
+    public void addCountry(String p_countryName, int p_continentID, int... p_id) throws ContinentDoesNotExistException, DuplicateCountryException {
 
         if (!this.containsContinent(p_continentID)) { //does the continent exist?
 
             throw new ContinentDoesNotExistException(p_continentID);
-
-        } else if (this.containsCountry(p_countryID)) { //duplicate country id
-
-            throw new DuplicateCountryException(p_countryID);
 
         } else if (this.containsCountry(p_countryName)) { //duplicate country name
 
@@ -78,8 +76,12 @@ public class WorldMap {
 
         }
 
-        d_countries.put(p_countryID, new Country(p_countryID, p_countryName, d_continents.get(p_continentID)));
-
+        if (p_id != null) {
+            d_countries.put(p_id[0], new Country(p_id[0], p_countryName, d_continents.get(p_continentID)));
+        } else {
+            d_countries.put(Country.id, new Country(Country.id, p_countryName, d_continents.get(p_continentID)));
+            Country.id++;
+        }
     }
 
     /**
@@ -117,20 +119,18 @@ public class WorldMap {
     /**
      * Method which adds continent to map
      *
-     * @param p_id new continent integer identifier
      * @param p_continentName new continent name
      * @param p_bonus control bonus of new continent
      * @throws ContinentAlreadyExistsException if a continent with same name or id already exists
      */
-    public void addContinent(int p_id, String p_continentName, int p_bonus) throws ContinentAlreadyExistsException {
+    public void addContinent(String p_continentName, int p_bonus) throws ContinentAlreadyExistsException {
 
-        if (this.containsContinent(p_id)) { //duplicate continent id
-            throw new ContinentAlreadyExistsException(p_id);
-        } else if (this.containsContinent(p_continentName)) { //duplicate country name
+        if (this.containsContinent(p_continentName)) { // duplicate continent name
             throw new ContinentAlreadyExistsException(p_continentName);
         }
 
-        d_continents.put(p_id, new Continent(p_id, p_continentName, p_bonus));
+        d_continents.put(Continent.id, new Continent(Continent.id, p_continentName, p_bonus));
+        Continent.id++;
 
     }
 
@@ -217,16 +217,18 @@ public class WorldMap {
      * Method used to remove continent from map
      * @param p_continentID id of continent to be removed
      * @throws ContinentDoesNotExistException if continent does not exist
-     * @throws CountryDoesNotExistException if continent to be removed contains country that does not exist on map
      */
-    public void removeContinent(int p_continentID) throws ContinentDoesNotExistException, CountryDoesNotExistException {
+    public void removeContinent(int p_continentID) throws ContinentDoesNotExistException {
 
         if(!this.containsContinent(p_continentID)) throw new ContinentDoesNotExistException(p_continentID);
         Continent l_continent = d_continents.get(p_continentID);
 
         for (Country l_country : getContinentCountries(l_continent).values()) {
-
-            this.removeCountry(l_country.getCountryID());
+            try {
+                this.removeCountry(l_country.getCountryID());
+            } catch (CountryDoesNotExistException e) {
+                continue;
+            }
 
         }
 
@@ -270,8 +272,12 @@ public class WorldMap {
      * @param p_countryName The name of the country to check.
      * @return true if the world map contains a country with the specified name, false otherwise.
      */
-    public boolean containsCountry(String p_countryName){
-        return this.containsCountry(this.getCountryID(p_countryName));
+    public boolean containsCountry(String p_countryName) throws CountryDoesNotExistException {
+        try {
+            return this.containsCountry(this.getCountryID(p_countryName));
+        } catch (CountryDoesNotExistException e) {
+            return false;
+        }
     }
 
     /**
@@ -291,9 +297,12 @@ public class WorldMap {
      * @param p_continentName The name of the continent to check.
      * @return true if the world map contains a continent with the specified name, false otherwise.
      */
-    public boolean containsContinent(String p_continentName){
-
-        return this.containsContinent(this.getContinentID(p_continentName));
+    public boolean containsContinent(String p_continentName) {
+        try {
+            return this.containsContinent(this.getContinentID(p_continentName));
+        } catch (ContinentDoesNotExistException e) {
+            return false;
+        }
     }
 
     /**
@@ -333,7 +342,7 @@ public class WorldMap {
      * @param p_countryName The name of the country.
      * @return The ID of the country, or -1 if not found.
      */
-    public int getCountryID(String p_countryName){
+    public int getCountryID(String p_countryName) throws CountryDoesNotExistException {
 
         for (Country l_c : this.getCountries().values()){
 
@@ -345,8 +354,7 @@ public class WorldMap {
 
         }
 
-        return -1;
-
+        throw new CountryDoesNotExistException("Country " + p_countryName + " does not exist.");
     }
 
     /**
@@ -355,7 +363,7 @@ public class WorldMap {
      * @param p_continentName The name of the continent.
      * @return The ID of the continent, or -1 if not found.
      */
-    public int getContinentID(String p_continentName){
+    public int getContinentID(String p_continentName) throws ContinentDoesNotExistException {
 
         for (Continent l_c : this.d_continents.values()) {
 
@@ -367,7 +375,7 @@ public class WorldMap {
 
         }
 
-        return -1;
+        throw new ContinentDoesNotExistException("Continent " + p_continentName + "does not exist.");
 
     }
 
