@@ -68,12 +68,14 @@ public class MapEditorCommands extends Commands {
                 editMap(ge);
                 break;
             case "editcontinent":
-                if(editContinentValidator(ge.d_worldmap)){
+                if (editContinentValidator(ge.d_worldmap)) {
                     editContinent(ge.d_worldmap);
                 }
                 break;
             case "editcountry":
-                editCountryValidator(ge.d_worldmap);
+                if (editCountryValidator(ge.d_worldmap)) {
+                    editCountry(ge.d_worldmap);
+                }
                 break;
             case "editneighbor":
                 editNeighbor(ge, l_command, 1);
@@ -203,7 +205,7 @@ public class MapEditorCommands extends Commands {
                     return false;
                 } else {
                     try {
-                        copyMap.addCountry(splitCommand[commandIndex + 1], Integer.parseInt(splitCommand[commandIndex + 2]));
+                        copyMap.addCountry(splitCommand[commandIndex + 1], wm.getContinentID(splitCommand[commandIndex + 2]),null);
                     } catch (Exception e) {
                         System.out.println(e);
                         System.out.println(invalidMessage);
@@ -236,6 +238,38 @@ public class MapEditorCommands extends Commands {
 
         }
         return true;
+    }
+
+
+    public void editCountry(WorldMap wm) {
+        int commandLength = this.splitCommand.length;
+
+
+        int commandIndex = 1;
+        while (commandIndex < commandLength) {
+
+            if (splitCommand[commandIndex].equals("-add")) {
+
+                try {
+                    wm.addCountry(splitCommand[commandIndex + 1], wm.getContinentID(splitCommand[commandIndex + 2]), null);
+                } catch (Exception e) {
+                    System.out.println(e);
+                    return;
+                }
+                commandIndex = commandIndex + 3;
+
+
+            } else if (splitCommand[commandIndex].equals("-remove")) {
+
+                try {
+                    wm.removeCountry(wm.getCountryID(splitCommand[commandIndex + 1]));
+                } catch (Exception e) {
+                    System.out.println(e);
+                    return;
+                }
+                commandIndex = commandIndex + 2;
+            }
+        }
     }
 
     public void editNeighbor(GameEngine ge, String[] p_command, int i) {
