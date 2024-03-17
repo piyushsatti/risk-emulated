@@ -2,7 +2,7 @@ package controller.middleware.commands;
 
 import controller.GameEngine;
 import controller.MapInterface;
-import helpers.exceptions.InvalidMapException;
+import helpers.exceptions.*;
 
 import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
@@ -27,8 +27,13 @@ public class MainMenuCommands extends Commands {
     @Override
     void execute(GameEngine ge) {
 
-        if (!this.validateCommand()) {
+        if (!this.validateCommandName() || !this.validateCommand() ) {
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format.");
+            return;
+        }
+        else if(!this.validateCommand()){
+            ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format for: " + this.d_command.split("\\s+")[0]);
+            return;
         }
 
         String[] l_command = d_command.trim().split("\\s+");
@@ -36,14 +41,23 @@ public class MainMenuCommands extends Commands {
         switch (l_command[0]) {
             case "loadmap":
                 try {
-                    MapInterface.loadMap(ge, l_command[1]);
+                    MapInterface.loadMap2(ge, l_command[1]);
                 } catch (FileNotFoundException e) {
                     ge.d_renderer.renderError("FileNotFoundException : File does not exist.");
                 } catch (NumberFormatException e) {
                     ge.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
-                } catch (InvalidMapException e) {
-                    ge.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
+                }  catch (CountryDoesNotExistException e) {
+                    throw new RuntimeException(e);
+                } catch (ContinentAlreadyExistsException e) {
+                    throw new RuntimeException(e);
+                } catch (ContinentDoesNotExistException e) {
+                    throw new RuntimeException(e);
+                } catch (DuplicateCountryException e) {
+                    throw new RuntimeException(e);
                 }
+//                catch (InvalidMapException e) {
+//                    ge.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
+//                }
         }
     }
 }

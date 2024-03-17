@@ -15,13 +15,14 @@ import java.util.regex.Pattern;
 public class MapEditorCommands extends Commands{
     public MapEditorCommands(String p_command) {
         super(p_command, new String[]{
-                "editcontinent",
-                "editcountry",
-                "editneighbor",
-                "showmap",
-                "savemap",
-                "editmap",
-                "validatemap"
+            "editcontinent",
+                    "editcountry",
+                    "editneighbor",
+                    "showmap",
+                    "savemap",
+                    "editmap",
+                    "validatemap",
+                    "loadmap"
         });
     }
     @Override
@@ -33,6 +34,7 @@ public class MapEditorCommands extends Commands{
                 "^showmap(\\s)*$|"+
                 "^validatemap(\\s)*$|"+
                 "^savemap\\s\\w+\\.map(\\s)*$|"+
+                "^loadmap\\s\\w+\\.map(\\s)*$|"+
                 "^editmap\\s\\w+\\.map(\\s)*$");
         Matcher matcher = pattern.matcher(d_command);
         return matcher.matches();
@@ -40,14 +42,38 @@ public class MapEditorCommands extends Commands{
 
     @Override
     public void execute(GameEngine ge) {
-
-        if (!this.validateCommandName()) {
-            ge.d_renderer.renderError("InvalidCommandException : Invalid Command: " + this.d_command.split(" ")[0]);
+        if (!this.validateCommandName() || !this.validateCommand() ) {
+            ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format.");
+            return;
+        }
+        else if(!this.validateCommand()){
+            ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format for: " + this.d_command.split("\\s+")[0]);
+            return;
         }
 
-        String[] l_command = d_command.trim().split("//s+");
+        String[] l_command = d_command.trim().split("\\s+");
 
         switch (l_command[0]) {
+            case "loadmap":
+                try {
+                    MapInterface.loadMap2(ge, l_command[1]);
+                } catch (FileNotFoundException e) {
+                    ge.d_renderer.renderError("FileNotFoundException : File does not exist.");
+                } catch (NumberFormatException e) {
+                    ge.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
+                }  catch (CountryDoesNotExistException e) {
+                    throw new RuntimeException(e);
+                } catch (ContinentAlreadyExistsException e) {
+                    throw new RuntimeException(e);
+                } catch (ContinentDoesNotExistException e) {
+                    throw new RuntimeException(e);
+                } catch (DuplicateCountryException e) {
+                    throw new RuntimeException(e);
+                }
+//                catch (InvalidMapException e) {
+//                    ge.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
+//                }
+                break;
             case "showmap":
                 ge.d_renderer.showMap(false);
                 break;

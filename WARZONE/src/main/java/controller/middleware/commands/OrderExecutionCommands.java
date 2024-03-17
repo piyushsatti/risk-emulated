@@ -33,8 +33,13 @@ public class OrderExecutionCommands extends Commands{
 
     @Override
     void execute(GameEngine ge) {
-        if (!this.validateCommand()) {
+        if (!this.validateCommandName() || !this.validateCommand() ) {
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format.");
+            return;
+        }
+        else if(!this.validateCommand()){
+            ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format for: " + this.d_command.split("\\s+")[0]);
+            return;
         }
         String[] l_command = d_command.trim().split("\\s+");
         switch (l_command[0])

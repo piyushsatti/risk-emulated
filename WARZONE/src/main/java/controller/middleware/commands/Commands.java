@@ -26,7 +26,7 @@ public abstract class Commands {
      */
     boolean validateCommandName(){
         for(String l_cmd : d_valid_commands){
-            if(d_command.split(" ")[0].equals(l_cmd)){
+            if(d_command.split("\\s+")[0].equals(l_cmd)){
                 return true;
             }
         }
