@@ -1,12 +1,15 @@
 package controller.middleware.commands;
 
 import controller.GameEngine;
+import controller.statepattern.Phase;
 import helpers.exceptions.ContinentAlreadyExistsException;
 import helpers.exceptions.ContinentDoesNotExistException;
 import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.InvalidCommandException;
+import models.LogEntryBuffer;
 import models.Player;
 import models.orders.*;
+import view.Logger;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -17,6 +20,8 @@ public class IssueOrderCommands extends Commands{
     public boolean isFlag() {
         return flag;
     }
+    LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+    Logger lw = new Logger(logEntryBuffer);
 
     public void setFlag(boolean flag) {
         this.flag = flag;
@@ -57,8 +62,11 @@ public class IssueOrderCommands extends Commands{
 
         if(ge.d_worldmap == null){
             ge.d_renderer.renderError("No map loaded into game! Please use 'loadmap' command");
+            logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" ShowMap Order Not executed as " +
+                    "there is no map loaded "+p.getName()+" needs to load a map first");
         }else{
             ge.d_renderer.showMap(true);
+            logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" ShowMap Order " +d_command);
         }
     }
 
@@ -86,7 +94,7 @@ public class IssueOrderCommands extends Commands{
                     p.setReinforcements(p.getReinforcements() - l_numberTobeDeployed);
                     p.setOrderSuccess(true);
                     System.out.println("Command Issued!");
-
+                    logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued Deploy Order:"+d_command);
                 }
                 break;
 
@@ -106,6 +114,7 @@ public class IssueOrderCommands extends Commands{
                     p.issue_order();
                     p.setOrderSuccess(true);
                     System.out.println("Command Issued!");
+                    logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued Advance Order:"+d_command);
 
                 }
                 break;
@@ -122,10 +131,13 @@ public class IssueOrderCommands extends Commands{
                         p.removeCard("airlift");
                         p.setOrderSuccess(true);
                         System.out.println("Command Issued!");
+                        logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued Airlift Order:"+d_command);
 
                     }
                 } else {
                     ge.d_renderer.renderMessage("You don't own airlift card");
+                    logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Airlift Order: Order Not executed as "+
+                            p.getName()+" does not own an airlift card");
                 }
                 break;
 
@@ -146,10 +158,13 @@ public class IssueOrderCommands extends Commands{
                         p.removeCard("bomb");
                         System.out.println("Command Issued!");
                         p.setOrderSuccess(true);
+                        logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued Bomb Order:"+d_command);
 
                     }
                 } else {
                     ge.d_renderer.renderMessage("You don't own bomb card");
+                    logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Bomb Order Not executed as "+
+                            p.getName()+" does not own a Bomb card");
                 }
                 break;
 
@@ -164,10 +179,13 @@ public class IssueOrderCommands extends Commands{
                         p.removeCard("blockade");
                         p.setOrderSuccess(true);
                         System.out.println("Command Issued!");
+                        logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued  Blockade Order:"+d_command);
 
                     }
                 } else {
                     ge.d_renderer.renderMessage("You don't own blockade card");
+                    logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Blockade Order Not executed as "+
+                            p.getName()+" does not own a Blockade card");
                 }
                 break;
 
@@ -188,22 +206,31 @@ public class IssueOrderCommands extends Commands{
                         p.removeCard("negotiate");
                         p.setOrderSuccess(true);
                         System.out.println("Command Issued!");
+                        logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued  Negotiate Order:"+d_command);
 
                     }
                 } else {
                     ge.d_renderer.renderMessage("You don't own negotiate card");
+                    logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Negotiate Order Not executed as "+
+                            p.getName()+" does not own a Negotiate card");
                 }
                 break;
             case "done":
+                logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued Order:"+d_command);
                 if (p.getReinforcements() !=0) {
                     ge.d_renderer.renderMessage("Need to deploy all troops!");
+                    logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" Done Order Not executed as "
+                            +p.getName()+" needs to deploy all troops");
 
                 }else {
                  p.setFinishedIssueOrder(true);
+                    logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Player has finished issuing all orders:"+d_command);
+
                  p.setOrderSuccess(true);
                 }
                 break;
             case "showmap":
+                logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued Showmap Order:"+d_command);
                 showmapIssueOrder(ge);
                 break;
 

@@ -17,8 +17,8 @@ import java.util.HashMap;
  */
 public class WorldMap {
 
-//    LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
-//    Logger lw = new Logger(logEntryBuffer);
+    LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+    Logger lw = new Logger(logEntryBuffer);
 
     /**
      * HashMap containing all countries.
@@ -98,7 +98,6 @@ public class WorldMap {
     public void addCountry(String p_countryName, int p_continentID, int... p_id) throws ContinentDoesNotExistException, DuplicateCountryException {
 
         if (!this.containsContinent(p_continentID)) { //does the continent exist?
-
             throw new ContinentDoesNotExistException(p_continentID);
 
         } else if (this.containsCountry(p_countryName)) { //duplicate country name
@@ -133,7 +132,6 @@ public class WorldMap {
 
         //check that both countries exist
         if (!this.containsCountry(p_source)) {
-
             throw new CountryDoesNotExistException(p_source);
 
         } else if (!this.containsCountry(p_target)) {
@@ -164,8 +162,6 @@ public class WorldMap {
         int continentId = getNextContinentID();
         d_continents.put(continentId, new Continent(continentId, p_continentName, p_bonus));
 
-
-       // logEntryBuffer.setString("added continent"+p_continentName);
     }
 
     /**
@@ -275,7 +271,10 @@ public class WorldMap {
      */
     public void removeContinent(int p_continentID) throws ContinentDoesNotExistException {
 
-        if(!this.containsContinent(p_continentID)) throw new ContinentDoesNotExistException(p_continentID);
+        if(!this.containsContinent(p_continentID))
+        {
+            throw new ContinentDoesNotExistException(p_continentID);
+        }
         Continent l_continent = d_continents.get(p_continentID);
 
         for (Country l_country : getContinentCountries(l_continent).values()) {
@@ -288,7 +287,6 @@ public class WorldMap {
         }
 
         d_continents.remove(p_continentID);
-       // logEntryBuffer.setString("removed continent"+l_continent.getContinentName());
     }
 
     /**
@@ -308,8 +306,6 @@ public class WorldMap {
         }
 
         d_countries.remove(p_countryID);
-        //logEntryBuffer.setString("removed country"+d_countries.get(p_countryID).getCountryName());
-
     }
 
     /**

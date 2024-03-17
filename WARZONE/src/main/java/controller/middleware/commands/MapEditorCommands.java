@@ -14,6 +14,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class MapEditorCommands extends Commands {
+    LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+    Logger lw = new Logger(logEntryBuffer);
     public MapEditorCommands(String p_command) {
         super(p_command, new String[]{
                 "editcontinent",
@@ -53,40 +55,61 @@ public class MapEditorCommands extends Commands {
 
         switch (l_command[0]) {
             case "showmap":
+                logEntryBuffer.setString("Map Editor Phase: \n"+ " Entered Command: showmap");
                 ge.d_renderer.showMap(false);
+                logEntryBuffer.setString("Map Editor Phase: \n"+ " Executed Command: showmap =>"+d_command);
                 break;
             case "validatemap":
-                if (MapInterface.validateMap(ge)) ge.d_renderer.renderMessage("Map is valid");
-                else ge.d_renderer.renderMessage("Map is not valid");
+                logEntryBuffer.setString("Map Editor Phase: \n"+ " Entered Command: validatemap");
+                if (MapInterface.validateMap(ge))
+                {
+                    ge.d_renderer.renderMessage("Map is valid");
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ " Executed Command: validatemap");
+                }
+                else
+                {
+                    ge.d_renderer.renderMessage("Map is not valid");
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ " Command: validatemap Not Executed: map is not valid!");
+                }
                 break;
             case "savemap":
                 try {
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ " Entered Command: savemap => "+d_command);
                     MapInterface.saveMap(ge, l_command[1]);
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ "  Executed Command: savemap => "+d_command);
                 } catch (IOException e) {
                     ge.d_renderer.renderError("IOException : Encountered File I/O Error");
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ " Command: savemap Not Executed due to File I/O Error");
                 }
                 break;
             case "editmap":
+                logEntryBuffer.setString("Map Editor Phase: \n"+ " Entered Command: editmap => "+d_command);
                 editMap(ge);
                 break;
             case "editcontinent":
+                logEntryBuffer.setString("Map Editor Phase: \n"+ " Entered Command: editcontinent => "+d_command);
                 if (editContinentValidator(ge.d_worldmap)) {
                     editContinent(ge.d_worldmap);
+
                 }
                 break;
             case "editcountry":
+                logEntryBuffer.setString("Map Editor Phase: \n"+ " Entered Command: editcountry => "+d_command);
                 if (editCountryValidator(ge.d_worldmap)) {
                     editCountry(ge.d_worldmap);
                 }
                 break;
             case "editneighbor":
+                logEntryBuffer.setString("Map Editor Phase: \n"+ " Entered Command: editneighbor => "+d_command);
                 if (editNeighborValidator(ge.d_worldmap)) {
                     editNeighbor(ge.d_worldmap);
                 }
                 break;
             case "exit":
+                logEntryBuffer.setString("Map Editor Phase: \n"+ " Entered Command: exit => "+d_command);
                 ge.resetMap();
                 ge.setCurrentState(new Starting(ge));
+                logEntryBuffer.setString("Map Editor Phase: \n"+ " Executed Command: exit");
                 break;
         }
     }
@@ -163,7 +186,11 @@ public class MapEditorCommands extends Commands {
 
                 try {
                     wm.addContinent(splitCommand[commandIndex + 1], Integer.parseInt(splitCommand[commandIndex + 2]));
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ " added continent"+splitCommand[commandIndex + 1]
+                            +" with bonus armies value: "+splitCommand[commandIndex + 2]);
                 } catch (Exception e) {
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ " cannot add continent"+splitCommand[commandIndex + 1]
+                            +" as it already exists");
                     System.out.println(e);
                 }
                 commandIndex = commandIndex + 3;
@@ -172,7 +199,11 @@ public class MapEditorCommands extends Commands {
 
                 try {
                     wm.removeContinent(wm.getContinentID(splitCommand[commandIndex + 1]));
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ " removed continent"+
+                            splitCommand[commandIndex + 1]);
                 } catch (Exception e) {
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ " cannot remove continent"+
+                            splitCommand[commandIndex + 1]+"it does not exist");
                     System.out.println(e);
                 }
                 commandIndex = commandIndex + 2;
@@ -257,7 +288,11 @@ public class MapEditorCommands extends Commands {
 
                 try {
                     wm.addCountry(splitCommand[commandIndex + 1], wm.getContinentID(splitCommand[commandIndex + 2]), null);
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ " added country"+
+                            splitCommand[commandIndex + 1]+" continent "+splitCommand[commandIndex + 2]);
                 } catch (Exception e) {
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ " cannot add country"+
+                            splitCommand[commandIndex + 1]+"due to either target continent not existing or country already existing");
                     System.out.println(e);
                     return;
                 }
@@ -268,7 +303,11 @@ public class MapEditorCommands extends Commands {
 
                 try {
                     wm.removeCountry(wm.getCountryID(splitCommand[commandIndex + 1]));
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ " removed country"+
+                            splitCommand[commandIndex + 1]);
                 } catch (Exception e) {
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ " could not remove country"+
+                            splitCommand[commandIndex + 1]+" as it does not exist");
                     System.out.println(e);
                     return;
                 }
@@ -352,7 +391,10 @@ public class MapEditorCommands extends Commands {
 
                 try {
                     wm.addBorder(wm.getCountryID(splitCommand[commandIndex+1]),wm.getCountryID(splitCommand[commandIndex+2]));
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ "  => added border of"+
+                            splitCommand[commandIndex+2] +" to "+ splitCommand[commandIndex+1] );
                 } catch (Exception e) {
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ "  => could Not add borders due to the absence of existing source/target country" );
                     System.out.println(e);
                     return;
                 }
@@ -363,7 +405,12 @@ public class MapEditorCommands extends Commands {
 
                 try {
                     wm.removeBorder(wm.getCountryID(splitCommand[commandIndex+1]),wm.getCountryID(splitCommand[commandIndex+2]));
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ "  => removed border between"+
+                            splitCommand[commandIndex+2] +" and "+ splitCommand[commandIndex+1] );
                 } catch (Exception e) {
+                    logEntryBuffer.setString("Map Editor Phase: \n"+ "  => coud not remove border between"+
+                            splitCommand[commandIndex+2] +" and "+ splitCommand[commandIndex+1] +
+                            "either the source or target country does not exist.");
                     System.out.println(e);
                     return;
                 }
@@ -383,9 +430,12 @@ public class MapEditorCommands extends Commands {
 
         try {
             MapInterface.loadMap2(ge, mapName);
+            logEntryBuffer.setString("loaded map file "+ mapName);
         } catch (FileNotFoundException e) {
             ge.d_renderer.renderError("FileNotFoundException : File does not exist.");
+            logEntryBuffer.setString("map file does not exist");
             ge.d_renderer.renderMessage("Creating file by the name : " + mapName);
+            logEntryBuffer.setString("creating file "+ mapName);
             try {
                 MapInterface.saveMap(ge, mapName);
             } catch (IOException ex) {
@@ -394,9 +444,11 @@ public class MapEditorCommands extends Commands {
             editMap(ge);
         } catch (NumberFormatException e) {
             ge.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
+            logEntryBuffer.setString("Map Editor Phase: \n"+ " Entered Command Not Executed: editmap => "+ d_command+ "  due to Incorrect Formatting");
         } catch (ContinentAlreadyExistsException | ContinentDoesNotExistException |
                  DuplicateCountryException | CountryDoesNotExistException e) {
             ge.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
+            logEntryBuffer.setString("Map Editor Phase: \n"+ " Entered Command Not Executed: editmap => "+ d_command+ "  as Map is disjoint or incorrect");
         }
     }
 
