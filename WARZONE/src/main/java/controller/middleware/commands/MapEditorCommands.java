@@ -58,7 +58,6 @@ public class MapEditorCommands extends Commands {
             case "validatemap":
                 if (MapInterface.validateMap(ge)) ge.d_renderer.renderMessage("Map is valid");
                 else ge.d_renderer.renderMessage("Map is not valid");
-
                 break;
             case "savemap":
                 try {
@@ -66,6 +65,7 @@ public class MapEditorCommands extends Commands {
                 } catch (IOException e) {
                     ge.d_renderer.renderError("IOException : Encountered File I/O Error");
                 }
+                break;
             case "editmap":
                 editMap(ge);
                 break;
