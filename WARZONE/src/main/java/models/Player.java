@@ -32,6 +32,17 @@ public class Player {
      */
     private String d_playerName;
 
+    public boolean isOrderSuccess() {
+        return d_orderSuccess;
+    }
+
+    public void setOrderSuccess(boolean orderSuccess) {
+        this.d_orderSuccess = orderSuccess;
+    }
+
+    private boolean d_orderSuccess;
+
+
     /**
      * The number of reinforcements available for the player.
      */
@@ -42,6 +53,7 @@ public class Player {
      */
     private final ArrayList<Integer> d_assignedCountries;
     private final ArrayList<Card> d_listOfCards;
+
 
     private Order d_current_order;
 
@@ -108,6 +120,7 @@ public class Player {
         this.d_gameEngine = p_gameEngine;
 
         this.d_terminalRenderer = new TerminalRenderer(this.d_gameEngine);
+        this.d_orderSuccess = false;
 
         d_latest_playerID++;
 

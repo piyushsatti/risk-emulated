@@ -34,16 +34,23 @@ public class IssueOrder extends Phase {
     public void run() throws CountryDoesNotExistException, InvalidCommandException {
         Scanner scan = new Scanner(System.in);
         for(Player p: d_ge.d_players){
+            p.setOrderSuccess(false);
+            while(!p.isOrderSuccess() && p.getReinforcements()>0){
             d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Reinforcements Available: " + p.getReinforcements());
             System.out.print(p.getName() + " enter order: ");
             String command = scan.nextLine();
             IssueOrderCommands ioc = new IssueOrderCommands(command,p);
-            //Player.issueOrder();
-            ioc.execute(d_ge);
+            try{
+                 ioc.execute(d_ge);
+                }catch(CountryDoesNotExistException  | InvalidCommandException e){
+                    d_ge.d_renderer.renderError("Following exception occured :" + e);
+
+                }
+            }
             System.out.println("Command Issued!");
         }
 
-        //d_ge.setCurrentState(new OrderExecution(d_ge));
+        d_ge.setCurrentState(new OrderExecution(d_ge));
 
     }
 }

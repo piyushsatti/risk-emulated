@@ -13,6 +13,16 @@ import java.util.regex.Pattern;
 
 public class IssueOrderCommands extends Commands{
     Player p;
+
+    public boolean isFlag() {
+        return flag;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
+
+    boolean flag = false;
     public IssueOrderCommands(String p_command, Player p_player) {
         super(p_command, new String[]{
                 "deploy",
@@ -40,7 +50,7 @@ public class IssueOrderCommands extends Commands{
     }
 
     @Override
-    public void execute(GameEngine ge) throws  InvalidCommandException {
+    public void execute(GameEngine ge) throws  CountryDoesNotExistException, InvalidCommandException {
 
         if (!this.validateCommandName()) {
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command");
@@ -51,7 +61,7 @@ public class IssueOrderCommands extends Commands{
             return;
         }
         String[] l_command = d_command.trim().split("\\s+");
-        try{
+
 
         switch (l_command[0])
         {
@@ -62,8 +72,10 @@ public class IssueOrderCommands extends Commands{
                 if(order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
+                    p.setReinforcements( p.getReinforcements() - l_numberTobeDeployed);
+                    p.setOrderSuccess(true);
+                    break;
                 }
-                break;
 
             case "advance":
 
@@ -75,8 +87,10 @@ public class IssueOrderCommands extends Commands{
                 if(order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
+                    p.setOrderSuccess(true);
+                    break;
                 }
-                break;
+
 
             case "airlift":
 
@@ -87,8 +101,9 @@ public class IssueOrderCommands extends Commands{
                 if(order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
+                    p.setOrderSuccess(true);
+                    break;
                 }
-                break;
 
             case "bomb":
 
@@ -97,8 +112,10 @@ public class IssueOrderCommands extends Commands{
                 if(order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
+                    p.setOrderSuccess(true);
+                    break;
                 }
-                break;
+
 
             case "blockade":
 
@@ -107,8 +124,9 @@ public class IssueOrderCommands extends Commands{
                 if(order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
+                    p.setOrderSuccess(true);
+                    break;
                 }
-                break;
 
             case "negotiate":
                 String l_targetPlayerID = l_command[1];
@@ -123,12 +141,12 @@ public class IssueOrderCommands extends Commands{
                 if(order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
+                    p.setOrderSuccess(true);
+                    break;
                 }
-                break;
+
         }
-        } catch(CountryDoesNotExistException  | InvalidCommandException e){
-            ge.d_renderer.renderError("Following exception occured :" + e);
-            }
+
 
 
 //
