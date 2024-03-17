@@ -31,6 +31,7 @@ public class Reinforcement extends Phase {
     @Override
     public void run() {
         for(Player player : d_ge.d_players){
+            player.getListOfNegotiatedPlayers().clear();
             int bonus =0;
             HashMap<Integer, Continent> continents = d_ge.d_worldmap.getContinents();
             for (Continent continent : continents.values()) {

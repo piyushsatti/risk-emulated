@@ -8,6 +8,7 @@ import models.orders.*;
 import view.TerminalRenderer;
 
 
+import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -378,9 +379,29 @@ public class Player {
         return d_listOfCards;
     }
     public void addCard(){
-        Card card = Card.createCard();
-        this.d_listOfCards.add(card);
+        Card l_card = Card.createCard();
+        this.d_listOfCards.add(l_card);
+    }
+    public void removeCard(String p_cardType){
+        for (Card l_card : this.d_listOfCards) {
+            if (l_card.getTypeOfCard().equals(p_cardType)) {
+                this.d_listOfCards.remove(l_card);
+            }
+        }
+
 
     }
+    public boolean containsCard(String cardName) {
+        for (Card l_card : this.d_listOfCards) {
+            if (l_card.getTypeOfCard().equals(cardName)) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+
+
 
 }

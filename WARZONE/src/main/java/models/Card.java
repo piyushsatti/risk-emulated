@@ -3,7 +3,7 @@ import java.util.Random;
 
 
 public class Card {
-    public String getD_typeOfCard() {
+    public String getTypeOfCard() {
         return d_typeOfCard;
     }
 
@@ -24,6 +24,7 @@ public class Card {
         return card;
 
     }
+
 
 
 

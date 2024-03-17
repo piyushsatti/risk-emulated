@@ -12,12 +12,13 @@ public class Bomb  implements  Order{
 
     GameEngine d_gameEngine;
 
-
+    Player d_targetPlayer;
 
     private final int d_bombCountryID;
 
-    public Bomb(Player p_sourcePlayer, int p_playerOrderID, String p_playerOrderName,  int p_bombCountryID, GameEngine p_gameEngine) {
+    public Bomb(Player p_sourcePlayer, Player p_targetPlayer,int p_playerOrderID, String p_playerOrderName,  int p_bombCountryID, GameEngine p_gameEngine) {
         this.d_sourcePlayer = p_sourcePlayer;
+        this.d_targetPlayer = p_targetPlayer;
         this.d_playerOrderID = p_playerOrderID;
         this.d_playerOrderName = p_playerOrderName;
         this.d_bombCountryID = p_bombCountryID;
@@ -50,7 +51,13 @@ public class Bomb  implements  Order{
 
     @Override
     public void execute(){
-
+        if(d_targetPlayer != null) {
+            if (d_sourcePlayer.getListOfNegotiatedPlayers().contains(d_targetPlayer)) {
+                System.out.println(d_sourcePlayer.getName() + " has negotiated with " + d_targetPlayer.getName());
+                //skip execute
+                return;
+            }
+        }
             int l_currentReinforcementsBombCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_bombCountryID).getReinforcements();
             this.d_gameEngine.d_worldmap.getCountry(this.d_bombCountryID).setReinforcements(l_currentReinforcementsBombCountry/2);
 

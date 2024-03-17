@@ -55,36 +55,38 @@ public class IssueOrderCommands extends Commands{
         if (!this.validateCommandName()) {
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command");
             return;
-        }
-        else if(!this.validateCommand()){
+        } else if (!this.validateCommand()) {
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format for: " + this.d_command.split("\\s+")[0]);
             return;
         }
         String[] l_command = d_command.trim().split("\\s+");
 
 
-        switch (l_command[0])
-        {
+        switch (l_command[0]) {
             case "deploy":
                 int l_countryID = ge.d_worldmap.getCountryID(l_command[1]);
                 int l_numberTobeDeployed = Integer.parseInt(l_command[2]);
-                Order order = new Deploy(p, p.getName(), p.getPlayerId(), l_countryID, l_numberTobeDeployed,ge);
-                if(order.validateCommand()) {
+                Order order = new Deploy(p, p.getName(), p.getPlayerId(), l_countryID, l_numberTobeDeployed, ge);
+                if (order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
-                    p.setReinforcements( p.getReinforcements() - l_numberTobeDeployed);
+                    p.setReinforcements(p.getReinforcements() - l_numberTobeDeployed);
                     p.setOrderSuccess(true);
                     break;
                 }
 
             case "advance":
-
                 int l_fromCountryID = ge.d_worldmap.getCountryID(l_command[1]);
                 int l_toCountryID = ge.d_worldmap.getCountryID(l_command[2]);
                 l_numberTobeDeployed = Integer.parseInt(l_command[3]);
-                //Source player will call this so no need for that parameter
-                order = new Advance(p,p.getName(),p.getPlayerId(), l_fromCountryID,l_toCountryID,l_numberTobeDeployed,ge);
-                if(order.validateCommand()) {
+                Player l_targetPlayer = null;
+                for(Player player : ge.d_players){
+                    if(player.getAssignedCountries().contains(l_toCountryID)){
+                        l_targetPlayer = player;
+                    }
+                }
+                order = new Advance(p, l_targetPlayer,p.getName(),p.getPlayerId(), l_fromCountryID, l_toCountryID, l_numberTobeDeployed, ge);
+                if (order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
                     p.setOrderSuccess(true);
@@ -93,60 +95,81 @@ public class IssueOrderCommands extends Commands{
 
 
             case "airlift":
-
-                l_fromCountryID = ge.d_worldmap.getCountryID(l_command[1]);
-                l_toCountryID = ge.d_worldmap.getCountryID(l_command[2]);
-                l_numberTobeDeployed = Integer.parseInt(l_command[3]);
-                order = new Airlift(p,p.getName(),p.getPlayerId(), l_fromCountryID,l_toCountryID,l_numberTobeDeployed,ge);
-                if(order.validateCommand()) {
-                    p.addOrder(order);
-                    p.issue_order();
-                    p.setOrderSuccess(true);
-                    break;
+                if (p.containsCard("airlift")) {
+                    l_fromCountryID = ge.d_worldmap.getCountryID(l_command[1]);
+                    l_toCountryID = ge.d_worldmap.getCountryID(l_command[2]);
+                    l_numberTobeDeployed = Integer.parseInt(l_command[3]);
+                    order = new Airlift(p, p.getName(), p.getPlayerId(), l_fromCountryID, l_toCountryID, l_numberTobeDeployed, ge);
+                    if (order.validateCommand()) {
+                        p.addOrder(order);
+                        p.issue_order();
+                        p.removeCard("airlift");
+                        p.setOrderSuccess(true);
+                        break;
+                    }
+                } else {
+                    ge.d_renderer.renderMessage("You don't own airlift card");
                 }
 
             case "bomb":
+                if (p.containsCard("bomb")) {
+                    int l_bombCountryID = ge.d_worldmap.getCountryID(l_command[1]);
+                    l_targetPlayer = null;
+                    for(Player player : ge.d_players){
+                        if(player.getAssignedCountries().contains(l_bombCountryID)){
+                            l_targetPlayer = player;
+                        }
+                    }
+                    order = new Bomb(p, l_targetPlayer, p.getPlayerId(), p.getName(), l_bombCountryID, ge);
+                    if (order.validateCommand()) {
+                        p.addOrder(order);
+                        p.issue_order();
+                        p.removeCard("bomb");
+                        p.setOrderSuccess(true);
 
-                int l_bombCountryID = ge.d_worldmap.getCountryID(l_command[1]);
-                order = new Bomb(p,p.getPlayerId(),p.getName(), l_bombCountryID,ge);
-                if(order.validateCommand()) {
-                    p.addOrder(order);
-                    p.issue_order();
-                    p.setOrderSuccess(true);
-                    break;
+                        break;
+                    }
+                } else {
+                    ge.d_renderer.renderMessage("You don't own bomb card");
                 }
 
 
             case "blockade":
-
-                int l_blockadeCountryID = ge.d_worldmap.getCountryID(l_command[1]);
-                order = new Blockade(p,p.getPlayerId(),p.getName(), l_blockadeCountryID,ge);
-                if(order.validateCommand()) {
-                    p.addOrder(order);
-                    p.issue_order();
-                    p.setOrderSuccess(true);
-                    break;
+                if (p.containsCard("blockade")) {
+                    int l_blockadeCountryID = ge.d_worldmap.getCountryID(l_command[1]);
+                    order = new Blockade(p, p.getPlayerId(), p.getName(), l_blockadeCountryID, ge);
+                    if (order.validateCommand()) {
+                        p.addOrder(order);
+                        p.issue_order();
+                        p.removeCard("blockade");
+                        p.setOrderSuccess(true);
+                        break;
+                    }
+                } else {
+                    ge.d_renderer.renderMessage("You don't own blockade card");
                 }
 
             case "negotiate":
-                String l_targetPlayerID = l_command[1];
-                Player targetPlayer = null;
+                if (p.containsCard("negotiate")) {
+                    String l_targetPlayerID = l_command[1];
+                    Player targetPlayer = null;
 
-                for(Player player: ge.d_players){
-                    if(player.getName().equals(l_targetPlayerID)){
-                        targetPlayer = player;
+                    for (Player player : ge.d_players) {
+                        if (player.getName().equals(l_targetPlayerID)) {
+                            targetPlayer = player;
+                        }
                     }
+                    order = new Diplomacy(p, targetPlayer, p.getPlayerId(), p.getName());
+                    if (order.validateCommand()) {
+                        p.addOrder(order);
+                        p.issue_order();
+                        p.removeCard("negotiate");
+                        p.setOrderSuccess(true);
+                        break;
+                    }
+                } else {
+                    ge.d_renderer.renderMessage("You don't own negotiate card");
                 }
-                order = new Diplomacy(p, targetPlayer,p.getPlayerId(), p.getName());
-                if(order.validateCommand()) {
-                    p.addOrder(order);
-                    p.issue_order();
-                    p.setOrderSuccess(true);
-                    break;
-                }
-
-        }
-
 
 
 //
@@ -181,6 +204,7 @@ public class IssueOrderCommands extends Commands{
 
         }
     }
+}
 
 
 

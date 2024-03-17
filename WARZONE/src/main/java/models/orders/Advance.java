@@ -24,9 +24,10 @@ public class Advance implements Order {
     TerminalRenderer d_terminalRenderer;
 
 
-    public Advance(Player p_sourcePlayer, String p_playerOrderName, int p_playerOrderID, int p_fromCountryID, int p_toCountryID, int p_advancingtroops, GameEngine p_gameEngine) {
+    public Advance(Player p_sourcePlayer, Player p_targetPlayer,String p_playerOrderName, int p_playerOrderID, int p_fromCountryID, int p_toCountryID, int p_advancingtroops, GameEngine p_gameEngine) {
         this.d_sourcePlayer = p_sourcePlayer;
-        //this.d_targetPlayer = p_targetPlayer;
+
+        this.d_targetPlayer = p_targetPlayer;
         this.d_playerOrderName = p_playerOrderName;
 
         this.d_playerOrderID = p_playerOrderID;
@@ -65,6 +66,7 @@ public class Advance implements Order {
             if (d_sourcePlayer.getAssignedCountries().contains(d_toCountryID)) {
 
                 //Move order moving from within own adjacent territories.
+
                 int l_currentReinforcementsFromCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
 
                 this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
@@ -77,6 +79,11 @@ public class Advance implements Order {
 
             } else {
                 // Attacking adjacent territory
+                if(d_sourcePlayer.getListOfNegotiatedPlayers().contains(d_targetPlayer)){
+                    System.out.println(d_sourcePlayer.getName()+" has negotiated with "+d_targetPlayer.getName());
+                    //skip execute
+                    return;
+                }
                 int l_currentReinforcementsToCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getReinforcements();
                 int l_currentReinforcementsFromCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
                 int attackingArmiesKills = (this.d_advancingtroops) * 60 / 100;
