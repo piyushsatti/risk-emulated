@@ -68,14 +68,12 @@ public class WorldMap {
      */
     public WorldMap(WorldMap p_toCopy) throws ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, CountryDoesNotExistException {
 
-        int currentMaxId = Continent.id;
-        Continent.id = 1;
         this.d_continents = new HashMap<>();
 
         this.d_countries = new HashMap<>();
 
         for(Continent c: p_toCopy.getContinents().values()){
-            this.addContinent(c.getContinentName(),c.getBonus());
+            this.addContinent(c.getContinentID(),c.getContinentName(),c.getBonus());
         }
 
         for(Country c : p_toCopy.d_countries.values()){
@@ -88,7 +86,6 @@ public class WorldMap {
             }
         }
 
-        Continent.id = currentMaxId;
     }
 
     /**
@@ -113,8 +110,7 @@ public class WorldMap {
         if (p_id != null) {
             d_countries.put(p_id[0], new Country(p_id[0], p_countryName, d_continents.get(p_continentID)));
         } else {
-            d_countries.put(Country.id, new Country(Country.id, p_countryName, d_continents.get(p_continentID)));
-            Country.id++;
+            d_countries.put(getNextCountryID(), new Country(getNextCountryID(), p_countryName, d_continents.get(p_continentID)));
            //logEntryBuffer.setString("added country"+p_countryName+" in continent: "+d_continents.get(p_continentID).getContinentName());
         }
     }
@@ -165,11 +161,33 @@ public class WorldMap {
             throw new ContinentAlreadyExistsException(p_continentName);
         }
 
-        d_continents.put(Continent.id, new Continent(Continent.id, p_continentName, p_bonus));
-        Continent.id++;
+        int continentId = getNextContinentID();
+        d_continents.put(continentId, new Continent(continentId, p_continentName, p_bonus));
+
 
        // logEntryBuffer.setString("added continent"+p_continentName);
     }
+
+    /**
+     * This method is only used in the context of the copy constructor
+     * @param p_id integer ID of new continent to add
+     * @param p_continentName name of new continent
+     * @param p_bonus bonus value
+     * @throws ContinentAlreadyExistsException
+     */
+    public void addContinent(int p_id, String p_continentName, int p_bonus) throws ContinentAlreadyExistsException {
+
+        if (this.containsContinent(p_continentName)) { // duplicate continent name
+            throw new ContinentAlreadyExistsException(p_continentName);
+        }
+
+        d_continents.put(p_id, new Continent(p_id, p_continentName, p_bonus));
+
+
+    }
+
+
+
 
     /**
      * Method which checks if the Map is a connected graph
@@ -415,6 +433,34 @@ public class WorldMap {
 
         throw new ContinentDoesNotExistException("Continent " + p_continentName + "does not exist.");
 
+    }
+
+    public int getNextContinentID(){
+        int max = 0;
+        if(d_continents.isEmpty()){
+            return 1;
+        }else{
+            for(Continent c: d_continents.values()){
+                if(c.getContinentID() > max){
+                    max = c.getContinentID();
+                }
+            }
+            return max+1;
+        }
+    }
+
+    public int getNextCountryID(){
+        int max = 0;
+        if(d_countries.isEmpty()){
+            return 1;
+        }else{
+            for(Country c: d_countries.values()){
+                if(c.getCountryID() > max){
+                    max = c.getCountryID();
+                }
+            }
+            return max+1;
+        }
     }
 
 }

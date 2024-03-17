@@ -22,7 +22,6 @@ public class Continent {
      */
     private final int d_bonus;
 
-    public static int id = 1;
 
     /**
      * Constructor
