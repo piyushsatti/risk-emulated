@@ -10,7 +10,15 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+/**
+ * The Logger class handles logging messages to a file.
+ */
 public class Logger implements Observer{
+    /**
+     * Updates the logger with the latest log message.
+     *
+     * @param model The subject containing the log message
+     */
     public void update(Subject model) {
         //GameEngine ge = new GameEngine();
         GameEngine ge = new GameEngine();
@@ -30,6 +38,11 @@ public class Logger implements Observer{
             ge.d_renderer.renderError("IOException: error in creating/loading log file");
         }
     }
+    /**
+     * Constructs a Logger object and attaches it to the specified subject.
+     *
+     * @param model The subject to attach the logger to
+     */
     public Logger(Subject model)
     {
         model.attachView(this);

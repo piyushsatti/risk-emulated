@@ -18,14 +18,25 @@ import java.util.Scanner;
  */
 public class TerminalRenderer {
 
+    /** Log entry buffer for logging messages. */
     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+
+    /** Logger for logging messages. */
     Logger lw = new Logger(logEntryBuffer);
 
+    /** Game engine associated with the renderer. */
     GameEngine d_ge;
+
+    /** Scanner object for reading user input from the terminal. */
     Scanner in;
 
-    public TerminalRenderer(GameEngine p_ge) {
-        d_ge = p_ge;
+    /**
+     * Constructs a new TerminalRenderer object.
+     *
+     * @param p_gameEngine The game engine associated with the renderer
+     */
+    public TerminalRenderer(GameEngine p_gameEngine) {
+        d_ge = p_gameEngine;
         in = new Scanner(System.in);
     }
 
