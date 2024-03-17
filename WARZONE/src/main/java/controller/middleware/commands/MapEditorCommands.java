@@ -46,10 +46,7 @@ public class MapEditorCommands extends Commands{
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command");
             return;
         }
-        else if(!this.validateCommand()){
-            ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format for: " + this.d_command.split("\\s+")[0]);
-            return;
-        }
+
 
         String[] l_command = d_command.trim().split("\\s+");
 
