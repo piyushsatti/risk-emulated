@@ -8,21 +8,27 @@ import models.orders.Order;
 
 import java.util.ArrayList;
 
+/**
+ * Represents the phase of executing orders.
+ */
 public class OrderExecution extends Phase {
-    public OrderExecution(GameEngine g) {
-        super(g);
+    /**
+     * Constructor for OrderExecution.
+     *
+     * @param p_gameEngine The GameEngine object.
+     */
+    public OrderExecution(GameEngine p_gameEngine) {
+        super(p_gameEngine);
     }
 
     @Override
     public void displayMenu() {
 
     }
-
     @Override
     public void next() {
 
     }
-
     @Override
     public void endGame() {
 
@@ -37,6 +43,9 @@ public class OrderExecution extends Phase {
         return true;
     }
 
+    /**
+     * Executes the order execution phase.
+     */
     @Override
     public void run() {
 
@@ -66,6 +75,11 @@ public class OrderExecution extends Phase {
         d_ge.setCurrentState(new Reinforcement(d_ge));
     }
 
+    /**
+     * Checks if there is a winner in the game.
+     *
+     * @return True if there is a winner, false otherwise.
+     */
     public boolean isWinner()
     {
         if(d_ge.d_players.size()==1){
