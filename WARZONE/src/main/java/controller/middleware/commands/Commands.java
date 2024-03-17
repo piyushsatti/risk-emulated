@@ -32,7 +32,7 @@ public abstract class Commands {
      *
      * @return True if the command is valid, false otherwise.
      */
-    abstract boolean validateCommand();
+    abstract boolean validateCommand(GameEngine p_gameEngine);
 
     /**
      * Executes the command using the provided GameEngine.

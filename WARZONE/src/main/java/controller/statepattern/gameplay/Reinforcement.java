@@ -6,6 +6,7 @@ import models.Player;
 import models.worldmap.Continent;
 import models.worldmap.Country;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
@@ -50,7 +51,12 @@ public class Reinforcement extends Phase {
     @Override
     public void run() {
         allPlayersResent();
-        for(Player player : d_ge.d_players){
+        assignReinforcements(d_ge.d_players);
+        d_ge.setCurrentState(new IssueOrder(d_ge));
+    }
+    public void assignReinforcements(ArrayList<Player> players)
+    {
+        for(Player player : players){
             player.getListOfNegotiatedPlayers().clear();
             int bonus =0;
             HashMap<Integer, Continent> continents = d_ge.d_worldmap.getContinents();
@@ -71,6 +77,5 @@ public class Reinforcement extends Phase {
             player.setReinforcements(l_numberOfTroops);
         }
         System.out.println("Reinforcements Done");
-        d_ge.setCurrentState(new IssueOrder(d_ge));
     }
 }

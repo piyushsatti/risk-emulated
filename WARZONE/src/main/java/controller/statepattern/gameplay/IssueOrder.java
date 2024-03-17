@@ -81,6 +81,7 @@ public class IssueOrder extends Phase {
                     } catch (CountryDoesNotExistException | InvalidCommandException e) {
                         d_ge.d_renderer.renderError("Following exception occured :" + e);
 
+
                     }
                 }
                 l_playerNumber++;

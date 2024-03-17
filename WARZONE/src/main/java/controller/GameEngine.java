@@ -43,7 +43,7 @@ public class GameEngine {
     public GameEngine()
     {
         this.d_current_phase = new Starting(this);
-        d_maps_folder ="C:/Users/priya/OneDrive/Desktop/risk-emulated/WARZONE/src/main/resources/maps/";
+        d_maps_folder ="risk-emulated/WARZONE/src/main/resources/maps/";
 //        d_maps_folder = "C:\\Users\\HP\\Documents\\MACS PROJECTS\\soen6441 updated mvc final\\risk-emulated\\WARZONE\\src\\main\\resources\\maps\\";
         d_renderer = new TerminalRenderer(this);
         d_worldmap = new WorldMap();
@@ -71,6 +71,10 @@ public class GameEngine {
     public void setCurrentState(Phase p_phase) {
         this.d_current_phase = p_phase;
     }
+    public Phase getCurerentState() {
+        return this.d_current_phase;
+    }
+
 
     /**
      * Runs the current state of the game engine until the End phase is reached.

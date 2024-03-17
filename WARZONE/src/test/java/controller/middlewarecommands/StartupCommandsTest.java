@@ -1,15 +1,30 @@
-package controller;
+package controller.middlewarecommands;
 
+import controller.GameEngine;
 import controller.middleware.commands.StartupCommands;
+import controller.statepattern.MapEditor;
+import controller.statepattern.gameplay.Startup;
+import helpers.exceptions.CountryDoesNotExistException;
+import helpers.exceptions.InvalidCommandException;
+import models.Player;
+import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+
 /**
  * The StartupCommandsTest class contains unit tests for the StartupCommands class.
  */
 public class StartupCommandsTest {
+    GameEngine d_gameEngine;
+    Player p = null;
+    @Before
+    public void beforeTest() throws CountryDoesNotExistException, InvalidCommandException {
+        d_gameEngine = new GameEngine();
+        d_gameEngine.setCurrentState(new Startup((d_gameEngine)));
+    }
     /**
      * Test case for validating the loadmap command with no parameters.
      */
@@ -18,7 +33,7 @@ public class StartupCommandsTest {
     {
         String cmd = "loadmap ";
         StartupCommands obj = new StartupCommands(cmd);
-        assertFalse(obj.validateCommand());
+        assertFalse(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test case for validating the loadmap command with no filename.
@@ -28,7 +43,7 @@ public class StartupCommandsTest {
     {
         String cmd = "loadmap piyush";
         StartupCommands obj = new StartupCommands(cmd);
-        assertFalse(obj.validateCommand());
+        assertFalse(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test case for validating the loadmap command with a valid filename.
@@ -38,7 +53,7 @@ public class StartupCommandsTest {
     {
         String cmd = "loadmap piyush.map";
         StartupCommands obj = new StartupCommands(cmd);
-        assertTrue(obj.validateCommand());
+        assertTrue(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test case for validating the loadmap command with multiple filenames.
@@ -48,7 +63,7 @@ public class StartupCommandsTest {
     {
         String cmd = "loadmap piyush satti.map";
         StartupCommands obj = new StartupCommands(cmd);
-        assertFalse(obj.validateCommand());
+        assertFalse(obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -59,7 +74,7 @@ public class StartupCommandsTest {
     {
         String cmd = "gameplayer ";
         StartupCommands obj = new StartupCommands(cmd);
-        assertTrue(obj.validateCommand());
+        assertTrue(obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -70,7 +85,7 @@ public class StartupCommandsTest {
     {
         String cmd = "gameplayer Shashi Piyush";
         StartupCommands obj = new StartupCommands(cmd);
-        assertFalse(obj.validateCommand());
+        assertFalse(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the gameplayer command to add and remove player
@@ -80,7 +95,7 @@ public class StartupCommandsTest {
     {
         String cmd = "gameplayer -add Shashi -remove Piyush";
         StartupCommands obj = new StartupCommands(cmd);
-        assertTrue(obj.validateCommand());
+        assertTrue(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the gameplayer command to add player
@@ -90,7 +105,7 @@ public class StartupCommandsTest {
     {
         String cmd = "gameplayer -add Shashi";
         StartupCommands obj = new StartupCommands(cmd);
-        assertTrue(obj.validateCommand());
+        assertTrue(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the gameplayer command to remove player
@@ -100,7 +115,7 @@ public class StartupCommandsTest {
     {
         String cmd = "gameplayer -remove Shashi";
         StartupCommands obj = new StartupCommands(cmd);
-        assertTrue(obj.validateCommand());
+        assertTrue(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the gameplayer command with incorrect command
@@ -110,7 +125,7 @@ public class StartupCommandsTest {
     {
         String cmd = "gameplayer -add -remove Shashi ";
         StartupCommands obj = new StartupCommands(cmd);
-        assertFalse(obj.validateCommand());
+        assertFalse(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the gameplayer command with incorrect command
@@ -120,7 +135,7 @@ public class StartupCommandsTest {
     {
         String cmd = "gameplayer -add Shashi -remove ";
         StartupCommands obj = new StartupCommands(cmd);
-        assertFalse(obj.validateCommand());
+        assertFalse(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the gameplayer command with incorrect command
@@ -130,7 +145,7 @@ public class StartupCommandsTest {
     {
         String cmd ="gameplayer -add Shashi -remove ";
         StartupCommands obj = new StartupCommands(cmd);
-        assertFalse(obj.validateCommand());
+        assertFalse(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the gameplayer command with incorrect command
@@ -140,7 +155,7 @@ public class StartupCommandsTest {
     {
         String cmd ="gameplayer -add Shashi Piyush Devdutt -remove Priyanshu";
         StartupCommands obj = new StartupCommands(cmd);
-        assertFalse(obj.validateCommand());
+        assertFalse(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the gameplayer command with incorrect command
@@ -150,7 +165,7 @@ public class StartupCommandsTest {
     {
         String cmd ="gameplayer -add Shashi -remove Priyanshu Piyush Devdutt";
         StartupCommands obj = new StartupCommands(cmd);
-        assertFalse(obj.validateCommand());
+        assertFalse(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the gameplayer command to add and remove multiple players
@@ -160,7 +175,7 @@ public class StartupCommandsTest {
     {
         String cmd ="gameplayer -add Shashi -remove Priyanshu -remove Piyush -add Devdutt ";
         StartupCommands obj = new StartupCommands(cmd);
-        assertTrue(obj.validateCommand());
+        assertTrue(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the assignCountries command with incorrect command
@@ -170,7 +185,7 @@ public class StartupCommandsTest {
     {
         String cmd = "assigncountries India ";
         StartupCommands obj = new StartupCommands(cmd);
-        assertFalse(obj.validateCommand());
+        assertFalse(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the assignCountries command with incorrect command
@@ -180,7 +195,7 @@ public class StartupCommandsTest {
     {
         String cmd = "assigncountries India Nepal ";
         StartupCommands obj = new StartupCommands(cmd);
-        assertFalse(obj.validateCommand());
+        assertFalse(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the assignCountries command with no parameters
@@ -190,6 +205,6 @@ public class StartupCommandsTest {
     {
         String cmd = "assigncountries ";
         StartupCommands obj = new StartupCommands(cmd);
-        assertTrue(obj.validateCommand());
+        assertTrue(obj.validateCommand(d_gameEngine));
     }
 }

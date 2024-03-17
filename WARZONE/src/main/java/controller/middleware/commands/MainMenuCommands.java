@@ -2,6 +2,8 @@ package controller.middleware.commands;
 
 import controller.GameEngine;
 import controller.MapInterface;
+import controller.statepattern.Starting;
+import controller.statepattern.gameplay.IssueOrder;
 import helpers.exceptions.*;
 
 import java.io.FileNotFoundException;
@@ -30,12 +32,12 @@ public class MainMenuCommands extends Commands {
      * @return True if the command format is valid, false otherwise.
      */
     @Override
-    public boolean validateCommand() {
+    public boolean validateCommand(GameEngine p_gameEngine) {
         Pattern pattern = Pattern.compile(
                 "^loadmap\\s\\w+\\.map(\\s)*$"
         );
         Matcher matcher = pattern.matcher(d_command);
-        return matcher.matches();
+        return matcher.matches() && (p_gameEngine.getCurerentState().getClass() == Starting.class);
     }
 
     /**
@@ -50,7 +52,7 @@ public class MainMenuCommands extends Commands {
             p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command.");
             return;
         }
-        else if(!this.validateCommand()){
+        else if(!this.validateCommand(p_gameEngine)){
             p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command Format for: " + this.d_command.split("\\s+")[0]);
             return;
         }

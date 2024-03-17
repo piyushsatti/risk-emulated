@@ -38,15 +38,10 @@ public class ReinforcementTest {
      */
     @Test
     public void runTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
-        //main logic
         MapInterface.loadMap2(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi",ge));
-        StartupCommands cmd = new StartupCommands("assigncountries");
-        cmd.execute(ge);
+
         rf.run();
-
-
-        //expected logic
         int bonus =0;
         HashMap<Integer, Continent> continents = ge.d_worldmap.getContinents();
         for (Continent continent : continents.values()) {
@@ -58,13 +53,12 @@ public class ReinforcementTest {
                 }
             }
             if (allCountriesFound) {
-                // All countries of the continent are present
-                bonus+= continent.getBonus(); // Get the bonus value
+                bonus+= continent.getBonus();
             }
         }
-        int l_numberOfTroops = Math.max(ge.d_players.get(0).getAssignedCountries().size() / 3 +bonus, 3);
+        rf.assignReinforcements(ge.d_players);
 
-        //Comparing both
+        int l_numberOfTroops = Math.max(ge.d_players.get(0).getAssignedCountries().size() / 3 +bonus, 3);
         assertEquals(l_numberOfTroops,ge.d_players.get(0).getReinforcements());
 
     }
@@ -82,11 +76,10 @@ public class ReinforcementTest {
         MapInterface.loadMap2(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi",ge));
         ge.d_players.add(new Player("Priyanshu",ge));
-        StartupCommands cmd = new StartupCommands("assigncountries");
-        cmd.execute(ge);
+
         rf.run();
 
-
+        //main logic: armies should return the value of l_numberOfTroops
         for(Player player : ge.d_players){
             int bonus =0;
             HashMap<Integer, Continent> continents = ge.d_worldmap.getContinents();
