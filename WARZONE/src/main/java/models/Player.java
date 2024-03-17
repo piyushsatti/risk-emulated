@@ -75,7 +75,7 @@ public class Player {
         this.d_current_order = order;
     }
 
-    public void issue_order(){
+    public void issue_order() throws InvalidCommandException{
         this.d_orderList.add(this.d_current_order);
     }
 
