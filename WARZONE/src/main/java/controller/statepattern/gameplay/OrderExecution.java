@@ -54,8 +54,6 @@ public class OrderExecution extends Phase {
 
         while (!allOrdersExecuted(d_ge.d_players)) {
             for(Player player: d_ge.d_players){
-
-                System.out.println("Player  " + player.getName());
                 if (!player.getOrderList().isEmpty()) {
                     Order order = player.next_order();
                     order.execute();
