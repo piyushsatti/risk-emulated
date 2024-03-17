@@ -400,7 +400,6 @@ public class WorldMap {
      * @return The ID of the country, or -1 if not found.
      */
     public int getCountryID(String p_countryName) throws CountryDoesNotExistException {
-
         for (Country l_c : this.getCountries().values()){
 
             if (l_c.getCountryName().equals(p_countryName)) {

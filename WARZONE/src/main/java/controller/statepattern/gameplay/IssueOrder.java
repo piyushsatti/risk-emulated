@@ -43,6 +43,7 @@ public class IssueOrder extends Phase {
             System.out.println("Command Issued!");
         }
 
-        d_ge.setCurrentState(new OrderExecution(d_ge));
+        //d_ge.setCurrentState(new OrderExecution(d_ge));
+
     }
 }

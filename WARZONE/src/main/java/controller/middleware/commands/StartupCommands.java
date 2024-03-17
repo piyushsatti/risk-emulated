@@ -3,16 +3,13 @@ package controller.middleware.commands;
 import controller.GameEngine;
 import controller.MapInterface;
 import controller.statepattern.End;
+import controller.statepattern.Starting;
+import controller.statepattern.gameplay.IssueOrder;
+import controller.statepattern.gameplay.Reinforcement;
 import controller.statepattern.gameplay.Startup;
-import helpers.exceptions.ContinentAlreadyExistsException;
-import helpers.exceptions.ContinentDoesNotExistException;
-import helpers.exceptions.CountryDoesNotExistException;
-import helpers.exceptions.DuplicateCountryException;
 import models.Player;
 import models.worldmap.Country;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
 
 import java.util.regex.Matcher;
@@ -54,8 +51,9 @@ public class StartupCommands extends Commands {
 
         switch (commandName) {
             case "assigncountries":
-                assignCountries(ge);
-
+                if(assignCountries(ge)){
+                    ge.setCurrentState(new Reinforcement(ge));
+                }
                 break;
             case "showmap":
                 showmap(ge);
@@ -67,7 +65,7 @@ public class StartupCommands extends Commands {
                 gameplayer(ge, splitCommand);
                 break;
             case "exit":
-                ge.setCurrentState(new Startup(ge));
+                ge.setCurrentState(new Starting(ge));
                 break;
 
         }
@@ -77,10 +75,14 @@ public class StartupCommands extends Commands {
 
 
 
-    private void assignCountries(GameEngine ge) {
+    private boolean assignCountries(GameEngine ge) {
         if(ge.d_players.size() == 0){
             ge.d_renderer.renderError("Add atleast one player before assigning");
-            return;
+            return false;
+        }
+        if(ge.d_worldmap.getCountries().size()==0){
+            ge.d_renderer.renderError(" Empty map Please load a Valid Map");
+            return false;
         }
         HashMap<Integer, Country> map = ge.d_worldmap.getD_countries();
         Set<Integer> l_countryIDSet = map.keySet();
@@ -112,8 +114,8 @@ public class StartupCommands extends Commands {
             }
             System.out.println("-----------------------------------------------------------------");
 
-
         }
+        return true;
 
     }
 
@@ -149,31 +151,65 @@ public class StartupCommands extends Commands {
         }
     }
 
-    public void gameplayer(GameEngine ge, String[] splitCommand){
-        int l_len = splitCommand.length;
-        for(int i=1;i<l_len;i+=2)
+    public void addPlayers(GameEngine ge,List<String> p_playersToAdd)
+    {
+        List<String> l_playersAdded = new ArrayList<>();
+        List<String> l_existingPlayers = new ArrayList<>();
+        for(Player l_player : ge.d_players)
         {
-            if(splitCommand[i].equals("-add") && !ge.d_players.contains(splitCommand[i+1]))
+            if(!l_existingPlayers.contains(l_player.getName())) l_existingPlayers.add(l_player.getName());
+        }
+        for(String l_playertoAdd : p_playersToAdd)
+        {
+            if(!l_existingPlayers.contains(l_playertoAdd))
             {
-                ge.d_players.add(new Player(splitCommand[i+1],ge));
-            }
-            else if(splitCommand[i].equals("-remove"))
-            {
-                List<Player> playerList = ge.d_players;
-                for(Player l_playerCheck : playerList)
-                {
-                    Iterator<Player> it = ge.d_players.iterator();
-                    while (it.hasNext()) {
-                        Player l_player = it.next();
-                        if (l_player.getName().equals(l_playerCheck)) {
-                            it.remove();
-                            ge.d_players.remove(l_playerCheck);
-                        }
-                    }
-                    //if(!found) l_playerNotExist.add(l_playerCheck);
-                }
+                ge.d_players.add(new Player(l_playertoAdd,ge));
+                l_playersAdded.add(l_playertoAdd);
             }
         }
+        if(!l_playersAdded.isEmpty()) System.out.println("added players sucessfully: "+ List.of(l_playersAdded));
+    }
+
+    public void removePlayers(GameEngine ge,List<String> p_copyList)
+    {   System.out.println("players to remove:"+List.of(p_copyList));
+        List<String> l_playerNotExist = new ArrayList<>();
+        List<String> l_playersRemoved = new ArrayList<>();
+        for(String l_playerCheck : p_copyList)
+        {   boolean found = false;
+            Iterator<Player> it = ge.d_players.iterator();
+            while (it.hasNext()) {
+                Player l_player = it.next();
+                if (l_player.getName().equals(l_playerCheck)) {
+                    found = true;
+                    it.remove();
+                    l_playersRemoved.add(l_playerCheck);
+                }
+            }
+            if(!found) l_playerNotExist.add(l_playerCheck);
+        }
+        System.out.println("players removed successfully: "+List.of(l_playersRemoved));
+        if(!l_playerNotExist.isEmpty())
+        {
+            System.out.println("could not remove players as they don't exist: "+List.of(l_playerNotExist));
+        }
+    }
+    public void gameplayer(GameEngine ge, String[] splitCommand){
+        int l_len = splitCommand.length;
+        List<String> addPlayers = new ArrayList<>();
+        List<String> removePlayers = new ArrayList<>();
+        for(int i=1;i<l_len;i+=2)
+        {
+            if(splitCommand[i].equals("-add") && !addPlayers.contains(splitCommand[i+1]))
+            {
+                addPlayers.add(splitCommand[i+1]);
+            }
+            else if(splitCommand[i].equals("-remove") && !removePlayers.contains(splitCommand[i+1])) {
+                removePlayers.add(splitCommand[i+1]);
+            }
+        }
+        addPlayers(ge,addPlayers);
+        removePlayers(ge,removePlayers);
+
     }
 
 }
