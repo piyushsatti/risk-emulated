@@ -110,8 +110,7 @@ public class WorldMap {
         if (p_id != null) {
             d_countries.put(p_id[0], new Country(p_id[0], p_countryName, d_continents.get(p_continentID)));
         } else {
-            d_countries.put(Country.id, new Country(Country.id, p_countryName, d_continents.get(p_continentID)));
-            Country.id++;
+            d_countries.put(getNextCountryID(), new Country(getNextCountryID(), p_countryName, d_continents.get(p_continentID)));
            //logEntryBuffer.setString("added country"+p_countryName+" in continent: "+d_continents.get(p_continentID).getContinentName());
         }
     }
@@ -445,6 +444,20 @@ public class WorldMap {
             for(Continent c: d_continents.values()){
                 if(c.getContinentID() > max){
                     max = c.getContinentID();
+                }
+            }
+            return max+1;
+        }
+    }
+
+    public int getNextCountryID(){
+        int max = 0;
+        if(d_countries.isEmpty()){
+            return 1;
+        }else{
+            for(Country c: d_countries.values()){
+                if(c.getCountryID() > max){
+                    max = c.getCountryID();
                 }
             }
             return max+1;

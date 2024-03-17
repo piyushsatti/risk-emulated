@@ -73,7 +73,7 @@ public class MapEditorCommands extends Commands {
                 }
                 break;
             case "editcountry":
-                editCountry(ge, l_command, 1);
+                editCountryValidator(ge.d_worldmap);
                 break;
             case "editneighbor":
                 editNeighbor(ge, l_command, 1);
@@ -138,7 +138,7 @@ public class MapEditorCommands extends Commands {
 
             } else {
 
-                System.out.println("Invalid editcontinent command! Correct format -> editcontinent -add <continentID> <continentvalue> -remove <continentID>");
+                System.out.println(invalidMessage);
                 return false;
             }
 
@@ -176,29 +176,66 @@ public class MapEditorCommands extends Commands {
     }
 
 
-    public void editCountry(GameEngine ge, String[] p_command, int i) {
-        if (p_command[i].equals("-add")) {
-            try {
-                ge.d_worldmap.addCountry(
-                        p_command[i + 1],
-                        ge.d_worldmap.getContinentID(p_command[i + 2])
-                );
-            } catch (ContinentDoesNotExistException e) {
-                ge.d_renderer.renderError("ContinentDoesNotExistException : " + e.getMessage());
-            } catch (DuplicateCountryException e) {
-                ge.d_renderer.renderError("DuplicateCountryException : " + e.getMessage());
-            }
-            editCountry(ge, p_command, i += 3);
-        } else {
-            try {
-                ge.d_worldmap.removeCountry(
-                        ge.d_worldmap.getCountryID(p_command[i + 1])
-                );
-            } catch (CountryDoesNotExistException e) {
-                ge.d_renderer.renderError("CountryDoesNotExist : " + e.getMessage());
-            }
-            editCountry(ge, p_command, i += 2);
+    public boolean editCountryValidator(WorldMap wm) {
+        String invalidMessage = "Invalid editcountry command! Correct format -> editcontinent -add <countryID> <continentID> -remove <countryID>";
+        WorldMap copyMap = null;
+        int commandLength = this.splitCommand.length;
+
+        try {
+            copyMap = new WorldMap(wm);
+        } catch (Exception e) {
+            System.out.println(e);
+            return false;
         }
+
+        if (commandLength < 3) {
+            System.out.println(invalidMessage);
+            return false;
+        }
+
+        int commandIndex = 1;
+        while (commandIndex < commandLength) {
+
+            if (splitCommand[commandIndex].equals("-add")) {
+
+                if (commandIndex + 2 >= commandLength) {
+                    System.out.println(invalidMessage);
+                    return false;
+                } else {
+                    try {
+                        copyMap.addCountry(splitCommand[commandIndex + 1], Integer.parseInt(splitCommand[commandIndex + 2]));
+                    } catch (Exception e) {
+                        System.out.println(e);
+                        System.out.println(invalidMessage);
+                        return false;
+                    }
+                    commandIndex = commandIndex + 3;
+                }
+
+            } else if (splitCommand[commandIndex].equals("-remove")) {
+
+                if (commandIndex + 1 >= commandLength) {
+                    System.out.println(invalidMessage);
+                    return false;
+                } else {
+                    try {
+                        copyMap.removeCountry(wm.getCountryID(splitCommand[commandIndex + 1]));
+                    } catch (Exception e) {
+                        System.out.println(e);
+                        System.out.println(invalidMessage);
+                        return false;
+                    }
+                    commandIndex = commandIndex + 2;
+                }
+
+            } else {
+
+                System.out.println(invalidMessage);
+                return false;
+            }
+
+        }
+        return true;
     }
 
     public void editNeighbor(GameEngine ge, String[] p_command, int i) {
