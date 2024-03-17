@@ -1,7 +1,12 @@
 package controller.statepattern.gameplay;
 
 import controller.GameEngine;
+import controller.statepattern.End;
 import controller.statepattern.Phase;
+import models.Player;
+import models.orders.Order;
+
+import java.util.ArrayList;
 
 public class OrderExecution extends Phase {
     public OrderExecution(GameEngine g) {
@@ -23,9 +28,45 @@ public class OrderExecution extends Phase {
 
     }
 
+    public boolean allOrdersExecuted(ArrayList<Player> p_Players) {
+        for (Player l_player : p_Players) {
+            if (!l_player.getOrderList().isEmpty()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     @Override
     public void run() {
-        System.out.println("In order execution phase");
+
+        int l_totalplayers = d_ge.d_players.size();
+        int l_playerNumber = 0;
+
+        while (!allOrdersExecuted(d_ge.d_players)) {
+            if ((l_playerNumber % l_totalplayers == 0) && l_playerNumber != 0) {
+                l_playerNumber = 0;
+            }
+            if (!d_ge.d_players.get(l_playerNumber).getOrderList().isEmpty()) {
+                Order order = d_ge.d_players.get(l_playerNumber).next_order();
+                order.execute();
+            }
+            l_playerNumber++;
+        }
+
+        for(Player p: d_ge.d_players){
+            if(p.getAssignedCountries().isEmpty()){
+                d_ge.d_renderer.renderMessage("Player "+p.getName()+" has lost all territories");
+                d_ge.d_players.remove(p);
+            }
+        }
+
+        if(d_ge.d_players.size()==1){
+            d_ge.d_renderer.renderMessage("Player "+d_ge.d_players.get(0).getName()+" has won the game");
+            d_ge.setCurrentState(new End(d_ge));
+        }
+
+        d_ge.setCurrentState(new IssueOrder(d_ge));
 
 
     }
