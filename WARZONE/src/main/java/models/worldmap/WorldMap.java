@@ -61,6 +61,32 @@ public class WorldMap {
 
     }
 
+    /**
+     * Copy Constructor
+     * To be used only in order to validate map structure in MapEditor state
+     * @param p_toCopy WorldMap to copy into new object
+     */
+    public WorldMap(WorldMap p_toCopy) throws ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, CountryDoesNotExistException {
+
+        this.d_continents = new HashMap<>();
+
+        this.d_countries = new HashMap<>();
+
+        for(Continent c: p_toCopy.getContinents().values()){
+            this.addContinent(c.getContinentName(),c.getBonus());
+        }
+
+        for(Country c : p_toCopy.d_countries.values()){
+            this.addCountry(c.getCountryName(),c.getContinent().getContinentID(),c.getCountryID());
+        }
+
+        for(Country c : p_toCopy.d_countries.values()){
+            for(Border b: c.getBorders().values()){
+                this.addBorder(c.getCountryID(),b.getTarget().getCountryID());
+            }
+        }
+
+    }
 
     /**
      *

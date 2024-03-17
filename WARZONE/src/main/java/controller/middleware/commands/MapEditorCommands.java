@@ -22,7 +22,7 @@ public class MapEditorCommands extends Commands{
                     "savemap",
                     "editmap",
                     "validatemap",
-                    "loadmap"
+                    "exit"
         });
     }
     @Override
@@ -46,34 +46,11 @@ public class MapEditorCommands extends Commands{
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command");
             return;
         }
-        else if(!this.validateCommand()){
-            ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format for: " + this.d_command.split("\\s+")[0]);
-            return;
-        }
+
 
         String[] l_command = d_command.trim().split("\\s+");
 
         switch (l_command[0]) {
-            case "loadmap":
-                try {
-                    MapInterface.loadMap2(ge, l_command[1]);
-                } catch (FileNotFoundException e) {
-                    ge.d_renderer.renderError("FileNotFoundException : File does not exist.");
-                } catch (NumberFormatException e) {
-                    ge.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
-                }  catch (CountryDoesNotExistException e) {
-                    throw new RuntimeException(e);
-                } catch (ContinentAlreadyExistsException e) {
-                    throw new RuntimeException(e);
-                } catch (ContinentDoesNotExistException e) {
-                    throw new RuntimeException(e);
-                } catch (DuplicateCountryException e) {
-                    throw new RuntimeException(e);
-                }
-//                catch (InvalidMapException e) {
-//                    ge.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
-//                }
-                break;
             case "showmap":
                 ge.d_renderer.showMap(false);
                 break;
@@ -87,20 +64,7 @@ public class MapEditorCommands extends Commands{
                     ge.d_renderer.renderError("IOException : Encountered File I/O Error");
                 }
             case "editmap":
-                try {
-                    MapInterface.loadMap(ge, l_command[1]);
-                } catch (FileNotFoundException e) {
-                    ge.d_renderer.renderError("FileNotFoundException : File does not exist.");
-                    ge.d_renderer.renderMessage("Creating file by the name : " + l_command[1]);
-                    MapEditorCommands me = new MapEditorCommands("savemap " + l_command[1]);
-                    me.execute(ge);
-                    me = new MapEditorCommands("loadmap " + l_command[1]);
-                    me.execute(ge);
-                } catch (NumberFormatException e) {
-                    ge.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
-                } catch (InvalidMapException e) {
-                    ge.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
-                }
+                editMap(ge);
                 break;
             case "editcontinent":
                 editContinent(ge, l_command, 1);
