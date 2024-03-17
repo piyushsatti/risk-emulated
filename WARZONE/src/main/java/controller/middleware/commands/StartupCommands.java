@@ -42,14 +42,14 @@ public class StartupCommands extends Commands {
      * @return True if the command is valid, false otherwise.
      */
     @Override
-    public boolean validateCommand() {
+    public boolean validateCommand(GameEngine p_gameEngine) {
         Pattern pattern = Pattern.compile(
                 "^loadmap\\s\\w+\\.map(\\s)*$|" +
                         "^assigncountries(\\s)*$|" +
                         "^gameplayer(?:(?:\\s+-add\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$"
         );
-        Matcher matcher = pattern.matcher(d_command);
-        return matcher.matches();
+        Matcher matcher = pattern.matcher(d_command) ;
+        return matcher.matches() && (p_gameEngine.getCurerentState().getClass() == Startup.class);
     }
 
     /**

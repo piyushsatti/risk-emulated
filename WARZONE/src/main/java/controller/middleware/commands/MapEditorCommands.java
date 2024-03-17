@@ -2,7 +2,9 @@ package controller.middleware.commands;
 
 import controller.GameEngine;
 import controller.MapInterface;
+import controller.statepattern.MapEditor;
 import controller.statepattern.Starting;
+import controller.statepattern.gameplay.IssueOrder;
 import helpers.exceptions.*;
 import models.LogEntryBuffer;
 import models.worldmap.WorldMap;
@@ -42,7 +44,7 @@ public class MapEditorCommands extends Commands {
      * @return True if the command is valid, false otherwise.
      */
     @Override
-    public boolean validateCommand() {
+    public boolean validateCommand(GameEngine p_gameEngine) {
         Pattern pattern = Pattern.compile("^editcontinent(?:(?:\\s+-add\\s+\\w+\\s+\\d+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$|" +
                 "^editcountry(?:(?:\\s+-add\\s+\\w+\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$|" +
                 "^editneighbor(?:(?:\\s+-add\\s+\\w+\\s+\\w+)*(?:\\s+-remove\\s+\\w+\\s+\\w+)*)*(\\s)*$|" +
@@ -52,7 +54,7 @@ public class MapEditorCommands extends Commands {
                 "^loadmap\\s\\w+\\.map(\\s)*$|" +
                 "^editmap\\s\\w+\\.map(\\s)*$");
         Matcher matcher = pattern.matcher(d_command);
-        return matcher.matches();
+        return matcher.matches() && (p_gameEngine.getCurerentState().getClass() == MapEditor.class);
     }
 
     /**

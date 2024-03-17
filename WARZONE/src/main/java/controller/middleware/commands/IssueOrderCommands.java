@@ -1,7 +1,9 @@
 package controller.middleware.commands;
 
 import controller.GameEngine;
+import controller.statepattern.End;
 import controller.statepattern.Phase;
+import controller.statepattern.gameplay.IssueOrder;
 import helpers.exceptions.ContinentAlreadyExistsException;
 import helpers.exceptions.ContinentDoesNotExistException;
 import helpers.exceptions.CountryDoesNotExistException;
@@ -61,14 +63,16 @@ public class IssueOrderCommands extends Commands{
         });
         p = p_player;
     }
+
     /**
      * Validates the command format against predefined patterns.
      *
      * @return True if the command format is valid, false otherwise.
      */
     @Override
-    public boolean validateCommand()
+    public boolean validateCommand(GameEngine p_gameEngine)
     {
+
         Pattern pattern = Pattern.compile(
                 "^deploy\\s+\\w+\\s+\\d+(\\s)*$|"+
                         "^advance\\s+\\w+\\s+\\w+\\s+\\d+(\\s)*$|"+
@@ -81,7 +85,7 @@ public class IssueOrderCommands extends Commands{
 
         );
         Matcher matcher = pattern.matcher(d_command);
-        return matcher.matches();
+        return matcher.matches() && (p_gameEngine.getCurerentState().getClass() == IssueOrder.class);
     }
     /**
      * Displays the game map if it's loaded, otherwise, renders an error message.
@@ -113,7 +117,7 @@ public class IssueOrderCommands extends Commands{
         if (!this.validateCommandName()) {
             p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command");
             return;
-        } else if (!this.validateCommand()) {
+        } else if (!this.validateCommand(p_gameEngine)) {
             p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command Format for: " + this.d_command.split("\\s+")[0]);
             return;
         }
