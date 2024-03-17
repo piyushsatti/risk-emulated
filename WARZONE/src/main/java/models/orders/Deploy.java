@@ -73,6 +73,11 @@ public class Deploy implements Order {
             return false;
         }
 
+        if(this.d_reinforcementsDeployed<=0){
+            this.d_terminalRenderer.renderMessage("Cannot use negative or zero armies");
+            return false;
+        }
+
         return true;
     }
 
