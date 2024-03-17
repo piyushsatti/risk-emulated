@@ -139,19 +139,23 @@ public class StartupCommands extends Commands {
         return true;
 
     }
+    /**
+     * Displays the map.
+     *
+     * @param p_gameEngine The GameEngine object.
+     */
+    private void showmap(GameEngine p_gameEngine){
 
-    private void showmap(GameEngine ge){
-
-        if(ge.d_worldmap == null){
-            ge.d_renderer.renderError("No map loaded into game! Please use 'loadmap' command");
+        if(p_gameEngine.d_worldmap == null){
+            p_gameEngine.d_renderer.renderError("No map loaded into game! Please use 'loadmap' command");
         }else{
-            ge.d_renderer.showMap(false);
+            p_gameEngine.d_renderer.showMap(false);
         }
     }
 
 
     /**
-     * Displays the map.
+     * Loads the map.
      *
      * @param p_gameEngine The GameEngine object.
      */

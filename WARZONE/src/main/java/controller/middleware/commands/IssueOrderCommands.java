@@ -86,16 +86,16 @@ public class IssueOrderCommands extends Commands{
     /**
      * Displays the game map if it's loaded, otherwise, renders an error message.
      *
-     * @param ge The GameEngine object containing the game state.
+     * @param p_gameEngine The GameEngine object containing the game state.
      */
-    private void showmapIssueOrder(GameEngine ge){
+    private void showmapIssueOrder(GameEngine p_gameEngine){
 
-        if(ge.d_worldmap == null){
-            ge.d_renderer.renderError("No map loaded into game! Please use 'loadmap' command");
+        if(p_gameEngine.d_worldmap == null){
+            p_gameEngine.d_renderer.renderError("No map loaded into game! Please use 'loadmap' command");
             logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" ShowMap Order Not executed as " +
                     "there is no map loaded "+p.getName()+" needs to load a map first");
         }else{
-            ge.d_renderer.showMap(true);
+            p_gameEngine.d_renderer.showMap(true);
             logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" ShowMap Order " +d_command);
         }
     }
@@ -103,18 +103,18 @@ public class IssueOrderCommands extends Commands{
     /**
      * Executes the command using the provided GameEngine.
      *
-     * @param ge The GameEngine object used to execute the command.
+     * @param p_gameEngine The GameEngine object used to execute the command.
      * @throws CountryDoesNotExistException If a country referenced in the command does not exist.
      * @throws InvalidCommandException     If the command is invalid.
      */
     @Override
-    public void execute(GameEngine ge) throws  CountryDoesNotExistException, InvalidCommandException {
+    public void execute(GameEngine p_gameEngine) throws  CountryDoesNotExistException, InvalidCommandException {
 
         if (!this.validateCommandName()) {
-            ge.d_renderer.renderError("InvalidCommandException : Invalid Command");
+            p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command");
             return;
         } else if (!this.validateCommand()) {
-            ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format for: " + this.d_command.split("\\s+")[0]);
+            p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command Format for: " + this.d_command.split("\\s+")[0]);
             return;
         }
         String[] l_command = d_command.trim().split("\\s+");
@@ -122,9 +122,9 @@ public class IssueOrderCommands extends Commands{
 
         switch (l_command[0]) {
             case "deploy":
-                int l_countryID = ge.d_worldmap.getCountryID(l_command[1]);
+                int l_countryID = p_gameEngine.d_worldmap.getCountryID(l_command[1]);
                 int l_numberTobeDeployed = Integer.parseInt(l_command[2]);
-                Order order = new Deploy(p, p.getName(), p.getPlayerId(), l_countryID, l_numberTobeDeployed, ge);
+                Order order = new Deploy(p, p.getName(), p.getPlayerId(), l_countryID, l_numberTobeDeployed, p_gameEngine);
                 if (order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
@@ -136,16 +136,16 @@ public class IssueOrderCommands extends Commands{
                 break;
 
             case "advance":
-                int l_fromCountryID = ge.d_worldmap.getCountryID(l_command[1]);
-                int l_toCountryID = ge.d_worldmap.getCountryID(l_command[2]);
+                int l_fromCountryID = p_gameEngine.d_worldmap.getCountryID(l_command[1]);
+                int l_toCountryID = p_gameEngine.d_worldmap.getCountryID(l_command[2]);
                 l_numberTobeDeployed = Integer.parseInt(l_command[3]);
                 Player l_targetPlayer = null;
-                for(Player player : ge.d_players){
+                for(Player player : p_gameEngine.d_players){
                     if(player.getAssignedCountries().contains(l_toCountryID)){
                         l_targetPlayer = player;
                     }
                 }
-                order = new Advance(p, l_targetPlayer,p.getName(),p.getPlayerId(), l_fromCountryID, l_toCountryID, l_numberTobeDeployed, ge);
+                order = new Advance(p, l_targetPlayer,p.getName(),p.getPlayerId(), l_fromCountryID, l_toCountryID, l_numberTobeDeployed, p_gameEngine);
                 if (order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
@@ -158,10 +158,10 @@ public class IssueOrderCommands extends Commands{
 
             case "airlift":
                 if (p.containsCard("airlift")) {
-                    l_fromCountryID = ge.d_worldmap.getCountryID(l_command[1]);
-                    l_toCountryID = ge.d_worldmap.getCountryID(l_command[2]);
+                    l_fromCountryID = p_gameEngine.d_worldmap.getCountryID(l_command[1]);
+                    l_toCountryID = p_gameEngine.d_worldmap.getCountryID(l_command[2]);
                     l_numberTobeDeployed = Integer.parseInt(l_command[3]);
-                    order = new Airlift(p, p.getName(), p.getPlayerId(), l_fromCountryID, l_toCountryID, l_numberTobeDeployed, ge);
+                    order = new Airlift(p, p.getName(), p.getPlayerId(), l_fromCountryID, l_toCountryID, l_numberTobeDeployed, p_gameEngine);
                     if (order.validateCommand()) {
                         p.addOrder(order);
                         p.issue_order();
@@ -172,7 +172,7 @@ public class IssueOrderCommands extends Commands{
 
                     }
                 } else {
-                    ge.d_renderer.renderMessage("You don't own airlift card");
+                    p_gameEngine.d_renderer.renderMessage("You don't own airlift card");
                     logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Airlift Order: Order Not executed as "+
                             p.getName()+" does not own an airlift card");
                 }
@@ -180,14 +180,14 @@ public class IssueOrderCommands extends Commands{
 
             case "bomb":
                 if (p.containsCard("bomb")) {
-                    int l_bombCountryID = ge.d_worldmap.getCountryID(l_command[1]);
+                    int l_bombCountryID = p_gameEngine.d_worldmap.getCountryID(l_command[1]);
                     l_targetPlayer = null;
-                    for(Player player : ge.d_players){
+                    for(Player player : p_gameEngine.d_players){
                         if(player.getAssignedCountries().contains(l_bombCountryID)){
                             l_targetPlayer = player;
                         }
                     }
-                    order = new Bomb(p, l_targetPlayer, p.getPlayerId(), p.getName(), l_bombCountryID, ge);
+                    order = new Bomb(p, l_targetPlayer, p.getPlayerId(), p.getName(), l_bombCountryID, p_gameEngine);
                     if (order.validateCommand()) {
                         System.out.println("Order Successful");
                         p.addOrder(order);
@@ -199,7 +199,7 @@ public class IssueOrderCommands extends Commands{
 
                     }
                 } else {
-                    ge.d_renderer.renderMessage("You don't own bomb card");
+                    p_gameEngine.d_renderer.renderMessage("You don't own bomb card");
                     logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Bomb Order Not executed as "+
                             p.getName()+" does not own a Bomb card");
                 }
@@ -208,8 +208,8 @@ public class IssueOrderCommands extends Commands{
 
             case "blockade":
                 if (p.containsCard("blockade")) {
-                    int l_blockadeCountryID = ge.d_worldmap.getCountryID(l_command[1]);
-                    order = new Blockade(p, p.getPlayerId(), p.getName(), l_blockadeCountryID, ge);
+                    int l_blockadeCountryID = p_gameEngine.d_worldmap.getCountryID(l_command[1]);
+                    order = new Blockade(p, p.getPlayerId(), p.getName(), l_blockadeCountryID, p_gameEngine);
                     if (order.validateCommand()) {
                         p.addOrder(order);
                         p.issue_order();
@@ -220,7 +220,7 @@ public class IssueOrderCommands extends Commands{
 
                     }
                 } else {
-                    ge.d_renderer.renderMessage("You don't own blockade card");
+                    p_gameEngine.d_renderer.renderMessage("You don't own blockade card");
                     logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Blockade Order Not executed as "+
                             p.getName()+" does not own a Blockade card");
                 }
@@ -231,7 +231,7 @@ public class IssueOrderCommands extends Commands{
                     String l_targetPlayerID = l_command[1];
                     Player targetPlayer = null;
 
-                    for (Player player : ge.d_players) {
+                    for (Player player : p_gameEngine.d_players) {
                         if (player.getName().equals(l_targetPlayerID)) {
                             targetPlayer = player;
                         }
@@ -247,7 +247,7 @@ public class IssueOrderCommands extends Commands{
 
                     }
                 } else {
-                    ge.d_renderer.renderMessage("You don't own negotiate card");
+                    p_gameEngine.d_renderer.renderMessage("You don't own negotiate card");
                     logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Negotiate Order Not executed as "+
                             p.getName()+" does not own a Negotiate card");
                 }
@@ -255,7 +255,7 @@ public class IssueOrderCommands extends Commands{
             case "done":
                 logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued Order:"+d_command);
                 if (p.getReinforcements() !=0) {
-                    ge.d_renderer.renderMessage("Need to deploy all troops!");
+                    p_gameEngine.d_renderer.renderMessage("Need to deploy all troops!");
                     logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" Done Order Not executed as "
                             +p.getName()+" needs to deploy all troops");
 
@@ -268,7 +268,7 @@ public class IssueOrderCommands extends Commands{
                 break;
             case "showmap":
                 logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued Showmap Order:"+d_command);
-                showmapIssueOrder(ge);
+                showmapIssueOrder(p_gameEngine);
                 break;
 
         }

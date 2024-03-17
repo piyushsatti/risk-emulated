@@ -55,7 +55,6 @@ public class MapEditorCommands extends Commands {
         return matcher.matches();
     }
 
-
     /**
      * Executes the command using the provided GameEngine.
      *
