@@ -30,7 +30,9 @@ public class IssueOrderCommands extends Commands{
                 "bomb",
                 "blockade",
                 "airlift",
-                "negotiate"
+                "negotiate",
+                "done",
+                "showmap"
         });
         p = p_player;
     }
@@ -43,10 +45,21 @@ public class IssueOrderCommands extends Commands{
                         "^bomb\\s+\\w+\\s*(\\s)*$|"+
                         "^blockade\\s+\\w+\\s*(\\s)*$|"+
                         "^negotiate\\s+\\w+\\s*(\\s)*$|"+
+                        "^done(\\s)*$|" +
+                        "^showmap(\\s)*$|" +
                         "^airlift\\s+\\w+\\s+\\w+\\s+\\d+(\\s)*$"
+
         );
         Matcher matcher = pattern.matcher(d_command);
         return matcher.matches();
+    }
+    private void showmapIssueOrder(GameEngine ge){
+
+        if(ge.d_worldmap == null){
+            ge.d_renderer.renderError("No map loaded into game! Please use 'loadmap' command");
+        }else{
+            ge.d_renderer.showMap(true);
+        }
     }
 
     @Override
@@ -73,8 +86,9 @@ public class IssueOrderCommands extends Commands{
                     p.setReinforcements(p.getReinforcements() - l_numberTobeDeployed);
                     p.setOrderSuccess(true);
                     System.out.println("Command Issued!");
-                    break;
+
                 }
+                break;
 
             case "advance":
                 int l_fromCountryID = ge.d_worldmap.getCountryID(l_command[1]);
@@ -92,9 +106,9 @@ public class IssueOrderCommands extends Commands{
                     p.issue_order();
                     p.setOrderSuccess(true);
                     System.out.println("Command Issued!");
-                    break;
-                }
 
+                }
+                break;
 
             case "airlift":
                 if (p.containsCard("airlift")) {
@@ -108,11 +122,12 @@ public class IssueOrderCommands extends Commands{
                         p.removeCard("airlift");
                         p.setOrderSuccess(true);
                         System.out.println("Command Issued!");
-                        break;
+
                     }
                 } else {
                     ge.d_renderer.renderMessage("You don't own airlift card");
                 }
+                break;
 
             case "bomb":
                 if (p.containsCard("bomb")) {
@@ -132,11 +147,11 @@ public class IssueOrderCommands extends Commands{
                         System.out.println("Command Issued!");
                         p.setOrderSuccess(true);
 
-                        break;
                     }
                 } else {
                     ge.d_renderer.renderMessage("You don't own bomb card");
                 }
+                break;
 
 
             case "blockade":
@@ -149,11 +164,12 @@ public class IssueOrderCommands extends Commands{
                         p.removeCard("blockade");
                         p.setOrderSuccess(true);
                         System.out.println("Command Issued!");
-                        break;
+
                     }
                 } else {
                     ge.d_renderer.renderMessage("You don't own blockade card");
                 }
+                break;
 
             case "negotiate":
                 if (p.containsCard("negotiate")) {
@@ -172,11 +188,24 @@ public class IssueOrderCommands extends Commands{
                         p.removeCard("negotiate");
                         p.setOrderSuccess(true);
                         System.out.println("Command Issued!");
-                        break;
+
                     }
                 } else {
                     ge.d_renderer.renderMessage("You don't own negotiate card");
                 }
+                break;
+            case "done":
+                if (p.getReinforcements() !=0) {
+                    ge.d_renderer.renderMessage("Need to deploy all troops!");
+
+                }else {
+                 p.setFinishedIssueOrder(true);
+                }
+                break;
+            case "showmap":
+                showmapIssueOrder(ge);
+                break;
+
 
 
 //

@@ -71,6 +71,10 @@ public class Deploy implements Order {
             this.d_terminalRenderer.renderMessage(" (" + this.d_sourcePlayer.getName() + ") Negative countries not possible");
             return false;
         }
+        if(!this.d_sourcePlayer.getAssignedCountries().contains(d_fromCountryID)){
+            this.d_terminalRenderer.renderMessage("You don't own the country");
+            return false;
+        }
 
 
         return true;

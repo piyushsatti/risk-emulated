@@ -130,9 +130,6 @@ public class StartupCommands extends Commands {
 
 
 
-
-
-
     private void loadMap(GameEngine ge){
         if(this.splitCommand.length < 2){
             ge.d_renderer.renderError("Invalid command! Correct format is loadmap <mapname>");

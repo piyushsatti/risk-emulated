@@ -56,6 +56,12 @@ public class Advance implements Order {
             return false;
         }
 
+       int l_currentReinforcementsFromCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
+        if(l_currentReinforcementsFromCountry < this.d_advancingtroops){
+            System.out.println("Not enough troops to advance.");
+            return false;
+        }
+
         return true;
     }
 
