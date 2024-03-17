@@ -54,26 +54,6 @@ public class MapEditorCommands extends Commands{
         String[] l_command = d_command.trim().split("\\s+");
 
         switch (l_command[0]) {
-            case "loadmap":
-                try {
-                    MapInterface.loadMap2(ge, l_command[1]);
-                } catch (FileNotFoundException e) {
-                    ge.d_renderer.renderError("FileNotFoundException : File does not exist.");
-                } catch (NumberFormatException e) {
-                    ge.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
-                }  catch (CountryDoesNotExistException e) {
-                    throw new RuntimeException(e);
-                } catch (ContinentAlreadyExistsException e) {
-                    throw new RuntimeException(e);
-                } catch (ContinentDoesNotExistException e) {
-                    throw new RuntimeException(e);
-                } catch (DuplicateCountryException e) {
-                    throw new RuntimeException(e);
-                }
-//                catch (InvalidMapException e) {
-//                    ge.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
-//                }
-                break;
             case "showmap":
                 ge.d_renderer.showMap(false);
                 break;
