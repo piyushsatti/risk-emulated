@@ -11,18 +11,38 @@ import models.orders.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The IssueOrderCommands class represents commands related to issuing orders in the game.
+ * It extends the abstract class Commands.
+ */
 public class IssueOrderCommands extends Commands{
     Player p;
 
+    /**
+     * Gets the current value of the flag.
+     *
+     * @return True if the flag is set, false otherwise.
+     */
     public boolean isFlag() {
         return flag;
     }
 
+    /**
+     * Sets the value of the flag.
+     *
+     * @param flag The value to set the flag.
+     */
     public void setFlag(boolean flag) {
         this.flag = flag;
     }
 
     boolean flag = false;
+    /**
+     * Constructs an IssueOrderCommands object with the given command string and player.
+     *
+     * @param p_command  The command string.
+     * @param p_player   The player associated with the commands.
+     */
     public IssueOrderCommands(String p_command, Player p_player) {
         super(p_command, new String[]{
                 "deploy",
@@ -36,6 +56,11 @@ public class IssueOrderCommands extends Commands{
         });
         p = p_player;
     }
+    /**
+     * Validates the command format against predefined patterns.
+     *
+     * @return True if the command format is valid, false otherwise.
+     */
     @Override
     public boolean validateCommand()
     {
@@ -53,6 +78,11 @@ public class IssueOrderCommands extends Commands{
         Matcher matcher = pattern.matcher(d_command);
         return matcher.matches();
     }
+    /**
+     * Displays the game map if it's loaded, otherwise, renders an error message.
+     *
+     * @param ge The GameEngine object containing the game state.
+     */
     private void showmapIssueOrder(GameEngine ge){
 
         if(ge.d_worldmap == null){
@@ -62,6 +92,13 @@ public class IssueOrderCommands extends Commands{
         }
     }
 
+    /**
+     * Executes the command using the provided GameEngine.
+     *
+     * @param ge The GameEngine object used to execute the command.
+     * @throws CountryDoesNotExistException If a country referenced in the command does not exist.
+     * @throws InvalidCommandException     If the command is invalid.
+     */
     @Override
     public void execute(GameEngine ge) throws  CountryDoesNotExistException, InvalidCommandException {
 
@@ -206,38 +243,6 @@ public class IssueOrderCommands extends Commands{
             case "showmap":
                 showmapIssueOrder(ge);
                 break;
-
-
-
-//
-//        int l_countryID = ge.d_worldmap.getCountryID(l_command[1]);
-//
-//        int l_numberTobeDeployed = Integer.parseInt(l_command[2]);
-//
-//
-//        if (l_countryID > 0 && l_numberTobeDeployed <= p.getReinforcements()) {
-//
-//            if (p.getAssignedCountries().contains(l_countryID)) {
-//
-//                Order order = new Deploy(p, p.getName(), p.getPlayerId(), l_countryID, l_numberTobeDeployed, ge);
-//
-//                ge.d_renderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + ge.d_worldmap.getCountry(l_countryID).getCountryName() + " by Player: " + p.getName());
-//
-//                p.addOrder(order);
-//                p.issue_order();
-//
-//                p.setReinforcements(p.getReinforcements() - l_numberTobeDeployed);
-//
-//                ge.d_renderer.renderMessage("Player: " + p.getName() + " Reinforcements Available: " + p.getReinforcements());
-//
-//                return;
-//
-//            } else {
-//
-//                ge.d_renderer.renderMessage("You (" + p.getName() + ") Cannot Deploy Troops here you don't own it.");
-//                throw new InvalidCommandException("Invalid Command!!! You don't own the country");
-//
-//            }
 
         }
     }
