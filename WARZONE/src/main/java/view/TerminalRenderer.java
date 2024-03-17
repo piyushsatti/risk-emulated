@@ -162,7 +162,7 @@ public class TerminalRenderer {
                 TerminalColors.ANSI_BLUE + """
                 Please Enter a valid command:\t
                 """ + TerminalColors.ANSI_GREEN +
-                "Super Commands: savemap, editmap, showmap\n" +
+                "Super Commands: savemap, editmap, showmap, validatemap\n" +
                 "Map Edit Commands: editcountry, editneighbor, editcontinent" +
                         TerminalColors.ANSI_RESET + "\n" +
                         "Type 'exit' to quit map editing."
