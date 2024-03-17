@@ -64,10 +64,11 @@ public class GameEngine {
         this.d_current_phase.run();
         this.setCurrentState(new IssueOrder(this));
         this.d_current_phase.run();
-        this.setCurrentState(new OrderExecution(this));
-        this.d_current_phase.run();
         this.setCurrentState(new Reinforcement(this));
         this.d_current_phase.run();
+        this.setCurrentState(new OrderExecution(this));
+        this.d_current_phase.run();
+       ;
     }
 
 }

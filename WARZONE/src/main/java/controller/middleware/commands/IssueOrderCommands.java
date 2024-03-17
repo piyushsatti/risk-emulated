@@ -62,7 +62,7 @@ public class IssueOrderCommands extends Commands{
                 if(order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
-                } else throw new InvalidCommandException("Invalid Command");
+                }
                 break;
 
             case "advance":
@@ -75,7 +75,7 @@ public class IssueOrderCommands extends Commands{
                 if(order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
-                } else throw new InvalidCommandException("Invalid Command");
+                }
                 break;
 
             case "airlift":
@@ -87,7 +87,7 @@ public class IssueOrderCommands extends Commands{
                 if(order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
-                } else throw new InvalidCommandException("Invalid Command");
+                }
                 break;
 
             case "bomb":
@@ -97,7 +97,7 @@ public class IssueOrderCommands extends Commands{
                 if(order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
-                } else throw new InvalidCommandException("Invalid Command");
+                }
                 break;
 
             case "blockade":
@@ -107,7 +107,7 @@ public class IssueOrderCommands extends Commands{
                 if(order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
-                } else throw new InvalidCommandException("Invalid Command");
+                }
                 break;
 
             case "negotiate":
@@ -123,10 +123,10 @@ public class IssueOrderCommands extends Commands{
                 if(order.validateCommand()) {
                     p.addOrder(order);
                     p.issue_order();
-                } else throw new InvalidCommandException("Invalid Command");
+                }
                 break;
         }
-        } catch(CountryDoesNotExistException e){
+        } catch(CountryDoesNotExistException  | InvalidCommandException e){
             ge.d_renderer.renderError("Following exception occured :" + e);
             }
 

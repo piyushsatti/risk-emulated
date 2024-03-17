@@ -5,6 +5,7 @@ import controller.MapInterface;
 import controller.statepattern.End;
 import controller.statepattern.Starting;
 import controller.statepattern.gameplay.IssueOrder;
+import controller.statepattern.gameplay.Reinforcement;
 import controller.statepattern.gameplay.Startup;
 import helpers.exceptions.ContinentAlreadyExistsException;
 import helpers.exceptions.ContinentDoesNotExistException;
@@ -56,8 +57,9 @@ public class StartupCommands extends Commands {
 
         switch (commandName) {
             case "assigncountries":
-                assignCountries(ge);
-                ge.setCurrentState(new IssueOrder(ge));
+                if(assignCountries(ge)){
+                    ge.setCurrentState(new Reinforcement(ge));
+                }
                 break;
             case "showmap":
                 showmap(ge);
@@ -79,14 +81,14 @@ public class StartupCommands extends Commands {
 
 
 
-    private void assignCountries(GameEngine ge) {
+    private boolean assignCountries(GameEngine ge) {
         if(ge.d_players.size() == 0){
             ge.d_renderer.renderError("Add atleast one player before assigning");
-            return;
+            return false;
         }
         if(ge.d_worldmap.getCountries().size()==0){
             ge.d_renderer.renderError(" Empty map Please load a Valid Map");
-            return;
+            return false;
         }
         HashMap<Integer, Country> map = ge.d_worldmap.getD_countries();
         Set<Integer> l_countryIDSet = map.keySet();
@@ -118,8 +120,8 @@ public class StartupCommands extends Commands {
             }
             System.out.println("-----------------------------------------------------------------");
 
-
         }
+        return true;
 
     }
 
