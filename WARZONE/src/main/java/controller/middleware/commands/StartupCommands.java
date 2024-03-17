@@ -43,7 +43,7 @@ public class StartupCommands extends Commands {
     @Override
     public void execute(GameEngine ge) {
 
-        if (!this.validateCommandName() || !this.validateCommand() ) {
+        if (!this.validateCommandName() ) {
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format.");
             return;
         }

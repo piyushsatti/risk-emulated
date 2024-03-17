@@ -27,7 +27,7 @@ public class MainMenuCommands extends Commands {
     @Override
     void execute(GameEngine ge) {
 
-        if (!this.validateCommandName() || !this.validateCommand() ) {
+        if (!this.validateCommandName() ) {
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format.");
             return;
         }
@@ -55,9 +55,6 @@ public class MainMenuCommands extends Commands {
                 } catch (DuplicateCountryException e) {
                     throw new RuntimeException(e);
                 }
-//                catch (InvalidMapException e) {
-//                    ge.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
-//                }
         }
     }
 }
