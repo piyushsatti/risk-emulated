@@ -18,8 +18,8 @@ import java.util.Scanner;
  */
 public class TerminalRenderer {
 
-//    public LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
-//    public Logger lw = new Logger(logEntryBuffer);
+    LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+    Logger lw = new Logger(logEntryBuffer);
 
     GameEngine d_ge;
     Scanner in;
@@ -233,8 +233,6 @@ public class TerminalRenderer {
             out.append("\n");
         }
         System.out.println(out);
-
-       // logEntryBuffer.setString("showing current map :"+ d_ge.d_worldmap.toString());
     }
 
     /**
