@@ -7,10 +7,8 @@ import controller.statepattern.Starting;
 import controller.statepattern.gameplay.IssueOrder;
 import controller.statepattern.gameplay.Reinforcement;
 import controller.statepattern.gameplay.Startup;
-import models.LogEntryBuffer;
 import models.Player;
 import models.worldmap.Country;
-import view.Logger;
 
 import java.util.*;
 
@@ -18,10 +16,16 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
+/**
+ * Represents commands executed during game startup.
+ */
 public class StartupCommands extends Commands {
-    LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
-    Logger lw = new Logger(logEntryBuffer);
 
+    /**
+     * Constructor for StartupCommands.
+     *
+     * @param p_command The command string.
+     */
     public StartupCommands(String p_command) {
         super(p_command, new String[]{
                 "loadmap",
@@ -32,6 +36,11 @@ public class StartupCommands extends Commands {
         });
     }
 
+    /**
+     * Validates the command format for startup commands.
+     *
+     * @return True if the command is valid, false otherwise.
+     */
     @Override
     public boolean validateCommand() {
         Pattern pattern = Pattern.compile(
@@ -43,83 +52,86 @@ public class StartupCommands extends Commands {
         return matcher.matches();
     }
 
+    /**
+     * Executes the startup commands.
+     *
+     * @param p_gameEngine The GameEngine object used to execute the command.
+     */
     @Override
-    public void execute(GameEngine ge) {
+    public void execute(GameEngine p_gameEngine) {
 
         if (!this.validateCommandName() ) {
-            ge.d_renderer.renderError("InvalidCommandException : Invalid Command");
+            p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command");
             return;
         }
 
-        String commandName = splitCommand[0];
+        String l_commandName = splitCommand[0];
 
-        switch (commandName) {
+        switch (l_commandName) {
             case "assigncountries":
-                if(assignCountries(ge)){
-                    logEntryBuffer.setString("Game StartUp Phase: \n"+ " Executed Command: assigncountries || Countries assigned to Players");
-                    ge.setCurrentState(new Reinforcement(ge));
+                if(assignCountries(p_gameEngine)){
+                    p_gameEngine.setCurrentState(new Reinforcement(p_gameEngine));
                 }
                 break;
             case "showmap":
-                showmap(ge);
+                showmap(p_gameEngine);
                 break;
             case "loadmap":
-                loadMap(ge);
+                loadMap(p_gameEngine);
                 break;
             case "gameplayer":
-                gameplayer(ge, splitCommand);
+                gameplayer(p_gameEngine, splitCommand);
                 break;
             case "exit":
-                ge.setCurrentState(new Starting(ge));
-                logEntryBuffer.setString("Executed Exit Command");
+                p_gameEngine.setCurrentState(new Starting(p_gameEngine));
                 break;
 
         }
     }
 
 
-
-
-
-    private boolean assignCountries(GameEngine ge) {
-        logEntryBuffer.setString("Game StartUp Phase: \n"+ " Entered Command: assigncountries");
-        if(ge.d_players.size() == 0){
-            ge.d_renderer.renderError("Add atleast one player before assigning");
-            logEntryBuffer.setString("Game StartUp Phase: \n"+ "Command: assigncountries Not Executed  || Must add at least one player before assigning countries");
+    /**
+     * Assigns countries to players during game setup.
+     *
+     * @param p_gameEngine The GameEngine object.
+     * @return True if countries are assigned successfully, false otherwise.
+     */
+    private boolean assignCountries(GameEngine p_gameEngine) {
+        if(p_gameEngine.d_players.size() == 0){
+            p_gameEngine.d_renderer.renderError("Add atleast one player before assigning");
             return false;
         }
-        if(ge.d_worldmap.getCountries().size()==0){
-            ge.d_renderer.renderError(" Empty map Please load a Valid Map");
-            logEntryBuffer.setString("Game StartUp Phase: \n"+ " Executed Command: assigncountries Not Executed|| Load a valid map!");
+        if(p_gameEngine.d_worldmap.getCountries().size()==0){
+            p_gameEngine.d_renderer.renderError(" Empty map Please load a Valid Map");
             return false;
         }
-        HashMap<Integer, Country> map = ge.d_worldmap.getD_countries();
-        Set<Integer> l_countryIDSet = map.keySet();
+        HashMap<Integer, Country> l_map = p_gameEngine.d_worldmap.getD_countries();
+        Set<Integer> l_countryIDSet = l_map.keySet();
         ArrayList<Integer> l_countryIDList = new ArrayList<>(l_countryIDSet);
 
-        int total_players = ge.d_players.size();
-        int playerNumber = 0;
+        int l_total_players = p_gameEngine.d_players.size();
+        int l_playerNumber = 0;
         while (!l_countryIDList.isEmpty()) {
             Random rand = new Random();
             int randomIndex = rand.nextInt(l_countryIDList.size());
             int l_randomCountryID = l_countryIDList.get(randomIndex);
             l_countryIDList.remove(randomIndex);
-            if ((playerNumber % total_players == 0) && playerNumber != 0) {
-                playerNumber = 0;
+            if ((l_playerNumber % l_total_players == 0) && l_playerNumber != 0) {
+                l_playerNumber = 0;
             }
-            Country country = map.get(l_randomCountryID);
-            country.setCountryPlayerID(ge.d_players.get(playerNumber).getPlayerId());
-            ge.d_players.get(playerNumber).setAssignedCountries(l_randomCountryID);
-            playerNumber++;
+            Country country = l_map.get(l_randomCountryID);
+            country.setCountryPlayerID(p_gameEngine.d_players.get(l_playerNumber).getPlayerId());
+            p_gameEngine.d_players.get(l_playerNumber).setAssignedCountries(l_randomCountryID);
+            l_playerNumber++;
         }
 
         System.out.println("Assigning of Countries Done");
-        for (Player l_player : ge.d_players) {
+        for (Player l_player : p_gameEngine.d_players) {
             System.out.println("Number of Countries: " + l_player.getAssignedCountries().size());
             System.out.println("List of Assigned Countries for Player: " + l_player.getName());
             ArrayList<Integer> l_listOfAssignedCountries = l_player.getAssignedCountries();
             for (Integer l_countryID : l_listOfAssignedCountries) {
-                System.out.println(ge.d_worldmap.getCountry(l_countryID).getCountryName());
+                System.out.println(p_gameEngine.d_worldmap.getCountry(l_countryID).getCountryName());
             }
             System.out.println("-----------------------------------------------------------------");
 
@@ -129,45 +141,49 @@ public class StartupCommands extends Commands {
     }
 
     private void showmap(GameEngine ge){
-        logEntryBuffer.setString("Game StartUp Phase: \n"+ " Entered Command: showmap");
+
         if(ge.d_worldmap == null){
             ge.d_renderer.renderError("No map loaded into game! Please use 'loadmap' command");
-            logEntryBuffer.setString("Game StartUp Phase: \n"+ " Command: showmap Not Executed || No map loaded into game!");
         }else{
             ge.d_renderer.showMap(false);
-            logEntryBuffer.setString("Game StartUp Phase: \n"+ " Command: showmap  Executed ||"+d_command.split(" ")[1]+" shown");
         }
     }
 
 
-
-    private void loadMap(GameEngine ge){
+    /**
+     * Displays the map.
+     *
+     * @param p_gameEngine The GameEngine object.
+     */
+    private void loadMap(GameEngine p_gameEngine){
         if(this.splitCommand.length < 2){
-            ge.d_renderer.renderError("Invalid command! Correct format is loadmap <mapname>");
+            p_gameEngine.d_renderer.renderError("Invalid command! Correct format is loadmap <mapname>");
         }else{
 
             try {
-                logEntryBuffer.setString("Game StartUp Phase: \n"+ " Entered Command: loadmap" + d_command);
-                MapInterface.loadMap2(ge, splitCommand[1]);
+                MapInterface.loadMap2(p_gameEngine, splitCommand[1]);
             }
             catch(Exception e){
-                logEntryBuffer.setString("Game StartUp Phase: \n"+ " Command: loadmap Not Executed as Map Could Not be Loaded");
                 System.out.println(e);
             }
 
-            if(!MapInterface.validateMap(ge)){
-                ge.d_renderer.renderError("Invalid Map! Cannot load into game");
-                logEntryBuffer.setString("Game StartUp Phase: \n"+ " Command: loadmap Not Executed as Map is Invalid!");
+            if(!MapInterface.validateMap(p_gameEngine)){
+                p_gameEngine.d_renderer.renderError("Invalid Map! Cannot load into game");
             }
-            logEntryBuffer.setString("Game StartUp Phase: \n"+ " Command: loadmap  Executed");
         }
     }
 
-    public void addPlayers(GameEngine ge,List<String> p_playersToAdd)
+    /**
+     * Adds players to the game.
+     *
+     * @param p_gameEngine The GameEngine object.
+     * @param p_playersToAdd The list of players to add.
+     */
+    public void addPlayers(GameEngine p_gameEngine,List<String> p_playersToAdd)
     {
         List<String> l_playersAdded = new ArrayList<>();
         List<String> l_existingPlayers = new ArrayList<>();
-        for(Player l_player : ge.d_players)
+        for(Player l_player : p_gameEngine.d_players)
         {
             if(!l_existingPlayers.contains(l_player.getName())) l_existingPlayers.add(l_player.getName());
         }
@@ -175,24 +191,26 @@ public class StartupCommands extends Commands {
         {
             if(!l_existingPlayers.contains(l_playertoAdd))
             {
-                ge.d_players.add(new Player(l_playertoAdd,ge));
+                p_gameEngine.d_players.add(new Player(l_playertoAdd,p_gameEngine));
                 l_playersAdded.add(l_playertoAdd);
             }
         }
-        if(!l_playersAdded.isEmpty())
-        {
-            System.out.println("added players sucessfully: "+ List.of(l_playersAdded));
-            logEntryBuffer.setString("Game StartUp Phase: \n"+ "  Command: " + d_command + "Added Players "+ List.of(l_playersAdded)+ "successfully");
-        }
+        if(!l_playersAdded.isEmpty()) System.out.println("added players sucessfully: "+ List.of(l_playersAdded));
     }
 
-    public void removePlayers(GameEngine ge,List<String> p_copyList)
+    /**
+     * Removes players from the game.
+     *
+     * @param p_gameEngine The GameEngine object.
+     * @param p_copyList The list of players to remove.
+     */
+    public void removePlayers(GameEngine p_gameEngine,List<String> p_copyList)
     {   System.out.println("players to remove:"+List.of(p_copyList));
         List<String> l_playerNotExist = new ArrayList<>();
         List<String> l_playersRemoved = new ArrayList<>();
         for(String l_playerCheck : p_copyList)
         {   boolean found = false;
-            Iterator<Player> it = ge.d_players.iterator();
+            Iterator<Player> it = p_gameEngine.d_players.iterator();
             while (it.hasNext()) {
                 Player l_player = it.next();
                 if (l_player.getName().equals(l_playerCheck)) {
@@ -204,30 +222,34 @@ public class StartupCommands extends Commands {
             if(!found) l_playerNotExist.add(l_playerCheck);
         }
         System.out.println("players removed successfully: "+List.of(l_playersRemoved));
-        logEntryBuffer.setString("Game StartUp Phase: \n"+ "  Command: " + d_command + "Removed Players "+ List.of(l_playersRemoved)+ "successfully");
         if(!l_playerNotExist.isEmpty())
         {
             System.out.println("could not remove players as they don't exist: "+List.of(l_playerNotExist));
         }
     }
-    public void gameplayer(GameEngine ge, String[] splitCommand){
-        logEntryBuffer.setString("Game StartUp Phase: \n"+ " Entered Command: gameplayer=>" + d_command );
-        int l_len = splitCommand.length;
-        List<String> addPlayers = new ArrayList<>();
-        List<String> removePlayers = new ArrayList<>();
+    /**
+     * Modifies the list of players in the game.
+     *
+     * @param p_gameEngine The GameEngine object.
+     * @param p_splitCommand The array containing command arguments.
+     */
+    public void gameplayer(GameEngine p_gameEngine, String[] p_splitCommand){
+        int l_len = p_splitCommand.length;
+        List<String> l_addPlayers = new ArrayList<>();
+        List<String> l_removePlayers = new ArrayList<>();
         for(int i=1;i<l_len;i+=2)
         {
-            if(splitCommand[i].equals("-add") && !addPlayers.contains(splitCommand[i+1]))
+            if(p_splitCommand[i].equals("-add") && !l_addPlayers.contains(p_splitCommand[i+1]))
             {
-                addPlayers.add(splitCommand[i+1]);
+                l_addPlayers.add(p_splitCommand[i+1]);
             }
-            else if(splitCommand[i].equals("-remove") && !removePlayers.contains(splitCommand[i+1])) {
-                removePlayers.add(splitCommand[i+1]);
+            else if(p_splitCommand[i].equals("-remove") && !l_removePlayers.contains(p_splitCommand[i+1])) {
+                l_removePlayers.add(p_splitCommand[i+1]);
             }
         }
-        logEntryBuffer.setString("Game StartUp Phase: \n"+ " Executed Command: gameplayer=>" + d_command  );
-        addPlayers(ge,addPlayers);
-        removePlayers(ge,removePlayers);
+        addPlayers(p_gameEngine,l_addPlayers);
+        removePlayers(p_gameEngine,l_removePlayers);
+
     }
 
 }
