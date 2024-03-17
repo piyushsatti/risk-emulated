@@ -89,7 +89,6 @@ public class StartupCommands extends Commands {
         }
     }
 
-
     /**
      * Assigns countries to players during game setup.
      *
@@ -105,6 +104,7 @@ public class StartupCommands extends Commands {
             p_gameEngine.d_renderer.renderError(" Empty map Please load a Valid Map");
             return false;
         }
+
         HashMap<Integer, Country> l_map = p_gameEngine.d_worldmap.getD_countries();
         Set<Integer> l_countryIDSet = l_map.keySet();
         ArrayList<Integer> l_countryIDList = new ArrayList<>(l_countryIDSet);
@@ -134,10 +134,8 @@ public class StartupCommands extends Commands {
                 System.out.println(p_gameEngine.d_worldmap.getCountry(l_countryID).getCountryName());
             }
             System.out.println("-----------------------------------------------------------------");
-
         }
         return true;
-
     }
     /**
      * Displays the map.
@@ -153,7 +151,6 @@ public class StartupCommands extends Commands {
         }
     }
 
-
     /**
      * Loads the map.
      *
@@ -163,14 +160,12 @@ public class StartupCommands extends Commands {
         if(this.splitCommand.length < 2){
             p_gameEngine.d_renderer.renderError("Invalid command! Correct format is loadmap <mapname>");
         }else{
-
             try {
                 MapInterface.loadMap2(p_gameEngine, splitCommand[1]);
             }
             catch(Exception e){
                 System.out.println(e);
             }
-
             if(!MapInterface.validateMap(p_gameEngine)){
                 p_gameEngine.d_renderer.renderError("Invalid Map! Cannot load into game");
             }
@@ -253,7 +248,5 @@ public class StartupCommands extends Commands {
         }
         addPlayers(p_gameEngine,l_addPlayers);
         removePlayers(p_gameEngine,l_removePlayers);
-
     }
-
 }

@@ -168,17 +168,14 @@ public class MapEditorCommands extends Commands {
                     }
                     commandIndex = commandIndex + 2;
                 }
-
             } else {
 
                 System.out.println(invalidMessage);
                 return false;
             }
-
         }
         return true;
     }
-
 
     /**
      * Edits the continents of the game map based on the provided command.
@@ -387,7 +384,6 @@ public class MapEditorCommands extends Commands {
         return true;
     }
 
-
     /**
      * Edits the neighbors of countries on the game map based on the provided command.
      *
@@ -421,7 +417,6 @@ public class MapEditorCommands extends Commands {
             }
         }
     }
-
 
     /**
      * Edits the game map based on the provided command to load, save, or modify the map.
