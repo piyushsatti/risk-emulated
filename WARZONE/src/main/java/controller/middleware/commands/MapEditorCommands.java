@@ -167,8 +167,8 @@ public class MapEditorCommands extends Commands {
                     wm.removeContinent(wm.getContinentID(splitCommand[commandIndex + 1]));
                 } catch (Exception e) {
                     System.out.println(e);
-
                 }
+                commandIndex = commandIndex + 2;
 
             }
         }
