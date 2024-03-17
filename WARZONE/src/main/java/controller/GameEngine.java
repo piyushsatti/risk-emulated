@@ -7,6 +7,8 @@ import controller.statepattern.gameplay.IssueOrder;
 import controller.statepattern.gameplay.OrderExecution;
 import controller.statepattern.gameplay.Reinforcement;
 import controller.statepattern.gameplay.Startup;
+import helpers.exceptions.CountryDoesNotExistException;
+import helpers.exceptions.InvalidCommandException;
 import models.Player;
 import models.worldmap.WorldMap;
 import view.TerminalRenderer;
@@ -42,7 +44,7 @@ public class GameEngine {
         d_players = new ArrayList<>();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CountryDoesNotExistException, InvalidCommandException {
         GameEngine testEngine = new GameEngine();
         testEngine.runState();
     }
@@ -51,13 +53,13 @@ public class GameEngine {
         this.d_current_phase = p_p;
     }
 
-    public void runState() {
+    public void runState() throws CountryDoesNotExistException, InvalidCommandException {
         while (this.d_current_phase.getClass() != End.class) {
             this.d_current_phase.run();
         }
     }
 
-    public void runGameplayTest(){
+    public void runGameplayTest() throws CountryDoesNotExistException, InvalidCommandException {
         this.setCurrentState(new Startup(this));
         this.d_current_phase.run();
         this.setCurrentState(new IssueOrder(this));

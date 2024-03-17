@@ -4,12 +4,14 @@ import controller.GameEngine;
 import controller.MapInterface;
 import controller.statepattern.gameplay.IssueOrder;
 import controller.statepattern.gameplay.OrderExecution;
+import helpers.exceptions.CountryDoesNotExistException;
+import helpers.exceptions.InvalidCommandException;
 import models.Player;
 
 public class StateCommandDriver {
 
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws CountryDoesNotExistException, InvalidCommandException {
 
         //loadmap
         GameEngine testEngine = new GameEngine();
