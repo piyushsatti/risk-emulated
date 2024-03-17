@@ -72,6 +72,7 @@ public class IssueOrderCommands extends Commands{
                     p.issue_order();
                     p.setReinforcements(p.getReinforcements() - l_numberTobeDeployed);
                     p.setOrderSuccess(true);
+                    System.out.println("Command Issued!");
                     break;
                 }
 
@@ -90,6 +91,7 @@ public class IssueOrderCommands extends Commands{
                     p.addOrder(order);
                     p.issue_order();
                     p.setOrderSuccess(true);
+                    System.out.println("Command Issued!");
                     break;
                 }
 
@@ -105,6 +107,7 @@ public class IssueOrderCommands extends Commands{
                         p.issue_order();
                         p.removeCard("airlift");
                         p.setOrderSuccess(true);
+                        System.out.println("Command Issued!");
                         break;
                     }
                 } else {
@@ -122,9 +125,11 @@ public class IssueOrderCommands extends Commands{
                     }
                     order = new Bomb(p, l_targetPlayer, p.getPlayerId(), p.getName(), l_bombCountryID, ge);
                     if (order.validateCommand()) {
+                        System.out.println("Order Successful");
                         p.addOrder(order);
                         p.issue_order();
                         p.removeCard("bomb");
+                        System.out.println("Command Issued!");
                         p.setOrderSuccess(true);
 
                         break;
@@ -143,6 +148,7 @@ public class IssueOrderCommands extends Commands{
                         p.issue_order();
                         p.removeCard("blockade");
                         p.setOrderSuccess(true);
+                        System.out.println("Command Issued!");
                         break;
                     }
                 } else {
@@ -165,6 +171,7 @@ public class IssueOrderCommands extends Commands{
                         p.issue_order();
                         p.removeCard("negotiate");
                         p.setOrderSuccess(true);
+                        System.out.println("Command Issued!");
                         break;
                     }
                 } else {

@@ -37,7 +37,7 @@ public class IssueOrder extends Phase {
             p.setOrderSuccess(false);
             while(!p.isOrderSuccess() && p.getReinforcements()>0){
             d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Reinforcements Available: " + p.getReinforcements());
-                d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Cards Available: " + p.getReinforcements());
+                d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Cards Available: " + p.displayCards());
             System.out.print(p.getName() + " enter order: ");
             String command = scan.nextLine();
             IssueOrderCommands ioc = new IssueOrderCommands(command,p);
@@ -48,7 +48,7 @@ public class IssueOrder extends Phase {
 
                 }
             }
-            System.out.println("Command Issued!");
+
         }
 
         d_ge.setCurrentState(new OrderExecution(d_ge));

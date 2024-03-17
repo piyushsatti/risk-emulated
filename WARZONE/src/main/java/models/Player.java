@@ -400,6 +400,14 @@ public class Player {
         }
         return false;
     }
+    public String displayCards(){
+        String l_s = "";
+        for(Card l_card: this.d_listOfCards){
+            l_s+=" "+l_card.getTypeOfCard();
+        }
+        return l_s;
+
+    }
 
 
 

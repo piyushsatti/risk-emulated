@@ -66,7 +66,7 @@ public class OrderExecution extends Phase {
             d_ge.setCurrentState(new End(d_ge));
         }
 
-        d_ge.setCurrentState(new IssueOrder(d_ge));
+        d_ge.setCurrentState(new Reinforcement(d_ge));
 
 
     }
