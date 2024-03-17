@@ -73,12 +73,61 @@ public class AdvanceTest {
         Deploy deploy = new Deploy(ge.d_players.get(0),ge.d_players.get(0).getName(),ge.d_players.get(0).getPlayerId(),ge.d_players.get(0).getAssignedCountries().get(0),5,ge);
         deploy.execute();
 
-        Advance av = new Advance(ge.d_players.get(0),ge.d_players.get(1),ge.d_players.get(0).getName(),ge.d_players.get(0).getPlayerId(), ge.d_players.get(0).getAssignedCountries().get(0), ge.d_players.get(0).getAssignedCountries().get(1), 5, ge);
+        Advance av = new Advance(ge.d_players.get(0),ge.d_players.get(0),ge.d_players.get(0).getName(),ge.d_players.get(0).getPlayerId(), ge.d_players.get(0).getAssignedCountries().get(0), ge.d_players.get(0).getAssignedCountries().get(1), 5, ge);
         av.execute();
 
         Country c =ge.d_worldmap.getCountry(ge.d_players.get(0).getAssignedCountries().get(1)) ;
         assertEquals(5,c.getReinforcements());
     }
+
+   @Test
+    public void advanceMove() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
+        GameEngine ge = new GameEngine();
+        MapInterface.loadMap2(ge,"usa9.map");
+        ge.d_players.add(new Player("Priyanshu",ge));
+        ge.d_players.add(new Player("Abc",ge));
+
+        StartupCommands cmd = new StartupCommands("assigncountries");
+        cmd.execute(ge);
+        Reinforcement rf = new Reinforcement(ge);
+        rf.run();
+
+        Deploy deploy = new Deploy(ge.d_players.get(0),ge.d_players.get(0).getName(),ge.d_players.get(0).getPlayerId(),ge.d_players.get(0).getAssignedCountries().get(0),5,ge);
+        deploy.execute();
+
+        Advance av = new Advance(ge.d_players.get(0),ge.d_players.get(0),ge.d_players.get(0).getName(),ge.d_players.get(0).getPlayerId(), ge.d_players.get(0).getAssignedCountries().get(0), ge.d_players.get(0).getAssignedCountries().get(1), 5, ge);
+        av.execute();
+
+        Country c =ge.d_worldmap.getCountry(ge.d_players.get(0).getAssignedCountries().get(1)) ;
+        assertEquals(5,c.getReinforcements());
+    }
+
+
+    @Test
+    public void advanceConquerCheck() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
+        GameEngine ge = new GameEngine();
+        MapInterface.loadMap2(ge,"order_test.map");
+        ge.d_players.add(new Player("Priyanshu",ge));
+        ge.d_players.add(new Player("Abc",ge));
+
+        StartupCommands cmd = new StartupCommands("assigncountries");
+        cmd.execute(ge);
+        Reinforcement rf = new Reinforcement(ge);
+        rf.run();
+
+        Deploy deploy = new Deploy(ge.d_players.get(0),ge.d_players.get(0).getName(),ge.d_players.get(0).getPlayerId(),ge.d_players.get(0).getAssignedCountries().get(0),5,ge);
+        deploy.execute();
+
+        Advance av = new Advance(ge.d_players.get(0),ge.d_players.get(1),ge.d_players.get(0).getName(),ge.d_players.get(0).getPlayerId(), ge.d_players.get(0).getAssignedCountries().get(0), ge.d_players.get(1).getAssignedCountries().get(0), 5, ge);
+        av.execute();
+
+        Country c =ge.d_worldmap.getCountry(ge.d_players.get(0).getAssignedCountries().get(1)) ;
+        assertEquals(5,c.getReinforcements());
+    }
+
+
+
+
 
 
 }
