@@ -6,15 +6,24 @@ import controller.middleware.commands.StartupCommands;
 import controller.statepattern.MapEditor;
 import controller.statepattern.Phase;
 
+/**
+ * Represents the startup phase of the game.
+ */
 public class Startup extends Phase {
-
-
     String[] menu_options = {"Show Map", "Load Map", "gameplayer to Add/Remove Player", "Assign Countries"};
 
-    public Startup(GameEngine ge) {
-        super(ge);
+    /**
+     * Constructor for Startup phase.
+     *
+     * @param gameEngine The GameEngine object.
+     */
+    public Startup(GameEngine gameEngine) {
+        super(gameEngine);
     }
 
+    /**
+     * Displays the menu for the startup phase.
+     */
     @Override
     public void displayMenu() {
         d_ge.d_renderer.renderMenu(
@@ -22,7 +31,6 @@ public class Startup extends Phase {
                 menu_options
         );
     }
-
 
     @Override
     public void next() {
@@ -34,6 +42,9 @@ public class Startup extends Phase {
 
     }
 
+    /**
+     * Runs the startup phase.
+     */
     @Override
     public void run() {
         displayMenu();

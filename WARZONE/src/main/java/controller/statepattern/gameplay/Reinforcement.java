@@ -8,9 +8,18 @@ import models.worldmap.Country;
 
 import java.util.HashMap;
 
+
+/**
+ * Represents the phase of reinforcement.
+ */
 public class Reinforcement extends Phase {
-    public Reinforcement(GameEngine g) {
-        super(g);
+    /**
+     * Constructor for Reinforcement.
+     *
+     * @param p_gameEngine The GameEngine object.
+     */
+    public Reinforcement(GameEngine p_gameEngine) {
+        super(p_gameEngine);
     }
 
     @Override
@@ -28,6 +37,9 @@ public class Reinforcement extends Phase {
 
     }
 
+    /**
+     * Executes the reinforcement phase.
+     */
     @Override
     public void run() {
         for(Player player : d_ge.d_players){
