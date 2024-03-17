@@ -25,7 +25,7 @@ public class MapEditor extends Phase {
     public void run() {
         displayMenu();
         MapEditorCommands mec = new MapEditorCommands(
-                this.d_ge.d_renderer.renderUserInput("Please enter command : ")
+                this.d_ge.d_renderer.renderUserInput("Enter command: ")
         );
         mec.execute(this.d_ge);
     }

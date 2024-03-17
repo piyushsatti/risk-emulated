@@ -1,6 +1,7 @@
 package controller.statepattern;
 
 import controller.GameEngine;
+import controller.statepattern.gameplay.Startup;
 
 import java.util.Scanner;
 
@@ -49,7 +50,7 @@ public class Starting extends Phase {
             d_ge.setCurrentState(new MapEditor(d_ge));
         }
         else if(l_userSelection == 2){
-            d_ge.setCurrentState(new MapEditor(d_ge));
+            d_ge.setCurrentState(new Startup(d_ge));
         }
         else if (l_userSelection == 3) {
             d_ge.setCurrentState(new End(d_ge));

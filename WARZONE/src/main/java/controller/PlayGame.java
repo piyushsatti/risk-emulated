@@ -5,7 +5,7 @@ import models.orders.Order;
 import models.Player;
 import models.worldmap.Country;
 import helpers.exceptions.InvalidCommandException;
-import view.TerminalRenderer;
+
 
 import java.util.*;
 
@@ -19,10 +19,10 @@ public class PlayGame {
      */
     public static void startGame( GameEngine gameEngine)  {
 
-        ArrayList<Player> l_listOfPlayers = gameEngine.PLAYER_LIST;
+        ArrayList<Player> l_listOfPlayers = gameEngine.d_players;
         System.out.println("Assigning countries");
         assignCountriesToPlayers(gameEngine);
-        gameLoop(l_listOfPlayers);
+        gameLoop(l_listOfPlayers,gameEngine);
 
     }
     /**
@@ -32,11 +32,11 @@ public class PlayGame {
      */
     public static void assignCountriesToPlayers(GameEngine ge) {
 
-        HashMap<Integer, Country> map = ge.CURRENT_MAP.getD_countries();
+        HashMap<Integer, Country> map = ge.d_worldmap.getD_countries();
         Set<Integer> l_countryIDSet = map.keySet();
         ArrayList<Integer> l_countryIDList = new ArrayList<>(l_countryIDSet);
 
-        int total_players = ge.PLAYER_LIST.size();
+        int total_players = ge.d_players.size();
         int playerNumber =0;
         while (!l_countryIDList.isEmpty()) {
             Random rand = new Random();
@@ -47,18 +47,18 @@ public class PlayGame {
                 playerNumber =0;
             }
             Country country = map.get(l_randomCountryID);
-            country.setCountryPlayerID(ge.PLAYER_LIST.get(playerNumber).getPlayerId());
-            ge.PLAYER_LIST.get(playerNumber).setAssignedCountries(l_randomCountryID);
+            country.setCountryPlayerID(ge.d_players.get(playerNumber).getPlayerId());
+            ge.d_players.get(playerNumber).setAssignedCountries(l_randomCountryID);
             playerNumber++;
         }
 
         System.out.println("Assigning of Countries Done");
-        for(Player l_player: ge.PLAYER_LIST){
+        for(Player l_player: ge.d_players){
             System.out.println("Number of Countries: " + l_player.getAssignedCountries().size());
             System.out.println("List of Assigned Countries for Player: "+l_player.getName());
             ArrayList<Integer> l_listOfAssignedCountries = l_player.getAssignedCountries();
             for(Integer l_countryID : l_listOfAssignedCountries){
-                System.out.println(ge.CURRENT_MAP.getCountry(l_countryID).getCountryName());
+                System.out.println(ge.d_worldmap.getCountry(l_countryID).getCountryName());
             }
             System.out.println("-----------------------------------------------------------------");
 
@@ -162,11 +162,11 @@ public class PlayGame {
      * @param p_listOfPlayers list of players participating in the game.
 
      */
-    public static void gameLoop(ArrayList<Player> p_listOfPlayers)  {
+    public static void gameLoop(ArrayList<Player> p_listOfPlayers,GameEngine ge)  {
 
         String[] menu_options = {"Show Map","Start Game"};
 
-        TerminalRenderer.renderMenu(
+        ge.d_renderer.renderMenu(
                 "Main Menu",
                 menu_options
         );
@@ -181,7 +181,7 @@ public class PlayGame {
 
             if (user_in.strip().replace(" ", "").equalsIgnoreCase("showmap")) {
 
-                TerminalRenderer.showMap(true);
+                ge.d_renderer.showMap(true);
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("startgame")) {
 
@@ -189,11 +189,11 @@ public class PlayGame {
 
             } else if (user_in.strip().replace(" ", "").equalsIgnoreCase("exit")) {
 
-                TerminalRenderer.renderExit();
+                ge.d_renderer.renderExit();
 
             } else {
 
-                TerminalRenderer.renderMessage("Not an option. Try again.");
+                ge.d_renderer.renderMessage("Not an option. Try again.");
             }
 
         }
@@ -202,7 +202,7 @@ public class PlayGame {
         try {
             playerOrders(p_listOfPlayers);
         } catch (InvalidCommandException | CountryDoesNotExistException e) {
-            TerminalRenderer.renderError("!!Invalid Command!! Please enter valid command");
+            ge.d_renderer.renderError("!!Invalid Command!! Please enter valid command");
         }
         executingOrders(p_listOfPlayers);
 

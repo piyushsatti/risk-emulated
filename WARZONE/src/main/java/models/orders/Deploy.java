@@ -54,7 +54,7 @@ public class Deploy implements Order {
     }
 
     public boolean deployment_validator(int p_numberTobeDeployed) {
-        return p_numberTobeDeployed < this.d_sourcePlayer.getReinforcements();
+        return p_numberTobeDeployed <= this.d_sourcePlayer.getReinforcements();
     }
 
     @Override
@@ -80,9 +80,9 @@ public class Deploy implements Order {
      * Executes the order by deploying reinforcements to the specified country.
      */
     public void execute(){
-        int l_currentReinforcements = this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getReinforcements();
+        int l_currentReinforcements = this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
 
-       this.d_gameEngine.CURRENT_MAP
+       this.d_gameEngine.d_worldmap
                .getCountry(this.d_fromCountryID)
                .setReinforcements(this.d_reinforcementsDeployed + l_currentReinforcements);
 
@@ -90,7 +90,7 @@ public class Deploy implements Order {
               "Order Executed: " +
                       this.d_reinforcementsDeployed +
                        " troops deployed on " +
-                      this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getCountryName() +
+                      this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() +
                        " by " +
                        this.d_playerOrderName
        );

@@ -2,6 +2,7 @@ package controller.middleware.commands;
 
 import controller.GameEngine;
 import controller.MapInterface;
+import controller.statepattern.Starting;
 import helpers.exceptions.*;
 import models.LogEntryBuffer;
 import view.Logger;
@@ -41,12 +42,10 @@ public class MapEditorCommands extends Commands{
     public void execute(GameEngine ge) {
 
         if (!this.validateCommandName()) {
-            ge.renderer.renderError("InvalidCommandException : Invalid Command: " + this.d_command.split(" ")[0]);
-        if (!this.validateCommandName()) {
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command: " + this.d_command.split(" ")[0]);
         }
 
-        String[] l_command = d_command.trim().split("\\s+");
+        String[] l_command = d_command.trim().split("//s+");
 
         switch (l_command[0]) {
             case "showmap":
@@ -85,6 +84,9 @@ public class MapEditorCommands extends Commands{
                 break;
             case "editneighbor":
                 editNeighbor(ge, l_command, 1);
+                break;
+            case "exit":
+                ge.setCurrentState(new Starting(ge));
                 break;
         }
     }
@@ -161,6 +163,34 @@ public class MapEditorCommands extends Commands{
             }
 
             editNeighbor(ge, p_command, i += 3);
+        }
+    }
+
+    public void editMap(GameEngine ge){
+        String mapName = "";
+        if(this.splitCommand.length < 2){
+            ge.d_renderer.renderError("Invalid command format! Correct format -> editmap <mapname>");
+            return;
+        }
+
+        mapName = splitCommand[1];
+
+        try {
+            MapInterface.loadMap2(ge, mapName);
+        } catch (FileNotFoundException e) {
+            ge.d_renderer.renderError("FileNotFoundException : File does not exist.");
+            ge.d_renderer.renderMessage("Creating file by the name : " + mapName);
+            try {
+                MapInterface.saveMap(ge, mapName);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            editMap(ge);
+        } catch (NumberFormatException e) {
+            ge.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
+        } catch (ContinentAlreadyExistsException | ContinentDoesNotExistException |
+                 DuplicateCountryException | CountryDoesNotExistException e) {
+            ge.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
         }
     }
 

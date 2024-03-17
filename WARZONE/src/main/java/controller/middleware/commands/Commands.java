@@ -4,11 +4,14 @@ import controller.GameEngine;
 
 public abstract class Commands {
     private String[] d_valid_commands;
+
+    public String[] splitCommand;
     final String d_command;
 
     public Commands(String p_command,String[] p_valid_commands)
     {
         d_command = p_command;
+        splitCommand = p_command.split(" ");
         d_valid_commands = p_valid_commands;
     }
 

@@ -3,8 +3,8 @@ package controller.statepattern.gameplay;
 import controller.GameEngine;
 import controller.statepattern.Phase;
 
-public class OrderExecution extends Phase {
-    public OrderExecution(GameEngine g) {
+public class Reinforcement extends Phase {
+    public Reinforcement(GameEngine g) {
         super(g);
     }
 
@@ -26,9 +26,5 @@ public class OrderExecution extends Phase {
     @Override
     public void run() {
 
-        //Loop through player
-        //execute orders
-
-        //change state to reinforcement state
     }
 }
