@@ -189,7 +189,7 @@ public class IssueOrderCommands extends Commands{
                     }
                     order = new Bomb(p, l_targetPlayer, p.getPlayerId(), p.getName(), l_bombCountryID, p_gameEngine);
                     if (order.validateCommand()) {
-                        System.out.println("Order Successful");
+                        System.out.println("Bomb Order Placed");
                         p.addOrder(order);
                         p.issue_order();
                         p.removeCard("bomb");

@@ -118,7 +118,7 @@ public class Advance implements Order {
                     this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(attackingarmiessurvived);
                     this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
                     d_sourcePlayer.addCard();
-                    System.out.println("Attacker Won");
+                    System.out.println("Advance attack succesfull");
                     return;
                 } else {
                     //Defender won
@@ -128,7 +128,8 @@ public class Advance implements Order {
                     } else {
                         this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
                     }
-                    System.out.println("Defender Won");
+                    System.out.println("Defence was succesful");
+
                     return;
 
                 }

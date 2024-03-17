@@ -36,12 +36,20 @@ public class Reinforcement extends Phase {
     public void endGame() {
 
     }
+    public void allPlayersResent(){
+        for(Player p : d_ge.d_players){
+            if(p.isFinishedIssueOrder()){
+                p.setFinishedIssueOrder(false);
+            }
+        }
+    }
 
     /**
      * Executes the reinforcement phase.
      */
     @Override
     public void run() {
+        allPlayersResent();
         for(Player player : d_ge.d_players){
             player.getListOfNegotiatedPlayers().clear();
             int bonus =0;
@@ -62,6 +70,7 @@ public class Reinforcement extends Phase {
             int l_numberOfTroops = Math.max(player.getAssignedCountries().size() / 3 +bonus, 3);
             player.setReinforcements(l_numberOfTroops);
         }
+        System.out.println("Reinforcements Done");
         d_ge.setCurrentState(new IssueOrder(d_ge));
     }
 }

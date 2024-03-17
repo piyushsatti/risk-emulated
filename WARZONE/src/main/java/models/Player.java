@@ -12,6 +12,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.Iterator;
 
 /**
  * The Player class represents a player in the game.
@@ -261,9 +262,11 @@ public class Player {
      * @param p_cardType The type of card to remove
      */
     public void removeCard(String p_cardType){
-        for (Card l_card : this.d_listOfCards) {
-            if (l_card.getTypeOfCard().equals(p_cardType)) {
-                this.d_listOfCards.remove(l_card);
+        Iterator<Card> iterator = this.d_listOfCards.iterator();
+        while (iterator.hasNext()) {
+            Card card = iterator.next();
+            if (card.getTypeOfCard().equals(p_cardType)) {
+                iterator.remove(); // Remove the current card using the iterator
             }
         }
     }

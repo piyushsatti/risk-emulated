@@ -5,8 +5,8 @@ import controller.statepattern.End;
 import controller.statepattern.Phase;
 import models.Player;
 import models.orders.Order;
-
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * Represents the phase of executing orders.
@@ -51,9 +51,10 @@ public class OrderExecution extends Phase {
 
         int l_totalplayers = d_ge.d_players.size();
         int l_playerNumber = 0;
-        System.out.println("In order execution phase");
+
         while (!allOrdersExecuted(d_ge.d_players)) {
             for(Player player: d_ge.d_players){
+
                 System.out.println("Player  " + player.getName());
                 if (!player.getOrderList().isEmpty()) {
                     Order order = player.next_order();
@@ -62,14 +63,18 @@ public class OrderExecution extends Phase {
             }
         }
 
-        for(Player p: d_ge.d_players){
-            if(p.getAssignedCountries().isEmpty()){
-                d_ge.d_renderer.renderMessage("Player "+p.getName()+" has lost all territories");
-                d_ge.d_players.remove(p);
+
+        Iterator<Player> iterator = d_ge.d_players.iterator();
+
+        while (iterator.hasNext()) {
+            Player p = iterator.next();
+            if (p.getAssignedCountries().isEmpty()) {
+                d_ge.d_renderer.renderMessage("Player " + p.getName() + " has lost all territories");
+                iterator.remove(); // Remove the current player using the iterator
             }
         }
-        if(isWinner())
-        {
+
+        if(isWinner()) {
             d_ge.setCurrentState(new End(d_ge));
         }
         d_ge.setCurrentState(new Reinforcement(d_ge));

@@ -52,6 +52,8 @@ public class IssueOrder extends Phase {
      return playersFinished;
  }
 
+
+
     /**
      * Executes the phase of issuing orders.
      *
@@ -61,6 +63,7 @@ public class IssueOrder extends Phase {
     @Override
     public void run() throws CountryDoesNotExistException, InvalidCommandException {
         Scanner scan = new Scanner(System.in);
+        System.out.println("In issue order");
         int l_playerNumber = 0;
         while(!allPlayersFinished()) {
             Player p = d_ge.d_players.get(l_playerNumber);
