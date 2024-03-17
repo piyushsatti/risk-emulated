@@ -22,7 +22,7 @@ public class MapEditorCommands extends Commands{
                     "savemap",
                     "editmap",
                     "validatemap",
-                    "loadmap"
+                    "exit"
         });
     }
     @Override
