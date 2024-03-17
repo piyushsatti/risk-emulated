@@ -3,6 +3,8 @@ package controller.middleware.commands;
 import controller.GameEngine;
 import controller.MapInterface;
 import controller.statepattern.End;
+import controller.statepattern.Starting;
+import controller.statepattern.gameplay.IssueOrder;
 import controller.statepattern.gameplay.Startup;
 import helpers.exceptions.ContinentAlreadyExistsException;
 import helpers.exceptions.ContinentDoesNotExistException;
@@ -55,7 +57,7 @@ public class StartupCommands extends Commands {
         switch (commandName) {
             case "assigncountries":
                 assignCountries(ge);
-
+                ge.setCurrentState(new IssueOrder(ge));
                 break;
             case "showmap":
                 showmap(ge);
@@ -67,7 +69,7 @@ public class StartupCommands extends Commands {
                 gameplayer(ge, splitCommand);
                 break;
             case "exit":
-                ge.setCurrentState(new Startup(ge));
+                ge.setCurrentState(new Starting(ge));
                 break;
 
         }
