@@ -71,4 +71,8 @@ public class GameEngine {
        ;
     }
 
+    public void resetMap(){
+        d_worldmap = new WorldMap();
+    }
+
 }

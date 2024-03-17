@@ -85,6 +85,7 @@ public class MapEditorCommands extends Commands {
                 }
                 break;
             case "exit":
+                ge.resetMap();
                 ge.setCurrentState(new Starting(ge));
                 break;
         }
