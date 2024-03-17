@@ -25,7 +25,7 @@ public class MapInterface {
      * @return The File object representing the map file.
      * @throws FileNotFoundException If the specified file does not exist.
      */
-    private static File createFileObjectFromFileName(GameEngine ge, String p_map_name) throws FileNotFoundException {
+    protected static File createFileObjectFromFileName(GameEngine ge, String p_map_name) throws FileNotFoundException {
 
         File l_map_file_obj = new File(ge.d_maps_folder + p_map_name);
         ge.d_renderer.renderMessage(ge.d_maps_folder + p_map_name);
