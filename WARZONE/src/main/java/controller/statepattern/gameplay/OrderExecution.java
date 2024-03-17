@@ -42,16 +42,15 @@ public class OrderExecution extends Phase {
 
         int l_totalplayers = d_ge.d_players.size();
         int l_playerNumber = 0;
-
+        System.out.println("In order execution phase");
         while (!allOrdersExecuted(d_ge.d_players)) {
-            if ((l_playerNumber % l_totalplayers == 0) && l_playerNumber != 0) {
-                l_playerNumber = 0;
+            for(Player player: d_ge.d_players){
+                System.out.println("Player  " + player.getName());
+                if (!player.getOrderList().isEmpty()) {
+                    Order order = player.next_order();
+                    order.execute();
+                }
             }
-            if (!d_ge.d_players.get(l_playerNumber).getOrderList().isEmpty()) {
-                Order order = d_ge.d_players.get(l_playerNumber).next_order();
-                order.execute();
-            }
-            l_playerNumber++;
         }
 
         for(Player p: d_ge.d_players){
@@ -64,7 +63,7 @@ public class OrderExecution extends Phase {
         {
             d_ge.setCurrentState(new End(d_ge));
         }
-        d_ge.setCurrentState(new IssueOrder(d_ge));
+        d_ge.setCurrentState(new Reinforcement(d_ge));
     }
 
     public boolean isWinner()
@@ -75,4 +74,5 @@ public class OrderExecution extends Phase {
         }
         return false;
     }
+
 }

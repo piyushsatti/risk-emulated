@@ -57,7 +57,7 @@ public class Advance implements Order {
         }
 
        int l_currentReinforcementsFromCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
-        if(l_currentReinforcementsFromCountry < this.d_advancingtroops){
+        if( this.d_advancingtroops < 0){
             System.out.println("Not enough troops to advance.");
             return false;
         }
@@ -68,7 +68,7 @@ public class Advance implements Order {
     @Override
     public void execute() {
 
-        if (this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements() - this.d_advancingtroops >= 1) {
+        if (this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements() - this.d_advancingtroops >= 0) {
             if (d_sourcePlayer.getAssignedCountries().contains(d_toCountryID)) {
 
                 //Move order moving from within own adjacent territories.
@@ -105,6 +105,8 @@ public class Advance implements Order {
                     this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(attackingarmiessurvived);
                     this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
                     d_sourcePlayer.addCard();
+                    System.out.println("Attacker Won");
+                    return;
                 } else {
                     //Defender won
                     this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(defendingarmiessurvived);
@@ -113,10 +115,10 @@ public class Advance implements Order {
                     } else {
                         this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
                     }
+                    System.out.println("Defender Won");
                     return;
 
                 }
-
 
             }
 

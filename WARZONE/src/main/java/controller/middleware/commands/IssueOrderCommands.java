@@ -200,6 +200,7 @@ public class IssueOrderCommands extends Commands{
 
                 }else {
                  p.setFinishedIssueOrder(true);
+                 p.setOrderSuccess(true);
                 }
                 break;
             case "showmap":

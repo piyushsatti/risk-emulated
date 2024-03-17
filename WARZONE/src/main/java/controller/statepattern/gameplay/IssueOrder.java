@@ -28,19 +28,23 @@ public class IssueOrder extends Phase {
     public void endGame() {
 
     }
-
+ public boolean allPlayersFinished(){
+        boolean playersFinished = true;
+     for(Player p : d_ge.d_players){
+         if(!p.isFinishedIssueOrder()){
+             playersFinished = false;
+             return playersFinished;
+         }
+     }
+     return playersFinished;
+ }
 
     @Override
     public void run() throws CountryDoesNotExistException, InvalidCommandException {
         Scanner scan = new Scanner(System.in);
-        boolean allPlayersFinished = true;
-        for(Player p : d_ge.d_players){
-            if(!p.isFinishedIssueOrder()){
-                allPlayersFinished = false;
-            }
-        }
-        while(!allPlayersFinished) {
-            for (Player p : d_ge.d_players) {
+        int l_playerNumber = 0;
+        while(!allPlayersFinished()) {
+            Player p = d_ge.d_players.get(l_playerNumber);
                 p.setOrderSuccess(false);
                 while (!p.isOrderSuccess()) {
                     d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Reinforcements Available: " + p.getReinforcements());
@@ -57,9 +61,12 @@ public class IssueOrder extends Phase {
 
                     }
                 }
+                l_playerNumber++;
+                if(l_playerNumber == d_ge.d_players.size()){
+                    l_playerNumber = 0;
+                }
 
             }
-        }
 
         d_ge.setCurrentState(new OrderExecution(d_ge));
 
