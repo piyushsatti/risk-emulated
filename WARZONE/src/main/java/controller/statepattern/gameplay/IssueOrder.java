@@ -9,9 +9,17 @@ import models.Player;
 
 import java.util.Scanner;
 
+/**
+ * Represents the phase where players issue orders.
+ */
 public class IssueOrder extends Phase {
-    public IssueOrder(GameEngine g) {
-        super(g);
+    /**
+     * Constructor for IssueOrder.
+     *
+     * @param p_gameEngine The GameEngine object.
+     */
+    public IssueOrder(GameEngine p_gameEngine) {
+        super(p_gameEngine);
     }
 
     @Override
@@ -28,7 +36,12 @@ public class IssueOrder extends Phase {
     public void endGame() {
 
     }
- public boolean allPlayersFinished(){
+    /**
+     * Checks if all players have finished issuing orders.
+     *
+     * @return True if all players have finished, false otherwise.
+     */
+    public boolean allPlayersFinished(){
         boolean playersFinished = true;
      for(Player p : d_ge.d_players){
          if(!p.isFinishedIssueOrder()){
@@ -39,6 +52,12 @@ public class IssueOrder extends Phase {
      return playersFinished;
  }
 
+    /**
+     * Executes the phase of issuing orders.
+     *
+     * @throws CountryDoesNotExistException If a country does not exist.
+     * @throws InvalidCommandException     If the command is invalid.
+     */
     @Override
     public void run() throws CountryDoesNotExistException, InvalidCommandException {
         Scanner scan = new Scanner(System.in);
