@@ -183,3 +183,21 @@ Issue Order Phase:
  Player Name:dev || Issued Order:done
 Issue Order Phase: 
  Player Name:dev || Player has finished issuing all orders:done
+Issue Order Phase: 
+ Player Name:dev || Issued Deploy Order:deploy Missouri 9
+Issue Order Phase: 
+ Player Name:devdutt || Issued Deploy Order:deploy Alabama 7
+Issue Order Phase: 
+ Player Name:dev || Issued Advance Order:advance Missouri Kentucky 8
+Issue Order Phase: 
+ Player Name:devdutt || Issued Order:done
+Issue Order Phase: 
+ Player Name:devdutt || Player has finished issuing all orders:done
+Issue Order Phase: 
+ Player Name:dev || Issued Order:done
+Issue Order Phase: 
+ Player Name:dev || Player has finished issuing all orders:done
+Issue Order Phase: 
+ Player Name:dev || Issued Deploy Order:deploy Kentucky 9
+Issue Order Phase: 
+ Player Name:devdutt || Issued Deploy Order:deploy Alabama 7
