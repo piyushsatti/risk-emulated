@@ -49,14 +49,7 @@ public class ReinforcementTest {
             }
         }
         int l_numberOfTroops = Math.max(ge.d_players.get(0).getAssignedCountries().size() / 3 +bonus, 3);
-
-        boolean flag=false;
-            if(ge.d_players.get(0).getReinforcements()==3||ge.d_players.get(0).getReinforcements() == ge.d_players.get(0).getAssignedCountries().size() / 3){
-                flag = true;
-            }
-            else flag=false;
-
-        assertTrue(flag);
+        assertEquals(l_numberOfTroops,ge.d_players.get(0).getReinforcements());
 
     }
 
@@ -67,9 +60,6 @@ public class ReinforcementTest {
         ge.d_players.add(new Player("Priyanshu",ge));
 
         rf.run();
-        int armies1 = ge.d_players.get(0).getReinforcements();
-        int armies2 = ge.d_players.get(1).getReinforcements();
-
 
         //main logic: armies should return the value of l_numberOfTroops
         for(Player player : ge.d_players){
@@ -89,13 +79,9 @@ public class ReinforcementTest {
                 }
             }
             int l_numberOfTroops = Math.max(player.getAssignedCountries().size() / 3 +bonus, 3);
-            boolean flag = false;
-            if(player.getReinforcements()==3||player.getReinforcements() == player.getAssignedCountries().size() / 3){
-                flag = true;
-            }
-            else flag=false;
+            assertEquals(l_numberOfTroops,player.getReinforcements());
 
-            assertEquals(player.getReinforcements(),l_numberOfTroops);
+
         }
     }
 }
