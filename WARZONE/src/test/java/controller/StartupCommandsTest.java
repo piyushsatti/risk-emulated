@@ -6,7 +6,13 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * The StartupCommandsTest class contains unit tests for the StartupCommands class.
+ */
 public class StartupCommandsTest {
+    /**
+     * Test case for validating the loadmap command with no parameters.
+     */
     @Test
     public void testLoadMap1()
     {
@@ -14,6 +20,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertFalse(obj.validateCommand());
     }
+    /**
+     * Test case for validating the loadmap command with no filename.
+     */
     @Test
     public void testLoadMap2()
     {
@@ -21,6 +30,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertFalse(obj.validateCommand());
     }
+    /**
+     * Test case for validating the loadmap command with a valid filename.
+     */
     @Test
     public void testLoadMap3()
     {
@@ -28,6 +40,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertTrue(obj.validateCommand());
     }
+    /**
+     * Test case for validating the loadmap command with multiple filenames.
+     */
     @Test
     public void testLoadMap4()
     {
@@ -36,6 +51,9 @@ public class StartupCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test cases for validating the gameplayer command.
+     */
     @Test
     public void testGamePlayer1()
     {
@@ -43,6 +61,10 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertTrue(obj.validateCommand());
     }
+
+    /**
+     * Test cases for validating the gameplayer command with incorrect parameters
+     */
     @Test
     public void testGamePlayer2()
     {
@@ -50,6 +72,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertFalse(obj.validateCommand());
     }
+    /**
+     * Test cases for validating the gameplayer command to add and remove player
+     */
     @Test
     public void testGamePlayer3()
     {
@@ -57,6 +82,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertTrue(obj.validateCommand());
     }
+    /**
+     * Test cases for validating the gameplayer command to add player
+     */
     @Test
     public void testGamePlayer4()
     {
@@ -64,6 +92,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertTrue(obj.validateCommand());
     }
+    /**
+     * Test cases for validating the gameplayer command to remove player
+     */
     @Test
     public void testGamePlayer5()
     {
@@ -71,6 +102,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertTrue(obj.validateCommand());
     }
+    /**
+     * Test cases for validating the gameplayer command with incorrect command
+     */
     @Test
     public void testGamePlayer6()
     {
@@ -78,6 +112,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertFalse(obj.validateCommand());
     }
+    /**
+     * Test cases for validating the gameplayer command with incorrect command
+     */
     @Test
     public void testGamePlayer7()
     {
@@ -85,6 +122,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertFalse(obj.validateCommand());
     }
+    /**
+     * Test cases for validating the gameplayer command with incorrect command
+     */
     @Test
     public void testGamePlayer8()
     {
@@ -92,6 +132,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertFalse(obj.validateCommand());
     }
+    /**
+     * Test cases for validating the gameplayer command with incorrect command
+     */
     @Test
     public void testGamePlayer9()
     {
@@ -99,6 +142,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertFalse(obj.validateCommand());
     }
+    /**
+     * Test cases for validating the gameplayer command with incorrect command
+     */
     @Test
     public void testGamePlayer10()
     {
@@ -106,6 +152,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertFalse(obj.validateCommand());
     }
+    /**
+     * Test cases for validating the gameplayer command to add and remove multiple players
+    */
     @Test
     public void testGamePlayer11()
     {
@@ -113,7 +162,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertTrue(obj.validateCommand());
     }
-
+    /**
+     * Test cases for validating the assignCountries command with incorrect command
+     */
     @Test
     public void testAssignCountries1()
     {
@@ -121,6 +172,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertFalse(obj.validateCommand());
     }
+    /**
+     * Test cases for validating the assignCountries command with incorrect command
+     */
     @Test
     public void testAssignCountries2()
     {
@@ -128,6 +182,9 @@ public class StartupCommandsTest {
         StartupCommands obj = new StartupCommands(cmd);
         assertFalse(obj.validateCommand());
     }
+    /**
+     * Test cases for validating the assignCountries command with no parameters
+     */
     @Test
     public void testAssignCountries3()
     {

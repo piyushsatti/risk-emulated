@@ -6,7 +6,13 @@ import org.junit.Test;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+/**
+ * Javadoc for testing MapEditorCommands class.
+ */
 public class MapEditorCommandsTest {
+    /**
+     * Test case for validating the command with only one country name.
+     */
     @Test
     public void testShowMap1() {
         String cmd = "showmap India";
@@ -14,6 +20,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for validating the command with multiple country names.
+     */
     @Test
     public void testShowMap2() {
         String cmd = "showmap India Nepal";
@@ -21,6 +30,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for validating the command with no parameters.
+     */
     @Test
     public void testShowMap3() {
         String cmd = "showmap ";
@@ -28,6 +40,9 @@ public class MapEditorCommandsTest {
         assertTrue(obj.validateCommand());
     }
 
+    /**
+     * Test case for validating the command with multiple country names.
+     */
     @Test
     public void testValidateMap1() {
         String cmd = "validatemap India Bangladesh";
@@ -35,6 +50,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for validating the command with multiple country names.
+     */
     @Test
     public void testValidateMap2() {
         String cmd = "validatemap India Bangladesh Nepal";
@@ -42,6 +60,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for validating the command with no parameters.
+     */
     @Test
     public void testValidateMap3() {
         String cmd = "validatemap ";
@@ -49,6 +70,9 @@ public class MapEditorCommandsTest {
         assertTrue(obj.validateCommand());
     }
 
+    /**
+     * Test case for savemap with no parameters.
+     */
     @Test
     public void testSaveMap1() {
         String cmd = "savemap ";
@@ -56,6 +80,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for savemap with no incorrect name.
+     */
     @Test
     public void testSaveMap2() {
         String cmd = "savemap piyush";
@@ -63,6 +90,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for savemap with correct map name.
+     */
     @Test
     public void testSaveMap3() {
         String cmd = "savemap piyush.map";
@@ -70,6 +100,9 @@ public class MapEditorCommandsTest {
         assertTrue(obj.validateCommand());
     }
 
+    /**
+     * Test case for savemap with no incorrect name.
+     */
     @Test
     public void testSaveMap4() {
         String cmd = "savemap piyush satti.map";
@@ -77,6 +110,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editmap with no parameters.
+     */
     @Test
     public void testEditMap1() {
         String cmd = "editmap ";
@@ -84,6 +120,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editmap with no incorrect name.
+     */
     @Test
     public void testEditMap2() {
         String cmd = "editmap piyush";
@@ -91,6 +130,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editmap with no correct name.
+     */
     @Test
     public void testEditMap3() {
         String cmd = "editmap piyush.map";
@@ -98,6 +140,9 @@ public class MapEditorCommandsTest {
         assertTrue(obj.validateCommand());
     }
 
+    /**
+     * Test case for editmap with no incorrect name.
+     */
     @Test
     public void testEditMap4() {
         String cmd = "editmap piyush satti.map";
@@ -105,6 +150,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editcontinent without parameters.
+     */
     @Test
     public void testEditContinent1() {
         String cmd = "editcontinent ";
@@ -112,6 +160,9 @@ public class MapEditorCommandsTest {
         assertTrue(obj.validateCommand());
     }
 
+    /**
+     * Test case for editcontinent with incorrect name.
+     */
     @Test
     public void testEditContinent2() {
         String cmd = "editcontinent Asia Africa";
@@ -119,6 +170,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editcontinent with incorrect command.
+     */
     @Test
     public void testEditContinent3() {
         String cmd = "editcontinent -add Asia -remove Africa";
@@ -126,6 +180,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editcontinent with incorrect command.
+     */
     @Test
     public void testEditContinent4() {
         String cmd = "editcontinent -add Asia Africa -remove Australia";
@@ -133,6 +190,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editcontinent with incorrect command.
+     */
     @Test
     public void testEditContinent5() {
         String cmd = "editcontinent -add -remove Australia";
@@ -140,6 +200,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editcontinent with incorrect command.
+     */
     @Test
     public void testEditContinent6() {
         String cmd = "editcontinent -remove ";
@@ -147,6 +210,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editcontinent with incorrect command.
+     */
     @Test
     public void testEditContinent7() {
         String cmd = "editcontinent -remove -add Asia";
@@ -154,6 +220,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editcontinent with incorrect command.
+     */
     @Test
     public void testEditContinent8() {
         String cmd = "editcontinent -remove -add ";
@@ -161,6 +230,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editcontinent with the correct command.
+     */
     @Test
     public void testEditContinent9() {
         String cmd = "editcontinent -add Asia 100";
@@ -168,6 +240,9 @@ public class MapEditorCommandsTest {
         assertTrue(obj.validateCommand());
     }
 
+    /**
+     * Test case for editcontinent with the correct command.
+     */
     @Test
     public void testEditContinent10() {
         String cmd = "editcontinent -add Asia 100 -remove Africa";
@@ -175,6 +250,9 @@ public class MapEditorCommandsTest {
         assertTrue(obj.validateCommand());
     }
 
+    /**
+     * Test case for editcontinent with incorrect command.
+     */
     @Test
     public void testEditContinent11() {
         String cmd = "editcontinent -shashi Asia 100 -remove Africa";
@@ -182,6 +260,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editNeighbor.
+     */
     @Test
     public void testEditNeighbor1() {
         String cmd = "editneighbor ";
@@ -189,6 +270,9 @@ public class MapEditorCommandsTest {
         assertTrue(obj.validateCommand());
     }
 
+    /**
+     * Test case for editNeighbor with incorrect command.
+     */
     @Test
     public void testEditNeighbor2() {
         String cmd = "editneighbor India Bangladesh";
@@ -196,6 +280,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editNeighbor with incorrect command.
+     */
     @Test
     public void testEditNeighbor3() {
         String cmd = "editneighbor -add India -remove India Bangladesh";
@@ -203,6 +290,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editNeighbor with the correct command.
+     */
     @Test
     public void testEditNeighbor4() {
         String cmd = "editneighbor -add India Bangladesh -remove India Bangladesh";
@@ -210,6 +300,9 @@ public class MapEditorCommandsTest {
         assertTrue(obj.validateCommand());
     }
 
+    /**
+     * Test case for editNeighbor with incorrect command.
+     */
     @Test
     public void testEditNeighbor5() {
         String cmd = "editneighbor -add -remove India Bangladesh";
@@ -217,6 +310,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editNeighbor with incorrect command.
+     */
     @Test
     public void testEditNeighbor6() {
         String cmd = "editneighbor -remove ";
@@ -224,6 +320,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editNeighbor with incorrect command.
+     */
     @Test
     public void testEditNeighbor7() {
         String cmd = "editneighbor -remove -add India Bangladesh";
@@ -231,6 +330,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editNeighbor with incorrect command.
+     */
     @Test
     public void testEditNeighbor8() {
         String cmd = "editneighbor -remove -add ";
@@ -238,6 +340,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editNeighbor with incorrect command.
+     */
     @Test
     public void testEditNeighbor9() {
         String cmd = "editneighbor -add India Bangladesh";
@@ -245,6 +350,9 @@ public class MapEditorCommandsTest {
         assertTrue(obj.validateCommand());
     }
 
+    /**
+     * Test case for editNeighbor with incorrect command.
+     */
     @Test
     public void testEditNeighbor10() {
         String cmd = "editneighbor -add -remove";
@@ -252,6 +360,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editNeighbor with incorrect command.
+     */
     @Test
     public void testEditNeighbor11() {
         String cmd = "editneighbor -remove India ";
@@ -259,6 +370,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editNeighbor with incorrect command.
+     */
     @Test
     public void testEditNeighbor12() {
         String cmd = "editneighbor -remove India -shashi Australia ";
@@ -266,7 +380,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
-
+    /**
+     * Test case for editCountry with the correct command.
+     */
     @Test
     public void testEditCountry1() {
         String cmd = "editcountry ";
@@ -274,6 +390,9 @@ public class MapEditorCommandsTest {
         assertTrue(obj.validateCommand());
     }
 
+    /**
+     * Test case for editCountry with the incorrect command.
+     */
     @Test
     public void testEditCountry2() {
         String cmd = "editcountry India Asia";
@@ -281,6 +400,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editCountry with the incorrect command.
+     */
     @Test
     public void testEditCountry3() {
         String cmd = "editcountry -add India -remove India";
@@ -288,6 +410,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editCountry with the incorrect command.
+     */
     @Test
     public void testEditCountry4() {
         String cmd = "editcountry -add India Asia -remove Bangladesh";
@@ -295,6 +420,9 @@ public class MapEditorCommandsTest {
         assertTrue(obj.validateCommand());
     }
 
+    /**
+     * Test case for editCountry with the incorrect command.
+     */
     @Test
     public void testEditCountry5() {
         String cmd = "editcountry -add -remove Bangladesh";
@@ -302,6 +430,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editCountry with the incorrect command.
+     */
     @Test
     public void testEditCountry6() {
         String cmd = "editcountry -remove ";
@@ -309,6 +440,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editCountry with the incorrect command.
+     */
     @Test
     public void testEditCountry7() {
         String cmd = "editcountry -remove -add India";
@@ -316,6 +450,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editCountry with the incorrect command.
+     */
     @Test
     public void testEditCountry8() {
         String cmd = "editcountry -remove -add ";
@@ -323,6 +460,9 @@ public class MapEditorCommandsTest {
         assertFalse(obj.validateCommand());
     }
 
+    /**
+     * Test case for editCountry with the correct command.
+     */
     @Test
     public void testEditCountry9() {
         String cmd = "editcountry -add India Asia";
@@ -330,6 +470,9 @@ public class MapEditorCommandsTest {
         assertTrue(obj.validateCommand());
     }
 
+    /**
+     * Test case for editCountry with the correct command.
+     */
     @Test
     public void testEditCountry10() {
         String cmd = "editcountry -add India Asia -remove Bangladesh";
@@ -337,6 +480,9 @@ public class MapEditorCommandsTest {
         assertTrue(obj.validateCommand());
     }
 
+    /**
+     * Test case for editCountry with the incorrect command.
+     */
     @Test
     public void testEditCountry11() {
         String cmd = "editcountry -add India Asia -shashi Bangladesh";
