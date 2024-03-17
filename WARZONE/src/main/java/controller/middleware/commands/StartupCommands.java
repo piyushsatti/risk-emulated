@@ -2,6 +2,8 @@ package controller.middleware.commands;
 
 import controller.GameEngine;
 import controller.MapInterface;
+import controller.statepattern.End;
+import controller.statepattern.gameplay.Startup;
 import helpers.exceptions.ContinentAlreadyExistsException;
 import helpers.exceptions.ContinentDoesNotExistException;
 import helpers.exceptions.CountryDoesNotExistException;
@@ -11,12 +13,11 @@ import models.worldmap.Country;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 public class StartupCommands extends Commands {
 
@@ -25,7 +26,8 @@ public class StartupCommands extends Commands {
                 "loadmap",
                 "gameplayer",
                 "assigncountries",
-                "showmap"
+                "showmap",
+                "exit"
         });
     }
 
@@ -53,6 +55,7 @@ public class StartupCommands extends Commands {
         switch (commandName) {
             case "assigncountries":
                 assignCountries(ge);
+
                 break;
             case "showmap":
                 showmap(ge);
@@ -61,9 +64,11 @@ public class StartupCommands extends Commands {
                 loadMap(ge);
                 break;
             case "gameplayer":
-                gameplayer(ge);
+                gameplayer(ge, splitCommand);
                 break;
             case "exit":
+                ge.setCurrentState(new Startup(ge));
+                break;
 
         }
     }
@@ -73,7 +78,10 @@ public class StartupCommands extends Commands {
 
 
     private void assignCountries(GameEngine ge) {
-
+        if(ge.d_players.size() == 0){
+            ge.d_renderer.renderError("Add atleast one player before assigning");
+            return;
+        }
         HashMap<Integer, Country> map = ge.d_worldmap.getD_countries();
         Set<Integer> l_countryIDSet = map.keySet();
         ArrayList<Integer> l_countryIDList = new ArrayList<>(l_countryIDSet);
@@ -141,9 +149,31 @@ public class StartupCommands extends Commands {
         }
     }
 
-    public void gameplayer(GameEngine ge){
-        String firstPLayer = splitCommand[1];
-        return;
+    public void gameplayer(GameEngine ge, String[] splitCommand){
+        int l_len = splitCommand.length;
+        for(int i=1;i<l_len;i+=2)
+        {
+            if(splitCommand[i].equals("-add") && !ge.d_players.contains(splitCommand[i+1]))
+            {
+                ge.d_players.add(new Player(splitCommand[i+1],ge));
+            }
+            else if(splitCommand[i].equals("-remove"))
+            {
+                List<Player> playerList = ge.d_players;
+                for(Player l_playerCheck : playerList)
+                {
+                    Iterator<Player> it = ge.d_players.iterator();
+                    while (it.hasNext()) {
+                        Player l_player = it.next();
+                        if (l_player.getName().equals(l_playerCheck)) {
+                            it.remove();
+                            ge.d_players.remove(l_playerCheck);
+                        }
+                    }
+                    //if(!found) l_playerNotExist.add(l_playerCheck);
+                }
+            }
+        }
     }
 
 }

@@ -25,7 +25,7 @@ public class OrderExecution extends Phase {
 
     @Override
     public void run() {
-
+        System.out.println("In order execution phase");
         //Loop through player
         //execute orders
 

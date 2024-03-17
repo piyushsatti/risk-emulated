@@ -1,6 +1,8 @@
 package controller.middleware.commands;
 
 import controller.GameEngine;
+import helpers.exceptions.CountryDoesNotExistException;
+import helpers.exceptions.InvalidCommandException;
 
 public abstract class Commands {
     private String[] d_valid_commands;
@@ -17,7 +19,7 @@ public abstract class Commands {
 
     abstract boolean validateCommand();
 
-    abstract void execute(GameEngine ge);
+    abstract void execute(GameEngine ge) throws CountryDoesNotExistException, InvalidCommandException;
 
     /**
      * This validation method only checks if the first token
