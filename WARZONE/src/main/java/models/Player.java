@@ -131,7 +131,7 @@ public class Player {
             switch(l_order){
                 case "deploy":
 
-                    int l_countryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
+                    int l_countryID = this.d_gameEngine.d_worldmap.getCountryID(l_arr[1]);
                     int l_numberTobeDeployed = Integer.parseInt(l_arr[2]);
                     Order order = new Deploy(this, this.getName(), this.getPlayerId(), l_countryID, l_numberTobeDeployed,this.d_gameEngine);
                     if(order.validateCommand()) {
@@ -141,8 +141,8 @@ public class Player {
 
                 case "advance":
 
-                    int l_fromCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
-                    int l_toCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[2]);
+                    int l_fromCountryID = this.d_gameEngine.d_worldmap.getCountryID(l_arr[1]);
+                    int l_toCountryID = this.d_gameEngine.d_worldmap.getCountryID(l_arr[2]);
                     l_numberTobeDeployed = Integer.parseInt(l_arr[3]);
                     //Source player will call this so no need for that parameter
                      order = new Advance(this,this.getName(),this.getPlayerId(), l_fromCountryID,l_toCountryID,l_numberTobeDeployed,this.d_gameEngine);
@@ -153,8 +153,8 @@ public class Player {
 
                 case "airlift":
 
-                    l_fromCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
-                    l_toCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[2]);
+                    l_fromCountryID = this.d_gameEngine.d_worldmap.getCountryID(l_arr[1]);
+                    l_toCountryID = this.d_gameEngine.d_worldmap.getCountryID(l_arr[2]);
                     l_numberTobeDeployed = Integer.parseInt(l_arr[3]);
                     order = new Airlift(this,this.getName(),this.getPlayerId(), l_fromCountryID,l_toCountryID,l_numberTobeDeployed,this.d_gameEngine);
                     if(order.validateCommand()) {
@@ -164,7 +164,7 @@ public class Player {
 
                 case "bomb":
 
-                    int l_bombCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
+                    int l_bombCountryID = this.d_gameEngine.d_worldmap.getCountryID(l_arr[1]);
                     order = new Bomb(this,this.getPlayerId(),this.getName(), l_bombCountryID,this.d_gameEngine);
                     if(order.validateCommand()) {
                         this.d_orderList.add(order);
@@ -173,7 +173,7 @@ public class Player {
 
                 case "blockade":
 
-                    int l_blockadeCountryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
+                    int l_blockadeCountryID = this.d_gameEngine.d_worldmap.getCountryID(l_arr[1]);
                     order = new Blockade(this,this.getPlayerId(),this.getName(), l_blockadeCountryID,this.d_gameEngine);
                     if(order.validateCommand()) {
                         this.d_orderList.add(order);
@@ -184,7 +184,7 @@ public class Player {
                     String l_targetPlayerID = l_arr[1];
                     Player targetPlayer = null;
 
-                    for(Player player: d_gameEngine.PLAYER_LIST){
+                    for(Player player: d_gameEngine.d_players){
                         if(player.getName().equals(l_targetPlayerID)){
                             targetPlayer = player;
                         }
@@ -196,7 +196,7 @@ public class Player {
                     break;
             }
 
-            int l_countryID = this.d_gameEngine.CURRENT_MAP.getCountryID(l_arr[1]);
+            int l_countryID = this.d_gameEngine.d_worldmap.getCountryID(l_arr[1]);
 
             int l_numberTobeDeployed = Integer.parseInt(l_arr[2]);
 
@@ -207,7 +207,7 @@ public class Player {
 
                     Order order = new Deploy(this, this.getName(), this.getPlayerId(), l_countryID, l_numberTobeDeployed, this.d_gameEngine);
 
-                    this.d_terminalRenderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + this.d_gameEngine.CURRENT_MAP.getCountry(l_countryID).getCountryName() + " by Player: " + this.d_playerName);
+                    this.d_terminalRenderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + this.d_gameEngine.d_worldmap.getCountry(l_countryID).getCountryName() + " by Player: " + this.d_playerName);
 
                     this.d_orderList.add(order);
 
@@ -226,12 +226,12 @@ public class Player {
 
             } else {
 
-                if (!deployment_validator(l_numberTobeDeployed)) {
-
-                    this.d_terminalRenderer.renderMessage("You (" + this.d_playerName + ") don't have enough troops for this deploy order");
-                    throw new InvalidCommandException("Invalid Command!!! Not enough troops");
-
-                }
+//                if (!deployment_validator(l_numberTobeDeployed)) {
+//
+//                    this.d_terminalRenderer.renderMessage("You (" + this.d_playerName + ") don't have enough troops for this deploy order");
+//                    throw new InvalidCommandException("Invalid Command!!! Not enough troops");
+//
+//                }
 
             }
 

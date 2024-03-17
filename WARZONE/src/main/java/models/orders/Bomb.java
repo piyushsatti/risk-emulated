@@ -26,7 +26,7 @@ public class Bomb  implements  Order{
     }
    public boolean checkIfNeighbour(){
         for(int countryIDs: this.d_sourcePlayer.getAssignedCountries()){
-            if(this.d_gameEngine.CURRENT_MAP.getCountry(countryIDs).getBorderCountries().containsKey(this.d_bombCountryID)){
+            if(this.d_gameEngine.d_worldmap.getCountry(countryIDs).getBorderCountries().containsKey(this.d_bombCountryID)){
                 return true;
             }
         }
@@ -51,8 +51,8 @@ public class Bomb  implements  Order{
     @Override
     public void execute(){
 
-            int l_currentReinforcementsBombCountry = this.d_gameEngine.CURRENT_MAP.getCountry(this.d_bombCountryID).getReinforcements();
-            this.d_gameEngine.CURRENT_MAP.getCountry(this.d_bombCountryID).setReinforcements(l_currentReinforcementsBombCountry/2);
+            int l_currentReinforcementsBombCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_bombCountryID).getReinforcements();
+            this.d_gameEngine.d_worldmap.getCountry(this.d_bombCountryID).setReinforcements(l_currentReinforcementsBombCountry/2);
 
     }
 

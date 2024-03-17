@@ -50,7 +50,7 @@ public class Advance implements Order {
             System.out.println("Player does not own the source country");
             return false;
         }
-        if (!this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getBorderCountries().containsKey(d_toCountryID)) {
+        if (!this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getBorderCountries().containsKey(d_toCountryID)) {
             System.out.println("Cannot move to a non neighbouring country.");
             return false;
         }
@@ -61,24 +61,24 @@ public class Advance implements Order {
     @Override
     public void execute() {
 
-        if (this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getReinforcements() - this.d_advancingtroops >= 1) {
+        if (this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements() - this.d_advancingtroops >= 1) {
             if (d_sourcePlayer.getAssignedCountries().contains(d_toCountryID)) {
 
                 //Move order moving from within own adjacent territories.
-                int l_currentReinforcementsFromCountry =  this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getReinforcements();
+                int l_currentReinforcementsFromCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
 
-                this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
+                this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
 
 
-                int l_currentReinforcementsToCountry =  this.d_gameEngine.CURRENT_MAP.getCountry(this.d_toCountryID).getReinforcements();
+                int l_currentReinforcementsToCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getReinforcements();
 
-                this.d_gameEngine.CURRENT_MAP.getCountry(this.d_toCountryID).setReinforcements(l_currentReinforcementsToCountry + this.d_advancingtroops);
+                this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(l_currentReinforcementsToCountry + this.d_advancingtroops);
                 return;
 
             } else {
                 // Attacking adjacent territory
-                int l_currentReinforcementsToCountry =  this.d_gameEngine.CURRENT_MAP.getCountry(this.d_toCountryID).getReinforcements();
-                int l_currentReinforcementsFromCountry =  this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getReinforcements();
+                int l_currentReinforcementsToCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getReinforcements();
+                int l_currentReinforcementsFromCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
                 int attackingArmiesKills = (this.d_advancingtroops) * 60 / 100;
 
                 int defendingArmiesKills = (l_currentReinforcementsToCountry) * 70 / 100;
@@ -89,16 +89,16 @@ public class Advance implements Order {
                     // Attacker won
                     d_sourcePlayer.setAssignedCountries(this.d_toCountryID);
                     d_targetPlayer.removeAssignedCountries(this.d_toCountryID);
-                    this.d_gameEngine.CURRENT_MAP.getCountry(this.d_toCountryID).setReinforcements(attackingarmiessurvived);
-                    this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
+                    this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(attackingarmiessurvived);
+                    this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
                     d_sourcePlayer.addCard();
                 } else {
                     //Defender won
-                    this.d_gameEngine.CURRENT_MAP.getCountry(this.d_toCountryID).setReinforcements(defendingarmiessurvived);
+                    this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(defendingarmiessurvived);
                     if (attackingarmiessurvived > 0) {
-                        this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops + attackingarmiessurvived);
+                        this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops + attackingarmiessurvived);
                     } else {
-                        this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
+                        this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
                     }
                     return;
 

@@ -54,11 +54,11 @@ public class Airlift implements Order{
     @Override
     public void execute() {
 
-        int l_currentReinforcementsFromCountry = this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).getReinforcements();
+        int l_currentReinforcementsFromCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
         if(this.d_airliftedTroops <= l_currentReinforcementsFromCountry && this.d_airliftedTroops >0){
-            int l_currentReinforcementsToCountry = this.d_gameEngine.CURRENT_MAP.getCountry(this.d_toCountryID).getReinforcements();
-            this.d_gameEngine.CURRENT_MAP.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_airliftedTroops);
-            this.d_gameEngine.CURRENT_MAP.getCountry(this.d_toCountryID).setReinforcements(l_currentReinforcementsToCountry + this.d_airliftedTroops);
+            int l_currentReinforcementsToCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getReinforcements();
+            this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_airliftedTroops);
+            this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(l_currentReinforcementsToCountry + this.d_airliftedTroops);
             return;
         }else{
             System.out.println("Invalid troops. Either troops are not enough or in negative.");

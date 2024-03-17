@@ -20,9 +20,9 @@ public class StateCommandDriver {
         }
 
         //add players
-        testEngine.d_players.add(new Player("abc"));
-        testEngine.d_players.add(new Player("def"));
-        testEngine.d_players.add(new Player("ghi"));
+        testEngine.d_players.add(new Player("abc",testEngine));
+        testEngine.d_players.add(new Player("def",testEngine));
+        testEngine.d_players.add(new Player("ghi",testEngine));
 
         testEngine.runGameplayTest();
 

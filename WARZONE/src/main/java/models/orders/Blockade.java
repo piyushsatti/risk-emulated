@@ -35,8 +35,8 @@ public class Blockade implements Order{
             System.out.println("Player does not own the source country");
             return;
         }
-        int l_currentReinforcementsBlockadeCountry = this.d_gameEngine.CURRENT_MAP.getCountry(this.d_blockadeCountryID).getReinforcements();
-        this.d_gameEngine.CURRENT_MAP.getCountry(this.d_blockadeCountryID).setReinforcements(l_currentReinforcementsBlockadeCountry*3);
+        int l_currentReinforcementsBlockadeCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_blockadeCountryID).getReinforcements();
+        this.d_gameEngine.d_worldmap.getCountry(this.d_blockadeCountryID).setReinforcements(l_currentReinforcementsBlockadeCountry*3);
         this.d_sourcePlayer.removeAssignedCountries(this.d_blockadeCountryID);
 
     }
