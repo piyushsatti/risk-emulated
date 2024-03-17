@@ -47,14 +47,10 @@ public class StartupCommands extends Commands {
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command");
             return;
         }
-        else if(!this.validateCommand()){
-            ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format for: " + this.d_command.split("\\s+")[0]);
-            return;
-        }
 
-        String[] l_command = d_command.split(" ");
+        String commandName = splitCommand[0];
 
-        switch (l_command[0]) {
+        switch (commandName) {
             case "assigncountries":
                 assignCountries(ge);
                 break;
@@ -65,6 +61,7 @@ public class StartupCommands extends Commands {
                 loadMap(ge);
                 break;
             case "gameplayer":
+                gameplayer(ge);
                 break;
             case "exit":
 
@@ -121,6 +118,11 @@ public class StartupCommands extends Commands {
         }
     }
 
+
+
+
+
+
     private void loadMap(GameEngine ge){
         if(this.splitCommand.length < 2){
             ge.d_renderer.renderError("Invalid command! Correct format is loadmap <mapname>");
@@ -137,6 +139,11 @@ public class StartupCommands extends Commands {
                 ge.d_renderer.renderError("Invalid Map! Cannot load into game");
             }
         }
+    }
+
+    public void gameplayer(GameEngine ge){
+        String firstPLayer = splitCommand[1];
+        return;
     }
 
 }

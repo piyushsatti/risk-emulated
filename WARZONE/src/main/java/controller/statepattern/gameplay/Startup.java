@@ -17,7 +17,6 @@ public class Startup extends Phase {
 
     @Override
     public void displayMenu() {
-        d_ge.d_renderer.renderWelcome();
         d_ge.d_renderer.renderMenu(
                 "Main Menu",
                 menu_options

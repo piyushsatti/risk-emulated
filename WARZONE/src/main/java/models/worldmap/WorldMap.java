@@ -68,6 +68,8 @@ public class WorldMap {
      */
     public WorldMap(WorldMap p_toCopy) throws ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, CountryDoesNotExistException {
 
+        int currentMaxId = Continent.id;
+        Continent.id = 1;
         this.d_continents = new HashMap<>();
 
         this.d_countries = new HashMap<>();
@@ -86,6 +88,7 @@ public class WorldMap {
             }
         }
 
+        Continent.id = currentMaxId;
     }
 
     /**
