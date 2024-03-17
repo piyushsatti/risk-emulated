@@ -84,6 +84,10 @@ public class StartupCommands extends Commands {
             ge.d_renderer.renderError("Add atleast one player before assigning");
             return;
         }
+        if(ge.d_worldmap.getCountries().size()==0){
+            ge.d_renderer.renderError(" Empty map Please load a Valid Map");
+            return;
+        }
         HashMap<Integer, Country> map = ge.d_worldmap.getD_countries();
         Set<Integer> l_countryIDSet = map.keySet();
         ArrayList<Integer> l_countryIDList = new ArrayList<>(l_countryIDSet);
