@@ -35,6 +35,10 @@ public class Diplomacy implements Order{
     @Override
     public boolean validateCommand(){
 
+        if(d_sourcePlayer.getPlayerId()==d_targetPlayer.getPlayerId()){
+            System.out.println("You cannot negiotiate with yourself");
+            return false;
+        }
         return true;
     }
 

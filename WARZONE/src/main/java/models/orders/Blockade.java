@@ -22,6 +22,10 @@ public class Blockade implements Order{
     @Override
     public boolean validateCommand(){
 
+        if (!d_sourcePlayer.getAssignedCountries().contains(d_blockadeCountryID)) {
+            System.out.println("Player does not own the source country");
+            return false;
+        }
         return true;
     }
 
@@ -49,10 +53,7 @@ public class Blockade implements Order{
      */
     @Override
     public void execute(){
-        if (!d_sourcePlayer.getAssignedCountries().contains(d_blockadeCountryID)) {
-            System.out.println("Player does not own the source country");
-            return;
-        }
+
         int l_currentReinforcementsBlockadeCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_blockadeCountryID).getReinforcements();
         this.d_gameEngine.d_worldmap.getCountry(this.d_blockadeCountryID).setReinforcements(l_currentReinforcementsBlockadeCountry*3);
         this.d_sourcePlayer.removeAssignedCountries(this.d_blockadeCountryID);
