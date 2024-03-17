@@ -55,6 +55,7 @@ public class StartupCommands extends Commands {
         switch (commandName) {
             case "assigncountries":
                 assignCountries(ge);
+
                 break;
             case "showmap":
                 showmap(ge);
