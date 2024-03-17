@@ -2,7 +2,6 @@ package controller.middleware.commands;
 
 import controller.GameEngine;
 import controller.MapInterface;
-import controller.statepattern.Starting;
 import helpers.exceptions.*;
 import models.LogEntryBuffer;
 import view.Logger;
