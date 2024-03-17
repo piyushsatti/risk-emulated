@@ -1,0 +1,101 @@
+package controller.statepattern.gameplay;
+
+import controller.GameEngine;
+import controller.MapInterface;
+import controller.middleware.commands.StartupCommands;
+import helpers.exceptions.ContinentAlreadyExistsException;
+import helpers.exceptions.ContinentDoesNotExistException;
+import helpers.exceptions.CountryDoesNotExistException;
+import helpers.exceptions.DuplicateCountryException;
+import models.Player;
+import models.worldmap.Continent;
+import models.worldmap.Country;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import static org.junit.Assert.*;
+
+public class ReinforcementTest {
+    GameEngine ge = new GameEngine();
+    StartupCommands cmd = new StartupCommands("assigncountries");
+    Reinforcement rf = new Reinforcement(ge);
+    @Test
+    public void runTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
+        MapInterface.loadMap2(ge, "usa9.map");
+        ge.d_players.add(new Player("Shashi",ge));
+
+        rf.run();
+        int armies = ge.d_players.get(0).getReinforcements();
+
+        //main logic: armies should return the value of l_numberOfTroops
+        int bonus =0;
+        HashMap<Integer, Continent> continents = ge.d_worldmap.getContinents();
+        for (Continent continent : continents.values()) {
+            boolean allCountriesFound = true; // Flag to track if all countries of the continent are found
+            for (Country country : ge.d_worldmap.getContinentCountries(continent).values()) {
+                if (!ge.d_players.get(0).getAssignedCountries().contains(country.getCountryID())) {
+                    allCountriesFound = false; // If any country is not found, set flag to false
+                    break;
+                }
+            }
+            if (allCountriesFound) {
+                // All countries of the continent are present
+                bonus+= continent.getBonus(); // Get the bonus value
+            }
+        }
+        int l_numberOfTroops = Math.max(ge.d_players.get(0).getAssignedCountries().size() / 3 +bonus, 3);
+
+        boolean flag=false;
+            if(ge.d_players.get(0).getReinforcements()==3||ge.d_players.get(0).getReinforcements() == ge.d_players.get(0).getAssignedCountries().size() / 3){
+                flag = true;
+            }
+            else flag=false;
+
+        assertTrue(flag);
+
+    }
+
+    @Test
+    public void runTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
+        MapInterface.loadMap2(ge, "usa9.map");
+        ge.d_players.add(new Player("Shashi",ge));
+        ge.d_players.add(new Player("Priyanshu",ge));
+
+        rf.run();
+        int armies1 = ge.d_players.get(0).getReinforcements();
+        int armies2 = ge.d_players.get(1).getReinforcements();
+
+
+        //main logic: armies should return the value of l_numberOfTroops
+        for(Player player : ge.d_players){
+            int bonus =0;
+            HashMap<Integer, Continent> continents = ge.d_worldmap.getContinents();
+            for (Continent continent : continents.values()) {
+                boolean allCountriesFound = true; // Flag to track if all countries of the continent are found
+                for (Country country : ge.d_worldmap.getContinentCountries(continent).values()) {
+                    if (!player.getAssignedCountries().contains(country.getCountryID())) {
+                        allCountriesFound = false; // If any country is not found, set flag to false
+                        break;
+                    }
+                }
+                if (allCountriesFound) {
+                    // All countries of the continent are present
+                    bonus+= continent.getBonus(); // Get the bonus value
+                }
+            }
+            int l_numberOfTroops = Math.max(player.getAssignedCountries().size() / 3 +bonus, 3);
+            boolean flag = false;
+            if(player.getReinforcements()==3||player.getReinforcements() == player.getAssignedCountries().size() / 3){
+                flag = true;
+            }
+            else flag=false;
+
+            assertEquals(player.getReinforcements(),l_numberOfTroops);
+        }
+    }
+}

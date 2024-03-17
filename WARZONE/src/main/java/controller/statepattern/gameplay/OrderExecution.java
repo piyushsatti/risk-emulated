@@ -60,14 +60,19 @@ public class OrderExecution extends Phase {
                 d_ge.d_players.remove(p);
             }
         }
-
-        if(d_ge.d_players.size()==1){
-            d_ge.d_renderer.renderMessage("Player "+d_ge.d_players.get(0).getName()+" has won the game");
+        if(isWinner())
+        {
             d_ge.setCurrentState(new End(d_ge));
         }
+        d_ge.setCurrentState(new IssueOrder(d_ge));
+    }
 
-        d_ge.setCurrentState(new Reinforcement(d_ge));
-
-
+    public boolean isWinner()
+    {
+        if(d_ge.d_players.size()==1){
+            d_ge.d_renderer.renderMessage("Player "+d_ge.d_players.get(0).getName()+" has won the game");
+            return true;
+        }
+        return false;
     }
 }
