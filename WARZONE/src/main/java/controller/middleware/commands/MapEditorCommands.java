@@ -43,7 +43,7 @@ public class MapEditorCommands extends Commands{
     @Override
     public void execute(GameEngine ge) {
         if (!this.validateCommandName()) {
-            ge.d_renderer.renderError("InvalidCommandException : Invalid Command Format.");
+            ge.d_renderer.renderError("InvalidCommandException : Invalid Command");
             return;
         }
         else if(!this.validateCommand()){
