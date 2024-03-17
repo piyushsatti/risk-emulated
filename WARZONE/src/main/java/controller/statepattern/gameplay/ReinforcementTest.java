@@ -20,10 +20,22 @@ import java.util.HashMap;
 
 import static org.junit.Assert.*;
 
+/**
+ * Test class for the Reinforcement phase.
+ */
 public class ReinforcementTest {
     GameEngine ge = new GameEngine();
     StartupCommands cmd = new StartupCommands("assigncountries");
     Reinforcement rf = new Reinforcement(ge);
+
+    /**
+     * Test for the run method in Reinforcement phase.
+     * @throws CountryDoesNotExistException when a country does not exist
+     * @throws ContinentAlreadyExistsException when a continent already exists
+     * @throws ContinentDoesNotExistException when a continent does not exist
+     * @throws DuplicateCountryException when a duplicate country is encountered
+     * @throws FileNotFoundException when a file is not found
+     */
     @Test
     public void runTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         MapInterface.loadMap2(ge, "usa9.map");
@@ -53,6 +65,14 @@ public class ReinforcementTest {
 
     }
 
+    /**
+     * Test for the run method in Reinforcement phase with multiple players.
+     * @throws CountryDoesNotExistException when a country does not exist
+     * @throws ContinentAlreadyExistsException when a continent already exists
+     * @throws ContinentDoesNotExistException when a continent does not exist
+     * @throws DuplicateCountryException when a duplicate country is encountered
+     * @throws FileNotFoundException when a file is not found
+     */
     @Test
     public void runTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         MapInterface.loadMap2(ge, "usa9.map");
