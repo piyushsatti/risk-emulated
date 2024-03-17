@@ -42,7 +42,6 @@ public class ReinforcementTest {
         MapInterface.loadMap2(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi",ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
-        OrderExecution oe = new OrderExecution(ge);
         cmd.execute(ge);
         rf.run();
 
@@ -84,7 +83,6 @@ public class ReinforcementTest {
         ge.d_players.add(new Player("Shashi",ge));
         ge.d_players.add(new Player("Priyanshu",ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
-        OrderExecution oe = new OrderExecution(ge);
         cmd.execute(ge);
         rf.run();
 

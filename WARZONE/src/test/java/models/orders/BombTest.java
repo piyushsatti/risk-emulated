@@ -26,7 +26,6 @@ public class BombTest {
         ge.d_players.add(new Player("Abc",ge));
 
         StartupCommands cmd = new StartupCommands("assigncountries");
-        OrderExecution oe = new OrderExecution(ge);
         cmd.execute(ge);
         Reinforcement rf = new Reinforcement(ge);
         rf.run();
@@ -43,7 +42,6 @@ public class BombTest {
         ge.d_players.add(new Player("Abc",ge));
 
         StartupCommands cmd = new StartupCommands("assigncountries");
-        OrderExecution oe = new OrderExecution(ge);
         cmd.execute(ge);
         Reinforcement rf = new Reinforcement(ge);
         rf.run();
@@ -54,9 +52,5 @@ public class BombTest {
     }
 
 
-
-    public void validateCommandTests3(){
-        //assertTrue(validateCommand());
-    }
 
 }

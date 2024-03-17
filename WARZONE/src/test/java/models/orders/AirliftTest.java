@@ -26,7 +26,6 @@ public class AirliftTest {
         ge.d_players.add(new Player("Abc",ge));
 
         StartupCommands cmd = new StartupCommands("assigncountries");
-        OrderExecution oe = new OrderExecution(ge);
         cmd.execute(ge);
         Reinforcement rf = new Reinforcement(ge);
         rf.run();
@@ -44,7 +43,6 @@ public class AirliftTest {
         ge.d_players.add(new Player("Abc",ge));
 
         StartupCommands cmd = new StartupCommands("assigncountries");
-        OrderExecution oe = new OrderExecution(ge);
         cmd.execute(ge);
         Reinforcement rf = new Reinforcement(ge);
         rf.run();
@@ -64,7 +62,6 @@ public class AirliftTest {
         ge.d_players.add(new Player("Abc",ge));
 
         StartupCommands cmd = new StartupCommands("assigncountries");
-        OrderExecution oe = new OrderExecution(ge);
         cmd.execute(ge);
         Reinforcement rf = new Reinforcement(ge);
         rf.run();
