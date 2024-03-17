@@ -2,6 +2,7 @@ package controller.middleware.commands;
 
 import controller.GameEngine;
 import controller.MapInterface;
+import controller.statepattern.Starting;
 import helpers.exceptions.*;
 import models.LogEntryBuffer;
 import view.Logger;
@@ -60,21 +61,7 @@ public class MapEditorCommands extends Commands{
                     ge.d_renderer.renderError("IOException : Encountered File I/O Error");
                 }
             case "editmap":
-                try {
-                    MapInterface.loadMap2(ge, l_command[1]);
-                } catch (FileNotFoundException e) {
-                    ge.d_renderer.renderError("FileNotFoundException : File does not exist.");
-                    ge.d_renderer.renderMessage("Creating file by the name : " + l_command[1]);
-                    MapEditorCommands me = new MapEditorCommands("savemap " + l_command[1]);
-                    me.execute(ge);
-                    me = new MapEditorCommands("loadmap " + l_command[1]);
-                    me.execute(ge);
-                } catch (NumberFormatException e) {
-                    ge.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
-                } catch (ContinentAlreadyExistsException | ContinentDoesNotExistException |
-                         DuplicateCountryException | CountryDoesNotExistException e) {
-                    ge.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
-                }
+                editMap(ge);
                 break;
             case "editcontinent":
                 editContinent(ge, l_command, 1);
@@ -84,6 +71,9 @@ public class MapEditorCommands extends Commands{
                 break;
             case "editneighbor":
                 editNeighbor(ge, l_command, 1);
+                break;
+            case "exit":
+                ge.setCurrentState(new Starting(ge));
                 break;
         }
     }
@@ -160,6 +150,34 @@ public class MapEditorCommands extends Commands{
             }
 
             editNeighbor(ge, p_command, i += 3);
+        }
+    }
+
+    public void editMap(GameEngine ge){
+        String mapName = "";
+        if(this.splitCommand.length < 2){
+            ge.d_renderer.renderError("Invalid command format! Correct format -> editmap <mapname>");
+            return;
+        }
+
+        mapName = splitCommand[1];
+
+        try {
+            MapInterface.loadMap2(ge, mapName);
+        } catch (FileNotFoundException e) {
+            ge.d_renderer.renderError("FileNotFoundException : File does not exist.");
+            ge.d_renderer.renderMessage("Creating file by the name : " + mapName);
+            try {
+                MapInterface.saveMap(ge, mapName);
+            } catch (IOException ex) {
+                throw new RuntimeException(ex);
+            }
+            editMap(ge);
+        } catch (NumberFormatException e) {
+            ge.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
+        } catch (ContinentAlreadyExistsException | ContinentDoesNotExistException |
+                 DuplicateCountryException | CountryDoesNotExistException e) {
+            ge.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
         }
     }
 
