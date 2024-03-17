@@ -1,6 +1,8 @@
 package controller.middleware.commands;
 
 import controller.GameEngine;
+import helpers.exceptions.ContinentAlreadyExistsException;
+import helpers.exceptions.ContinentDoesNotExistException;
 import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.InvalidCommandException;
 import models.Player;
@@ -38,7 +40,7 @@ public class IssueOrderCommands extends Commands{
     }
 
     @Override
-    public void execute(GameEngine ge) throws CountryDoesNotExistException, InvalidCommandException {
+    public void execute(GameEngine ge) throws  InvalidCommandException {
 
         if (!this.validateCommandName()) {
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command");
@@ -49,11 +51,11 @@ public class IssueOrderCommands extends Commands{
             return;
         }
         String[] l_command = d_command.trim().split("\\s+");
+        try{
 
         switch (l_command[0])
         {
             case "deploy":
-
                 int l_countryID = ge.d_worldmap.getCountryID(l_command[1]);
                 int l_numberTobeDeployed = Integer.parseInt(l_command[2]);
                 Order order = new Deploy(p, p.getName(), p.getPlayerId(), l_countryID, l_numberTobeDeployed,ge);
@@ -124,38 +126,43 @@ public class IssueOrderCommands extends Commands{
                 } else throw new InvalidCommandException("Invalid Command");
                 break;
         }
-
-        int l_countryID = ge.d_worldmap.getCountryID(l_command[1]);
-
-        int l_numberTobeDeployed = Integer.parseInt(l_command[2]);
-
-
-        if (l_countryID > 0 && l_numberTobeDeployed <= p.getReinforcements()) {
-
-            if (p.getAssignedCountries().contains(l_countryID)) {
-
-                Order order = new Deploy(p, p.getName(), p.getPlayerId(), l_countryID, l_numberTobeDeployed, ge);
-
-                ge.d_renderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + ge.d_worldmap.getCountry(l_countryID).getCountryName() + " by Player: " + p.getName());
-
-                p.addOrder(order);
-                p.issue_order();
-
-                p.setReinforcements(p.getReinforcements() - l_numberTobeDeployed);
-
-                ge.d_renderer.renderMessage("Player: " + p.getName() + " Reinforcements Available: " + p.getReinforcements());
-
-                return;
-
-            } else {
-
-                ge.d_renderer.renderMessage("You (" + p.getName() + ") Cannot Deploy Troops here you don't own it.");
-                throw new InvalidCommandException("Invalid Command!!! You don't own the country");
-
+        } catch(CountryDoesNotExistException e){
+            ge.d_renderer.renderError("Following exception occured :" + e);
             }
+
+
+//
+//        int l_countryID = ge.d_worldmap.getCountryID(l_command[1]);
+//
+//        int l_numberTobeDeployed = Integer.parseInt(l_command[2]);
+//
+//
+//        if (l_countryID > 0 && l_numberTobeDeployed <= p.getReinforcements()) {
+//
+//            if (p.getAssignedCountries().contains(l_countryID)) {
+//
+//                Order order = new Deploy(p, p.getName(), p.getPlayerId(), l_countryID, l_numberTobeDeployed, ge);
+//
+//                ge.d_renderer.renderMessage("Order Created. Here are the Details: Deploy " + l_numberTobeDeployed + " on " + ge.d_worldmap.getCountry(l_countryID).getCountryName() + " by Player: " + p.getName());
+//
+//                p.addOrder(order);
+//                p.issue_order();
+//
+//                p.setReinforcements(p.getReinforcements() - l_numberTobeDeployed);
+//
+//                ge.d_renderer.renderMessage("Player: " + p.getName() + " Reinforcements Available: " + p.getReinforcements());
+//
+//                return;
+//
+//            } else {
+//
+//                ge.d_renderer.renderMessage("You (" + p.getName() + ") Cannot Deploy Troops here you don't own it.");
+//                throw new InvalidCommandException("Invalid Command!!! You don't own the country");
+//
+//            }
 
         }
     }
-}
+
 
 
