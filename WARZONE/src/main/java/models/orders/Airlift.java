@@ -53,6 +53,11 @@ public class Airlift implements Order{
             System.out.println("Player does not own the target country");
             return false;
         }
+
+        if(d_fromCountryID == d_toCountryID){
+            System.out.println("Player cannot Airlift in the same country");
+            return false;
+        }
         return true;
     }
 
