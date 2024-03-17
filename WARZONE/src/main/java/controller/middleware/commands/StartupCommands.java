@@ -2,6 +2,8 @@ package controller.middleware.commands;
 
 import controller.GameEngine;
 import controller.MapInterface;
+import controller.statepattern.End;
+import controller.statepattern.gameplay.Startup;
 import helpers.exceptions.ContinentAlreadyExistsException;
 import helpers.exceptions.ContinentDoesNotExistException;
 import helpers.exceptions.CountryDoesNotExistException;
@@ -24,7 +26,8 @@ public class StartupCommands extends Commands {
                 "loadmap",
                 "gameplayer",
                 "assigncountries",
-                "showmap"
+                "showmap",
+                "exit"
         });
     }
 
@@ -63,6 +66,8 @@ public class StartupCommands extends Commands {
                 gameplayer(ge, splitCommand);
                 break;
             case "exit":
+                ge.setCurrentState(new Startup(ge));
+                break;
 
         }
     }
