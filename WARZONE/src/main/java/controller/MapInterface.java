@@ -185,13 +185,10 @@ public class MapInterface {
      * @return True if the map is valid, false otherwise.
      */
     public static boolean validateMap(GameEngine ge) {
-        if ((ge.d_worldmap.isConnected()) && (ge.d_worldmap.isContinentConnected())) {
-            LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
-            Logger lw = new Logger(logEntryBuffer);
-            logEntryBuffer.setString("validated map :" + ge.d_worldmap.toString());
-            return true;
-        }
-        return false;
+        /*LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+            Logger lw = new Logger(logEntryBuffer); JUNK
+            logEntryBuffer.setString("validated map :" + ge.d_worldmap.toString());*/
+        return (ge.d_worldmap.isConnected()) && (ge.d_worldmap.isContinentConnected());
     }
 
     public static void loadMap2(GameEngine ge, String mapName) throws FileNotFoundException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, CountryDoesNotExistException {
