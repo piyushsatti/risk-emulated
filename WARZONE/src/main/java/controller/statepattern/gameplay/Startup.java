@@ -1,6 +1,8 @@
 package controller.statepattern.gameplay;
 
 import controller.GameEngine;
+import controller.middleware.commands.MapEditorCommands;
+import controller.middleware.commands.StartupCommands;
 import controller.statepattern.MapEditor;
 import controller.statepattern.Phase;
 
@@ -36,5 +38,9 @@ public class Startup extends Phase {
     @Override
     public void run() {
         displayMenu();
+        StartupCommands suc = new StartupCommands(
+                this.d_ge.d_renderer.renderUserInput("Enter command: ")
+        );
+        suc.execute(this.d_ge);
     }
 }
