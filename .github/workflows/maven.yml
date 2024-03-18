@@ -22,8 +22,8 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file WARZONE/pom.xml
       
-#    - name: Run Tests with JUnit
- #     run: mvn test --file WARZONE/pom.xml
+    - name: Run Tests with JUnit
+      run: mvn test --file WARZONE/pom.xml
       
     - name: Generate Javadoc
       run: mvn javadoc:javadoc --file WARZONE/pom.xml
@@ -31,5 +31,5 @@ jobs:
     - name: Publish Javadoc
       uses: actions/upload-artifact@v2
       with:
-        name: javadoc
-        path: javadocs 
+         name: javadoc
+         path: javadocs 
