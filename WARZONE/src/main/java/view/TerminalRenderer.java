@@ -4,6 +4,7 @@ import controller.GameEngine;
 import controller.middleware.commands.MapEditorCommands;
 import helpers.TerminalColors;
 import models.LogEntryBuffer;
+import models.Player;
 import models.worldmap.Continent;
 import models.worldmap.Country;
 import models.worldmap.WorldMap;
@@ -19,13 +20,29 @@ import java.util.Scanner;
  */
 public class TerminalRenderer {
 
+    /**
+     * Log entry buffer for logging messages.
+     */
     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
 
+    /**
+     * Logger for logging messages.
+     */
+    Logger lw = new Logger(logEntryBuffer);
+
+    /** Game engine associated with the renderer. */
     GameEngine d_ge;
+
+    /** Scanner object for reading user input from the terminal. */
     Scanner in;
 
-    public TerminalRenderer(GameEngine p_ge) {
-        d_ge = p_ge;
+    /**
+     * Constructs a new TerminalRenderer object.
+     *
+     * @param p_gameEngine The game engine associated with the renderer
+     */
+    public TerminalRenderer(GameEngine p_gameEngine) {
+        d_ge = p_gameEngine;
         in = new Scanner(System.in);
     }
 
@@ -91,13 +108,13 @@ public class TerminalRenderer {
                 menu_type)
                 );
 
-        for (int i = 0; i < options.length; i++) {
+        for (String option : options) {
 
             out.append(String.format(
                     "|\t\t" + TerminalColors.ANSI_PURPLE +
                             "> " + TerminalColors.ANSI_BLUE +
                             "%s\n",
-                options[i])
+                    option)
             );
 
         }
@@ -130,7 +147,11 @@ public class TerminalRenderer {
 
         this.renderMessage(TerminalColors.ANSI_BLUE + """
                 Please Enter a valid .map filename from folder:\t
-                """ + TerminalColors.ANSI_GREEN + d_ge.d_maps_folder + TerminalColors.ANSI_RESET);
+                """
+                + TerminalColors.ANSI_GREEN
+                + d_ge.d_maps_folder
+                + TerminalColors.ANSI_RESET
+        );
 
         Scanner in = new Scanner(System.in);
 
@@ -140,13 +161,12 @@ public class TerminalRenderer {
     /**
      * Renders the request for map editor commands.
      *
-     * @return The command entered by the user.
      */
     public void renderMapEditorCommands() {
         MapEditorCommands me = new MapEditorCommands("");
-        String commands = "";
+        StringBuilder commands = new StringBuilder();
         for (String s : me.d_valid_commands) {
-            commands += "| " + s + " |";
+            commands.append("| ").append(s).append(" |");
         }
         this.renderMessage("Please Enter a valid command : \n"
                 + TerminalColors.ANSI_GREEN
@@ -167,13 +187,10 @@ public class TerminalRenderer {
      * @param message The message to be rendered.
      */
     public void renderMessage(String message) {
-
-        System.out.print(
-                TerminalColors.ANSI_BLUE +
+        System.out.print(TerminalColors.ANSI_BLUE +
                         message +
                         TerminalColors.ANSI_RESET
         );
-
     }
 
     /**
@@ -181,34 +198,41 @@ public class TerminalRenderer {
      *
      * @param p_enable_gameview Indicates whether to enable the game view (show player info).
      */
-    public void showMap(boolean p_enable_gameview) {
+    public void showMap(boolean p_enable_gameview)
+    {
 
         WorldMap map = d_ge.d_worldmap;
         StringBuilder out = new StringBuilder();
         HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
 
-        for (Country c : map.getCountries().values()) {
+        for (Country c : map.getCountries().values())
+        {
             List<Country> temp = continentCountriesMap.getOrDefault(c.getContinent(), new ArrayList<>());
             temp.add(c);
             continentCountriesMap.put(c.getContinent(), temp);
         }
-        for (Continent c : map.getContinents().values()){
+
+        for (Continent c : map.getContinents().values())
+        {
             continentCountriesMap.computeIfAbsent(c, k -> new ArrayList<>());
         }
+
         for(Continent continent : continentCountriesMap.keySet())
         {
             String continentName = continent.getContinentName();
             out.append(continentName);
             out.append("\n\t");
-            for (Country country : continentCountriesMap.get(continent)) {
+
+            for (Country country : continentCountriesMap.get(continent))
+            {
                 out.append(country.getCountryName());
-                if (p_enable_gameview) {
+                if (p_enable_gameview)
+                {
                     out.append(" Reinforcements Deployed: ").append(country.getReinforcements());
                     int l_ownerPlayerID = country.getCountryPlayerID();
-//                    if (Player.getPlayerFromList(d_ge.PLAYER_LIST, l_ownerPlayerID) != null)
-//                    {
-//                        out.append(" Player Name: ").append(Player.getPlayerFromList(d_ge.PLAYER_LIST, l_ownerPlayerID).getName());
-//                    }
+                    if (Player.getPlayerFromList(d_ge.d_players, l_ownerPlayerID) != null) {
+                        out.append(" Player Name: ").append(Player.getPlayerFromList(d_ge.d_players, l_ownerPlayerID).getName());
+                    }
                 }
                 out.append("\n\t\t");
                 for (Country borderCountries : country.getBorderCountries().values())
@@ -225,24 +249,31 @@ public class TerminalRenderer {
     /**
      * Displays the current game map.
      */
-    public void showCurrentGameMap() {
+    public void showCurrentGameMap()
+    {
         WorldMap map = d_ge.d_worldmap;
         StringBuilder out = new StringBuilder();
         HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
-        for (Country c : map.getCountries().values()) {
+
+        for (Country c : map.getCountries().values())
+        {
             List<Country> temp = continentCountriesMap.getOrDefault(c.getContinent(), new ArrayList<>());
             temp.add(c);
             continentCountriesMap.put(c.getContinent(), temp);
         }
+
         for(Continent continent : continentCountriesMap.keySet())
         {
             String continentName = continent.getContinentName();
             out.append(continentName);
             out.append("\n\t");
-            for (Country country : continentCountriesMap.get(continent)) {
+            for (Country country : continentCountriesMap.get(continent))
+            {
                 out.append(country.getCountryName());
                 out.append("\n\t\t");
-                for (Country borderCountries : country.getBorderCountries().values()) {
+
+                for (Country borderCountries : country.getBorderCountries().values())
+                {
                     out.append(borderCountries.getCountryName()).append(" ");
                 }
                 out.append("\n\t");
@@ -256,17 +287,13 @@ public class TerminalRenderer {
      *
      * @return The filename entered by the user.
      */
-    public String renderRequestMapFileName(){
-        return "usa9.map";
-    }
+    public String renderRequestMapFileName() { return "usa9.map"; }
     /**
      * Renders the request to assign countries.
      *
      * @return The filename entered by the user.
      */
-    public String renderAssignCountries(){
-        return "usa9.map";
-    }
+    public String renderAssignCountries() { return "usa9.map"; }
 
     /**
      * Renders the view for issuing orders by a player.
