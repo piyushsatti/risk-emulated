@@ -228,7 +228,7 @@ public class MapEditorCommands extends Commands {
 
     public boolean editCountryValidator(WorldMap wm) {
         String invalidMessage = "Invalid editcountry command! Correct format -> editcountry -add <countryID> <continentID> -remove <countryID>";
-        WorldMap copyMap = null;
+        WorldMap copyMap;
         int commandLength = this.splitCommand.length;
 
         try {
@@ -253,7 +253,7 @@ public class MapEditorCommands extends Commands {
                     return false;
                 } else {
                     try {
-                        copyMap.addCountry(splitCommand[commandIndex + 1], wm.getContinentID(splitCommand[commandIndex + 2]), null);
+                        copyMap.addCountry(splitCommand[commandIndex + 1], wm.getContinentID(splitCommand[commandIndex + 2]));
                     } catch (Exception e) {
                         System.out.println(e);
                         System.out.println(invalidMessage);
@@ -299,7 +299,7 @@ public class MapEditorCommands extends Commands {
             if (splitCommand[commandIndex].equals("-add")) {
 
                 try {
-                    wm.addCountry(splitCommand[commandIndex + 1], wm.getContinentID(splitCommand[commandIndex + 2]), null);
+                    wm.addCountry(splitCommand[commandIndex + 1], wm.getContinentID(splitCommand[commandIndex + 2]));
                     logEntryBuffer.setString("Phase :" + p_currPhase + "\n" + " added country" +
                             splitCommand[commandIndex + 1]+" continent "+splitCommand[commandIndex + 2]);
                 } catch (Exception e) {
@@ -331,7 +331,7 @@ public class MapEditorCommands extends Commands {
     public boolean editNeighborValidator(WorldMap wm) {
         String invalidMessage = "Invalid editneighbor command! Correct format -> editneighbor -add <countryID> <neighborcountryID> " +
                 "-remove <countryID> <neighborcountryID>";
-        WorldMap copyMap = null;
+        WorldMap copyMap;
         int commandLength = this.splitCommand.length;
 
         try {
@@ -432,7 +432,7 @@ public class MapEditorCommands extends Commands {
     }
 
     public void editMap(GameEngine ge, String p_currPhase) {
-        String mapName = "";
+        String mapName;
         if (this.splitCommand.length < 2) {
             ge.d_renderer.renderError("Invalid command format! Correct format -> editmap <mapname>");
             return;
@@ -441,7 +441,7 @@ public class MapEditorCommands extends Commands {
         mapName = splitCommand[1];
 
         try {
-            MapInterface.loadMap2(ge, mapName);
+            MapInterface.loadMap(ge, mapName);
             logEntryBuffer.setString("loaded map file "+ mapName);
         } catch (FileNotFoundException e) {
             ge.d_renderer.renderError("FileNotFoundException : File does not exist.");

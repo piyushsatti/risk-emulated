@@ -20,8 +20,6 @@ public class StartupCommands extends Commands {
     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
     Logger lw = new Logger(logEntryBuffer);
 
-    String p_currPhase;
-
     public String getCurrentPhase(GameEngine p_gameEngine) {
         Phase phase = p_gameEngine.getCurrentState();
         String l_currClass = String.valueOf(phase.getClass());
@@ -87,12 +85,12 @@ public class StartupCommands extends Commands {
 
     private boolean assignCountries(GameEngine ge, String p_currPhase) {
         logEntryBuffer.setString("Phase :" + p_currPhase + "\n" + " Entered Command: assigncountries");
-        if (ge.d_players.size() == 0) {
+        if (ge.d_players.isEmpty()) {
             ge.d_renderer.renderError("Add atleast one player before assigning");
             logEntryBuffer.setString("Phase :" + p_currPhase + "\n" + "Command: assigncountries Not Executed  || Must add at least one player before assigning countries");
             return false;
         }
-        if (ge.d_worldmap.getCountries().size() == 0) {
+        if (ge.d_worldmap.getCountries().isEmpty()) {
             ge.d_renderer.renderError(" Empty map Please load a Valid Map");
             logEntryBuffer.setString("Phase :" + p_currPhase + "\n" + " Executed Command: assigncountries Not Executed|| Load a valid map!");
             return false;
@@ -151,7 +149,7 @@ public class StartupCommands extends Commands {
 
             try {
                 logEntryBuffer.setString("Phase :" + p_currPhase + "\n" + " Entered Command: loadmap" + d_command);
-                MapInterface.loadMap2(ge, splitCommand[1]);
+                MapInterface.loadMap(ge, splitCommand[1]);
             } catch (Exception e) {
                 logEntryBuffer.setString("Phase :" + p_currPhase + "\n" + " Command: loadmap Not Executed as Map Could Not be Loaded");
                 System.out.println(e);
