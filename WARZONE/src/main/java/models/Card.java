@@ -13,11 +13,7 @@ public class Card {
     public String getTypeOfCard() {
         return d_typeOfCard;
     }
-    /**
-     * Sets the type of the card.
-     *
-     * @param d_typeOfCard The type of the card to set
-     */
+
     /**
      * Sets the type of card.
      *
