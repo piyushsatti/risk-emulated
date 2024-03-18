@@ -1,6 +1,7 @@
 package view;
 
 import controller.GameEngine;
+import controller.middleware.commands.MapEditorCommands;
 import helpers.TerminalColors;
 import models.LogEntryBuffer;
 import models.worldmap.Continent;
@@ -19,7 +20,6 @@ import java.util.Scanner;
 public class TerminalRenderer {
 
     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
-    Logger lw = new Logger(logEntryBuffer);
 
     GameEngine d_ge;
     Scanner in;
@@ -33,21 +33,19 @@ public class TerminalRenderer {
      * Renders a welcome message for the terminal interface.
      */
     public void renderWelcome() {
-        System.out.println(
-                TerminalColors.ANSI_CYAN +
-                        """
-                                                
-                                 ___       ___     ____     ______      ______      ____        __      _    _____ \s
-                                (  (       )  )   (    )   (   __ \\    (____  )    / __ \\      /  \\    / )  / ___/ \s
-                                 \\  \\  _  /  /    / /\\ \\    ) (__) )       / /    / /  \\ \\    / /\\ \\  / /  ( (__   \s
-                                  \\  \\/ \\/  /    ( (__) )  (    __/    ___/ /_   ( ()  () )   ) ) ) ) ) )   ) __)  \s
-                                   )   _   (      )    (    ) \\ \\  _  /__  ___)  ( ()  () )  ( ( ( ( ( (   ( (     \s
-                                   \\  ( )  /     /  /\\  \\  ( ( \\ \\_))   / /____   \\ \\__/ /   / /  \\ \\/ /    \\ \\___ \s
-                                    \\_/ \\_/     /__(  )__\\  )_) \\__/   (_______)   \\____/   (_/    \\__/      \\____\\\s
-                                \s
-                                Welcome to WarZone. Built by Team 20.
-                                """ +
-                        TerminalColors.ANSI_RESET
+        System.out.println(TerminalColors.ANSI_PURPLE +
+                """
+                         ___       ___     ____     ______      ______      ____        __      _    _____ \s
+                        (  (       )  )   (    )   (   __ \\    (____  )    / __ \\      /  \\    / )  / ___/ \s
+                         \\  \\  _  /  /    / /\\ \\    ) (__) )       / /    / /  \\ \\    / /\\ \\  / /  ( (__   \s
+                          \\  \\/ \\/  /    ( (__) )  (    __/    ___/ /_   ( ()  () )   ) ) ) ) ) )   ) __)  \s
+                           )   _   (      )    (    ) \\ \\  _  /__  ___)  ( ()  () )  ( ( ( ( ( (   ( (     \s
+                           \\  ( )  /     /  /\\  \\  ( ( \\ \\_))   / /____   \\ \\__/ /   / /  \\ \\/ /    \\ \\___ \s
+                            \\_/ \\_/     /__(  )__\\  )_) \\__/   (_______)   \\____/   (_/    \\__/      \\____\\\s
+                        """ +
+                TerminalColors.ANSI_RED +
+                "\n\t\t\t\t\tWelcome to WarZone. Built by Team 20.\n" +
+                TerminalColors.ANSI_RESET
         );
     }
 
@@ -55,21 +53,19 @@ public class TerminalRenderer {
      * Renders the exit message and exits the application.
      */
     public void renderExit() {
-        System.out.println(
-                TerminalColors.ANSI_YELLOW +
-                        """
-                                                        
-                                 ___       ___     ____     ______      ______      ____        __      _    _____ \s
-                                (  (       )  )   (    )   (   __ \\    (____  )    / __ \\      /  \\    / )  / ___/ \s
-                                 \\  \\  _  /  /    / /\\ \\    ) (__) )       / /    / /  \\ \\    / /\\ \\  / /  ( (__   \s
-                                  \\  \\/ \\/  /    ( (__) )  (    __/    ___/ /_   ( ()  () )   ) ) ) ) ) )   ) __)  \s
-                                   )   _   (      )    (    ) \\ \\  _  /__  ___)  ( ()  () )  ( ( ( ( ( (   ( (     \s
-                                   \\  ( )  /     /  /\\  \\  ( ( \\ \\_))   / /____   \\ \\__/ /   / /  \\ \\/ /    \\ \\___ \s
-                                    \\_/ \\_/     /__(  )__\\  )_) \\__/   (_______)   \\____/   (_/    \\__/      \\____\\\s
-                                \s
-                                Thank you for playing WarZone. Team 20 will see you next build.
-                                """ +
-                        TerminalColors.ANSI_RESET
+        System.out.println(TerminalColors.ANSI_YELLOW
+                + """                
+                 ___       ___     ____     ______      ______      ____        __      _    _____ \s
+                (  (       )  )   (    )   (   __ \\    (____  )    / __ \\      /  \\    / )  / ___/ \s
+                 \\  \\  _  /  /    / /\\ \\    ) (__) )       / /    / /  \\ \\    / /\\ \\  / /  ( (__   \s
+                  \\  \\/ \\/  /    ( (__) )  (    __/    ___/ /_   ( ()  () )   ) ) ) ) ) )   ) __)  \s
+                   )   _   (      )    (    ) \\ \\  _  /__  ___)  ( ()  () )  ( ( ( ( ( (   ( (     \s
+                   \\  ( )  /     /  /\\  \\  ( ( \\ \\_))   / /____   \\ \\__/ /   / /  \\ \\/ /    \\ \\___ \s
+                    \\_/ \\_/     /__(  )__\\  )_) \\__/   (_______)   \\____/   (_/    \\__/      \\____\\\s
+                \s
+                             Thank you for playing WarZone. Team 20 will see you next build.
+                """
+                + TerminalColors.ANSI_RESET
         );
 
         System.exit(0);
@@ -87,40 +83,29 @@ public class TerminalRenderer {
         StringBuilder out = new StringBuilder();
 
         out.append(
-                TerminalColors.ANSI_BLUE +
-                "============================\n" +
-                TerminalColors.ANSI_GREEN)
+                        "\n" + TerminalColors.ANSI_PURPLE +
+                                "====================================\n" +
+                                TerminalColors.ANSI_BLUE)
                 .append(String.format(
-                """
-                |  %s Options:\s
-                """,
+                                "|\t%s Options:\n",
                 menu_type)
                 );
 
         for (int i = 0; i < options.length; i++) {
 
             out.append(String.format(
-                """
-                |     %d. %s\s
-                """,
-                i + 1,
+                    "|\t\t" + TerminalColors.ANSI_PURPLE +
+                            "> " + TerminalColors.ANSI_BLUE +
+                            "%s\n",
                 options[i])
             );
 
         }
 
-        out.append(String.format(
-            """
-            |     %d. Exit\s
-            """,
-            options.length + 1)
-        );
-
-        System.out.println(
-            out +
-            TerminalColors.ANSI_BLUE +
-            "============================" +
-            TerminalColors.ANSI_RESET
+        System.out.print(out
+                + TerminalColors.ANSI_PURPLE
+                + "====================================\n"
+                + TerminalColors.ANSI_RESET
         );
 
     }
@@ -158,14 +143,16 @@ public class TerminalRenderer {
      * @return The command entered by the user.
      */
     public void renderMapEditorCommands() {
-        this.renderMessage(
-                TerminalColors.ANSI_BLUE + """
-                Please Enter a valid command:\t
-                """ + TerminalColors.ANSI_GREEN +
-                "Super Commands: savemap, editmap, showmap, validatemap\n" +
-                "Map Edit Commands: editcountry, editneighbor, editcontinent" +
-                        TerminalColors.ANSI_RESET + "\n" +
-                        "Type 'exit' to quit map editing."
+        MapEditorCommands me = new MapEditorCommands("");
+        String commands = "";
+        for (String s : me.d_valid_commands) {
+            commands += "| " + s + " |";
+        }
+        this.renderMessage("Please Enter a valid command : \n"
+                + TerminalColors.ANSI_GREEN
+                + commands
+                + TerminalColors.ANSI_RESET
+                + "\nType 'exit' to quit map editing.\n"
         );
     }
 
@@ -181,7 +168,7 @@ public class TerminalRenderer {
      */
     public void renderMessage(String message) {
 
-        System.out.println(
+        System.out.print(
                 TerminalColors.ANSI_BLUE +
                         message +
                         TerminalColors.ANSI_RESET

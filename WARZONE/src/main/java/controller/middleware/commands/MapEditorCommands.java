@@ -3,10 +3,12 @@ package controller.middleware.commands;
 import controller.GameEngine;
 import controller.MapInterface;
 import controller.statepattern.Starting;
-import helpers.exceptions.*;
+import helpers.exceptions.ContinentAlreadyExistsException;
+import helpers.exceptions.ContinentDoesNotExistException;
+import helpers.exceptions.CountryDoesNotExistException;
+import helpers.exceptions.DuplicateCountryException;
 import models.LogEntryBuffer;
 import models.worldmap.WorldMap;
-import view.Logger;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,7 +17,7 @@ import java.util.regex.Pattern;
 
 public class MapEditorCommands extends Commands {
     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
-    Logger lw = new Logger(logEntryBuffer);
+
     public MapEditorCommands(String p_command) {
         super(p_command, new String[]{
                 "editcontinent",
@@ -49,7 +51,6 @@ public class MapEditorCommands extends Commands {
             ge.d_renderer.renderError("InvalidCommandException : Invalid Command");
             return;
         }
-
 
         String[] l_command = d_command.trim().split("\\s+");
 
@@ -429,7 +430,7 @@ public class MapEditorCommands extends Commands {
         mapName = splitCommand[1];
 
         try {
-            MapInterface.loadMap2(ge, mapName);
+            MapInterface.loadMap(ge, mapName);
             logEntryBuffer.setString("loaded map file "+ mapName);
         } catch (FileNotFoundException e) {
             ge.d_renderer.renderError("FileNotFoundException : File does not exist.");

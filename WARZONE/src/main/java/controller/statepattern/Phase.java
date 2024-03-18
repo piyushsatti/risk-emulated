@@ -1,8 +1,6 @@
 package controller.statepattern;
 
 import controller.GameEngine;
-import helpers.exceptions.CountryDoesNotExistException;
-import helpers.exceptions.InvalidCommandException;
 
 public abstract class Phase {
 
@@ -19,6 +17,6 @@ public abstract class Phase {
 
     abstract public void endGame();
 
-    abstract public void run() throws CountryDoesNotExistException, InvalidCommandException;
+    abstract public void run();
 
 }

@@ -6,6 +6,7 @@ import controller.middleware.commands.MapEditorCommands;
 public class MapEditor extends Phase {
     public MapEditor(GameEngine g) {
         super(g);
+        displayMenu();
     }
 
     @Override
@@ -23,13 +24,14 @@ public class MapEditor extends Phase {
 
     @Override
     public void run() {
-        displayMenu();
-        MapEditorCommands mec = new MapEditorCommands(
-                this.d_ge.d_renderer.renderUserInput("Enter command: ")
-        );
+        String in = this.d_ge.d_renderer.renderUserInput(">>> ");
+
+        if (in.equals("exit")) {
+            d_ge.setCurrentState(new End(d_ge));
+            return;
+        }
+
+        MapEditorCommands mec = new MapEditorCommands(in);
         mec.execute(this.d_ge);
     }
 }
-
-
-

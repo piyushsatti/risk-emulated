@@ -3,18 +3,12 @@ package controller;
 import controller.statepattern.End;
 import controller.statepattern.Phase;
 import controller.statepattern.Starting;
-import controller.statepattern.gameplay.IssueOrder;
-import controller.statepattern.gameplay.OrderExecution;
-import controller.statepattern.gameplay.Reinforcement;
-import controller.statepattern.gameplay.Startup;
 import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.InvalidCommandException;
 import models.Player;
 import models.worldmap.WorldMap;
 import view.TerminalRenderer;
 
-import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.ArrayList;
 
 /**
@@ -37,42 +31,34 @@ public class GameEngine {
 
     public GameEngine()
     {
-        this.d_current_phase = new Starting(this);
         d_maps_folder = "WARZONE/src/main/resources/maps/";
         d_renderer = new TerminalRenderer(this);
         d_worldmap = new WorldMap();
         d_players = new ArrayList<>();
-    }
-
-    public static void main(String[] args) throws CountryDoesNotExistException, InvalidCommandException {
-        GameEngine testEngine = new GameEngine();
-        testEngine.runState();
+        d_renderer.renderWelcome();
+        this.d_current_phase = new Starting(this);
     }
 
     public void setCurrentState(Phase p_p) {
         this.d_current_phase = p_p;
     }
 
-    public void runState() throws CountryDoesNotExistException, InvalidCommandException {
-        while (this.d_current_phase.getClass() != End.class) {
-            this.d_current_phase.run();
-        }
+    public static void main(String[] args) throws CountryDoesNotExistException, InvalidCommandException {
+        GameEngine engine = new GameEngine();
+        engine.runState();
     }
 
-    public void runGameplayTest() throws CountryDoesNotExistException, InvalidCommandException {
-        this.setCurrentState(new Startup(this));
-        this.d_current_phase.run();
-        this.setCurrentState(new IssueOrder(this));
-        this.d_current_phase.run();
-        this.setCurrentState(new Reinforcement(this));
-        this.d_current_phase.run();
-        this.setCurrentState(new OrderExecution(this));
-        this.d_current_phase.run();
-       ;
+    public void runState() {
+        while (this.d_current_phase.getClass() != End.class)
+            this.d_current_phase.run();
     }
 
     public void resetMap(){
         d_worldmap = new WorldMap();
+    }
+
+    public String getCurrentPhaseName() {
+        return d_current_phase.d_phaseName;
     }
 
 }

@@ -2,7 +2,10 @@ package controller.middleware.commands;
 
 import controller.GameEngine;
 import controller.MapInterface;
-import helpers.exceptions.*;
+import helpers.exceptions.ContinentAlreadyExistsException;
+import helpers.exceptions.ContinentDoesNotExistException;
+import helpers.exceptions.CountryDoesNotExistException;
+import helpers.exceptions.DuplicateCountryException;
 
 import java.io.FileNotFoundException;
 import java.util.regex.Matcher;
@@ -41,7 +44,7 @@ public class MainMenuCommands extends Commands {
         switch (l_command[0]) {
             case "loadmap":
                 try {
-                    MapInterface.loadMap2(ge, l_command[1]);
+                    MapInterface.loadMap(ge, l_command[1]);
                 } catch (FileNotFoundException e) {
                     ge.d_renderer.renderError("FileNotFoundException : File does not exist.");
                 } catch (NumberFormatException e) {

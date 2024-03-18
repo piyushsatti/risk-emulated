@@ -1,7 +1,5 @@
 package models;
 
-import view.Logger;
-
 public class LogEntryBuffer extends Subject{
     private String log;
 
@@ -22,11 +20,4 @@ public class LogEntryBuffer extends Subject{
         this.log = logMessage;
         notifyAllViews(this);
     }
-
-    public static void main(String[] args) {
-        LogEntryBuffer lg = new LogEntryBuffer();
-        Logger lw = new Logger(lg);
-        lg.setString(" devdutt was here!");
-    }
-
 }

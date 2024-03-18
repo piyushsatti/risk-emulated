@@ -1,15 +1,11 @@
 package controller.middleware.commands;
 
 import controller.GameEngine;
-import controller.statepattern.Phase;
-import helpers.exceptions.ContinentAlreadyExistsException;
-import helpers.exceptions.ContinentDoesNotExistException;
 import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.InvalidCommandException;
 import models.LogEntryBuffer;
 import models.Player;
 import models.orders.*;
-import view.Logger;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,7 +17,6 @@ public class IssueOrderCommands extends Commands{
         return flag;
     }
     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
-    Logger lw = new Logger(logEntryBuffer);
 
     public void setFlag(boolean flag) {
         this.flag = flag;

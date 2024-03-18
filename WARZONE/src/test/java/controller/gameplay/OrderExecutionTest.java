@@ -1,8 +1,9 @@
-package controller.statepattern.gameplay;
+package controller.gameplay;
 
 import controller.GameEngine;
 import controller.MapInterface;
 import controller.middleware.commands.StartupCommands;
+import controller.statepattern.gameplay.OrderExecution;
 import helpers.exceptions.ContinentAlreadyExistsException;
 import helpers.exceptions.ContinentDoesNotExistException;
 import helpers.exceptions.CountryDoesNotExistException;
@@ -12,13 +13,14 @@ import org.junit.Test;
 
 import java.io.FileNotFoundException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class OrderExecutionTest {
     @Test
     public void isWinnerTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge, "usa9.map");
+        MapInterface.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi",ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
         OrderExecution oe = new OrderExecution(ge);
@@ -28,7 +30,7 @@ public class OrderExecutionTest {
     @Test
     public void isWinnerTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge, "usa9.map");
+        MapInterface.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi",ge));
         ge.d_players.add(new Player("Priyanshu",ge));
         StartupCommands cmd = new StartupCommands("assigncountries");

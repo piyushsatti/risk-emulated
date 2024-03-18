@@ -5,7 +5,7 @@ import helpers.exceptions.ContinentDoesNotExistException;
 import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.DuplicateCountryException;
 import models.LogEntryBuffer;
-import view.Logger;
+import models.Subject;
 
 import java.util.HashMap;
 
@@ -15,10 +15,9 @@ import java.util.HashMap;
  * Contains d_countries which is a HashMap containing all the countries
  * on the map
  */
-public class WorldMap {
+public class WorldMap extends Subject {
 
     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
-    Logger lw = new Logger(logEntryBuffer);
 
     /**
      * HashMap containing all countries.

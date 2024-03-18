@@ -1,8 +1,9 @@
-package controller.statepattern.gameplay;
+package controller.gameplay;
 
 import controller.GameEngine;
 import controller.MapInterface;
 import controller.middleware.commands.StartupCommands;
+import controller.statepattern.gameplay.Reinforcement;
 import helpers.exceptions.ContinentAlreadyExistsException;
 import helpers.exceptions.ContinentDoesNotExistException;
 import helpers.exceptions.CountryDoesNotExistException;
@@ -10,15 +11,12 @@ import helpers.exceptions.DuplicateCountryException;
 import models.Player;
 import models.worldmap.Continent;
 import models.worldmap.Country;
-import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.HashMap;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class ReinforcementTest {
     GameEngine ge = new GameEngine();
@@ -26,7 +24,7 @@ public class ReinforcementTest {
     Reinforcement rf = new Reinforcement(ge);
     @Test
     public void runTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
-        MapInterface.loadMap2(ge, "usa9.map");
+        MapInterface.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi",ge));
 
         rf.run();
@@ -55,7 +53,7 @@ public class ReinforcementTest {
 
     @Test
     public void runTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
-        MapInterface.loadMap2(ge, "usa9.map");
+        MapInterface.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi",ge));
         ge.d_players.add(new Player("Priyanshu",ge));
 

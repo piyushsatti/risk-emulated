@@ -1,7 +1,6 @@
 package view;
 
 import controller.GameEngine;
-import controller.statepattern.Phase;
 import models.LogEntryBuffer;
 import models.Subject;
 
@@ -10,22 +9,21 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Logger implements Observer{
-    public void update(Subject model) {
-        //GameEngine ge = new GameEngine();
-        GameEngine ge = new GameEngine();
-        String outputDirectoryPath = ((LogEntryBuffer)model).getLogFolder() +"log_file";
+public abstract class Logger implements Observer {
+
+    public void update_log(Subject model, GameEngine ge) {
+        String outputDirectoryPath = ((LogEntryBuffer) model).getLogFolder() + "log_file";
         File outputFile = new File(outputDirectoryPath);
         String logMessage = ((LogEntryBuffer)model).getLog();
-        try{
+
+        try {
             boolean isCreated = outputFile.createNewFile();
             BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile,true));
-            writer.write(logMessage + "\n");
+            writer.write("Current Phase : " + ge.getCurrentPhaseName() + " : " + logMessage + "\n");
             writer.close();
         }
         catch(IOException e)
         {
-            //ge.renderer.renderError("IOException: error in creating/loading log file");
             System.out.println("IOException: error in creating/loading log file");
             ge.d_renderer.renderError("IOException: error in creating/loading log file");
         }
@@ -34,4 +32,7 @@ public class Logger implements Observer{
     {
         model.attachView(this);
     }
+
+    @Override
+    public abstract void update(Subject model);
 }

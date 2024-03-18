@@ -5,7 +5,7 @@ import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.InvalidCommandException;
 
 public abstract class Commands {
-    private String[] d_valid_commands;
+    public String[] d_valid_commands;
 
     public String[] splitCommand;
     final String d_command;

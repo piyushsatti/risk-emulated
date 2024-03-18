@@ -40,11 +40,13 @@ public class IssueOrder extends Phase {
  }
 
     @Override
-    public void run() throws CountryDoesNotExistException, InvalidCommandException {
-        Scanner scan = new Scanner(System.in);
-        int l_playerNumber = 0;
-        while(!allPlayersFinished()) {
-            Player p = d_ge.d_players.get(l_playerNumber);
+    public void run() {
+        try {
+            Scanner scan = new Scanner(System.in);
+            int l_playerNumber = 0;
+
+            while (!allPlayersFinished()) {
+                Player p = d_ge.d_players.get(l_playerNumber);
                 p.setOrderSuccess(false);
                 while (!p.isOrderSuccess()) {
                     d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Reinforcements Available: " + p.getReinforcements());
@@ -61,14 +63,17 @@ public class IssueOrder extends Phase {
 
                     }
                 }
+
                 l_playerNumber++;
-                if(l_playerNumber == d_ge.d_players.size()){
+
+                if (l_playerNumber == d_ge.d_players.size()) {
                     l_playerNumber = 0;
                 }
-
             }
 
-        d_ge.setCurrentState(new OrderExecution(d_ge));
-
+            d_ge.setCurrentState(new OrderExecution(d_ge));
+        } catch (Exception e) {
+            d_ge.d_renderer.renderError("Devdutt please use the functions created.");
+        }
     }
 }
