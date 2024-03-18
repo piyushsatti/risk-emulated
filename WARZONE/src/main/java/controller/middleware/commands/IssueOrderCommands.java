@@ -1,7 +1,6 @@
 package controller.middleware.commands;
 
 import controller.GameEngine;
-import controller.statepattern.End;
 import controller.statepattern.Phase;
 import controller.statepattern.gameplay.IssueOrder;
 import helpers.exceptions.ContinentAlreadyExistsException;
@@ -16,40 +15,20 @@ import view.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * The IssueOrderCommands class represents commands related to issuing orders in the game.
- * It extends the abstract class Commands.
- */
 public class IssueOrderCommands extends Commands{
     Player p;
 
-    /**
-     * Gets the current value of the flag.
-     *
-     * @return True if the flag is set, false otherwise.
-     */
     public boolean isFlag() {
         return flag;
     }
     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
     Logger lw = new Logger(logEntryBuffer);
 
-    /**
-     * Sets the value of the flag.
-     *
-     * @param flag The value to set the flag.
-     */
     public void setFlag(boolean flag) {
         this.flag = flag;
     }
 
     boolean flag = false;
-    /**
-     * Constructs an IssueOrderCommands object with the given command string and player.
-     *
-     * @param p_command  The command string.
-     * @param p_player   The player associated with the commands.
-     */
     public IssueOrderCommands(String p_command, Player p_player) {
         super(p_command, new String[]{
                 "deploy",
@@ -63,12 +42,6 @@ public class IssueOrderCommands extends Commands{
         });
         p = p_player;
     }
-
-    /**
-     * Validates the command format against predefined patterns.
-     *
-     * @return True if the command format is valid, false otherwise.
-     */
     @Override
     public boolean validateCommand(GameEngine p_gameEngine)
     {
@@ -87,30 +60,18 @@ public class IssueOrderCommands extends Commands{
         Matcher matcher = pattern.matcher(d_command);
         return matcher.matches() && (p_gameEngine.getCurerentState().getClass() == IssueOrder.class);
     }
-    /**
-     * Displays the game map if it's loaded, otherwise, renders an error message.
-     *
-     * @param p_gameEngine The GameEngine object containing the game state.
-     */
-    private void showmapIssueOrder(GameEngine p_gameEngine){
+    private void showmapIssueOrder(GameEngine ge){
 
-        if(p_gameEngine.d_worldmap == null){
-            p_gameEngine.d_renderer.renderError("No map loaded into game! Please use 'loadmap' command");
+        if(ge.d_worldmap == null){
+            ge.d_renderer.renderError("No map loaded into game! Please use 'loadmap' command");
             logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" ShowMap Order Not executed as " +
                     "there is no map loaded "+p.getName()+" needs to load a map first");
         }else{
-            p_gameEngine.d_renderer.showMap(true);
+            ge.d_renderer.showMap(true);
             logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" ShowMap Order " +d_command);
         }
     }
 
-    /**
-     * Executes the command using the provided GameEngine.
-     *
-     * @param p_gameEngine The GameEngine object used to execute the command.
-     * @throws CountryDoesNotExistException If a country referenced in the command does not exist.
-     * @throws InvalidCommandException     If the command is invalid.
-     */
     @Override
     public void execute(GameEngine p_gameEngine) throws  CountryDoesNotExistException, InvalidCommandException {
 
@@ -193,7 +154,7 @@ public class IssueOrderCommands extends Commands{
                     }
                     order = new Bomb(p, l_targetPlayer, p.getPlayerId(), p.getName(), l_bombCountryID, p_gameEngine);
                     if (order.validateCommand()) {
-                        System.out.println("Bomb Order Placed");
+                        System.out.println("Order Successful");
                         p.addOrder(order);
                         p.issue_order();
                         p.removeCard("bomb");
@@ -264,16 +225,17 @@ public class IssueOrderCommands extends Commands{
                             +p.getName()+" needs to deploy all troops");
 
                 }else {
-                 p.setFinishedIssueOrder(true);
+                    p.setFinishedIssueOrder(true);
                     logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Player has finished issuing all orders:"+d_command);
 
-                 p.setOrderSuccess(true);
+                    p.setOrderSuccess(true);
                 }
                 break;
             case "showmap":
                 logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued Showmap Order:"+d_command);
                 showmapIssueOrder(p_gameEngine);
                 break;
+
 
         }
     }

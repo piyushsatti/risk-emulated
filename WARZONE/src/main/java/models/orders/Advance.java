@@ -130,6 +130,7 @@ public class Advance implements Order {
                 this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
                 int l_currentReinforcementsToCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getReinforcements();
                 this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(l_currentReinforcementsToCountry + this.d_advancingtroops);
+                System.out.println("Troops advanced succesfully ");
                 return;
 
             } else {
@@ -164,7 +165,7 @@ public class Advance implements Order {
                     } else {
                         this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
                     }
-                    System.out.println("Defence was succesful");
+                    System.out.println("Defence was succesfull");
 
                     return;
 

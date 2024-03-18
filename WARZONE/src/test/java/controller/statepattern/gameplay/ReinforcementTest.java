@@ -42,6 +42,9 @@ public class ReinforcementTest {
         ge.d_players.add(new Player("Shashi",ge));
 
         rf.run();
+
+
+
         int bonus =0;
         HashMap<Integer, Continent> continents = ge.d_worldmap.getContinents();
         for (Continent continent : continents.values()) {
@@ -56,9 +59,10 @@ public class ReinforcementTest {
                 bonus+= continent.getBonus();
             }
         }
-        rf.assignReinforcements(ge.d_players);
+
 
         int l_numberOfTroops = Math.max(ge.d_players.get(0).getAssignedCountries().size() / 3 +bonus, 3);
+
         assertEquals(l_numberOfTroops,ge.d_players.get(0).getReinforcements());
 
     }
