@@ -12,6 +12,7 @@ public class Starting extends Phase {
     public Starting(GameEngine g) {
         super(g);
         d_phaseName = "Starting Phase";
+        g.d_renderer.renderWelcome();
     }
 
     /**

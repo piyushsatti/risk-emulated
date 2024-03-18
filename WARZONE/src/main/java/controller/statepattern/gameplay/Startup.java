@@ -2,26 +2,34 @@ package controller.statepattern.gameplay;
 
 import controller.GameEngine;
 import controller.middleware.commands.StartupCommands;
-import controller.statepattern.End;
 import controller.statepattern.MapEditor;
 import controller.statepattern.Phase;
 
+/**
+ * Represents the startup phase of the game.
+ */
 public class Startup extends Phase {
-    String[] menu_options = {"showmap", "loadmap", "gameplayer", "assigncountries", "exit"};
+    String[] menu_options = {"Show Map", "Load Map", "gameplayer to Add/Remove Player", "Assign Countries"};
 
-    public Startup(GameEngine ge) {
-        super(ge);
-        displayMenu();
+    /**
+     * Constructor for Startup phase.
+     *
+     * @param gameEngine The GameEngine object.
+     */
+    public Startup(GameEngine gameEngine) {
+        super(gameEngine);
     }
 
+    /**
+     * Displays the menu for the startup phase.
+     */
     @Override
     public void displayMenu() {
         d_ge.d_renderer.renderMenu(
-                "Game Menu",
+                "Main Menu",
                 menu_options
         );
     }
-
 
     @Override
     public void next() {
@@ -30,18 +38,18 @@ public class Startup extends Phase {
 
     @Override
     public void endGame() {
+
     }
 
+    /**
+     * Runs the startup phase.
+     */
     @Override
     public void run() {
-        String in = this.d_ge.d_renderer.renderUserInput(">>> ");
-
-        if (in.equals("exit")) {
-            d_ge.setCurrentState(new End(d_ge));
-            return;
-        }
-
-        StartupCommands suc = new StartupCommands(in);
+        displayMenu();
+        StartupCommands suc = new StartupCommands(
+                this.d_ge.d_renderer.renderUserInput("Enter command: ")
+        );
         suc.execute(this.d_ge);
     }
 }
