@@ -22,16 +22,24 @@ public class IssueOrder extends Phase {
         super(p_gameEngine);
     }
 
+    /**
+     * This method is intended to display the game menu.
+     */
     @Override
     public void displayMenu() {
 
     }
-
+    /**
+     * This method is intended to advance the game to the next step or phase.
+     */
     @Override
     public void next() {
 
     }
 
+    /**
+     * This method is intended to end the game.
+     */
     @Override
     public void endGame() {
 
@@ -51,8 +59,6 @@ public class IssueOrder extends Phase {
      }
      return playersFinished;
  }
-
-
 
     /**
      * Executes the phase of issuing orders.
