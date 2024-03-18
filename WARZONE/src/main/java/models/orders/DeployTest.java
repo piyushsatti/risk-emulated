@@ -14,8 +14,20 @@ import java.io.FileNotFoundException;
 
 import static org.junit.Assert.*;
 
+/**
+ * JUnit test class to validate the deployment command execution in the game.
+ */
 public class DeployTest {
 
+    /**
+     * Test case to validate the execution of the deployment command.
+     * @throws CountryDoesNotExistException if the country being deployed to does not exist.
+     * @throws ContinentAlreadyExistsException if the continent being added already exists.
+     * @throws ContinentDoesNotExistException if the continent being referred to does not exist.
+     * @throws DuplicateCountryException if the country being added already exists.
+     * @throws FileNotFoundException if the specified file is not found.
+     * @throws InvalidCommandException if the command executed is invalid.
+     */
     @Test
     public void validateCommandTests1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         GameEngine ge = new GameEngine();
@@ -33,6 +45,15 @@ public class DeployTest {
         assertTrue(deploy.validateCommand());
     }
 
+    /**
+     * Test case to validate the execution of the deployment command when the player does not own the country.
+     * @throws CountryDoesNotExistException if the country being deployed to does not exist.
+     * @throws ContinentAlreadyExistsException if the continent being added already exists.
+     * @throws ContinentDoesNotExistException if the continent being referred to does not exist.
+     * @throws DuplicateCountryException if the country being added already exists.
+     * @throws FileNotFoundException if the specified file is not found.
+     * @throws InvalidCommandException if the command executed is invalid.
+     */
     @Test
     public void validateCommandTests2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         GameEngine ge = new GameEngine();
@@ -51,6 +72,15 @@ public class DeployTest {
     }
 
 
+    /**
+     * Test case to validate the execution of the deployment command when the number of troops to deploy is negative.
+     * @throws CountryDoesNotExistException if the country being deployed to does not exist.
+     * @throws ContinentAlreadyExistsException if the continent being added already exists.
+     * @throws ContinentDoesNotExistException if the continent being referred to does not exist.
+     * @throws DuplicateCountryException if the country being added already exists.
+     * @throws FileNotFoundException if the specified file is not found.
+     * @throws InvalidCommandException if the command executed is invalid.
+     */
     @Test
     public void validateCommandTests3() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         GameEngine ge = new GameEngine();
@@ -68,6 +98,15 @@ public class DeployTest {
         assertFalse(deploy.validateCommand());
     }
 
+    /**
+     * Test case to validate the execution of the deployment command when the number of troops to deploy exceeds the available troops.
+     * @throws CountryDoesNotExistException if the country being deployed to does not exist.
+     * @throws ContinentAlreadyExistsException if the continent being added already exists.
+     * @throws ContinentDoesNotExistException if the continent being referred to does not exist.
+     * @throws DuplicateCountryException if the country being added already exists.
+     * @throws FileNotFoundException if the specified file is not found.
+     * @throws InvalidCommandException if the command executed is invalid.
+     */
     @Test
     public void validateCommandTests4() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         GameEngine ge = new GameEngine();
@@ -85,6 +124,15 @@ public class DeployTest {
         assertFalse(deploy.validateCommand());
     }
 
+    /**
+     * Test case to validate the execution of the deployment command when the target country ID is invalid (negative).
+     * @throws CountryDoesNotExistException if the country being deployed to does not exist.
+     * @throws ContinentAlreadyExistsException if the continent being added already exists.
+     * @throws ContinentDoesNotExistException if the continent being referred to does not exist.
+     * @throws DuplicateCountryException if the country being added already exists.
+     * @throws FileNotFoundException if the specified file is not found.
+     * @throws InvalidCommandException if the command executed is invalid.
+     */
     @Test
     public void validateCommandTests5() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         GameEngine ge = new GameEngine();
@@ -102,6 +150,15 @@ public class DeployTest {
         assertFalse(deploy.validateCommand());
     }
 
+    /**
+     * Test case to validate the execution of the deploy order when deploying troops to a country.
+     * @throws CountryDoesNotExistException if the country being deployed to does not exist.
+     * @throws ContinentAlreadyExistsException if the continent being added already exists.
+     * @throws ContinentDoesNotExistException if the continent being referred to does not exist.
+     * @throws DuplicateCountryException if the country being added already exists.
+     * @throws FileNotFoundException if the specified file is not found.
+     * @throws InvalidCommandException if the command executed is invalid.
+     */
     @Test
     public void orderValidationTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         GameEngine ge = new GameEngine();
@@ -121,6 +178,15 @@ public class DeployTest {
         assertEquals(5,c.getReinforcements());
     }
 
+    /**
+     * Test case to validate the execution of the deploy order when deploying troops to a country with a different number of reinforcements.
+     * @throws CountryDoesNotExistException if the country being deployed to does not exist.
+     * @throws ContinentAlreadyExistsException if the continent being added already exists.
+     * @throws ContinentDoesNotExistException if the continent being referred to does not exist.
+     * @throws DuplicateCountryException if the country being added already exists.
+     * @throws FileNotFoundException if the specified file is not found.
+     * @throws InvalidCommandException if the command executed is invalid.
+     */
     @Test
     public void orderValidationTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         GameEngine ge = new GameEngine();
