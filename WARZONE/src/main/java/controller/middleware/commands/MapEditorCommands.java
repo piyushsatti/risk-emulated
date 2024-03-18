@@ -150,13 +150,19 @@ public class MapEditorCommands extends Commands {
         }
     }
 
-    public boolean editContinentValidator(WorldMap wm) {
+    /**
+     * Validates and executes the editcontinent command to add or remove continents from the world map.
+     *
+     * @param p_worldMap The original world map object to be edited.
+     * @return true if the editcontinent command is successfully validated and executed; false otherwise.
+     */
+    public boolean editContinentValidator(WorldMap p_worldMap) {
         String invalidMessage = "Invalid editcontinent command! Correct format -> editcontinent -add <continentID> <continentvalue> -remove <continentID>";
         WorldMap copyMap = null;
         int commandLength = this.splitCommand.length;
 
         try {
-            copyMap = new WorldMap(wm);
+            copyMap = new WorldMap(p_worldMap);
         } catch (Exception e) {
             System.out.println(e);
             return false;

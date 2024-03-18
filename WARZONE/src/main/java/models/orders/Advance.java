@@ -169,7 +169,6 @@ public class Advance implements Order {
                     }
                     this.d_gameEngine.d_renderer.renderMessage("Attack unsuccessful "+ "From: " +this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + "To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + "by: " + this.d_sourcePlayer.getName());
 
-
                     return;
 
                 }
