@@ -170,7 +170,7 @@ public class StartupCommands extends Commands {
      *
      * @param p_gameEngine          The game engine instance.
      * @param p_currPhase The current phase of the game.
-     * @return True if countries are successfully assigned to players, false otherwise.
+     *                    
      */
     private void showmap(GameEngine p_gameEngine,String p_currPhase){
         logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Entered Command: showmap");

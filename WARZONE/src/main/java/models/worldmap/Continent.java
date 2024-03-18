@@ -24,21 +24,17 @@ public class Continent {
 
 
     /**
-     * Constructor
+     * Constructs a new continent with the specified ID, name, and bonus.
      *
-     * @param p_id Integer identifier
-     * @param p_name Continent name
+     * @param p_id    The ID of the continent.
+     * @param p_name  The name of the continent.
+     * @param p_bonus The bonus value of the continent.
      */
     public Continent(int p_id, String p_name, int p_bonus) {
-
         this.d_continentID = p_id;
-
         this.d_continentName = p_name;
-
-        this.d_bonus = p_bonus; //bonus set to zero for now (to be used in the future)
-
+        this.d_bonus = p_bonus; // Bonus set to zero for now (to be used in the future)
     }
-
     /**
      * Accessor method
      *

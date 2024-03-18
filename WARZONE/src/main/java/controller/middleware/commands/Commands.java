@@ -9,11 +9,20 @@ import helpers.exceptions.InvalidCommandException;
  *
  */
 public abstract class Commands {
+    /**
+     * An array containing valid commands for this object.
+     */
     private String[] d_valid_commands;
 
+    /**
+     * An array containing the split parts of the command.
+     */
     public String[] splitCommand;
-    final String d_command;
 
+    /**
+     * The original command string.
+     */
+    final String d_command;
     /**
      * Constructs object Commands with the given command string and valid commands.
      *
@@ -30,7 +39,6 @@ public abstract class Commands {
     /**
      * Validates the command
      *
-     * @return True if the command is valid, false otherwise.
      */
     abstract boolean validateCommand(GameEngine p_gameEngine);
 

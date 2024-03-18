@@ -21,8 +21,20 @@ public class Card {
     public void setD_typeOfCard(String d_typeOfCard) {
         this.d_typeOfCard = d_typeOfCard;
     }
+    /**
+     * Used to store type of card.
+     *
+     */
     private String d_typeOfCard;
+    /**
+     * Used to create random object.
+     *
+     */
     private static  Random random = new Random();
+    /**
+     * Different Types of Cards.
+     *
+     */
     private static String[] d_typeOfCards = {"airlift","blockade","bomb","diplomacy"};
     /**
      * Constructs a Card object with the specified type.

@@ -52,9 +52,10 @@ public class AdvanceTest {
      * @throws ContinentDoesNotExistException  If a continent does not exist.
      * @throws DuplicateCountryException       If a country is duplicated.
      * @throws FileNotFoundException           If a file is not found.
+     * @throws InvalidCommandException         If command invalid
      */
     @Test
-    public void validateCommandTests2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
+    public void validateCommandTests2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         // Test setup
         GameEngine ge = new GameEngine();
         MapInterface.loadMap2(ge, "order_test.map");

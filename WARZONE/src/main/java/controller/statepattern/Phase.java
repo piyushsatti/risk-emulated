@@ -10,7 +10,14 @@ import helpers.exceptions.InvalidCommandException;
  */
 public abstract class Phase {
 
+    /**
+     * The game engine associated with this phase.
+     */
     public GameEngine d_ge;
+
+    /**
+     * The name of the phase.
+     */
     public String d_phaseName;
 
     /**

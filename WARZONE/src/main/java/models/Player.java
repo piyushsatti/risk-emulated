@@ -34,12 +34,26 @@ public class Player {
      */
     private String d_playerName;
 
+    /**
+     * Checks if the order was successful.
+     *
+     * @return {@code true} if the order was successful, {@code false} otherwise.
+     */
     public boolean isOrderSuccess() {
         return d_orderSuccess;
     }
+
+    /**
+     * Sets the status of the order.
+     *
+     * @param orderSuccess The status of the order to be set.
+     */
     public void setOrderSuccess(boolean orderSuccess) {
         this.d_orderSuccess = orderSuccess;
     }
+    /**
+     * Check if order has been successful issued.
+     */
     private boolean d_orderSuccess;
 
     /**
@@ -60,31 +74,72 @@ public class Player {
     /**
      * The order list of the player.
      */
+    /**
+     * The list of orders to be executed.
+     */
     private final Deque<Order> d_orderList = new ArrayDeque<>();
-    public void addOrderToList(Order  order){
+
+    /**
+     * Adds an order to the list of orders.
+     *
+     * @param order The order to be added.
+     */
+    public void addOrderToList(Order order) {
         this.d_orderList.add(order);
     }
+
+    /**
+     * Indicates whether the issuing of orders has finished.
+     */
     private boolean d_finishedIssueOrder;
+
+    /**
+     * The list of players with whom negotiation has been conducted.
+     */
     private final ArrayList<Player> d_listOfNegotiatedPlayers;
 
+    /**
+     * Retrieves the terminal renderer.
+     *
+     * @return The terminal renderer.
+     */
     public TerminalRenderer getRenderer() {
         return d_renderer;
     }
 
-
-
+    /**
+     * The terminal renderer.
+     */
     TerminalRenderer d_renderer;
 
+    /**
+     * The game engine.
+     */
     GameEngine d_gameEngine;
 
-    public void addOrder(Order order){
+    /**
+     * Sets the current order.
+     *
+     * @param order The current order.
+     */
+    public void addOrder(Order order) {
         this.d_current_order = order;
     }
 
-    public void issue_order() throws InvalidCommandException{
+    /**
+     * Issues the current order.
+     *
+     * @throws InvalidCommandException If the command is invalid.
+     */
+    public void issue_order() throws InvalidCommandException {
         this.d_orderList.add(this.d_current_order);
     }
 
+    /**
+     * Retrieves the list of negotiated players.
+     *
+     * @return The list of negotiated players.
+     */
     public ArrayList<Player> getListOfNegotiatedPlayers() {
         return d_listOfNegotiatedPlayers;
     }
@@ -255,10 +310,19 @@ public class Player {
         this.d_assignedCountries.remove(p_countryID);
     }
 
+    /**
+     * Retrieves the list of cards.
+     *
+     * @return The list of cards.
+     */
     public ArrayList<Card> getListOfCards() {
         return d_listOfCards;
     }
-    public void addCard(){
+
+    /**
+     * Adds a card to the list of cards.
+     */
+    public void addCard() {
         Card l_card = Card.createCard();
         this.d_listOfCards.add(l_card);
     }

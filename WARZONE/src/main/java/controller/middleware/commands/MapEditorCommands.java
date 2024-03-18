@@ -220,11 +220,10 @@ public class MapEditorCommands extends Commands {
 
     /**
      * Validates the editcontinent command provided by the user.
-     * The command should be in the format: editcontinent -add <continentID> <continentvalue> -remove <continentID>.
+     * The command should be in the format: editcontinent -add ontinentID continentvalue -remove continentID.
      * This method checks the correctness of the command and ensures that it is valid for modifying continents in the world map.
      *
      * @param p_worldMap The world map on which the editcontinent command will be applied.
-     * @return True if the editcontinent command is valid, false otherwise.
      */
     public void editContinent(WorldMap p_worldMap,String p_currPhase) {
         int commandLength = this.splitCommand.length;
