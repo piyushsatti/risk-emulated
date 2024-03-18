@@ -5,6 +5,7 @@ on:
     branches: 
     - main
     - dev
+    - updated_mvc_command_pattern
     
     
 jobs:
