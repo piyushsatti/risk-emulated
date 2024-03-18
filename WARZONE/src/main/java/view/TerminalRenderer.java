@@ -179,6 +179,12 @@ public class TerminalRenderer {
         );
     }
 
+    /**
+     * Renders a message to the user and waits for user input.
+     *
+     * @param message The message to be displayed to the user.
+     * @return The user's input as a String.
+     */
     public String renderUserInput(String message) {
         renderMessage(message);
         return this.in.nextLine();
@@ -228,10 +234,7 @@ public class TerminalRenderer {
                 if (p_enable_gameview) {
                     out.append(" Reinforcements Deployed: ").append(country.getReinforcements());
                     int l_ownerPlayerID = country.getCountryPlayerID();
-//                    if (Player.getPlayerFromList(d_ge.PLAYER_LIST, l_ownerPlayerID) != null)
-//                    {
-//                        out.append(" Player Name: ").append(Player.getPlayerFromList(d_ge.PLAYER_LIST, l_ownerPlayerID).getName());
-//                    }
+
                 }
                 out.append("\n\t\t");
                 for (Country borderCountries : country.getBorderCountries().values())

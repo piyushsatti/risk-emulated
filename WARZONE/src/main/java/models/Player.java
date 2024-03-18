@@ -34,9 +34,19 @@ public class Player {
      */
     private String d_playerName;
 
+    /**
+     * Checks if the order was successfully executed.
+     *
+     * @return True if the order was successfully executed, false otherwise.
+     */
     public boolean isOrderSuccess() {
         return d_orderSuccess;
     }
+    /**
+     * Sets the status of the order execution.
+     *
+     * @param orderSuccess True if the order was successfully executed, false otherwise.
+     */
     public void setOrderSuccess(boolean orderSuccess) {
         this.d_orderSuccess = orderSuccess;
     }

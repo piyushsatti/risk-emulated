@@ -18,11 +18,25 @@ public class Card {
      *
      * @param d_typeOfCard The type of the card to set
      */
+    /**
+     * Sets the type of card.
+     *
+     * @param d_typeOfCard The type of card to be set.
+     */
     public void setD_typeOfCard(String d_typeOfCard) {
         this.d_typeOfCard = d_typeOfCard;
     }
+    /**
+     * Type of card.
+     */
     private String d_typeOfCard;
+    /**
+     * Random number generator instance.
+     */
     private static  Random random = new Random();
+    /**
+     * Array containing types of cards.
+     */
     private static String[] d_typeOfCards = {"airlift","blockade","bomb","diplomacy"};
     /**
      * Constructs a Card object with the specified type.
