@@ -63,7 +63,7 @@ public class IssueOrder extends Phase {
     @Override
     public void run() throws CountryDoesNotExistException, InvalidCommandException {
         Scanner scan = new Scanner(System.in);
-        System.out.println("In issue order");
+        this.d_ge.d_renderer.renderMessage("In Issue order Phase");
         int l_playerNumber = 0;
         while(!allPlayersFinished()) {
             Player p = d_ge.d_players.get(l_playerNumber);
@@ -72,8 +72,8 @@ public class IssueOrder extends Phase {
                     d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Reinforcements Available: " + p.getReinforcements());
                     d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Cards Available: " + p.displayCards());
 
-                    System.out.println("Enter done if you have no more orders to give");
-                    System.out.print(p.getName() + " enter order: ");
+                    this.d_ge.d_renderer.renderMessage("Enter done if you have no more orders to give");
+                    this.d_ge.d_renderer.renderMessage(p.getName() + " enter order: ");
                     String command = scan.nextLine();
                     IssueOrderCommands ioc = new IssueOrderCommands(command, p);
                     try {
