@@ -1,8 +1,9 @@
 package models.orders;
+
 import controller.GameEngine;
 import helpers.exceptions.InvalidCommandException;
-import view.TerminalRenderer;
 import models.Player;
+import view.TerminalRenderer;
 
 /**
  * The Deploy class implements Order inteface.
@@ -11,19 +12,12 @@ import models.Player;
 public class Deploy implements Order {
 
     int d_playerOrderID;
-
     String d_playerOrderName;
-
     private final int d_fromCountryID;
-
     private final int d_toCountryID;
-
     private final int d_reinforcementsDeployed;
-
     GameEngine d_gameEngine;
-
     TerminalRenderer d_terminalRenderer;
-
     Player d_sourcePlayer;
 
     /**
@@ -36,27 +30,33 @@ public class Deploy implements Order {
      */
     public Deploy(Player p_sourcePlayer, String p_playerOrderName, int p_playerOrderID,int p_fromCountryID,int p_reinforcementsDeployed, GameEngine p_gameEngine){
         this.d_sourcePlayer = p_sourcePlayer;
-
         this.d_playerOrderName = p_playerOrderName;
-
         this.d_playerOrderID = p_playerOrderID;
-
         this.d_fromCountryID = p_fromCountryID;
-
         this.d_toCountryID = -1;
-
         this.d_reinforcementsDeployed = p_reinforcementsDeployed;
-
         this.d_gameEngine = p_gameEngine;
-
         this.d_terminalRenderer = new TerminalRenderer(this.d_gameEngine);
 
     }
 
+    /**
+     * Validates the deployment command to ensure the player has sufficient reinforcements and owns the specified country.
+     *
+     * @param p_numberTobeDeployed The number of troops to be deployed
+     * @return True if the deployment is valid, false otherwise
+     */
     public boolean deployment_validator(int p_numberTobeDeployed) {
         return p_numberTobeDeployed <= this.d_sourcePlayer.getReinforcements();
     }
 
+    /**
+     * Validates the deploy command by checking if the player has enough troops, if the country ID is valid,
+     * and if the player owns the specified country.
+     *
+     * @return True if the deploy command is valid, false otherwise
+     * @throws InvalidCommandException if the command is invalid
+     */
     @Override
     public boolean validateCommand() throws InvalidCommandException {
 
@@ -64,9 +64,7 @@ public class Deploy implements Order {
 
             this.d_terminalRenderer.renderMessage("You (" + this.d_sourcePlayer.getName() + ") don't have enough troops for this deploy order");
             return false;
-
         }
-
         if (d_fromCountryID <=  0){
             this.d_terminalRenderer.renderMessage(" (" + this.d_sourcePlayer.getName() + ") Negative countries not possible");
             return false;
@@ -76,6 +74,10 @@ public class Deploy implements Order {
             return false;
         }
 
+        if (this.d_reinforcementsDeployed <= 0) {
+            this.d_terminalRenderer.renderMessage("Cannot use negative or zero armies");
+            return false;
+        }
 
         return true;
     }

@@ -4,12 +4,21 @@ import controller.GameEngine;
 import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.InvalidCommandException;
 
+/**
+ * The abstract class Commands represents a command with its associated valid commands.
+ */
 public abstract class Commands {
     public String[] d_valid_commands;
 
     public String[] splitCommand;
     final String d_command;
 
+    /**
+     * Constructs object Commands with the given command string and valid commands.
+     *
+     * @param p_command        The command string.
+     * @param p_valid_commands An array containing valid commands.
+     */
     public Commands(String p_command,String[] p_valid_commands)
     {
         d_command = p_command;
@@ -17,13 +26,26 @@ public abstract class Commands {
         d_valid_commands = p_valid_commands;
     }
 
-    abstract boolean validateCommand();
+    /**
+     * Validates the command
+     *
+     * @return True if the command is valid, false otherwise.
+     */
+    abstract boolean validateCommand(GameEngine p_gameEngine);
 
+    /**
+     * Executes the command using the provided GameEngine.
+     *
+     * @param ge The GameEngine object used to execute the command.
+     * @throws CountryDoesNotExistException If a country referenced in the command does not exist.
+     * @throws InvalidCommandException     If the command is invalid.
+     */
     abstract void execute(GameEngine ge) throws CountryDoesNotExistException, InvalidCommandException;
 
     /**
      * This validation method only checks if the first token
      * is a valid command name (doesn't check the rest of the command)
+     *
      * @return true if valid name, false if not
      */
     boolean validateCommandName(){

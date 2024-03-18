@@ -120,7 +120,6 @@ public class WorldMap extends Subject {
         return this.d_countries;
     }
 
-
     /**
      *
      * @param p_source id of country to which border will be added
@@ -136,15 +135,12 @@ public class WorldMap extends Subject {
         } else if (!this.containsCountry(p_target)) {
 
             throw new CountryDoesNotExistException(p_target);
-
         }
 
         this.getCountry(p_source).addBorder(this.getCountry(p_target));
        // logEntryBuffer.setString("added border between"+this.getCountry(p_source).getCountryName()+" and "+this.getCountry(p_target).getCountryName());
 
     }
-
-
     /**
      * Method which adds continent to map
      *
@@ -160,9 +156,7 @@ public class WorldMap extends Subject {
 
         int continentId = getNextContinentID();
         d_continents.put(continentId, new Continent(continentId, p_continentName, p_bonus));
-
     }
-
     /**
      * This method is only used in the context of the copy constructor
      * @param p_id integer ID of new continent to add
@@ -177,12 +171,7 @@ public class WorldMap extends Subject {
         }
 
         d_continents.put(p_id, new Continent(p_id, p_continentName, p_bonus));
-
-
     }
-
-
-
 
     /**
      * Method which checks if the Map is a connected graph
@@ -195,9 +184,7 @@ public class WorldMap extends Subject {
         for (Country l_c : d_countries.values()) {
             l_connected = l_connected && l_c.canReach(d_countries);
         }
-
         return l_connected;
-
     }
 
     /**
@@ -213,9 +200,7 @@ public class WorldMap extends Subject {
         for (Country l_c : p_countryList.values()) {
             l_connected = l_connected && l_c.canReach(p_countryList);
         }
-
         return l_connected;
-
     }
 
     /**
@@ -232,11 +217,8 @@ public class WorldMap extends Subject {
             HashMap<Integer,Country> l_tempCont = this.getContinentCountries(l_target);
 
             l_connected = l_connected && isConnected(l_tempCont);
-
         }
-
         return l_connected;
-
     }
 
     /**
@@ -248,19 +230,12 @@ public class WorldMap extends Subject {
     public HashMap<Integer, Country> getContinentCountries(Continent p_continent) {
 
         HashMap<Integer, Country> l_output = new HashMap<>();
-
         for (Country l_c : this.d_countries.values()) {
-
             if (l_c.getContinent().equals(p_continent)) {
-
                 l_output.put(l_c.getCountryID(), l_c);
-
             }
-
         }
-
         return l_output;
-
     }
 
     /**
@@ -275,16 +250,13 @@ public class WorldMap extends Subject {
             throw new ContinentDoesNotExistException(p_continentID);
         }
         Continent l_continent = d_continents.get(p_continentID);
-
         for (Country l_country : getContinentCountries(l_continent).values()) {
             try {
                 this.removeCountry(l_country.getCountryID());
             } catch (CountryDoesNotExistException e) {
                 continue;
             }
-
         }
-
         d_continents.remove(p_continentID);
     }
 
@@ -294,16 +266,11 @@ public class WorldMap extends Subject {
      * @throws CountryDoesNotExistException if country does not exist
      */
     public void removeCountry(int p_countryID) throws CountryDoesNotExistException {
-
         if(!this.containsCountry(p_countryID)) throw new CountryDoesNotExistException(p_countryID);
         Country l_country = d_countries.get(p_countryID);
-
         for (Country l_countryToCheck : this.d_countries.values()) {
-
             l_countryToCheck.removeBorder(l_country);
-
         }
-
         d_countries.remove(p_countryID);
     }
 
@@ -316,7 +283,6 @@ public class WorldMap extends Subject {
     public boolean containsCountry(int p_countryID){
         return this.d_countries.containsKey(p_countryID);
     }
-
     /**
      * Checks if the world map contains a country with the specified name.
      *
@@ -330,7 +296,6 @@ public class WorldMap extends Subject {
             return false;
         }
     }
-
     /**
      * Method that checks if continent exists in map
      *
@@ -355,7 +320,6 @@ public class WorldMap extends Subject {
             return false;
         }
     }
-
     /**
      * Retrieve country object based on country ID
      *
@@ -382,10 +346,8 @@ public class WorldMap extends Subject {
         else if(!this.containsCountry(p_target)) {
             throw new CountryDoesNotExistException(p_target);
         }
-
         this.getCountry(p_source).removeBorder(this.getCountry(p_target));
         //logEntryBuffer.setString("removed border between"+this.getCountry(p_source).getCountryName()+" and "+this.getCountry(p_target).getCountryName());
-
     }
 
     /**
@@ -398,13 +360,9 @@ public class WorldMap extends Subject {
         for (Country l_c : this.getCountries().values()){
 
             if (l_c.getCountryName().equals(p_countryName)) {
-
                 return l_c.getCountryID();
-
             }
-
         }
-
         throw new CountryDoesNotExistException("Country " + p_countryName + " does not exist.");
     }
 
@@ -417,19 +375,18 @@ public class WorldMap extends Subject {
     public int getContinentID(String p_continentName) throws ContinentDoesNotExistException {
 
         for (Continent l_c : this.d_continents.values()) {
-
             if (l_c.getContinentName().equals(p_continentName)) {
-
                 return l_c.getContinentID();
-
             }
-
         }
-
         throw new ContinentDoesNotExistException("Continent " + p_continentName + "does not exist.");
-
     }
 
+    /**
+     * Gets the next available continent ID.
+     *
+     * @return The next available continent ID
+     */
     public int getNextContinentID(){
         int max = 0;
         if(d_continents.isEmpty()){
@@ -444,11 +401,16 @@ public class WorldMap extends Subject {
         }
     }
 
+    /**
+     * Gets the next available country ID.
+     *
+     * @return The next available country ID
+     */
     public int getNextCountryID(){
         int max = 0;
         if(d_countries.isEmpty()){
             return 1;
-        }else{
+        } else {
             for(Country c: d_countries.values()){
                 if(c.getCountryID() > max){
                     max = c.getCountryID();
@@ -457,5 +419,4 @@ public class WorldMap extends Subject {
             return max+1;
         }
     }
-
 }
