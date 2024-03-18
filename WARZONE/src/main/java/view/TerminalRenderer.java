@@ -166,7 +166,6 @@ public class TerminalRenderer {
     /**
      * Renders the request for map editor commands.
      *
-     * @return The command entered by the user.
      */
     public void renderMapEditorCommands() {
         this.renderMessage(

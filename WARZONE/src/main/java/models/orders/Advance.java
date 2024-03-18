@@ -8,15 +8,51 @@ import view.TerminalRenderer;
  * Represents an "Advance" order, which allows a player to move troops from one country to another.
  */
 public class Advance implements Order {
-    Player d_sourcePlayer;
-    Player d_targetPlayer;
-    int d_playerOrderID;
-    String d_playerOrderName;
+    /**
+     * The player who issued the order.
+     */
+    private Player d_sourcePlayer;
+
+    /**
+     * The player who is the target of the order.
+     */
+    private Player d_targetPlayer;
+
+    /**
+     * The unique identifier for the player order.
+     */
+    private int d_playerOrderID;
+
+    /**
+     * The name of the player order.
+     */
+    private String d_playerOrderName;
+
+    /**
+     * The ID of the country from which the action is performed.
+     */
     private final int d_fromCountryID;
+
+    /**
+     * The ID of the country to which the action is directed.
+     */
     private final int d_toCountryID;
+
+    /**
+     * The number of troops involved in the action.
+     */
     private final int d_advancingtroops;
-    GameEngine d_gameEngine;
-    TerminalRenderer d_terminalRenderer;
+
+    /**
+     * The game engine associated with the order.
+     */
+    private GameEngine d_gameEngine;
+
+    /**
+     * The terminal renderer used for displaying messages.
+     */
+    private TerminalRenderer d_terminalRenderer;
+
 
 
     /**

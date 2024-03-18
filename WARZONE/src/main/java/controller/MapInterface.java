@@ -242,7 +242,7 @@ public class MapInterface {
      * @param p_worldMap         The WorldMap object to which continents will be added.
      * @throws ContinentAlreadyExistsException If a continent with the same name already exists in the world map.
      */
-    public static void loadCountries(Scanner fileReader, WorldMap p_worldMap) throws ContinentDoesNotExistException, DuplicateCountryException {
+    public static void loadCountries(Scanner fileReader, WorldMap p_worldMap) throws ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException {
         String[] inputData;
         while (fileReader.hasNextLine()) {
             inputData = fileReader.nextLine().split(" ");

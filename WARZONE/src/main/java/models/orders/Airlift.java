@@ -7,13 +7,35 @@ import models.Player;
  * Represents the "Airlift" order, which allows a player to move troops from one of their countries to any other country on the map.
  */
 public class Airlift implements Order{
-
+    /**
+     * The player who issued the order.
+     */
     Player d_sourcePlayer;
+
+    /**
+     * The unique identifier for the player order.
+     */
     int d_playerOrderID;
+    /**
+     * The name of the player order.
+     */
     String d_playerOrderName;
+    /**
+     * The ID of the country from which the troops are airlifted.
+     */
     private final int d_fromCountryID;
+    /**
+     * The ID of the country to which the troops are airlifted.
+     */
     private final int d_toCountryID;
+    /**
+     * The number of troops airlifted in the order.
+     */
     private final int d_airliftedTroops;
+
+    /**
+     * The game engine associated with the order.
+     */
     GameEngine d_gameEngine;
 
     /**

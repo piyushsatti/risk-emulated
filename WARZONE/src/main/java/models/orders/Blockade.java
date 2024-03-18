@@ -8,11 +8,30 @@ import models.Player;
  * This class implements the Order interface.
  */
 public class Blockade implements Order{
-    Player d_sourcePlayer;
-    int d_playerOrderID;
-    String d_playerOrderName;
+    /**
+     * The player who issued the order.
+     */
+    private Player d_sourcePlayer;
+
+    /**
+     * The unique identifier for the player order.
+     */
+    private int d_playerOrderID;
+
+    /**
+     * The name of the player order.
+     */
+    private String d_playerOrderName;
+
+    /**
+     * The ID of the country to be blockaded.
+     */
     private final int d_blockadeCountryID;
-    GameEngine d_gameEngine;
+
+    /**
+     * The game engine associated with the order.
+     */
+    private GameEngine d_gameEngine;
 
     /**
      * Validates the blockade command.
