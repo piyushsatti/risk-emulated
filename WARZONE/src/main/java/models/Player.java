@@ -67,7 +67,13 @@ public class Player {
     private boolean d_finishedIssueOrder;
     private final ArrayList<Player> d_listOfNegotiatedPlayers;
 
-    TerminalRenderer d_terminalRenderer;
+    public TerminalRenderer getRenderer() {
+        return d_renderer;
+    }
+
+
+
+    TerminalRenderer d_renderer;
 
     GameEngine d_gameEngine;
 
@@ -136,7 +142,7 @@ public class Player {
         this.d_listOfCards = new ArrayList<>();
         this.d_listOfNegotiatedPlayers = new ArrayList<>();
         this.d_gameEngine = p_gameEngine;
-        this.d_terminalRenderer = new TerminalRenderer(this.d_gameEngine);
+        this.d_renderer = new TerminalRenderer(this.d_gameEngine);
         this.d_orderSuccess = false;
         this.d_finishedIssueOrder = false;
         d_latest_playerID++;

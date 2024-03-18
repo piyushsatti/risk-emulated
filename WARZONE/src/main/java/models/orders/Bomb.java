@@ -57,11 +57,11 @@ public class Bomb  implements  Order{
     public boolean validateCommand(){
 
         if(this.d_sourcePlayer.getAssignedCountries().contains(d_bombCountryID)){
-            System.out.println("Cannot bomb own country!");
+            this.d_sourcePlayer.getRenderer().renderError("Cannot bomb own country!");
             return false;
         }
         if(!checkIfNeighbour()) {
-            System.out.println("Cannot Bomb non neighbouring countries");
+            this.d_sourcePlayer.getRenderer().renderError("Cannot Bomb non neighbouring countries");
             return false;
         }
 
@@ -76,13 +76,14 @@ public class Bomb  implements  Order{
     public void execute(){
         if(d_targetPlayer != null) {
             if (d_sourcePlayer.getListOfNegotiatedPlayers().contains(d_targetPlayer)) {
-                System.out.println(d_sourcePlayer.getName() + " has negotiated with " + d_targetPlayer.getName());
+                this.d_sourcePlayer.getRenderer().renderMessage(d_sourcePlayer.getName() + " has negotiated with " + d_targetPlayer.getName());
                 //skip execute
                 return;
             }
         }
             int l_currentReinforcementsBombCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_bombCountryID).getReinforcements();
             this.d_gameEngine.d_worldmap.getCountry(this.d_bombCountryID).setReinforcements(l_currentReinforcementsBombCountry/2);
+            this.d_gameEngine.d_renderer.renderMessage("Bomb Attack Successful "+ "On: " +this.d_gameEngine.d_worldmap.getCountry(this.d_bombCountryID).getCountryName() + " by: " + this.d_sourcePlayer.getName());
 
     }
 }

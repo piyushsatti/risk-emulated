@@ -29,7 +29,7 @@ public class StateCommandDriver {
         try {
             MapInterface.loadMap2(testEngine, "usa9.map");
         }catch (Exception e){
-            System.out.println(e);
+            testEngine.d_renderer.renderError(e.toString());
         }
 
         //add players

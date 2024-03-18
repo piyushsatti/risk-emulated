@@ -92,7 +92,7 @@ public class Deploy implements Order {
                .setReinforcements(this.d_reinforcementsDeployed + l_currentReinforcements);
 
         this.d_terminalRenderer.renderMessage(
-              "Order Executed: " +
+              "Deploy Successful " +
                       this.d_reinforcementsDeployed +
                        " troops deployed on " +
                       this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() +

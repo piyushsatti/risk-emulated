@@ -34,7 +34,7 @@ public class Starting extends Phase {
         d_ge.d_renderer.renderMessage("current game phase: " + this.d_phaseName);
         String[] menu_options = {"Map Editor", "Play Game"};
         d_ge.d_renderer.renderMenu("Starting Menu", menu_options);
-        System.out.print("Enter Selection: ");
+        this.d_ge.d_renderer.renderMessage("Enter Selection: ");
     }
 
     /**
@@ -66,7 +66,7 @@ public class Starting extends Phase {
         try {
             l_userSelection = s.nextInt();
         }catch (Exception e){
-            System.out.println("Invalid selection!");
+            this.d_ge.d_renderer.renderError("Invalid selection!");
             return;
         }
 
@@ -79,7 +79,7 @@ public class Starting extends Phase {
         else if (l_userSelection == 3) {
             d_ge.setCurrentState(new End(d_ge));
         }else{
-            System.out.println("Invalid selection!");
+            this.d_ge.d_renderer.renderError("Invalid selection!");
         }
     }
 }
