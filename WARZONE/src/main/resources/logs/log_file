@@ -1,0 +1,120 @@
+Game StartUp Phase: 
+ Entered Command: loadmaploadmap test_map.map
+Game StartUp Phase: 
+ Command: loadmap Not Executed as Map Could Not be Loaded
+Game StartUp Phase: 
+ Command: loadmap Not Executed as Map is Invalid!
+Game StartUp Phase: 
+ Command: loadmap  Executed
+Game StartUp Phase: 
+ Entered Command: loadmaploadmap test_map.map
+Game StartUp Phase: 
+ Command: loadmap Not Executed as Map Could Not be Loaded
+Game StartUp Phase: 
+ Command: loadmap Not Executed as Map is Invalid!
+Game StartUp Phase: 
+ Command: loadmap  Executed
+Game StartUp Phase: 
+ Entered Command: loadmaploadmap usa9.map
+Game StartUp Phase: 
+ Command: loadmap  Executed
+Game StartUp Phase: 
+ Entered Command: gameplayer=>gameplayer -add dev -add devdutt
+Game StartUp Phase: 
+ Executed Command: gameplayer=>gameplayer -add dev -add devdutt
+Game StartUp Phase: 
+  Command: gameplayer -add dev -add devduttAdded Players [[dev, devdutt]]successfully
+Game StartUp Phase: 
+  Command: gameplayer -add dev -add devduttRemoved Players [[]]successfully
+Game StartUp Phase: 
+ Entered Command: assigncountries
+Game StartUp Phase: 
+ Executed Command: assigncountries || Countries assigned to Players
+Issue Order Phase: 
+ Player Name:dev || Issued Showmap Order:showmap
+Issue Order Phase: 
+ Player Name:dev ShowMap Order showmap
+Issue Order Phase: 
+ Player Name:dev || Issued Deploy Order:deploy Missouri 11
+Issue Order Phase: 
+ Player Name:devdutt || Issued Deploy Order:deploy Maine 8
+Issue Order Phase: 
+ Player Name:dev || Issued Advance Order:advance Missouri Kentucky 11
+Issue Order Phase: 
+ Player Name:devdutt || Issued Order:done
+Issue Order Phase: 
+ Player Name:devdutt || Player has finished issuing all orders:done
+Issue Order Phase: 
+ Player Name:dev || Issued Order:done
+Issue Order Phase: 
+ Player Name:dev || Player has finished issuing all orders:done
+Issue Order Phase: 
+ Player Name:dev || Issued Showmap Order:showmap
+Issue Order Phase: 
+ Player Name:dev ShowMap Order showmap
+Issue Order Phase: 
+ Player Name:dev || Issued Airlift Order:airlift Kentucky Hawaii 11
+Issue Order Phase: 
+ Player Name:devdutt || Issued Deploy Order:deploy Montana 8
+Issue Order Phase: 
+ Player Name:dev || Issued Order:done
+Issue Order Phase: 
+ Player Name:dev Done Order Not executed as dev needs to deploy all troops
+Issue Order Phase: 
+ Player Name:dev || Issued Order:done
+Issue Order Phase: 
+ Player Name:dev Done Order Not executed as dev needs to deploy all troops
+Issue Order Phase: 
+ Player Name:dev || Issued Deploy Order:deploy Missouri 11
+Issue Order Phase: 
+ Player Name:devdutt || Issued Order:done
+Issue Order Phase: 
+ Player Name:devdutt || Player has finished issuing all orders:done
+Issue Order Phase: 
+ Player Name:dev || Issued Order:done
+Issue Order Phase: 
+ Player Name:dev || Player has finished issuing all orders:done
+Issue Order Phase: 
+ Player Name:dev || Issued Showmap Order:showmap
+Issue Order Phase: 
+ Player Name:dev ShowMap Order showmap
+Game StartUp Phase: 
+ Entered Command: loadmaploadmap usa9.map
+Game StartUp Phase: 
+ Command: loadmap  Executed
+Game StartUp Phase: 
+ Entered Command: showmap
+Game StartUp Phase: 
+ Entered Command: loadmaploadmap usa9.map
+Game StartUp Phase: 
+ Command: loadmap  Executed
+Game StartUp Phase: 
+ Entered Command: showmap
+Game StartUp Phase: 
+ Command: showmap  Executed 
+Game StartUp Phase: 
+ Entered Command: assigncountries
+Game StartUp Phase: 
+Command: assigncountries Not Executed  || Must add at least one player before assigning countries
+Game StartUp Phase: 
+ Entered Command: gameplayer=>gameplayer -add devdutt
+Game StartUp Phase: 
+ Executed Command: gameplayer=>gameplayer -add devdutt
+Game StartUp Phase: 
+  Command: gameplayer -add devduttAdded Players [[devdutt]]successfully
+Game StartUp Phase: 
+  Command: gameplayer -add devduttRemoved Players [[]]successfully
+Game StartUp Phase: 
+ Entered Command: assigncountries
+Game StartUp Phase: 
+ Executed Command: assigncountries || Countries assigned to Players
+Issue Order Phase: 
+ Player Name:devdutt || Issued Deploy Order:deploy Alaska 10
+Issue Order Phase: 
+ Player Name:devdutt || Issued Advance Order:advance Alaska Washington 10
+Issue Order Phase: 
+ Player Name:devdutt || Issued Deploy Order:deploy Washington 33
+Issue Order Phase: 
+ Player Name:devdutt || Issued Order:done
+Issue Order Phase: 
+ Player Name:devdutt || Player has finished issuing all orders:done

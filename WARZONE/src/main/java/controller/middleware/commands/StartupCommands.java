@@ -115,13 +115,13 @@ public class StartupCommands extends Commands {
 
         System.out.println("Assigning of Countries Done");
         for (Player l_player : ge.d_players) {
-            System.out.println("Number of Countries: " + l_player.getAssignedCountries().size());
-            System.out.println("List of Assigned Countries for Player: " + l_player.getName());
+            ge.d_renderer.renderMessage("Number of Countries: " + l_player.getAssignedCountries().size());
+            ge.d_renderer.renderMessage("List of Assigned Countries for Player: " + l_player.getName());
             ArrayList<Integer> l_listOfAssignedCountries = l_player.getAssignedCountries();
             for (Integer l_countryID : l_listOfAssignedCountries) {
                 System.out.println(ge.d_worldmap.getCountry(l_countryID).getCountryName());
             }
-            System.out.println("-----------------------------------------------------------------");
+            ge.d_renderer.renderMessage("-----------------------------------------------------------------");
 
         }
         return true;
@@ -135,7 +135,7 @@ public class StartupCommands extends Commands {
             logEntryBuffer.setString("Game StartUp Phase: \n"+ " Command: showmap Not Executed || No map loaded into game!");
         }else{
             ge.d_renderer.showMap(false);
-            logEntryBuffer.setString("Game StartUp Phase: \n"+ " Command: showmap  Executed ||"+d_command.split(" ")[1]+" shown");
+            logEntryBuffer.setString("Game StartUp Phase: \n"+ " Command: showmap  Executed ");
         }
     }
 
@@ -152,7 +152,7 @@ public class StartupCommands extends Commands {
             }
             catch(Exception e){
                 logEntryBuffer.setString("Game StartUp Phase: \n"+ " Command: loadmap Not Executed as Map Could Not be Loaded");
-                System.out.println(e);
+                ge.d_renderer.renderError(e.toString());
             }
 
             if(!MapInterface.validateMap(ge)){
@@ -181,7 +181,7 @@ public class StartupCommands extends Commands {
         }
         if(!l_playersAdded.isEmpty())
         {
-            System.out.println("added players sucessfully: "+ List.of(l_playersAdded));
+            ge.d_renderer.renderMessage("added players sucessfully: "+ List.of(l_playersAdded));
             logEntryBuffer.setString("Game StartUp Phase: \n"+ "  Command: " + d_command + "Added Players "+ List.of(l_playersAdded)+ "successfully");
         }
     }
@@ -203,11 +203,11 @@ public class StartupCommands extends Commands {
             }
             if(!found) l_playerNotExist.add(l_playerCheck);
         }
-        System.out.println("players removed successfully: "+List.of(l_playersRemoved));
+        ge.d_renderer.renderMessage("players removed successfully: "+List.of(l_playersRemoved));
         logEntryBuffer.setString("Game StartUp Phase: \n"+ "  Command: " + d_command + "Removed Players "+ List.of(l_playersRemoved)+ "successfully");
         if(!l_playerNotExist.isEmpty())
         {
-            System.out.println("could not remove players as they don't exist: "+List.of(l_playerNotExist));
+            ge.d_renderer.renderError("could not remove players as they don't exist: "+List.of(l_playerNotExist));
         }
     }
     public void gameplayer(GameEngine ge, String[] splitCommand){

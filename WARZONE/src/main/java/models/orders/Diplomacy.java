@@ -1,6 +1,7 @@
 package models.orders;
 
 import models.Player;
+import view.TerminalRenderer;
 
 /**
  * Represents a diplomacy order where a player negotiates with another player.
@@ -36,7 +37,8 @@ public class Diplomacy implements Order{
     public boolean validateCommand(){
 
         if(d_sourcePlayer.getPlayerId()==d_targetPlayer.getPlayerId()){
-            System.out.println("You cannot negiotiate with yourself");
+            this.d_sourcePlayer.getRenderer().renderError("You cannot negiotiate with yourself");
+
             return false;
         }
         return true;
@@ -49,6 +51,8 @@ public class Diplomacy implements Order{
     public void execute(){
         d_sourcePlayer.addToListOfNegotiatedPlayers(d_targetPlayer);
         d_targetPlayer.addToListOfNegotiatedPlayers(d_sourcePlayer);
+        this.d_sourcePlayer.getRenderer().renderMessage("Negotiation Successful "+ "Between: " +this.d_sourcePlayer.getName()+ " And " + this.d_targetPlayer.getName());
+
         return;
     }
 }

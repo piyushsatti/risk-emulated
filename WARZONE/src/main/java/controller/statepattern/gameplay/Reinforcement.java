@@ -76,6 +76,7 @@ public class Reinforcement extends Phase {
             int l_numberOfTroops = Math.max(player.getAssignedCountries().size() / 3 +bonus, 3);
             player.setReinforcements(l_numberOfTroops);
         }
-        System.out.println("Reinforcements Done");
+        this.d_ge.d_renderer.renderMessage("Reinforcements Done. Going to Issue Orders");
+        this.d_ge.d_renderer.renderMessage("----------------------------------------------------");
     }
 }
