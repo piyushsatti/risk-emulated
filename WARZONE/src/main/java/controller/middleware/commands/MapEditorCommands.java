@@ -9,6 +9,7 @@ import helpers.exceptions.*;
 import models.LogEntryBuffer;
 import models.worldmap.WorldMap;
 import view.Logger;
+import view.TerminalRenderer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
