@@ -14,8 +14,6 @@ import models.worldmap.WorldMap;
 import view.TerminalRenderer;
 
 import java.util.ArrayList;
-import java.util.Scanner;
-import java.util.ArrayList;
 
 /**
  * The GameEngine class manages the main logic of the game, including handling game phases, user input, and game loops.
@@ -71,7 +69,7 @@ public class GameEngine {
     public void setCurrentState(Phase p_phase) {
         this.d_current_phase = p_phase;
     }
-    public Phase getCurerentState() {
+    public Phase getCurrentState() {
         return this.d_current_phase;
     }
 
