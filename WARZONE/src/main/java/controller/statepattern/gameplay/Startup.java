@@ -32,11 +32,17 @@ public class Startup extends Phase {
         );
     }
 
+    /**
+     * This method is intended to advance the game to the next step or phase.
+     */
     @Override
     public void next() {
-        this.d_ge.setCurrentState(new MapEditor(d_ge));
+
     }
 
+    /**
+     * This method is intended to end the game.
+     */
     @Override
     public void endGame() {
 

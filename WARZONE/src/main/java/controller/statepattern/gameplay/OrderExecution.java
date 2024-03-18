@@ -21,19 +21,35 @@ public class OrderExecution extends Phase {
         super(p_gameEngine);
     }
 
+    /**
+     * This method is intended to display the game menu.
+     */
     @Override
     public void displayMenu() {
 
     }
+    /**
+     * This method is intended to advance the game to the next step or phase.
+     */
     @Override
     public void next() {
 
     }
+
+    /**
+     * This method is intended to end the game.
+     */
     @Override
     public void endGame() {
 
     }
 
+    /**
+     * Checks if all players have executed their orders.
+     *
+     * @param p_Players The list of players to be checked.
+     * @return {@code true} if all players have executed their orders, {@code false} otherwise.
+     */
     public boolean allOrdersExecuted(ArrayList<Player> p_Players) {
         for (Player l_player : p_Players) {
             if (!l_player.getOrderList().isEmpty()) {

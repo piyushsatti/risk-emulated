@@ -23,20 +23,33 @@ public class Reinforcement extends Phase {
         super(p_gameEngine);
     }
 
+    /**
+     * This method is intended to display the game menu.
+     */
     @Override
     public void displayMenu() {
 
     }
-
+    /**
+     * This method is intended to advance the game to the next step or phase.
+     */
     @Override
     public void next() {
 
     }
 
+    /**
+     * This method is intended to end the game.
+     */
     @Override
     public void endGame() {
 
     }
+
+    /**
+     * Resets the "finished issue order" status for all players.
+     * This status typically indicates whether a player has finished issuing orders for the current turn.
+     */
     public void allPlayersResent(){
         for(Player p : d_ge.d_players){
             if(p.isFinishedIssueOrder()){
@@ -54,6 +67,13 @@ public class Reinforcement extends Phase {
         assignReinforcements(d_ge.d_players);
         d_ge.setCurrentState(new IssueOrder(d_ge));
     }
+    /**
+     * Assigns reinforcements to each player based on their assigned countries and controlled continents.
+     * This method calculates the number of reinforcements each player receives by considering the number of assigned countries
+     * and the continents they control. It then sets the calculated number of reinforcements for each player.
+     *
+     * @param players The list of players for whom reinforcements are to be assigned.
+     */
     public void assignReinforcements(ArrayList<Player> players)
     {
         for(Player player : players){
