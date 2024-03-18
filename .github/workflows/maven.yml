@@ -3,9 +3,7 @@ name: Continuous Integration using Maven
 on:
   push:
     branches: 
-    - main
-    - dev
-    - command_pattern
+    - updated_mvc_command_pattern
     
     
 jobs:
