@@ -25,11 +25,11 @@ jobs:
 #    - name: Run Tests with JUnit
  #     run: mvn test --file WARZONE/pom.xml
       
-    - name: Generate Javadoc
-      run: mvn javadoc:javadoc --file WARZONE/pom.xml
+ #   - name: Generate Javadoc
+ #     run: mvn javadoc:javadoc --file WARZONE/pom.xml
 
-    - name: Publish Javadoc
-      uses: actions/upload-artifact@v2
-      with:
-        name: javadoc
-        path: javadocs 
+ #   - name: Publish Javadoc
+  #    uses: actions/upload-artifact@v2
+#      with:
+#        name: javadoc
+#        path: javadocs 
