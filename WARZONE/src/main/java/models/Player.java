@@ -35,18 +35,17 @@ public class Player {
     private String d_playerName;
 
     /**
-     * Checks if the order was successful.
+     * Checks if the order was successfully executed.
      *
-     * @return {@code true} if the order was successful, {@code false} otherwise.
+     * @return True if the order was successfully executed, false otherwise.
      */
     public boolean isOrderSuccess() {
         return d_orderSuccess;
     }
-
     /**
-     * Sets the status of the order.
+     * Sets the status of the order execution.
      *
-     * @param orderSuccess The status of the order to be set.
+     * @param orderSuccess True if the order was successfully executed, false otherwise.
      */
     public void setOrderSuccess(boolean orderSuccess) {
         this.d_orderSuccess = orderSuccess;
@@ -73,9 +72,6 @@ public class Player {
 
     /**
      * The order list of the player.
-     */
-    /**
-     * The list of orders to be executed.
      */
     private final Deque<Order> d_orderList = new ArrayDeque<>();
 

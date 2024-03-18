@@ -13,27 +13,25 @@ public class Card {
     public String getTypeOfCard() {
         return d_typeOfCard;
     }
+
     /**
-     * Sets the type of the card.
+     * Sets the type of card.
      *
-     * @param d_typeOfCard The type of the card to set
+     * @param d_typeOfCard The type of card to be set.
      */
     public void setD_typeOfCard(String d_typeOfCard) {
         this.d_typeOfCard = d_typeOfCard;
     }
     /**
-     * Used to store type of card.
-     *
+     * Type of card.
      */
     private String d_typeOfCard;
     /**
-     * Used to create random object.
-     *
+     * Random number generator instance.
      */
     private static  Random random = new Random();
     /**
-     * Different Types of Cards.
-     *
+     * Array containing types of cards.
      */
     private static String[] d_typeOfCards = {"airlift","blockade","bomb","diplomacy"};
     /**
