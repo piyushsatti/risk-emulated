@@ -74,7 +74,7 @@ public class IssueOrder extends Phase {
         while(!allPlayersFinished()) {
             Player p = d_ge.d_players.get(l_playerNumber);
                 p.setOrderSuccess(false);
-                while (!p.isOrderSuccess()) {
+                while (!p.isOrderSuccess()) {          // Render player's available reinforcements and cards
                     d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Reinforcements Available: " + p.getReinforcements());
                     d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Cards Available: " + p.displayCards());
 
@@ -91,7 +91,7 @@ public class IssueOrder extends Phase {
                     }
                 }
                 l_playerNumber++;
-                if(l_playerNumber == d_ge.d_players.size()){
+                if(l_playerNumber == d_ge.d_players.size()){         // Reset player number to 0 if it reaches the end of the player list
                     l_playerNumber = 0;
                 }
 

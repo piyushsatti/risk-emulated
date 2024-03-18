@@ -130,6 +130,7 @@ public class IssueOrderCommands extends Commands{
     @Override
     public void execute(GameEngine p_gameEngine) throws  CountryDoesNotExistException, InvalidCommandException {
 
+        // Validate command name
         if (!this.validateCommandName()) {
             p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command");
             return;
@@ -137,7 +138,8 @@ public class IssueOrderCommands extends Commands{
             p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command Format for: " + this.d_command.split("\\s+")[0]);
             return;
         }
-        String[] l_command = d_command.trim().split("\\s+");
+
+        String[] l_command = d_command.trim().split("\\s+");      // Split the command into parts
 
         l_currPhase = getCurrentPhase(p_gameEngine);
 

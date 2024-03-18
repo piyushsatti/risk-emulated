@@ -193,15 +193,17 @@ public class StartupCommands extends Commands {
 
     private void loadMap(GameEngine p_gameEngine,String p_currPhase){
         if(this.splitCommand.length < 2){
+            // Render error if the command format is invalid
             p_gameEngine.d_renderer.renderError("Invalid command! Correct format is loadmap <mapname>");
         }else{
 
             try {
-                logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Entered Command: loadmap" + d_command);
+                logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Entered Command: loadmap" + d_command);      // Log the command entry
                 MapInterface.loadMap2(p_gameEngine, splitCommand[1]);
             }
             catch(Exception e){
-                logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Command: loadmap Not Executed as Map Could Not be Loaded");
+
+                logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Command: loadmap Not Executed as Map Could Not be Loaded");     // Log if map loading fails
                 System.out.println(e);
             }
 
