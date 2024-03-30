@@ -8,9 +8,24 @@ import view.TerminalRenderer;
  */
 public class Diplomacy implements Order{
 
+    /**
+     * Represents the source player associated with an action or order.
+     */
     Player d_sourcePlayer;
+
+    /**
+     * Represents the target player associated with an action or order.
+     */
     Player d_targetPlayer;
+
+    /**
+     * Represents the ID of the player in the player order.
+     */
     int d_playerOrderID;
+
+    /**
+     * Represents the name of the player in the player order.
+     */
     String d_playerOrderName;
 
     /**

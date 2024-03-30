@@ -1,120 +1,137 @@
-Game StartUp Phase: 
+Phase :MapEditor
+ Entered Command: editmap => editmap disconnected.map
+loaded map file disconnected.map
+Phase :MapEditor
+ Entered Command: validatemap
+Phase :MapEditor
+ Command: validatemap Not Executed: map is not valid!
+Phase :MapEditor
+ Entered Command: showmap
+Phase :MapEditor
+ Executed Command: showmap =>showmap
+Phase :MapEditor
+ Entered Command: editcontinent => editcontinent -add Canada 4
+Phase :MapEditor
+ added continentCanada with bonus armies value: 4
+Phase :MapEditor
+ Entered Command: showmap
+Phase :MapEditor
+ Executed Command: showmap =>showmap
+Phase :MapEditor
+ Entered Command: editcountry => editcountry -add Montreal Canada
+Phase :MapEditor
+ added countryMontreal continent Canada
+Phase :MapEditor
+ Entered Command: showmap
+Phase :MapEditor
+ Executed Command: showmap =>showmap
+Phase :MapEditor
+ Entered Command: editneighbor => editneighbor -add Canada Quebec
+Phase :MapEditor
+ Entered Command: exit => exit
+Phase :MapEditor
+ Executed Command: exit
+Phase :Startup
  Entered Command: loadmaploadmap test_map.map
-Game StartUp Phase: 
- Command: loadmap Not Executed as Map Could Not be Loaded
-Game StartUp Phase: 
- Command: loadmap Not Executed as Map is Invalid!
-Game StartUp Phase: 
+Phase :Startup
  Command: loadmap  Executed
-Game StartUp Phase: 
- Entered Command: loadmaploadmap test_map.map
-Game StartUp Phase: 
- Command: loadmap Not Executed as Map Could Not be Loaded
-Game StartUp Phase: 
- Command: loadmap Not Executed as Map is Invalid!
-Game StartUp Phase: 
- Command: loadmap  Executed
-Game StartUp Phase: 
- Entered Command: loadmaploadmap usa9.map
-Game StartUp Phase: 
- Command: loadmap  Executed
-Game StartUp Phase: 
- Entered Command: gameplayer=>gameplayer -add dev -add devdutt
-Game StartUp Phase: 
- Executed Command: gameplayer=>gameplayer -add dev -add devdutt
-Game StartUp Phase: 
-  Command: gameplayer -add dev -add devduttAdded Players [[dev, devdutt]]successfully
-Game StartUp Phase: 
-  Command: gameplayer -add dev -add devduttRemoved Players [[]]successfully
-Game StartUp Phase: 
+Phase :Startup
+ Entered Command: showmap
+Phase :Startup
+ Command:showmap Executed
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add Devdutt -add Priyanshu
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add Devdutt -add Priyanshu
+Phase :Startup
+  Command: gameplayer -add Devdutt -add PriyanshuAdded Players [[Devdutt, Priyanshu]]successfully
+Phase :Startup
+  Command: gameplayer -add Devdutt -add PriyanshuRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -remove Priyanshu
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -remove Priyanshu
+Phase :Startup
+  Command: gameplayer -remove PriyanshuRemoved Players [[Priyanshu]]successfully
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add Piyush
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add Piyush
+Phase :Startup
+  Command: gameplayer -add PiyushAdded Players [[Piyush]]successfully
+Phase :Startup
+  Command: gameplayer -add PiyushRemoved Players [[]]successfully
+Phase :Startup
  Entered Command: assigncountries
-Game StartUp Phase: 
+Phase :Startup
  Executed Command: assigncountries || Countries assigned to Players
 Issue Order Phase: 
- Player Name:dev || Issued Showmap Order:showmap
+ Player Name:Devdutt || Issued Deploy Order:deploy California 2
 Issue Order Phase: 
- Player Name:dev ShowMap Order showmap
+ Player Name:Piyush || Issued Deploy Order:deploy Alaska 3
 Issue Order Phase: 
- Player Name:dev || Issued Deploy Order:deploy Missouri 11
+ Player Name:Devdutt || Issued Deploy Order:deploy California 3
 Issue Order Phase: 
- Player Name:devdutt || Issued Deploy Order:deploy Maine 8
+ Player Name:Piyush || Issued Deploy Order:deploy Alaska 1
 Issue Order Phase: 
- Player Name:dev || Issued Advance Order:advance Missouri Kentucky 11
+ Player Name:Devdutt || Issued Advance Order:advance California Hawaii 3
+Phase :IssueOrder
+ Player Name:Piyush || Issued Order:done
+Phase :IssueOrder
+ Player Name:Piyush || Player has finished issuing all orders:done
+Phase :IssueOrder
+ Player Name:Devdutt || Issued Order:done
+Phase :IssueOrder
+ Player Name:Devdutt || Player has finished issuing all orders:done
+Phase :IssueOrder
+ Player Name:Devdutt || Issued Showmap Order:showmap
 Issue Order Phase: 
- Player Name:devdutt || Issued Order:done
+ Player Name:Devdutt ShowMap Order showmap
 Issue Order Phase: 
- Player Name:devdutt || Player has finished issuing all orders:done
+ Player Name:Devdutt || Issued Deploy Order:deploy California 5
 Issue Order Phase: 
- Player Name:dev || Issued Order:done
+ Player Name:Piyush || Issued Deploy Order:deploy Washington 3
+Phase :IssueOrder
+ Player Name:Devdutt || Issued Bomb Order:bomb Washington
+Phase :IssueOrder
+ Player Name:Piyush || Issued Order:done
+Phase :IssueOrder
+ Player Name:Piyush || Player has finished issuing all orders:done
+Phase :IssueOrder
+ Player Name:Devdutt || Issued Order:done
+Phase :IssueOrder
+ Player Name:Devdutt || Player has finished issuing all orders:done
+Phase :IssueOrder
+ Player Name:Devdutt || Issued Showmap Order:showmap
 Issue Order Phase: 
- Player Name:dev || Player has finished issuing all orders:done
+ Player Name:Devdutt ShowMap Order showmap
 Issue Order Phase: 
- Player Name:dev || Issued Showmap Order:showmap
+ Player Name:Devdutt || Issued Deploy Order:deploy California 5
 Issue Order Phase: 
- Player Name:dev ShowMap Order showmap
+ Player Name:Piyush || Issued Deploy Order:deploy Alaska 3
 Issue Order Phase: 
- Player Name:dev || Issued Airlift Order:airlift Kentucky Hawaii 11
+ Player Name:Devdutt || Issued Advance Order:advance California Washington 4
+Phase :IssueOrder
+ Player Name:Piyush || Issued Order:done
+Phase :IssueOrder
+ Player Name:Piyush || Player has finished issuing all orders:done
+Phase :IssueOrder
+ Player Name:Devdutt || Issued Order:done
+Phase :IssueOrder
+ Player Name:Devdutt || Player has finished issuing all orders:done
 Issue Order Phase: 
- Player Name:devdutt || Issued Deploy Order:deploy Montana 8
+ Player Name:Devdutt || Issued  Negotiate Order:negotiate Piyush
 Issue Order Phase: 
- Player Name:dev || Issued Order:done
+ Player Name:Piyush || Issued Deploy Order:deploy Alaska 3
 Issue Order Phase: 
- Player Name:dev Done Order Not executed as dev needs to deploy all troops
+ Player Name:Devdutt || Issued Deploy Order:deploy California 5
 Issue Order Phase: 
- Player Name:dev || Issued Order:done
-Issue Order Phase: 
- Player Name:dev Done Order Not executed as dev needs to deploy all troops
-Issue Order Phase: 
- Player Name:dev || Issued Deploy Order:deploy Missouri 11
-Issue Order Phase: 
- Player Name:devdutt || Issued Order:done
-Issue Order Phase: 
- Player Name:devdutt || Player has finished issuing all orders:done
-Issue Order Phase: 
- Player Name:dev || Issued Order:done
-Issue Order Phase: 
- Player Name:dev || Player has finished issuing all orders:done
-Issue Order Phase: 
- Player Name:dev || Issued Showmap Order:showmap
-Issue Order Phase: 
- Player Name:dev ShowMap Order showmap
-Game StartUp Phase: 
- Entered Command: loadmaploadmap usa9.map
-Game StartUp Phase: 
- Command: loadmap  Executed
-Game StartUp Phase: 
- Entered Command: showmap
-Game StartUp Phase: 
- Entered Command: loadmaploadmap usa9.map
-Game StartUp Phase: 
- Command: loadmap  Executed
-Game StartUp Phase: 
- Entered Command: showmap
-Game StartUp Phase: 
- Command: showmap  Executed 
-Game StartUp Phase: 
- Entered Command: assigncountries
-Game StartUp Phase: 
-Command: assigncountries Not Executed  || Must add at least one player before assigning countries
-Game StartUp Phase: 
- Entered Command: gameplayer=>gameplayer -add devdutt
-Game StartUp Phase: 
- Executed Command: gameplayer=>gameplayer -add devdutt
-Game StartUp Phase: 
-  Command: gameplayer -add devduttAdded Players [[devdutt]]successfully
-Game StartUp Phase: 
-  Command: gameplayer -add devduttRemoved Players [[]]successfully
-Game StartUp Phase: 
- Entered Command: assigncountries
-Game StartUp Phase: 
- Executed Command: assigncountries || Countries assigned to Players
-Issue Order Phase: 
- Player Name:devdutt || Issued Deploy Order:deploy Alaska 10
-Issue Order Phase: 
- Player Name:devdutt || Issued Advance Order:advance Alaska Washington 10
-Issue Order Phase: 
- Player Name:devdutt || Issued Deploy Order:deploy Washington 33
-Issue Order Phase: 
- Player Name:devdutt || Issued Order:done
-Issue Order Phase: 
- Player Name:devdutt || Player has finished issuing all orders:done
+ Player Name:Piyush || Issued Advance Order:advance Alaska Washington 3
+Phase :IssueOrder
+ Player Name:Devdutt || Issued Order:done
+Phase :IssueOrder
+ Player Name:Devdutt || Player has finished issuing all orders:done
+Phase :IssueOrder
+ Player Name:Piyush || Issued Order:done
+Phase :IssueOrder
+ Player Name:Piyush || Player has finished issuing all orders:done

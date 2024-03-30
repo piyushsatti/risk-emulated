@@ -10,22 +10,55 @@ import models.Player;
  */
 public class Deploy implements Order {
 
+    /**
+     * The ID representing the order of the player in the game.
+     */
     int d_playerOrderID;
+
+    /**
+     * The name of the player in the player order.
+     */
     String d_playerOrderName;
+
+    /**
+     * The ID of the country from which reinforcements are deployed.
+     */
     private final int d_fromCountryID;
+
+    /**
+     * The ID of the country to which reinforcements are deployed.
+     */
     private final int d_toCountryID;
+
+    /**
+     * The number of reinforcements deployed.
+     */
     private final int d_reinforcementsDeployed;
+
+    /**
+     * The game engine responsible for processing this command.
+     */
     GameEngine d_gameEngine;
+
+    /**
+     * The terminal renderer used for displaying game information.
+     */
     TerminalRenderer d_terminalRenderer;
+
+    /**
+     * The player who initiated this reinforcement command.
+     */
     Player d_sourcePlayer;
 
     /**
-     * Constructs an Deploy object with specified attributes.
+     * Constructs a Deploy object with the specified attributes.
      *
-     * @param p_playerOrderName The name of the player issuing the order.
-     * @param p_playerOrderID The ID of the player issuing the order.
-     * @param p_fromCountryID The ID of the country from which reinforcements are deployed.
+     * @param p_sourcePlayer           The player who initiated the reinforcement deployment.
+     * @param p_playerOrderName        The name of the player issuing the deployment order.
+     * @param p_playerOrderID          The ID of the player issuing the deployment order.
+     * @param p_fromCountryID          The ID of the country from which reinforcements are deployed.
      * @param p_reinforcementsDeployed The number of reinforcements deployed.
+     * @param p_gameEngine             The game engine responsible for processing this deployment.
      */
     public Deploy(Player p_sourcePlayer, String p_playerOrderName, int p_playerOrderID,int p_fromCountryID,int p_reinforcementsDeployed, GameEngine p_gameEngine){
         this.d_sourcePlayer = p_sourcePlayer;

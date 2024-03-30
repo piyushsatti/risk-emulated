@@ -31,7 +31,7 @@ public class BombTest {
     public void validateCommandTests1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         // Test setup
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge, "order_test.map");
+        MapInterface.loadMap2(ge, "test_map.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
         StartupCommands cmd = new StartupCommands("assigncountries");

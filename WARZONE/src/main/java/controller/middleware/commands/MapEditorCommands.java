@@ -21,7 +21,15 @@ import java.util.regex.Pattern;
  * It extends the Commands class and provides functionality for various map editing operations.
  */
 public class MapEditorCommands extends Commands {
+
+    /**
+     * Represents a buffer for storing log entries.
+     */
     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+
+    /**
+     * Represents a logger associated with a log entry buffer.
+     */
     Logger lw = new Logger(logEntryBuffer);
 
     /**
@@ -224,6 +232,7 @@ public class MapEditorCommands extends Commands {
      * This method checks the correctness of the command and ensures that it is valid for modifying continents in the world map.
      *
      * @param p_worldMap The world map on which the editcontinent command will be applied.
+     * @param p_currPhase The current phase of the game.
      */
     public void editContinent(WorldMap p_worldMap,String p_currPhase) {
         int commandLength = this.splitCommand.length;

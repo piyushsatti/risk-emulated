@@ -6,7 +6,14 @@ import view.Logger;
  * The LogEntryBuffer class represents a buffer for logging messages.
  */
 public class LogEntryBuffer extends Subject{
+    /**
+     * Represents the log content.
+     */
     private String log;
+
+    /**
+     * Represents the folder path where logs are stored.
+     */
     private String LOG_FOLDER = "risk-emulated/WARZONE/src/main/resources/logs/";
 
     /**

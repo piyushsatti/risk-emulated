@@ -10,6 +10,9 @@ import controller.statepattern.Phase;
  * Represents the startup phase of the game.
  */
 public class Startup extends Phase {
+    /**
+     * Represents an array of menu options.
+     */
     String[] menu_options = {"Show Map", "Load Map", "gameplayer to Add/Remove Player", "Assign Countries"};
 
     /**

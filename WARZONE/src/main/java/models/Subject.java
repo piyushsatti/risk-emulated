@@ -10,6 +10,9 @@ import java.util.List;
  * The Subject class represents the subject being observed.
  */
 public class Subject {
+    /**
+     * List of viewers.
+     */
     List<Logger> viewList = new ArrayList<>();
     /**
      * Notifies all attached views.

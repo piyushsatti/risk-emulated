@@ -6,9 +6,11 @@ import controller.statepattern.Phase;
 import controller.statepattern.Starting;
 import controller.statepattern.gameplay.Reinforcement;
 import controller.statepattern.gameplay.Startup;
+import helpers.exceptions.InvalidMapException;
 import models.LogEntryBuffer;
 import models.Player;
 import models.worldmap.Country;
+import models.worldmap.WorldMap;
 import view.Logger;
 
 import java.util.*;
@@ -20,11 +22,20 @@ import java.util.regex.Pattern;
  * Represents a set of commands related to game startup operations.
  */
 public class StartupCommands extends Commands {
+    /**
+     * Represents a buffer for storing log entries.
+     */
     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+
+    /**
+     * Represents a logger associated with a log entry buffer.
+     */
     Logger lw = new Logger(logEntryBuffer);
 
+    /**
+     * Represents the current phase in the game.
+     */
     String p_currPhase;
-
     /**
      * Retrieves the current phase of the game engine.
      *
@@ -209,6 +220,7 @@ public class StartupCommands extends Commands {
 
             if(!MapInterface.validateMap(p_gameEngine)){
                 p_gameEngine.d_renderer.renderError("Invalid Map! Cannot load into game");
+                p_gameEngine.d_worldmap = new WorldMap();
                 logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Command: loadmap Not Executed as Map is Invalid!");
             }
             logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Command: loadmap  Executed");

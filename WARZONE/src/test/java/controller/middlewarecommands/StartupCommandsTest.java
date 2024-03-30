@@ -18,8 +18,22 @@ import static org.junit.Assert.assertTrue;
  * The StartupCommandsTest class contains unit tests for the StartupCommands class.
  */
 public class StartupCommandsTest {
+    /**
+     * Represents the game engine responsible for managing game logic and state.
+     */
     GameEngine d_gameEngine;
+
+    /**
+     * Represents a player object. It is initialized as null and should be assigned a valid player object later.
+     */
     Player p = null;
+
+    /**
+     * This method is executed before each test method to set up the testing environment.
+     *
+     * @throws CountryDoesNotExistException If a country referenced by the command does not exist.
+     * @throws InvalidCommandException      If an invalid command is encountered during setup.
+     */
     @Before
     public void beforeTest() throws CountryDoesNotExistException, InvalidCommandException {
         d_gameEngine = new GameEngine();

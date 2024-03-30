@@ -17,7 +17,14 @@ import java.util.HashMap;
  */
 public class WorldMap {
 
+    /**
+     * Represents a buffer for storing log entries.
+     */
     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+
+    /**
+     * Represents a logger associated with a log entry buffer.
+     */
     Logger lw = new Logger(logEntryBuffer);
 
     /**
@@ -62,9 +69,13 @@ public class WorldMap {
     }
 
     /**
-     * Copy Constructor
-     * To be used only in order to validate map structure in MapEditor state
-     * @param p_toCopy WorldMap to copy into new object
+     * Constructs a new WorldMap object by copying the contents of the specified WorldMap.
+     *
+     * @param p_toCopy The WorldMap object to be copied.
+     * @throws ContinentAlreadyExistsException If a continent being added already exists in the map.
+     * @throws ContinentDoesNotExistException  If a continent referenced by a country does not exist.
+     * @throws DuplicateCountryException        If a country being added already exists in the map.
+     * @throws CountryDoesNotExistException    If a country referenced by a border does not exist.
      */
     public WorldMap(WorldMap p_toCopy) throws ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, CountryDoesNotExistException {
 
@@ -89,9 +100,10 @@ public class WorldMap {
     }
 
     /**
-     *
+     * Used to add new country to the world map.
      * @param p_continentID ID of continent to which country will be added
      * @param p_countryName name of new country
+     * @param p_id id of country
      * @throws ContinentDoesNotExistException if continent does not exist
      * @throws DuplicateCountryException if country already exists
      */
@@ -116,13 +128,14 @@ public class WorldMap {
 
     /**
      * Method which returns list of country in form of a HashMap CountryID, Country
+     * @return HashMap of Countries where Country ID is key and Country object is value
      */
     public  HashMap<Integer, Country> getD_countries() {
         return this.d_countries;
     }
 
     /**
-     *
+     * used to add borders between two countries.
      * @param p_source id of country to which border will be added
      * @param p_target target country of new border
      * @throws CountryDoesNotExistException if either source or target countries do not exist
@@ -163,7 +176,7 @@ public class WorldMap {
      * @param p_id integer ID of new continent to add
      * @param p_continentName name of new continent
      * @param p_bonus bonus value
-     * @throws ContinentAlreadyExistsException
+     * @throws ContinentAlreadyExistsException if continent already exists on the world map.
      */
     public void addContinent(int p_id, String p_continentName, int p_bonus) throws ContinentAlreadyExistsException {
 
@@ -352,10 +365,11 @@ public class WorldMap {
     }
 
     /**
-     * Gets the ID of a country based on its name.
+     * Retrieves the ID of the country with the specified name.
      *
      * @param p_countryName The name of the country.
-     * @return The ID of the country, or -1 if not found.
+     * @return The ID of the country with the specified name.
+     * @throws CountryDoesNotExistException If a country with the specified name does not exist.
      */
     public int getCountryID(String p_countryName) throws CountryDoesNotExistException {
         for (Country l_c : this.getCountries().values()){
@@ -372,6 +386,7 @@ public class WorldMap {
      *
      * @param p_continentName The name of the continent.
      * @return The ID of the continent, or -1 if not found.
+     * @throws ContinentDoesNotExistException if continent does not exist on the world map.
      */
     public int getContinentID(String p_continentName) throws ContinentDoesNotExistException {
 

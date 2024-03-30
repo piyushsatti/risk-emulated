@@ -8,13 +8,35 @@ import models.Player;
  * This class implements the Order interface.
  */
 public class Bomb  implements  Order{
+    /**
+     * Represents the source player associated with an action or order.
+     */
     Player d_sourcePlayer;
-    int d_playerOrderID;
-    String d_playerOrderName;
-    GameEngine d_gameEngine;
-    Player d_targetPlayer;
-    private final int d_bombCountryID;
 
+    /**
+     * Represents the ID of the player in the player order.
+     */
+    int d_playerOrderID;
+
+    /**
+     * Represents the name of the player in the player order.
+     */
+    String d_playerOrderName;
+
+    /**
+     * Represents the game engine associated with this instance.
+     */
+    GameEngine d_gameEngine;
+
+    /**
+     * Represents the target player associated with an action or order.
+     */
+    Player d_targetPlayer;
+
+    /**
+     * Represents the ID of the country where a bomb action is targeted.
+     */
+    private final int d_bombCountryID;
     /**
      * Constructs a new Bomb order with the specified parameters.
      *

@@ -10,7 +10,9 @@ import java.util.Scanner;
  * It extends the Phase class and provides functionality specific to the starting phase of the game.
  */
 public class Starting extends Phase {
-
+    /**
+     * check if in starting phase.
+     */
     boolean first = true;
     /**
      * Constructs a Starting phase with the specified GameEngine.

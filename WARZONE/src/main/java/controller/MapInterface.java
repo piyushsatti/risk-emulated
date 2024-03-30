@@ -19,17 +19,18 @@ import java.util.Scanner;
 public class MapInterface {
 
     /**
-     * Creates a File object from the given map name.
+     * Creates a File object from the specified file name within the game engine's maps folder.
      *
-     * @param p_mapName The name of the map file.
-     * @return The File object representing the map file.
-     * @throws FileNotFoundException If the specified file does not exist.
+     * @param p_gameEngine The game engine instance.
+     * @param p_mapName    The name of the map file to create the File object for.
+     * @return The File object corresponding to the specified map file name.
+     * @throws FileNotFoundException If the specified file does not exist or is a directory.
      */
     protected static File createFileObjectFromFileName(GameEngine p_gameEngine, String p_mapName) throws FileNotFoundException {
 
         File l_map_file_obj = new File(p_gameEngine.d_maps_folder + p_mapName);
-        p_gameEngine.d_renderer.renderMessage(p_gameEngine.d_maps_folder + p_mapName);
-        p_gameEngine.d_renderer.renderMessage("Map object: " + l_map_file_obj);
+        //p_gameEngine.d_renderer.renderMessage(p_gameEngine.d_maps_folder + p_mapName);
+        //p_gameEngine.d_renderer.renderMessage("Map object: " + l_map_file_obj);
 
         if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory()) {
             return l_map_file_obj;
@@ -40,11 +41,13 @@ public class MapInterface {
     }
 
     /**
-     * Loads a world map from the specified file.
+     * Loads a map from a file and populates the game engine's world map based on the map file's content.
      *
+     * @param ge         The game engine instance.
      * @param p_map_name The name of the map file to load.
-     * @throws FileNotFoundException If the specified file does not exist.
-     * @throws NumberFormatException If there is an error in parsing numeric data.
+     * @throws FileNotFoundException If the specified map file is not found.
+     * @throws NumberFormatException If a number in the map file cannot be parsed as an integer.
+     * @throws InvalidMapException   If the map file contains invalid data that cannot be processed.
      */
     public static void loadMap(GameEngine ge, String p_map_name) throws FileNotFoundException, NumberFormatException, InvalidMapException {
         File l_map_file_obj;
@@ -114,7 +117,7 @@ public class MapInterface {
 
     /**
      * Saves the provided map to a file with the given file name.
-     *
+     * @param p_gameEnginee the game engine associated with the map.
      * @param p_FileName The name of the file to save the map to.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
@@ -172,7 +175,7 @@ public class MapInterface {
 
     /**
      * Validates the integrity of the provided map.
-     *
+      *@param p_gameEngine the game engine associated with the map.
      * @return True if the map is valid, false otherwise.
      */
     public static boolean validateMap(GameEngine p_gameEngine) {
@@ -192,7 +195,7 @@ public class MapInterface {
      * @throws CountryDoesNotExistException  If a country does not exist while loading.
      */
     public static void loadMap2(GameEngine p_gameEngine, String mapName) throws FileNotFoundException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, CountryDoesNotExistException {
-
+        p_gameEngine.d_worldmap = new WorldMap();
         File l_map_file_obj;
         Scanner l_file_reader;
         l_map_file_obj = createFileObjectFromFileName(p_gameEngine, mapName);
@@ -239,6 +242,8 @@ public class MapInterface {
      * @param fileReader The scanner object used to read the file.
      * @param p_worldMap         The WorldMap object to which continents will be added.
      * @throws ContinentAlreadyExistsException If a continent with the same name already exists in the world map.
+     * @throws ContinentDoesNotExistException if a continent does not exist on the world map.
+     * @throws DuplicateCountryException if a country already exists on the map.
      */
     public static void loadCountries(Scanner fileReader, WorldMap p_worldMap) throws ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException {
         String[] inputData;

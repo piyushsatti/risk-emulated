@@ -32,7 +32,14 @@ public class IssueOrderCommands extends Commands{
     public boolean isFlag() {
         return flag;
     }
+    /**
+     * Represents a buffer for storing log entries.
+     */
     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+
+    /**
+     * Represents a logger associated with a log entry buffer.
+     */
     Logger lw = new Logger(logEntryBuffer);
 
     /**
@@ -44,7 +51,9 @@ public class IssueOrderCommands extends Commands{
         this.flag = flag;
     }
 
-
+    /**
+     * set flag to false by default.
+     */
     boolean flag = false;
     /**
      * Constructs a new IssueOrderCommands object with the given command and player.
@@ -249,7 +258,7 @@ public class IssueOrderCommands extends Commands{
                 break;
 
             case "negotiate":
-                if (p.containsCard("negotiate")) {
+                if (p.containsCard("diplomacy")) {
                     String l_targetPlayerID = l_command[1];
                     Player targetPlayer = null;
 
@@ -262,7 +271,7 @@ public class IssueOrderCommands extends Commands{
                     if (order.validateCommand()) {
                         p.addOrder(order);
                         p.issue_order();
-                        p.removeCard("negotiate");
+                        p.removeCard("diplomacy");
                         p.setOrderSuccess(true);
                         p_gameEngine.d_renderer.renderMessage("Command Issued!");
                         logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued  Negotiate Order:"+d_command);

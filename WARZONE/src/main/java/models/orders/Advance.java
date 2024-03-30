@@ -130,7 +130,7 @@ public class Advance implements Order {
                 this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
                 int l_currentReinforcementsToCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getReinforcements();
                 this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(l_currentReinforcementsToCountry + this.d_advancingtroops);
-                this.d_gameEngine.d_renderer.renderMessage("Move successful "+ "From: " +this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + "To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() +  "By: " + this.d_sourcePlayer.getName());
+                this.d_gameEngine.d_renderer.renderMessage("Move successful "+ "From: " +this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + "  To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() +  " By: " + this.d_sourcePlayer.getName());
 
                 return;
 
@@ -143,31 +143,32 @@ public class Advance implements Order {
                 }
                 int l_currentReinforcementsToCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getReinforcements();
                 int l_currentReinforcementsFromCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
-                int attackingArmiesKills = (this.d_advancingtroops) * 60 / 100;
+                int l_attackingArmiesKills = (this.d_advancingtroops) * 60 / 100;
 
-                int defendingArmiesKills = (l_currentReinforcementsToCountry) * 70 / 100;
+                int l_defendingArmiesKills = (l_currentReinforcementsToCountry) * 70 / 100;
 
-                int attackingarmiessurvived = this.d_advancingtroops - defendingArmiesKills;
-                int defendingarmiessurvived = l_currentReinforcementsToCountry - attackingArmiesKills;
-                if (defendingarmiessurvived <= 0) {
+                int l_attackingarmiessurvived = this.d_advancingtroops - l_defendingArmiesKills;
+                int l_defendingarmiessurvived = l_currentReinforcementsToCountry - l_attackingArmiesKills;
+                if (l_defendingarmiessurvived <= 0) {
                     // Attacker won
                     d_sourcePlayer.setAssignedCountries(this.d_toCountryID);
                     d_targetPlayer.removeAssignedCountries(this.d_toCountryID);
-                    this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(attackingarmiessurvived);
+                    this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(l_attackingarmiessurvived);
                     this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
                     d_sourcePlayer.addCard();
-                    this.d_gameEngine.d_renderer.renderMessage("Attack successful "+ "From: " +this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + "To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + "by: " + this.d_sourcePlayer.getName());
+                    this.d_gameEngine.d_renderer.renderMessage("Attack successful "+ "from: " +this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + " To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + " By: " + this.d_sourcePlayer.getName());
+                    this.d_gameEngine.d_renderer.renderMessage("Now: " +this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + " is owned by: " +  this.d_sourcePlayer.getName());
 
                     return;
                 } else {
                     //Defender won
-                    this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(defendingarmiessurvived);
-                    if (attackingarmiessurvived > 0) {
-                        this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops + attackingarmiessurvived);
+                    this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(l_defendingarmiessurvived);
+                    if (l_attackingarmiessurvived > 0) {
+                        this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops + l_attackingarmiessurvived);
                     } else {
                         this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
                     }
-                    this.d_gameEngine.d_renderer.renderMessage("Attack unsuccessful "+ "From: " +this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + "To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + "by: " + this.d_sourcePlayer.getName());
+                    this.d_gameEngine.d_renderer.renderMessage("Attack unsuccessful "+ "From: " +this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + " To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + " By: " + this.d_sourcePlayer.getName());
 
                     return;
 

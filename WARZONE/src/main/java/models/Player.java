@@ -68,6 +68,9 @@ public class Player {
      * The list of cards assigned to the player.
      */
     private final ArrayList<Card> d_listOfCards;
+    /**
+     * Represents the current order associated with an instance of the class.
+     */
     private Order d_current_order;
 
     /**
@@ -179,9 +182,10 @@ public class Player {
     }
 
     /**
-     * Constructs a new Player object with the specified name.
+     * Constructs a new Player object with the specified name and associated game engine.
      *
      * @param p_playerName The name of the player.
+     * @param p_gameEngine The game engine associated with this player.
      */
     //Constructors
     public Player(String p_playerName, GameEngine p_gameEngine) {

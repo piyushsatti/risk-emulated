@@ -24,8 +24,19 @@ import static org.junit.Assert.*;
  * Test class for the Reinforcement phase.
  */
 public class ReinforcementTest {
+  /**
+   * Represents an instance of the game engine responsible for managing game logic and state.
+  */
     GameEngine ge = new GameEngine();
+
+    /**
+     * Represents an instance of startup commands with a specific command type.
+     */
     StartupCommands cmd = new StartupCommands("assigncountries");
+
+    /**
+     * Represents an instance of the reinforcement phase associated with a game engine.
+     */
     Reinforcement rf = new Reinforcement(ge);
 
     /**

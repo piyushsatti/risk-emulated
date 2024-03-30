@@ -6,6 +6,9 @@ import controller.GameEngine;
  * It extends the Phase class and provides functionality specific to the end phase of the game.
  */
 public class End extends Phase {
+    /**
+     * Represents the game engine associated with this instance.
+     */
     GameEngine d_gameEngine;
 
     /**

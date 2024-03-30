@@ -12,8 +12,16 @@ import static org.junit.Assert.assertFalse;
  * It tests different scenarios for the validation of Bomb, Blockade, Negotiate, Deploy, Advance, and Airlift commands.
  */
 public class IssueOrderCommandsTest {
+    /**
+     * Represents an instance of the game engine.
+     */
     GameEngine ge = new GameEngine();
-    Player player = new Player("Devdutt",ge);
+
+    /**
+     * Represents an instance of a player named "Devdutt" associated with the game engine.
+     */
+    Player player = new Player("Devdutt", ge);
+
 
     /**
      * Tests the validation of the Bomb command with no parameters.

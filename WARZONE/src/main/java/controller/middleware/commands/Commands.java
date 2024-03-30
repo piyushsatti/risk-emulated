@@ -37,8 +37,10 @@ public abstract class Commands {
     }
 
     /**
-     * Validates the command
+     * Validates the command in the context of the specified game engine.
      *
+     * @param p_gameEngine The game engine instance against which the command is validated.
+     * @return True if the command is valid; otherwise, false.
      */
     abstract boolean validateCommand(GameEngine p_gameEngine);
 

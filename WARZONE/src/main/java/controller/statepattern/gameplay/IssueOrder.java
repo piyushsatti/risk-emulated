@@ -50,14 +50,14 @@ public class IssueOrder extends Phase {
      * @return True if all players have finished, false otherwise.
      */
     public boolean allPlayersFinished(){
-        boolean playersFinished = true;
-     for(Player p : d_ge.d_players){
-         if(!p.isFinishedIssueOrder()){
-             playersFinished = false;
-             return playersFinished;
+        boolean l_playersFinished = true;
+     for(Player l_p : d_ge.d_players){
+         if(!l_p.isFinishedIssueOrder()){
+             l_playersFinished = false;
+             return l_playersFinished;
          }
      }
-     return playersFinished;
+     return l_playersFinished;
  }
 
     /**
