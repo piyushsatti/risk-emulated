@@ -29,7 +29,7 @@ public class WorldMapTest {
     @Test
     public void mapConnectivityTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge,"usa9.map");
+        MapInterface.loadMap(ge,"usa9.map");
         assertTrue(ge.d_worldmap.isConnected() && ge.d_worldmap.isContinentConnected());
     }
     /**
@@ -44,7 +44,7 @@ public class WorldMapTest {
     @Test
     public void mapConnectivityTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge,"disconnected.map");
+        MapInterface.loadMap(ge,"disconnected.map");
         assertFalse(ge.d_worldmap.isConnected() && ge.d_worldmap.isContinentConnected());
     }
 

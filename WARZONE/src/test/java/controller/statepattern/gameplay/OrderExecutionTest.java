@@ -32,7 +32,7 @@ public class OrderExecutionTest {
     @Test
     public void isWinnerTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge, "usa9.map");
+        MapInterface.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi",ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
         OrderExecution oe = new OrderExecution(ge);
@@ -52,7 +52,7 @@ public class OrderExecutionTest {
     @Test
     public void isWinnerTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge, "usa9.map");
+        MapInterface.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi",ge));
         ge.d_players.add(new Player("Priyanshu",ge));
         StartupCommands cmd = new StartupCommands("assigncountries");

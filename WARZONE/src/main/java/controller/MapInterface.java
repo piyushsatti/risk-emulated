@@ -40,80 +40,7 @@ public class MapInterface {
         }
     }
 
-    /**
-     * Loads a map from a file and populates the game engine's world map based on the map file's content.
-     *
-     * @param ge         The game engine instance.
-     * @param p_map_name The name of the map file to load.
-     * @throws FileNotFoundException If the specified map file is not found.
-     * @throws NumberFormatException If a number in the map file cannot be parsed as an integer.
-     * @throws InvalidMapException   If the map file contains invalid data that cannot be processed.
-     */
-    public static void loadMap(GameEngine ge, String p_map_name) throws FileNotFoundException, NumberFormatException, InvalidMapException {
-        File l_map_file_obj;
-        Scanner l_file_reader;
-        l_map_file_obj = createFileObjectFromFileName(ge, p_map_name);
-        l_file_reader = new Scanner(l_map_file_obj);
-        String l_data;
-        String[] l_split_data;
-        Boolean[] l_state = {false, false, false};
 
-        while (l_file_reader.hasNextLine()) {
-            l_data = l_file_reader.nextLine();
-
-            if (l_data.equals("[continents]")) {
-                l_state[0] = true;
-                l_state[1] = false;
-                l_state[2] = false;
-                continue;
-            } else if (l_data.equals("[countries]")) {
-                l_state[0] = false;
-                l_state[1] = true;
-                l_state[2] = false;
-                continue;
-            } else if (l_data.equals("[borders]")) {
-                l_state[0] = false;
-                l_state[1] = false;
-                l_state[2] = true;
-                continue;
-            } else if (l_data.isEmpty()) {
-                l_state[0] = false;
-                l_state[1] = false;
-                l_state[2] = false;
-            }
-
-            l_split_data = l_data.split(" ");
-
-            try {
-                if (l_state[0]) {
-                    ge.d_worldmap.addContinent(l_split_data[0], Integer.parseInt(l_split_data[1]));
-                    continue;
-                } else if (l_state[1]) {
-                    ge.d_worldmap.addCountry(
-                            l_split_data[1],
-                            Integer.parseInt(l_split_data[0]),
-                            Integer.parseInt(l_split_data[2])
-                    );
-                    continue;
-                } else if (l_state[2]) {
-                    for (int j = 1; j < l_split_data.length; j++) {
-                        ge.d_worldmap.addBorder(
-                                Integer.parseInt(l_split_data[0]),
-                                Integer.parseInt(l_split_data[j])
-                        );
-                    }
-                    continue;
-                }
-            } catch (ContinentAlreadyExistsException | ContinentDoesNotExistException | DuplicateCountryException |
-                     CountryDoesNotExistException e) {
-                throw new InvalidMapException("WorldMap Features Invalid: " + e);
-            }
-
-            l_state[0] = false;
-            l_state[1] = false;
-            l_state[2] = false;
-        }
-    }
 
     /**
      * Saves the provided map to a file with the given file name.
@@ -194,7 +121,7 @@ public class MapInterface {
      * @throws DuplicateCountryException      If a country already exists while loading.
      * @throws CountryDoesNotExistException  If a country does not exist while loading.
      */
-    public static void loadMap2(GameEngine p_gameEngine, String mapName) throws FileNotFoundException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, CountryDoesNotExistException {
+    public static void loadMap(GameEngine p_gameEngine, String mapName) throws FileNotFoundException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, CountryDoesNotExistException {
         p_gameEngine.d_worldmap = new WorldMap();
         File l_map_file_obj;
         Scanner l_file_reader;
@@ -241,11 +168,10 @@ public class MapInterface {
      *
      * @param fileReader The scanner object used to read the file.
      * @param p_worldMap         The WorldMap object to which continents will be added.
-     * @throws ContinentAlreadyExistsException If a continent with the same name already exists in the world map.
      * @throws ContinentDoesNotExistException if a continent does not exist on the world map.
      * @throws DuplicateCountryException if a country already exists on the map.
      */
-    public static void loadCountries(Scanner fileReader, WorldMap p_worldMap) throws ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException {
+    public static void loadCountries(Scanner fileReader, WorldMap p_worldMap) throws ContinentDoesNotExistException, DuplicateCountryException {
         String[] inputData;
         while (fileReader.hasNextLine()) {
             inputData = fileReader.nextLine().split(" ");

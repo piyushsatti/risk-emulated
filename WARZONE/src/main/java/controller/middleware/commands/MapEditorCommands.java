@@ -9,7 +9,6 @@ import helpers.exceptions.*;
 import models.LogEntryBuffer;
 import models.worldmap.WorldMap;
 import view.Logger;
-import view.TerminalRenderer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -516,7 +515,7 @@ public class MapEditorCommands extends Commands {
         mapName = splitCommand[1];
 
         try {
-            MapInterface.loadMap2(p_gameEngine, mapName);
+            MapInterface.loadMap(p_gameEngine, mapName);
             logEntryBuffer.setString("loaded map file "+ mapName);
         } catch (FileNotFoundException e) {
             p_gameEngine.d_renderer.renderError("FileNotFoundException : File does not exist.");

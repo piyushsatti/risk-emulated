@@ -6,7 +6,6 @@ import controller.statepattern.Phase;
 import controller.statepattern.Starting;
 import controller.statepattern.gameplay.Reinforcement;
 import controller.statepattern.gameplay.Startup;
-import helpers.exceptions.InvalidMapException;
 import models.LogEntryBuffer;
 import models.Player;
 import models.worldmap.Country;
@@ -210,7 +209,7 @@ public class StartupCommands extends Commands {
 
             try {
                 logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Entered Command: loadmap" + d_command);      // Log the command entry
-                MapInterface.loadMap2(p_gameEngine, splitCommand[1]);
+                MapInterface.loadMap(p_gameEngine, splitCommand[1]);
             }
             catch(Exception e){
 

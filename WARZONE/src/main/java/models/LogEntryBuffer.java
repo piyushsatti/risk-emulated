@@ -14,7 +14,7 @@ public class LogEntryBuffer extends Subject{
     /**
      * Represents the folder path where logs are stored.
      */
-    private String LOG_FOLDER = "risk-emulated/WARZONE/src/main/resources/logs/";
+    private String LOG_FOLDER = "WARZONE/src/main/resources/logs/";
 
     /**
      * Gets the log message.

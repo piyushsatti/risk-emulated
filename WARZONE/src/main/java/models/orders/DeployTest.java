@@ -3,7 +3,6 @@ package models.orders;
 import controller.GameEngine;
 import controller.MapInterface;
 import controller.middleware.commands.StartupCommands;
-import controller.statepattern.gameplay.OrderExecution;
 import controller.statepattern.gameplay.Reinforcement;
 import helpers.exceptions.*;
 import models.Player;
@@ -31,7 +30,7 @@ public class DeployTest {
     @Test
     public void validateCommandTests1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge,"test_map.map");
+        MapInterface.loadMap(ge,"test_map.map");
         ge.d_players.add(new Player("Priyanshu",ge));
         ge.d_players.add(new Player("Abc",ge));
 
@@ -57,7 +56,7 @@ public class DeployTest {
     @Test
     public void validateCommandTests2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge,"test_map.map");
+        MapInterface.loadMap(ge,"test_map.map");
         ge.d_players.add(new Player("Priyanshu",ge));
         ge.d_players.add(new Player("Abc",ge));
 
@@ -84,7 +83,7 @@ public class DeployTest {
     @Test
     public void validateCommandTests3() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge,"test_map.map");
+        MapInterface.loadMap(ge,"test_map.map");
         ge.d_players.add(new Player("Priyanshu",ge));
         ge.d_players.add(new Player("Abc",ge));
 
@@ -110,7 +109,7 @@ public class DeployTest {
     @Test
     public void validateCommandTests4() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge,"test_map.map");
+        MapInterface.loadMap(ge,"test_map.map");
         ge.d_players.add(new Player("Priyanshu",ge));
         ge.d_players.add(new Player("Abc",ge));
 
@@ -136,7 +135,7 @@ public class DeployTest {
     @Test
     public void validateCommandTests5() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge,"test_map.map");
+        MapInterface.loadMap(ge,"test_map.map");
         ge.d_players.add(new Player("Priyanshu",ge));
         ge.d_players.add(new Player("Abc",ge));
 
@@ -162,7 +161,7 @@ public class DeployTest {
     @Test
     public void orderValidationTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge,"usa9.map");
+        MapInterface.loadMap(ge,"usa9.map");
         ge.d_players.add(new Player("Priyanshu",ge));
         ge.d_players.add(new Player("Abc",ge));
 
@@ -190,7 +189,7 @@ public class DeployTest {
     @Test
     public void orderValidationTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge,"usa9.map");
+        MapInterface.loadMap(ge,"usa9.map");
         ge.d_players.add(new Player("Priyanshu",ge));
         ge.d_players.add(new Player("Abc",ge));
 

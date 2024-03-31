@@ -31,7 +31,7 @@ public class BombTest {
     public void validateCommandTests1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         // Test setup
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge, "test_map.map");
+        MapInterface.loadMap(ge, "test_map.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
@@ -57,7 +57,7 @@ public class BombTest {
     public void validateCommandTests2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         // Test setup
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge, "usa9.map");
+        MapInterface.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
@@ -84,7 +84,7 @@ public class BombTest {
     public void orderValidationTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         // Test setup
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge, "usa9.map");
+        MapInterface.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
@@ -116,7 +116,7 @@ public class BombTest {
     public void orderValidationTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         // Test setup
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap2(ge, "usa9.map");
+        MapInterface.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
         StartupCommands cmd = new StartupCommands("assigncountries");

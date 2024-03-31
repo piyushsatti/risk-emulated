@@ -122,7 +122,6 @@ public class WorldMap {
             d_countries.put(p_id[0], new Country(p_id[0], p_countryName, d_continents.get(p_continentID)));
         } else {
             d_countries.put(getNextCountryID(), new Country(getNextCountryID(), p_countryName, d_continents.get(p_continentID)));
-           //logEntryBuffer.setString("added country"+p_countryName+" in continent: "+d_continents.get(p_continentID).getContinentName());
         }
     }
 
@@ -152,7 +151,6 @@ public class WorldMap {
         }
 
         this.getCountry(p_source).addBorder(this.getCountry(p_target));
-       // logEntryBuffer.setString("added border between"+this.getCountry(p_source).getCountryName()+" and "+this.getCountry(p_target).getCountryName());
 
     }
     /**
@@ -304,11 +302,8 @@ public class WorldMap {
      * @return true if the world map contains a country with the specified name, false otherwise.
      */
     public boolean containsCountry(String p_countryName) {
-        try {
+
             return this.containsCountry(this.getCountryID(p_countryName));
-        } catch (CountryDoesNotExistException e) {
-            return false;
-        }
     }
     /**
      * Method that checks if continent exists in map
@@ -369,16 +364,15 @@ public class WorldMap {
      *
      * @param p_countryName The name of the country.
      * @return The ID of the country with the specified name.
-     * @throws CountryDoesNotExistException If a country with the specified name does not exist.
      */
-    public int getCountryID(String p_countryName) throws CountryDoesNotExistException {
+    public int getCountryID(String p_countryName){
         for (Country l_c : this.getCountries().values()){
 
             if (l_c.getCountryName().equals(p_countryName)) {
                 return l_c.getCountryID();
             }
         }
-        throw new CountryDoesNotExistException("Country " + p_countryName + " does not exist.");
+        return -1;
     }
 
     /**

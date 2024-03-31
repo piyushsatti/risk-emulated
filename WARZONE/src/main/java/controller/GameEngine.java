@@ -52,8 +52,7 @@ public class GameEngine {
     public GameEngine()
     {
         this.d_current_phase = new Starting(this);
-        //d_maps_folder ="C:\\Users\\HP\\Documents\\MACS PROJECTS\\soen6441 updated mvc final\\risk-emulated\\WARZONE\\src\\main\\resources\\maps\\";
-        d_maps_folder ="src/main/resources/maps/";
+        d_maps_folder ="WARZONE/src/main/resources/maps/";
         d_renderer = new TerminalRenderer(this);
         d_worldmap = new WorldMap();
         d_players = new ArrayList<>();
@@ -102,24 +101,6 @@ public class GameEngine {
         }
     }
 
-    /**
-     * Runs a test of the game engine's gameplay.
-     * It sets up and runs the phases of the game: Startup, IssueOrder, Reinforcement, and OrderExecution.
-     *
-     * @throws CountryDoesNotExistException If a country does not exist.
-     * @throws InvalidCommandException      If an invalid command is encountered.
-     */
-    public void runGameplayTest() throws CountryDoesNotExistException, InvalidCommandException {
-        this.setCurrentState(new Startup(this));
-        this.d_current_phase.run();
-        this.setCurrentState(new IssueOrder(this));
-        this.d_current_phase.run();
-        this.setCurrentState(new Reinforcement(this));
-        this.d_current_phase.run();
-        this.setCurrentState(new OrderExecution(this));
-        this.d_current_phase.run();
-       ;
-    }
 
     /**
      * Resets the world map of the game engine.
