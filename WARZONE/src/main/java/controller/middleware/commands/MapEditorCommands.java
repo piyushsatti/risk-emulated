@@ -21,6 +21,7 @@ import java.util.regex.Pattern;
  */
 public class MapEditorCommands extends Commands {
 
+    MapInterface mp = new MapInterface();
     /**
      * Represents a buffer for storing log entries.
      */
@@ -104,7 +105,7 @@ public class MapEditorCommands extends Commands {
                 break;
             case "validatemap":
                 logEntryBuffer.setString("Phase :"+d_currPhase+"\n"+ " Entered Command: validatemap");
-                if (MapInterface.validateMap(p_gameEngine))
+                if (mp.validateMap(p_gameEngine))
                 {
                     p_gameEngine.d_renderer.renderMessage("Map is valid");
                     logEntryBuffer.setString("Phase :"+d_currPhase+"\n"+ " Executed Command: validatemap");
@@ -118,7 +119,7 @@ public class MapEditorCommands extends Commands {
             case "savemap":
                 try {
                     logEntryBuffer.setString("Phase :"+d_currPhase+"\n"+ " Entered Command: savemap => "+d_command);
-                    MapInterface.saveMap(p_gameEngine, l_command[1]);
+                    mp.saveMap(p_gameEngine, l_command[1]);
                     logEntryBuffer.setString("Phase :"+d_currPhase+"\n"+ "  Executed Command: savemap => "+d_command);
                 } catch (IOException e) {
                     p_gameEngine.d_renderer.renderError("IOException : Encountered File I/O Error");
@@ -515,7 +516,7 @@ public class MapEditorCommands extends Commands {
         mapName = splitCommand[1];
 
         try {
-            MapInterface.loadMap(p_gameEngine, mapName);
+            mp.loadMap(p_gameEngine, mapName);
             logEntryBuffer.setString("loaded map file "+ mapName);
         } catch (FileNotFoundException e) {
             p_gameEngine.d_renderer.renderError("FileNotFoundException : File does not exist.");
@@ -523,7 +524,7 @@ public class MapEditorCommands extends Commands {
             p_gameEngine.d_renderer.renderMessage("Creating file by the name : " + mapName);
             logEntryBuffer.setString("creating file "+ mapName);
             try {
-                MapInterface.saveMap(p_gameEngine, mapName);
+                mp.saveMap(p_gameEngine, mapName);
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
