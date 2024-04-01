@@ -287,6 +287,18 @@ public class WorldMap {
     }
 
     /**
+     * This method removes a country from the map
+     * @param p_countryName Integer identifier of country to be removed
+     * @throws CountryDoesNotExistException if country does not exist
+     */
+    public void removeCountry(String p_countryName) throws CountryDoesNotExistException {
+        if(!this.containsCountry(p_countryName)) throw new CountryDoesNotExistException(p_countryName);
+        else{
+            removeCountry(this.getCountryID(p_countryName));
+        }
+    }
+
+    /**
      * Method that checks if country exists in map
      *
      * @param p_countryID Country identifier integer
@@ -389,7 +401,7 @@ public class WorldMap {
                 return l_c.getContinentID();
             }
         }
-        throw new ContinentDoesNotExistException("Continent " + p_continentName + "does not exist.");
+        throw new ContinentDoesNotExistException(p_continentName);
     }
 
     /**

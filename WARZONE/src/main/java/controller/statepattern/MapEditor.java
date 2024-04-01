@@ -1,5 +1,7 @@
 package controller.statepattern;
 
+import controller.Command.Command;
+import controller.Command.CommandCreator;
 import controller.GameEngine;
 import controller.middleware.commands.MapEditorCommands;
 
@@ -47,10 +49,21 @@ public class MapEditor extends Phase {
     @Override
     public void run() {
         displayMenu();
-        MapEditorCommands mec = new MapEditorCommands(
+
+        /*MapEditorCommands mec = new MapEditorCommands(
                 this.d_ge.d_renderer.renderUserInput("Enter command: ")
         );
-        mec.execute(this.d_ge);
+        mec.execute(this.d_ge);*/
+
+        Command l_command = CommandCreator.createCommand(this.d_ge.d_renderer.renderUserInput("Enter command: "), this.d_ge);
+
+        if(l_command != null){
+            if(l_command.validate()){
+                l_command.execute();
+            }
+        }else{
+            this.d_ge.d_renderer.renderError("Invalid command!");
+        }
     }
 }
 
