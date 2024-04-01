@@ -17,9 +17,10 @@ public class SaveMap extends Command {
 
     @Override
     public void execute() {
+        MapInterface mp = new MapInterface();
         TerminalRenderer l_renderer = this.d_ge.d_renderer;
         try {
-            MapInterface.saveMap(this.d_ge, this.d_splitCommand[1]);
+            mp.saveMap(this.d_ge, this.d_splitCommand[1]);
         } catch (IOException e) {
             l_renderer.renderError(e.toString());
         }

@@ -19,18 +19,19 @@ public class EditMap extends Command {
     @Override
     public void execute() {
 
+        MapInterface mp = new MapInterface();
         String mapName = "";
         TerminalRenderer l_renderer = this.d_ge.d_renderer;
         mapName = this.d_splitCommand[1];
 
         try {
-            MapInterface.loadMap(this.d_ge, mapName);
+            mp.loadMap(this.d_ge, mapName);
         } catch (Exception e) {
             l_renderer.renderError("FileNotFoundException : File does not exist.");
             l_renderer.renderMessage("Creating file by the name : " + mapName);
             try {
-                MapInterface.saveMap(this.d_ge, mapName);
-                MapInterface.loadMap(this.d_ge, mapName);
+                mp.saveMap(this.d_ge, mapName);
+                mp.loadMap(this.d_ge, mapName);
             } catch (Exception ex) {
                 l_renderer.renderError(ex.toString());
             }
