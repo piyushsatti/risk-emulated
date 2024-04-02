@@ -1,5 +1,6 @@
-package controller.Command;
+package controller.Command.MapEditor;
 
+import controller.Command.Command;
 import controller.GameEngine;
 import controller.statepattern.End;
 import controller.statepattern.MapEditor;
@@ -7,7 +8,7 @@ import controller.statepattern.Starting;
 
 import java.util.regex.Pattern;
 
-public class Exit extends Command{
+public class Exit extends Command {
     protected Exit(String p_input, GameEngine p_ge) {
         super(p_input, p_ge);
         this.d_commandPattern = Pattern.compile("^exit(\\s)*$");

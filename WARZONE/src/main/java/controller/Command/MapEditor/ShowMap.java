@@ -1,4 +1,5 @@
-package controller.Command;
+package controller.Command.MapEditor;
+import controller.Command.Command;
 import controller.GameEngine;
 import controller.statepattern.MapEditor;
 import controller.statepattern.gameplay.IssueOrder;
@@ -14,8 +15,6 @@ public class ShowMap extends Command {
         this.d_commandPattern = Pattern.compile("^showmap(\\s)*$");
         this.d_validPhases = new Class[3];
         this.d_validPhases[0] = MapEditor.class;
-        this.d_validPhases[1] = Startup.class;
-        this.d_validPhases[2] = IssueOrder.class;
     }
 
     @Override
