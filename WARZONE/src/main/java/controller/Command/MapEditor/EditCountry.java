@@ -2,6 +2,7 @@ package controller.Command.MapEditor;
 
 import controller.Command.Command;
 import controller.GameEngine;
+import controller.statepattern.MapEditor;
 import models.worldmap.WorldMap;
 import view.TerminalRenderer;
 
@@ -11,10 +12,11 @@ public class EditCountry extends Command {
 
 
     public EditCountry(String p_input, GameEngine p_ge) {
-        super(p_input);
+        super(p_input, p_ge);
         this.d_validCommandFormat = "editcountry -add <countryID> <continentID> -remove <countryID>";
         this.d_commandPattern = Pattern.compile("^editcountry(?:(?:\\s+-add\\s+\\w+\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$");
-        this.d_ge = p_ge;
+        this.d_validPhases = new Class[1];
+        this.d_validPhases[0] = MapEditor.class;
     }
 
     @Override

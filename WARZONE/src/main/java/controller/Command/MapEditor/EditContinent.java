@@ -2,6 +2,7 @@ package controller.Command.MapEditor;
 
 import controller.Command.Command;
 import controller.GameEngine;
+import controller.statepattern.MapEditor;
 import models.worldmap.WorldMap;
 import view.TerminalRenderer;
 
@@ -10,10 +11,11 @@ import java.util.regex.Pattern;
 public class EditContinent extends Command {
 
     public EditContinent(String p_input, GameEngine p_ge) {
-        super(p_input);
+        super(p_input, p_ge);
         this.d_validCommandFormat = "editcontinent -add <continentID> <continentvalue> -remove <continentID>";
         this.d_commandPattern = Pattern.compile("^editcontinent(?:(?:\\s-add\\s+\\w+\\s+\\d+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$");
-        this.d_ge = p_ge;
+        this.d_validPhases = new Class[1];
+        this.d_validPhases[0] = MapEditor.class;
     }
 
     @Override

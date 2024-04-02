@@ -1,19 +1,21 @@
-package controller.Command.MapEditor;
-
-import controller.Command.Command;
+package controller.Command;
 import controller.GameEngine;
+import controller.statepattern.MapEditor;
 import controller.statepattern.gameplay.IssueOrder;
-
+import controller.statepattern.gameplay.Startup;
 import java.util.regex.Pattern;
 
 public class ShowMap extends Command {
 
 
     public ShowMap(String p_input, GameEngine p_ge) {
-        super(p_input);
+        super(p_input, p_ge);
         this.d_validCommandFormat = "showmap";
         this.d_commandPattern = Pattern.compile("^showmap(\\s)*$");
-        this.d_ge = p_ge;
+        this.d_validPhases = new Class[3];
+        this.d_validPhases[0] = MapEditor.class;
+        this.d_validPhases[1] = Startup.class;
+        this.d_validPhases[2] = IssueOrder.class;
     }
 
     @Override
