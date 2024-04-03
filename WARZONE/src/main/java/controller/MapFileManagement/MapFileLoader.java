@@ -18,7 +18,7 @@ public class MapFileLoader {
         }
     }
 
-    public boolean mapLoaded(){
+    public boolean fileLoaded(){
         return this.d_mapFile != null;
     }
 
