@@ -1,5 +1,6 @@
-package controller;
+package controller.MapFileManagement;
 
+import controller.GameEngine;
 import helpers.exceptions.*;
 import models.LogEntryBuffer;
 import models.worldmap.Continent;
@@ -26,7 +27,7 @@ public class MapInterface {
      * @return The File object corresponding to the specified map file name.
      * @throws FileNotFoundException If the specified file does not exist or is a directory.
      */
-    protected  File createFileObjectFromFileName(GameEngine p_gameEngine, String p_mapName) throws FileNotFoundException {
+    public File createFileObjectFromFileName(GameEngine p_gameEngine, String p_mapName) throws FileNotFoundException {
 
         File l_map_file_obj = new File(p_gameEngine.d_maps_folder + p_mapName);
 

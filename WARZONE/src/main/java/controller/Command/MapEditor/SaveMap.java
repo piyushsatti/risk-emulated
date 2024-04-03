@@ -1,7 +1,7 @@
 package controller.Command.MapEditor;
 import controller.Command.Command;
 import controller.GameEngine;
-import controller.MapInterface;
+import controller.MapFileManagement.MapInterface;
 import controller.statepattern.MapEditor;
 import view.TerminalRenderer;
 import java.io.IOException;

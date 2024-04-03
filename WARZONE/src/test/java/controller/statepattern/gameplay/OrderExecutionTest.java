@@ -1,7 +1,7 @@
 package controller.statepattern.gameplay;
 
 import controller.GameEngine;
-import controller.MapInterface;
+import controller.MapFileManagement.MapInterface;
 import controller.middleware.commands.StartupCommands;
 import helpers.exceptions.ContinentAlreadyExistsException;
 import helpers.exceptions.ContinentDoesNotExistException;

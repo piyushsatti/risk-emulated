@@ -1,7 +1,7 @@
 package models.worldmap;
 
 import controller.GameEngine;
-import controller.MapInterface;
+import controller.MapFileManagement.MapInterface;
 import helpers.exceptions.ContinentAlreadyExistsException;
 import helpers.exceptions.ContinentDoesNotExistException;
 import helpers.exceptions.CountryDoesNotExistException;

@@ -1,7 +1,7 @@
 package controller.middleware.commands;
 
 import controller.GameEngine;
-import controller.MapInterface;
+import controller.MapFileManagement.MapInterface;
 import controller.statepattern.MapEditor;
 import controller.statepattern.Phase;
 import controller.statepattern.Starting;

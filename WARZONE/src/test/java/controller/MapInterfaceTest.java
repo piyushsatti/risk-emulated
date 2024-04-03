@@ -1,5 +1,6 @@
 package controller;
 
+import controller.MapFileManagement.MapInterface;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -20,7 +21,8 @@ public class MapInterfaceTest {
     @Test(expected = FileNotFoundException.class)
     public void readMapTest1() throws FileNotFoundException {
         GameEngine ge = new GameEngine();
-        MapInterface.createFileObjectFromFileName(ge,"usa1.map");
+        MapInterface mp = new MapInterface();
+        mp.createFileObjectFromFileName(ge,"usa1.map");
     }
     /**
      * Tests the behavior of the createFileObjectFromFileName method when provided with an existing file name.
@@ -32,7 +34,8 @@ public class MapInterfaceTest {
     public void readMapTest2() throws FileNotFoundException {
         GameEngine ge = new GameEngine();
         try {
-            MapInterface.createFileObjectFromFileName(ge,"usa9.map");
+            MapInterface mp = new MapInterface();
+            mp.createFileObjectFromFileName(ge,"usa9.map");
         } catch (Exception e) {
             fail("the map file exists, but there is an unexpected error in reading it");
         }
