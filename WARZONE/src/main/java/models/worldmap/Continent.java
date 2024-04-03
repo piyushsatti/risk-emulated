@@ -10,7 +10,7 @@ public class Continent {
     /**
      * Integer identifier
      */
-    private final int d_continentID;
+    private int d_continentID;
 
     /**
      * Name of continent
@@ -61,5 +61,9 @@ public class Continent {
     public String getContinentName()
     {
         return d_continentName;
+    }
+
+    public void set_continentID(int p_id){
+        this.d_continentID = p_id;
     }
 }

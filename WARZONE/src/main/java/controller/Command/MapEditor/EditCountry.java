@@ -31,7 +31,7 @@ public class EditCountry extends Command {
             if (d_splitCommand[commandIndex].equals("-add")) {
 
                 try {
-                    l_worldMap.addCountry(d_splitCommand[commandIndex + 1], l_worldMap.getContinentID(d_splitCommand[commandIndex + 2]), null);
+                    l_worldMap.addCountry(d_splitCommand[commandIndex + 1], l_worldMap.getContinentID(d_splitCommand[commandIndex + 2]));
                 } catch (Exception e) {
                     System.out.println(e);
                     return;
@@ -73,7 +73,7 @@ public class EditCountry extends Command {
             if (d_splitCommand[commandIndex].equals("-add")) {
 
                 try {
-                    copyMap.addCountry(d_splitCommand[commandIndex + 1], this.d_ge.d_worldmap.getContinentID(d_splitCommand[commandIndex + 2]), null);
+                    copyMap.addCountry(d_splitCommand[commandIndex + 1], this.d_ge.d_worldmap.getContinentID(d_splitCommand[commandIndex + 2]));
                 } catch (Exception e) {
                     l_renderer.renderError(e.toString());
                     return false;

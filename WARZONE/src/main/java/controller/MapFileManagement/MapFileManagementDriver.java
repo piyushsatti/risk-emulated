@@ -1,6 +1,7 @@
 package controller.MapFileManagement;
 
 import controller.GameEngine;
+import models.worldmap.WorldMap;
 
 public class MapFileManagementDriver {
 
@@ -10,8 +11,10 @@ public class MapFileManagementDriver {
         System.out.println(mfl.fileLoaded());
         System.out.println(mfl.isConquest());
         mfl = new MapFileLoader(ge, "Africa.map");
-        System.out.println(mfl.fileLoaded());
-        System.out.println(mfl.isConquest());
+        ConquestMapInterface cmi = new ConquestMapInterface();
+        ge.d_worldmap = cmi.loadConquestMap(ge,mfl);
+        ge.d_renderer.showMap(false);
+
 
     }
 }

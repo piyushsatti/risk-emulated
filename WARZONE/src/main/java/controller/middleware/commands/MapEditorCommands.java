@@ -304,7 +304,7 @@ public class MapEditorCommands extends Commands {
                     return false;
                 } else {
                     try {
-                        copyMap.addCountry(splitCommand[commandIndex + 1], p_worldMap.getContinentID(splitCommand[commandIndex + 2]), null);
+                        copyMap.addCountry(splitCommand[commandIndex + 1], p_worldMap.getContinentID(splitCommand[commandIndex + 2]));
                     } catch (Exception e) {
                         System.out.println(e);
                         System.out.println(invalidMessage);
@@ -356,7 +356,7 @@ public class MapEditorCommands extends Commands {
             if (splitCommand[commandIndex].equals("-add")) {
 
                 try {
-                    p_worldMap.addCountry(splitCommand[commandIndex + 1], p_worldMap.getContinentID(splitCommand[commandIndex + 2]), null);
+                    p_worldMap.addCountry(splitCommand[commandIndex + 1], p_worldMap.getContinentID(splitCommand[commandIndex + 2]));
                     logEntryBuffer.setString("Phase :"+p_currPhase+"\n"+ " added country"+
                             splitCommand[commandIndex + 1]+" continent "+splitCommand[commandIndex + 2]);
                 } catch (Exception e) {
