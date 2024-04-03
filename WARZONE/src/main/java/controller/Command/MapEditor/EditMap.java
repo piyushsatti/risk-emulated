@@ -27,13 +27,13 @@ public class EditMap extends Command {
         mapName = this.d_splitCommand[1];
 
         try {
-            mp.loadMap(this.d_ge, mapName);
+            this.d_ge.d_worldmap = mp.loadMap(this.d_ge, mapName);
         } catch (Exception e) {
             l_renderer.renderError("FileNotFoundException : File does not exist.");
             l_renderer.renderMessage("Creating file by the name : " + mapName);
             try {
                 mp.saveMap(this.d_ge, mapName);
-                mp.loadMap(this.d_ge, mapName);
+                this.d_ge.d_worldmap = mp.loadMap(this.d_ge, mapName);
             } catch (Exception ex) {
                 l_renderer.renderError(ex.toString());
             }

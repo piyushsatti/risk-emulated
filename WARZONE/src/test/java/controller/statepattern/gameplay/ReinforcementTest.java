@@ -46,7 +46,8 @@ public class ReinforcementTest {
      */
     @Test
     public void runTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
-        MapInterface.loadMap(ge, "usa9.map");
+        MapInterface mp = new MapInterface();
+        ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi",ge));
 
         rf.run();
@@ -85,7 +86,8 @@ public class ReinforcementTest {
      */
     @Test
     public void runTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
-        MapInterface.loadMap(ge, "usa9.map");
+        MapInterface mp = new MapInterface();
+        ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi",ge));
         ge.d_players.add(new Player("Priyanshu",ge));
 

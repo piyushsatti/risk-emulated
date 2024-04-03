@@ -112,8 +112,8 @@ public class MapInterface {
      * @throws DuplicateCountryException      If a country already exists while loading.
      * @throws CountryDoesNotExistException  If a country does not exist while loading.
      */
-    public  void loadMap(GameEngine p_gameEngine, String mapName) throws FileNotFoundException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, CountryDoesNotExistException {
-        p_gameEngine.d_worldmap = new WorldMap();
+    public WorldMap loadMap(GameEngine p_gameEngine, String mapName) throws FileNotFoundException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, CountryDoesNotExistException {
+        WorldMap l_worldMap = new WorldMap();
         File l_map_file_obj;
         Scanner l_file_reader;
         l_map_file_obj = createFileObjectFromFileName(p_gameEngine, mapName);
@@ -124,12 +124,12 @@ public class MapInterface {
             l_split_data = l_file_reader.nextLine().split(" ");
 
             switch (l_split_data[0]) {
-                case "[continents]" -> loadContinents(l_file_reader, p_gameEngine.d_worldmap);
-                case "[countries]" -> loadCountries(l_file_reader, p_gameEngine.d_worldmap);
-                case "[borders]" -> loadBorders(l_file_reader, p_gameEngine.d_worldmap);
+                case "[continents]" -> loadContinents(l_file_reader, l_worldMap);
+                case "[countries]" -> loadCountries(l_file_reader, l_worldMap);
+                case "[borders]" -> loadBorders(l_file_reader, l_worldMap);
             }
         }
-
+        return l_worldMap;
     }
 
     /**
@@ -139,7 +139,7 @@ public class MapInterface {
      * @param p_worldMap The WorldMap instance where the continents will be loaded.
      * @throws ContinentAlreadyExistsException If attempting to add a continent that already exists in the WorldMap.
      */
-    public  void loadContinents(Scanner fileReader, WorldMap p_worldMap) throws ContinentAlreadyExistsException {
+    public void loadContinents(Scanner fileReader, WorldMap p_worldMap) throws ContinentAlreadyExistsException {
 
         String[] inputData;
         while (fileReader.hasNextLine()) {
@@ -162,7 +162,7 @@ public class MapInterface {
      * @throws ContinentDoesNotExistException if a continent does not exist on the world map.
      * @throws DuplicateCountryException if a country already exists on the map.
      */
-    public  void loadCountries(Scanner fileReader, WorldMap p_worldMap) throws ContinentDoesNotExistException, DuplicateCountryException {
+    public void loadCountries(Scanner fileReader, WorldMap p_worldMap) throws ContinentDoesNotExistException, DuplicateCountryException {
         String[] inputData;
         while (fileReader.hasNextLine()) {
             inputData = fileReader.nextLine().split(" ");
@@ -184,7 +184,7 @@ public class MapInterface {
      * @param p_worldMap         The WorldMap object to which borders will be added.
      * @throws CountryDoesNotExistException If a country mentioned in the border data does not exist in the world map.
      */
-    public  void loadBorders(Scanner fileReader, WorldMap p_worldMap) throws CountryDoesNotExistException {
+    public void loadBorders(Scanner fileReader, WorldMap p_worldMap) throws CountryDoesNotExistException {
         String[] inputData;
         while (fileReader.hasNextLine()) {
 

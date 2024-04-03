@@ -30,8 +30,9 @@ public class AdvanceTest {
     @Test
     public void validateCommandTests1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         // Test setup
+        MapInterface mp = new MapInterface();
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap(ge, "test_map.map");
+        ge.d_worldmap = mp.loadMap(ge, "test_map.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
@@ -57,8 +58,9 @@ public class AdvanceTest {
     @Test
     public void validateCommandTests2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         // Test setup
+        MapInterface mp = new MapInterface();
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap(ge, "test_map.map");
+        ge.d_worldmap = mp.loadMap(ge, "test_map.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
@@ -86,8 +88,9 @@ public class AdvanceTest {
     @Test
     public void orderValidationTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         // Test setup
+        MapInterface mp = new MapInterface();
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap(ge, "usa9.map");
+        ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
@@ -118,8 +121,9 @@ public class AdvanceTest {
     @Test
     public void advanceMove() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         // Test setup
+        MapInterface mp = new MapInterface();
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap(ge, "usa9.map");
+        ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
@@ -150,8 +154,9 @@ public class AdvanceTest {
     @Test
     public void advanceConquerCheck() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         // Test setup
+        MapInterface mp = new MapInterface();
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap(ge, "order_test.map");
+        ge.d_worldmap = mp.loadMap(ge, "order_test.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
         StartupCommands cmd = new StartupCommands("assigncountries");

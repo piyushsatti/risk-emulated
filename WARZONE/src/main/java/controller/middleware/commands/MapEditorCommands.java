@@ -516,7 +516,7 @@ public class MapEditorCommands extends Commands {
         mapName = splitCommand[1];
 
         try {
-            mp.loadMap(p_gameEngine, mapName);
+            p_gameEngine.d_worldmap = mp.loadMap(p_gameEngine, mapName);
             logEntryBuffer.setString("loaded map file "+ mapName);
         } catch (FileNotFoundException e) {
             p_gameEngine.d_renderer.renderError("FileNotFoundException : File does not exist.");

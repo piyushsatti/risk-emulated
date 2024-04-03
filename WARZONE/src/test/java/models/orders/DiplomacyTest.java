@@ -30,8 +30,9 @@ public class DiplomacyTest {
     @Test
     public void validateCommandTests1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         // Test setup
+        MapInterface mp = new MapInterface();
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap(ge, "usa9.map");
+        ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
@@ -56,8 +57,9 @@ public class DiplomacyTest {
     @Test
     public void validateCommandTests2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         // Test setup
+        MapInterface mp = new MapInterface();
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap(ge, "usa9.map");
+        ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
@@ -83,8 +85,9 @@ public class DiplomacyTest {
     @Test
     public void orderValidationTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         // Test setup
+        MapInterface mp = new MapInterface();
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap(ge, "usa9.map");
+        ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
@@ -120,8 +123,9 @@ public class DiplomacyTest {
     @Test
     public void orderValidationTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         // Test setup
+        MapInterface mp = new MapInterface();
         GameEngine ge = new GameEngine();
-        MapInterface.loadMap(ge, "usa9.map");
+        ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
