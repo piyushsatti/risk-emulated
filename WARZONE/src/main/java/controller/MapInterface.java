@@ -100,15 +100,6 @@ public class MapInterface {
         logEntryBuffer.setString("saved map :" + p_FileName);
     }
 
-    /**
-     * Validates the integrity of the provided map.
-      *@param p_gameEngine the game engine associated with the map.
-     * @return True if the map is valid, false otherwise.
-     */
-    public  boolean validateMap(GameEngine p_gameEngine) {
-
-        return (p_gameEngine.d_worldmap.isConnected()) && (p_gameEngine.d_worldmap.isContinentConnected());
-    }
 
     /**
      * Loads a map into the game engine.

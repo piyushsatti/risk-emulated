@@ -1,5 +1,6 @@
 package models.worldmap;
 
+import controller.GameEngine;
 import helpers.exceptions.ContinentAlreadyExistsException;
 import helpers.exceptions.ContinentDoesNotExistException;
 import helpers.exceptions.CountryDoesNotExistException;
@@ -441,5 +442,14 @@ public class WorldMap {
             }
             return max+1;
         }
+    }
+
+    /**
+     * Method which validates if map is valid
+     * @return true if connected, false if not
+     */
+    public  boolean validateMap() {
+
+        return (isConnected()) && (isContinentConnected());
     }
 }

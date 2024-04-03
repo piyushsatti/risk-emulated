@@ -105,7 +105,7 @@ public class MapEditorCommands extends Commands {
                 break;
             case "validatemap":
                 logEntryBuffer.setString("Phase :"+d_currPhase+"\n"+ " Entered Command: validatemap");
-                if (mp.validateMap(p_gameEngine))
+                if (p_gameEngine.d_worldmap.validateMap())
                 {
                     p_gameEngine.d_renderer.renderMessage("Map is valid");
                     logEntryBuffer.setString("Phase :"+d_currPhase+"\n"+ " Executed Command: validatemap");

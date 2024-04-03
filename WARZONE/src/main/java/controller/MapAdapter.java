@@ -1,4 +1,4 @@
 package controller;
 
-public class MapAdapter {
+public class MapAdapter extends MapInterface{
 }

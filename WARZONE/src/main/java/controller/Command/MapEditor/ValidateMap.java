@@ -22,8 +22,7 @@ public class ValidateMap extends Command {
     @Override
     public void execute() {
         TerminalRenderer l_renderer = this.d_ge.d_renderer;
-        MapInterface mp = new MapInterface();
-        if (mp.validateMap(this.d_ge))
+        if (this.d_ge.d_worldmap.validateMap())
         {
             l_renderer.renderMessage("Map is valid");
         }

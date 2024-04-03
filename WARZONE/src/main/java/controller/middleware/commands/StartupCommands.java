@@ -217,7 +217,7 @@ public class StartupCommands extends Commands {
                 System.out.println(e);
             }
 
-            if(!mp.validateMap(p_gameEngine)){
+            if(p_gameEngine.d_worldmap.validateMap()){
                 p_gameEngine.d_renderer.renderError("Invalid Map! Cannot load into game");
                 p_gameEngine.d_worldmap = new WorldMap();
                 logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Command: loadmap Not Executed as Map is Invalid!");
