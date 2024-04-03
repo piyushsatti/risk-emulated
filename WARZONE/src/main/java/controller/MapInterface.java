@@ -29,8 +29,6 @@ public class MapInterface {
     protected  File createFileObjectFromFileName(GameEngine p_gameEngine, String p_mapName) throws FileNotFoundException {
 
         File l_map_file_obj = new File(p_gameEngine.d_maps_folder + p_mapName);
-        //p_gameEngine.d_renderer.renderMessage(p_gameEngine.d_maps_folder + p_mapName);
-        //p_gameEngine.d_renderer.renderMessage("Map object: " + l_map_file_obj);
 
         if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory()) {
             return l_map_file_obj;
