@@ -9,7 +9,7 @@ import controller.statepattern.Starting;
 import java.util.regex.Pattern;
 
 public class Exit extends Command {
-    protected Exit(String p_input, GameEngine p_ge) {
+    public Exit(String p_input, GameEngine p_ge) {
         super(p_input, p_ge);
         this.d_commandPattern = Pattern.compile("^exit(\\s)*$");
         this.d_validPhases = new Class[1];
