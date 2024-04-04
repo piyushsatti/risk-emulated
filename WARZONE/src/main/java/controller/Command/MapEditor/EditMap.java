@@ -21,11 +21,7 @@ public class EditMap extends Command {
     @Override
     public void execute() {
 
-        //create MapFileLoader()
-        //if file doesn't exist -> create map file (ask what type) -> conquest or domination -> save
-        //Check conquest or domination
-        //instantiate MapInterface / Adapter depending on result
-        //loadmap using MapInterface / Adapter
+
         MapInterface mp = new MapInterface();
         String mapName = "";
         TerminalRenderer l_renderer = this.d_ge.d_renderer;

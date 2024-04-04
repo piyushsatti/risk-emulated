@@ -114,7 +114,6 @@ public class ConquestMapInterface {
 
     public void saveConquestMap(GameEngine p_gameEngine, String p_FileName){
         WorldMap p_map = p_gameEngine.d_worldmap;
-        p_map.normalizeContinents();
         File outputFile = new File(p_gameEngine.d_maps_folder + p_FileName);
 
         try {
