@@ -76,7 +76,7 @@ public class Player {
     /**
      * The order list of the player.
      */
-    private final Deque<Order> d_orderList = new ArrayDeque<>();
+    private final Deque<Order> d_orderList;
 
     /**
      * Adds an order to the list of orders.
@@ -200,6 +200,7 @@ public class Player {
         this.d_renderer = new TerminalRenderer(this.d_gameEngine);
         this.d_orderSuccess = false;
         this.d_finishedIssueOrder = false;
+        this.d_orderList = new ArrayDeque<>();
         d_latest_playerID++;
     }
 
