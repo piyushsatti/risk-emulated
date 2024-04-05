@@ -61,6 +61,11 @@
                 return listOfAllBorderCountriesIDs.get(l_index);
             }
 
+            /**
+             * this method returns a random country id from the countries that the player owns except the source country
+             * @param p_sourceCountryId
+             * @return country id
+             */
             public int getOwnRandomCountry(int p_sourceCountryId)
             {
                 int l_randomCountryId = p_sourceCountryId;
