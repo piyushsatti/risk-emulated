@@ -3,6 +3,8 @@ package strategy;
 import controller.GameEngine;
 import models.Player;
 import models.orders.Advance;
+import models.orders.Deploy;
+import models.orders.Order;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -33,9 +35,8 @@ public class RandomStrategy implements Strategy{
         ArrayList<Integer> listOfAllBorderCountriesIDs = new ArrayList<>();
         for(int countryIDs: this.d_player.getAssignedCountries()){
             for(Integer id : d_gameEngine.d_worldmap.getCountry(countryIDs).getAllBorderCountriesIDs()){
-                if(!this.d_player.getAssignedCountries().contains(id)){
                     listOfAllBorderCountriesIDs.add(id);
-                }
+
             }
         }
         int l_index = random.nextInt(listOfAllBorderCountriesIDs.size()-1);
@@ -47,15 +48,13 @@ public class RandomStrategy implements Strategy{
      * method which returns the country id of the neighbor from which armies need to be moved from
      * @return neighboring country id
      */
-    public int getNeigbouringCountry() {
+    public int getRandomNeigbouringCountry(int sourceCountryID) {
         ArrayList<Integer> listOfAllBorderCountriesIDs = new ArrayList<>();
-        for(int countryIDs: this.d_player.getAssignedCountries()){
-            for(Integer id : d_gameEngine.d_worldmap.getCountry(countryIDs).getAllBorderCountriesIDs()){
-                if(this.d_player.getAssignedCountries().contains(id)){
+            for(Integer id : d_gameEngine.d_worldmap.getCountry(sourceCountryID).getAllBorderCountriesIDs()){
                     listOfAllBorderCountriesIDs.add(id);
-                }
+
             }
-        }
+
         int l_index = random.nextInt(listOfAllBorderCountriesIDs.size()-1);
         return listOfAllBorderCountriesIDs.get(l_index);
     }
@@ -71,18 +70,28 @@ public class RandomStrategy implements Strategy{
     }
 
 
-    public void createOrder(){
+    public Order createOrder(){
 
         int randomNumber = random.nextInt(4) + 1; // Generates random number between 0 (inclusive) and 4 (exclusive), adding 1 to make it between 1 and 4
 
         // Trigger actions based on the generated random number
         if (randomNumber == 1) {
-
+            Order order = new Deploy(this.d_player, this.d_player.getName(), this.d_player.getPlayerId(), getSourceCountry(), getRandomNumberArmies(), this.d_gameEngine);
+            return order;
             // Perform action A
         } else if (randomNumber == 2) {
-            System.out.println("Random number is 2. Performing action B.");
-            // Perform action B
+            // advance
+            int l_targetCountryID = getTargetCountry();
+            Player l_targetPlayer = null;
+            for(Player player : this.d_gameEngine.d_players){
+                if(player.getAssignedCountries().contains(l_targetCountryID)){
+                    l_targetPlayer = player;
+                }
+            }
+            Order order  = new Advance(this.d_player, l_targetPlayer,this.d_player.getName(),this.d_player.getPlayerId(), getSourceCountry(), getRandomNeigbouringCountry(getSourceCountry()), getRandomNumberArmies(), this.d_gameEngine);
+            return order;
         } else if (randomNumber == 3) {
+
             System.out.println("Random number is 3. Performing action C.");
             // Perform action C
         } else {
