@@ -28,6 +28,11 @@
 
             }
 
+            /**
+             * this method return the random enemy country id
+             * @param p_sourceCountryId
+             * @return random enemy country id
+             */
             @Override
             public int getTargetCountry(int p_sourceCountryId) {
                 ArrayList<Integer> listOfAllBorderCountriesIDs = new ArrayList<>();
@@ -138,7 +143,6 @@
                     else {
                         order = new Deploy(this.d_player, this.d_player.getName(), this.d_player.getPlayerId(), getSourceCountry(), getRandomNumberArmiesFromPool(), this.d_gameEngine);
                     }
-                    System.out.println("Random number is 3. Performing action C.");
                 }
                 return order;
             }
