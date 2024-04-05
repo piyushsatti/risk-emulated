@@ -60,7 +60,8 @@ public class StartupCommands extends Commands {
                 "gameplayer",
                 "assigncountries",
                 "showmap",
-                "exit"
+                "exit",
+                "loadgame"
         });
     }
 
@@ -76,7 +77,8 @@ public class StartupCommands extends Commands {
         Pattern pattern = Pattern.compile(
                 "^loadmap\\s\\w+\\.map(\\s)*$|" +
                         "^assigncountries(\\s)*$|" +
-                        "^gameplayer(?:(?:\\s+-add\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$"
+                        "^gameplayer(?:(?:\\s+-add\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$"+
+                        "^loadgame\\s\\w+\\.map(\\s)*$|"
         );
         Matcher matcher = pattern.matcher(d_command) ;
         return matcher.matches() && (p_gameEngine.getCurrentState().getClass() == Startup.class);
