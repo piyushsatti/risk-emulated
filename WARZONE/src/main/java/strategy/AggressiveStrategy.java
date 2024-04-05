@@ -3,7 +3,6 @@ package strategy;
 import controller.GameEngine;
 import models.Player;
 import models.orders.*;
-import models.worldmap.Country;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -128,6 +127,7 @@ public class AggressiveStrategy  implements Strategy {
                 int l_countrytoAirliftFrom = getOwnRandomCountry(l_strongestCountryId);
                 int l_armiesToDeploy = this.d_gameEngine.d_worldmap.getCountry(l_countrytoAirliftFrom).getReinforcements();
                 order = new Airlift(this.d_player, this.d_player.getName(), this.d_player.getPlayerId(), l_countrytoAirliftFrom, l_strongestCountryId, l_armiesToDeploy, this.d_gameEngine);
+                this.d_player.removeCard("airlift");
             }
             else if (this.d_player.containsCard("bomb")) {
                 int l_countryToBomb = getTargetCountry(l_strongestCountryId);
@@ -138,6 +138,7 @@ public class AggressiveStrategy  implements Strategy {
                     }
                 }
                 order = new Bomb(this.d_player, l_targetPlayer, this.d_player.getPlayerId(), this.d_player.getName(), l_countryToBomb, this.d_gameEngine);
+                this.d_player.removeCard("bomb");
             }
         }
         return order;
