@@ -2,6 +2,7 @@ package strategy;
 
 import controller.GameEngine;
 import models.Player;
+import models.orders.Advance;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -56,6 +57,16 @@ public class RandomStrategy implements Strategy{
         return listOfAllBorderCountriesIDs.get(l_index);
     }
 
+    /**
+     * method which returns a random number of number of armies which could be used to attack on a bordering territory
+     * @return random number of armies
+     */
+    public int getArmiesToAdvance()
+    {
+        int l_numArmies = this.d_gameEngine.d_worldmap.getCountry(this.getCountryToAttackFrom()).getReinforcements();
+        return random.nextInt(l_numArmies)+1;
+    }
+
 
     public void createOrder(){
 
@@ -63,7 +74,7 @@ public class RandomStrategy implements Strategy{
 
         // Trigger actions based on the generated random number
         if (randomNumber == 1) {
-
+            
             // Perform action A
         } else if (randomNumber == 2) {
             System.out.println("Random number is 2. Performing action B.");
