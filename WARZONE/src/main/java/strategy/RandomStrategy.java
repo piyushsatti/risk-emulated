@@ -58,13 +58,13 @@ public class RandomStrategy implements Strategy{
     }
 
     /**
-     * method which returns a random number of number of armies from 1 to number of armies in the source country
+     * method which returns a random number of armies from 1 to number of armies in the source country
      * @return random number of armies
      */
     public int getRandomNumberArmies()
     {
         int l_numArmies = this.d_gameEngine.d_worldmap.getCountry(this.getCountryToAttackFrom()).getReinforcements();
-        return l_numArmies == 0 ? 0 :random.nextInt(l_numArmies)+1;
+        return random.nextInt(l_numArmies)+1;
     }
 
 
