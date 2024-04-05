@@ -4,7 +4,7 @@ import models.worldmap.Country;
 
 public class BenevolentStrategy implements Strategy{
     @Override
-    public int getCountryToAttackFrom() {
+    public int getSourceCountry() {
         return 0;
     }
 

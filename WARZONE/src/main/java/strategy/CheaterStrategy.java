@@ -4,12 +4,12 @@ import models.worldmap.Country;
 
 public class CheaterStrategy implements Strategy{
     @Override
-    public int getCountryToAttackFrom() {
-        return null;
+    public int getSourceCountry() {
+        return 0;
     }
 
     @Override
     public int getTargetCountry() {
-        return null;
+        return 0;
     }
 }

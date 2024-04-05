@@ -4,7 +4,7 @@ import models.worldmap.Country;
 
 public class AggressiveStrategy  implements Strategy{
     @Override
-    public int getCountryToAttackFrom() {
+    public int getSourceCountry() {
         return 0;
     }
 

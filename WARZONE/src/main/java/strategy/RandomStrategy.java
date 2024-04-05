@@ -17,9 +17,12 @@ public class RandomStrategy implements Strategy{
         this.d_gameEngine = p_gameEngine;
     }
 
-
+    /**
+     * method which returns the random source country id
+     * @return random source country id
+     */
     @Override
-    public int getCountryToAttackFrom() {
+    public int getSourceCountry() {
         int l_index = random.nextInt(  this.d_player.getAssignedCountries().size()-1);
         return this.d_player.getAssignedCountries().get(l_index);
 
@@ -63,7 +66,7 @@ public class RandomStrategy implements Strategy{
      */
     public int getRandomNumberArmies()
     {
-        int l_numArmies = this.d_gameEngine.d_worldmap.getCountry(this.getCountryToAttackFrom()).getReinforcements();
+        int l_numArmies = this.d_gameEngine.d_worldmap.getCountry(this.getSourceCountry()).getReinforcements();
         return random.nextInt(l_numArmies)+1;
     }
 

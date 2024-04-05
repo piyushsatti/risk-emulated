@@ -1,6 +1,6 @@
 package strategy;
 
 public interface Strategy {
-     int getCountryToAttackFrom();
+     int getSourceCountry();
      int getTargetCountry();
 }
