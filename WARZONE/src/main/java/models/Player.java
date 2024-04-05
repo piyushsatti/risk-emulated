@@ -5,6 +5,8 @@ import controller.middleware.commands.IssueOrderCommands;
 import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.InvalidCommandException;
 import models.orders.*;
+import strategy.HumanStrategy;
+import strategy.Strategy;
 import view.TerminalRenderer;
 
 
@@ -18,6 +20,10 @@ import java.util.Iterator;
  * The Player class represents a player in the game.
  */
 public class Player {
+    /**
+     * player strategy
+     */
+    Strategy d_strategy;
 
     /**
      * The latest player ID.
@@ -202,6 +208,15 @@ public class Player {
         this.d_finishedIssueOrder = false;
         this.d_orderList = new ArrayDeque<>();
         d_latest_playerID++;
+        d_strategy = new HumanStrategy(); //need to check if this is indeed what we want
+    }
+    /**
+     * method to set the player strategy
+     * @param p_strategy player strategy
+     */
+    public void setPlayerStrategy(Strategy p_strategy)
+    {
+        d_strategy = p_strategy;
     }
 
     /**

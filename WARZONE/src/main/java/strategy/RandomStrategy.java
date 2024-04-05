@@ -18,7 +18,7 @@ public class RandomStrategy implements Strategy{
 
 
     @Override
-    public int getSourceCountry() {
+    public int getCountryToAttackFrom() {
         int l_index = random.nextInt(  this.d_player.getAssignedCountries().size()-1);
         return this.d_player.getAssignedCountries().get(l_index);
 
@@ -39,6 +39,10 @@ public class RandomStrategy implements Strategy{
 
     }
 
+    /**
+     * method which returns the country id of the neighbor from which armies need to be moved from
+     * @return neighboring country id
+     */
     public int getNeigbouringCountry() {
         ArrayList<Integer> listOfAllBorderCountriesIDs = new ArrayList<>();
         for(int countryIDs: this.d_player.getAssignedCountries()){
@@ -50,7 +54,6 @@ public class RandomStrategy implements Strategy{
         }
         int l_index = random.nextInt(listOfAllBorderCountriesIDs.size()-1);
         return listOfAllBorderCountriesIDs.get(l_index);
-
     }
 
 
