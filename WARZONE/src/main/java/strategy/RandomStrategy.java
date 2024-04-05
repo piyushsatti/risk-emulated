@@ -1,16 +1,78 @@
 package strategy;
 
-import models.worldmap.Country;
+import controller.GameEngine;
+import models.Player;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class RandomStrategy implements Strategy{
+    private Player d_player;
+    private Random random = new Random();
+
+    private GameEngine d_gameEngine;
+    public RandomStrategy(Player p_player,GameEngine p_gameEngine) {
+        this.d_player = p_player;
+        this.d_gameEngine = p_gameEngine;
+    }
+
 
     @Override
-    public Country getSourceCountry() {
-        return null;
+    public int getSourceCountry() {
+        int l_index = random.nextInt(  this.d_player.getAssignedCountries().size()-1);
+        return this.d_player.getAssignedCountries().get(l_index);
+
     }
 
     @Override
-    public Country getTargetCountry() {
-        return null;
+    public int getTargetCountry() {
+        ArrayList<Integer> listOfAllBorderCountriesIDs = new ArrayList<>();
+        for(int countryIDs: this.d_player.getAssignedCountries()){
+            for(Integer id : d_gameEngine.d_worldmap.getCountry(countryIDs).getAllBorderCountriesIDs()){
+                if(!this.d_player.getAssignedCountries().contains(id)){
+                    listOfAllBorderCountriesIDs.add(id);
+                }
+            }
+        }
+        int l_index = random.nextInt(listOfAllBorderCountriesIDs.size()-1);
+        return listOfAllBorderCountriesIDs.get(l_index);
+
     }
+
+    public int getNeigbouringCountry() {
+        ArrayList<Integer> listOfAllBorderCountriesIDs = new ArrayList<>();
+        for(int countryIDs: this.d_player.getAssignedCountries()){
+            for(Integer id : d_gameEngine.d_worldmap.getCountry(countryIDs).getAllBorderCountriesIDs()){
+                if(this.d_player.getAssignedCountries().contains(id)){
+                    listOfAllBorderCountriesIDs.add(id);
+                }
+            }
+        }
+        int l_index = random.nextInt(listOfAllBorderCountriesIDs.size()-1);
+        return listOfAllBorderCountriesIDs.get(l_index);
+
+    }
+
+
+    public void createOrder(){
+
+        int randomNumber = random.nextInt(4) + 1; // Generates random number between 0 (inclusive) and 4 (exclusive), adding 1 to make it between 1 and 4
+
+        // Trigger actions based on the generated random number
+        if (randomNumber == 1) {
+
+            // Perform action A
+        } else if (randomNumber == 2) {
+            System.out.println("Random number is 2. Performing action B.");
+            // Perform action B
+        } else if (randomNumber == 3) {
+            System.out.println("Random number is 3. Performing action C.");
+            // Perform action C
+        } else {
+            System.out.println("Random number is 4. Performing action D.");
+            // Perform action D
+        }
+    }
+
+
 }

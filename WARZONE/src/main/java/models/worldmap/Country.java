@@ -157,6 +157,24 @@ public class Country {
     }
 
     /**
+     * Gets the IDs of all the bordering countries of this country.
+     *
+     * @return An ArrayList of Integer representing the IDs of all bordering countries.
+     */
+    public ArrayList<Integer> getAllBorderCountriesIDs(){
+
+      ArrayList<Integer> borderCountriesIDs = new ArrayList<>();
+        // Iterate through the borders of this country
+        for (Border l_border : this.d_borders.values()) {
+            // Add the ID of the target country of each border to the list
+            borderCountriesIDs.add(l_border.getTarget().getCountryID());
+
+        }
+
+        return borderCountriesIDs;
+    }
+
+    /**
      * Method which checks if a country can reach all the other
      * countries in the list while only moving through countries in the list
      *
