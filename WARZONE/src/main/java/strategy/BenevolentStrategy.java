@@ -9,7 +9,7 @@ public class BenevolentStrategy implements Strategy{
     }
 
     @Override
-    public int getTargetCountry() {
+    public int getTargetCountry(int p_sourceCountryId) {
         return 0;
     }
 }

@@ -9,7 +9,7 @@ public class HumanStrategy implements Strategy{
     }
 
     @Override
-    public int getTargetCountry() {
+    public int getTargetCountry(int p_sourceCountryId) {
         return 0;
     }
 }
