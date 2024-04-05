@@ -211,7 +211,7 @@ public class StartupCommands extends Commands {
 
             try {
                 logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Entered Command: loadmap" + d_command);      // Log the command entry
-                mp.loadMap(p_gameEngine, splitCommand[1]);
+                p_gameEngine.d_worldmap = mp.loadMap(p_gameEngine, splitCommand[1]);
             }
             catch(Exception e){
 
@@ -219,7 +219,7 @@ public class StartupCommands extends Commands {
                 System.out.println(e);
             }
 
-            if(p_gameEngine.d_worldmap.validateMap()){
+            if(!p_gameEngine.d_worldmap.validateMap()){
                 p_gameEngine.d_renderer.renderError("Invalid Map! Cannot load into game");
                 p_gameEngine.d_worldmap = new WorldMap();
                 logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Command: loadmap Not Executed as Map is Invalid!");
