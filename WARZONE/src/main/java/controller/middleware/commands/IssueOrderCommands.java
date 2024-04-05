@@ -70,7 +70,9 @@ public class IssueOrderCommands extends Commands{
                 "airlift",
                 "negotiate",
                 "done",
-                "showmap"
+                "showmap",
+                "savegame",
+                "loadgame"
         });
         p = p_player;
     }
@@ -92,8 +94,9 @@ public class IssueOrderCommands extends Commands{
                         "^negotiate\\s+\\w+\\s*(\\s)*$|"+
                         "^done(\\s)*$|" +
                         "^showmap(\\s)*$|" +
-                        "^airlift\\s+\\w+\\s+\\w+\\s+\\d+(\\s)*$"
-
+                        "^airlift\\s+\\w+\\s+\\w+\\s+\\d+(\\s)*$" +
+                        "^savegame\\s\\w+\\.map(\\s)*$|" +
+                        "^loadgame\\s\\w+\\.map(\\s)*$|"
         );
         Matcher matcher = pattern.matcher(d_command);
         return matcher.matches() && (p_gameEngine.getCurrentState().getClass() == IssueOrder.class);
