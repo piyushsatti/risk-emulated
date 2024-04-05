@@ -47,7 +47,7 @@ public class BenevolentStrategy implements Strategy{
     {
         ArrayList<Integer> listOfAllBorderCountriesIDs = new ArrayList<>();
         for (Integer id : d_gameEngine.d_worldmap.getCountry(p_weakestCountryId).getAllBorderCountriesIDs()) {
-            if (this.d_player.getAssignedCountries().contains(id) && (this.d_gameEngine.d_worldmap.getCountry(id).getReinforcements() > this.d_gameEngine.d_worldmap.getCountry(p_weakestCountryId).getReinforcements())
+            if (this.d_player.getAssignedCountries().contains(id) && (this.d_gameEngine.d_worldmap.getCountry(id).getReinforcements() > this.d_gameEngine.d_worldmap.getCountry(p_weakestCountryId).getReinforcements()))
             {
                 listOfAllBorderCountriesIDs.add(id);
             }
