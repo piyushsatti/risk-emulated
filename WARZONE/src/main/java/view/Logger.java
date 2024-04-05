@@ -33,8 +33,6 @@ public class Logger implements Observer{
         }
         catch(IOException e)
         {
-            //ge.renderer.renderError("IOException: error in creating/loading log file");
-            System.out.println("IOException: error in creating/loading log file");
             ge.d_renderer.renderError("IOException: error in creating/loading log file");
         }
     }
