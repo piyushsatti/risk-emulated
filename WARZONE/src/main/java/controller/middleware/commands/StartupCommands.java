@@ -71,7 +71,8 @@
                     "showmap",
                     "exit",
                     "loadgame",
-                    "showmap"
+                    "showmap",
+                    "tournament"
             });
         }
 
@@ -88,6 +89,7 @@
                     "^loadmap\\s\\w+\\.map(\\s)*$|" +
                             "^assigncountries(\\s)*$|" +
                             "^showmap(\\s)*$|"+
+                            "^tournament\\s+-M\\s+(?:\\w+\\.map\\s+){1,5}-P\\s+(?:\\w+\\s+){2,4}-G\\s+[1-5]\\s+-D\\s+(?:[1-4][0-9]|50)$|"+
                             "^gameplayer(?:(?:\\s+-add\\s+\\w+\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$|"+
                             "^loadgame\\s\\w+\\.map(\\s)*$|"
             );
@@ -129,6 +131,10 @@
                     break;
                 case "gameplayer":
                     gameplayer(p_gameEngine, splitCommand,d_currPhase);
+                    break;
+                case "tournament":
+                    //method to check valid strategies in the tournament command
+                    //method to start the tournament mode
                     break;
                 case "exit":
                     p_gameEngine.setCurrentState(new Starting(p_gameEngine));
