@@ -31,6 +31,9 @@
          * list of valid strategies
          */
         List<String> d_validStrategies = Arrays.asList("aggressive","benevolent","human","random","cheater");
+        /**
+         * Represents map interface.
+         */
         MapInterface mp = new MapInterface();
         /**
          * Represents a logger associated with a log entry buffer.

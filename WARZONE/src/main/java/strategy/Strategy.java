@@ -24,5 +24,10 @@ public interface Strategy {
       */
      Order createOrder() throws InvalidCommandException;
 
-    String getStrategyName();
+     /**
+      * Retrieves the name of the strategy.
+      *
+      * @return The name of the strategy.
+      */
+     String getStrategyName();
 }

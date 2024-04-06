@@ -26,7 +26,6 @@ public class CheaterStrategy implements Strategy {
      */
     private GameEngine d_gameEngine;
 
-
     private String d_strategyName;
 
     /**
@@ -41,10 +40,20 @@ public class CheaterStrategy implements Strategy {
         this.d_strategyName = "Cheater";
     }
 
+    /**
+     * Retrieves the name of the strategy.
+     *
+     * @return The name of the strategy.
+     */
     public String getStrategyName() {
         return d_strategyName;
     }
 
+    /**
+     * Sets the name of the strategy.
+     *
+     * @param d_strategyName The name of the strategy to be set.
+     */
     public void setStrategyName(String d_strategyName) {
         this.d_strategyName = d_strategyName;
     }

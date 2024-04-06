@@ -125,20 +125,40 @@ public class Player {
     GameEngine d_gameEngine;
 
 
+    /**
+     * Retrieves the current phase of the system.
+     *
+     * @return The current phase of the system.
+     */
     public String getCurrentPhase() {
         return d_currentPhase;
     }
 
+    /**
+     * Sets the current phase of the system.
+     *
+     * @param d_currentPhase The current phase to be set.
+     */
     public void setCurrentPhase(String d_currentPhase) {
         this.d_currentPhase = d_currentPhase;
     }
 
     String d_currentPhase;
 
+    /**
+     * Retrieves the commands associated with the system.
+     *
+     * @return The commands associated with the system.
+     */
     public String getCommands() {
         return l_commands;
     }
 
+    /**
+     * Sets the commands associated with the system.
+     *
+     * @param l_commands The commands to be set.
+     */
     public void setCommands(String l_commands) {
         this.l_commands = l_commands;
     }
@@ -246,6 +266,11 @@ public class Player {
         d_strategy = p_strategy;
     }
 
+    /**
+     * Retrieves the strategy associated with the system.
+     *
+     * @return The strategy associated with the system.
+     */
     public Strategy getStrategy() {
         return d_strategy;
     }
