@@ -119,6 +119,7 @@
                         int l_toCountryID = getOwnRandomCountry(l_fromCountryID);
                         int l_randomArmiesToDeploy = random.nextInt(this.d_gameEngine.d_worldmap.getCountry(l_fromCountryID).getReinforcements())+1;
                         order = new Airlift(this.d_player, this.d_player.getName(), this.d_player.getPlayerId(), l_fromCountryID, l_toCountryID, l_randomArmiesToDeploy, this.d_gameEngine);
+                        this.d_player.removeCard("airlift");
                     }
                     else if (this.d_player.containsCard("bomb")) {
                         int l_sourceCountryId = getSourceCountry();
@@ -130,6 +131,7 @@
                             }
                         }
                         order = new Bomb(this.d_player, l_targetPlayer, this.d_player.getPlayerId(), this.d_player.getName(), l_targetNeighborId, this.d_gameEngine);
+                        this.d_player.removeCard("bomb");
                     }
                     else if(this.d_player.containsCard("diplomacy"))
                     {   int l_randomTargetPlayer = this.d_player.getPlayerId();
@@ -139,6 +141,7 @@
                         while(l_randomTargetPlayer!=this.d_player.getPlayerId());
 
                         order = new Diplomacy(this.d_player, this.d_gameEngine.d_players.get(l_randomTargetPlayer), this.d_player.getPlayerId(), this.d_player.getName());
+                        this.d_player.removeCard("diplomacy");
                     }
                     else if(this.d_player.containsCard("blockade"))
                     {
