@@ -6,6 +6,7 @@ import controller.statepattern.Phase;
 import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.InvalidCommandException;
 import models.Player;
+import strategy.HumanStrategy;
 
 import java.util.Scanner;
 
@@ -51,14 +52,14 @@ public class IssueOrder extends Phase {
      */
     public boolean allPlayersFinished(){
         boolean l_playersFinished = true;
-     for(Player l_p : d_ge.d_players){
-         if(!l_p.isFinishedIssueOrder()){
-             l_playersFinished = false;
-             return l_playersFinished;
-         }
-     }
-     return l_playersFinished;
- }
+        for(Player l_p : d_ge.d_players){
+            if(!l_p.isFinishedIssueOrder()){
+                l_playersFinished = false;
+                return l_playersFinished;
+            }
+        }
+        return l_playersFinished;
+    }
 
     /**
      * Executes the phase of issuing orders.
@@ -73,33 +74,40 @@ public class IssueOrder extends Phase {
         int l_playerNumber = 0;
         while(!allPlayersFinished()) {
             Player p = d_ge.d_players.get(l_playerNumber);
-                p.setOrderSuccess(false);
-                if(isHuman(p)) {
-                    while (!p.isOrderSuccess()) {          // Render player's available reinforcements and cards
-                        d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Reinforcements Available: " + p.getReinforcements());
-                        d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Cards Available: " + p.displayCards());
+            p.setOrderSuccess(false);
+            if(p.getStrategy().getStrategyName() == "Human") {
 
-                        this.d_ge.d_renderer.renderMessage("Enter done if you have no more orders to give");
-                        this.d_ge.d_renderer.renderMessage(p.getName() + " enter order: ");
-                        String command = scan.nextLine();
-                        IssueOrderCommands ioc = new IssueOrderCommands(command, p);
-                        try {
-                            ioc.execute(d_ge);
-                        } catch (CountryDoesNotExistException | InvalidCommandException e) {
-                            d_ge.d_renderer.renderError("Following exception occured :" + e);
+                while (!p.isOrderSuccess()) {          // Render player's available reinforcements and cards
+                    d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Reinforcements Available: " + p.getReinforcements());
+                    d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Cards Available: " + p.displayCards());
+
+                    this.d_ge.d_renderer.renderMessage("Enter done if you have no more orders to give");
+                    this.d_ge.d_renderer.renderMessage(p.getName() + " enter order: ");
+                    String command = scan.nextLine();
+                    IssueOrderCommands ioc = new IssueOrderCommands(command, p);
+                    try {
+                        ioc.execute(d_ge);
+                    } catch (CountryDoesNotExistException | InvalidCommandException e) {
+                        d_ge.d_renderer.renderError("Following exception occured :" + e);
 
 
-                        }
                     }
                 }
-                else{ //For NonHuman
+            }
+            else{
+                try {
+                    ioc.execute(d_ge);
+                } catch (CountryDoesNotExistException | InvalidCommandException e) {
+                    d_ge.d_renderer.renderError("Following exception occured :" + e);
+
 
                 }
-                l_playerNumber++;
-                if(l_playerNumber == d_ge.d_players.size()){         // Reset player number to 0 if it reaches the end of the player list
-                    l_playerNumber = 0;
-                }
             }
+            l_playerNumber++;
+            if(l_playerNumber == d_ge.d_players.size()){         // Reset player number to 0 if it reaches the end of the player list
+                l_playerNumber = 0;
+            }
+        }
 
         d_ge.setCurrentState(new OrderExecution(d_ge));
 
