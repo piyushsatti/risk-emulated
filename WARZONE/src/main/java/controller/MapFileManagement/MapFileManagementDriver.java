@@ -3,8 +3,15 @@ package controller.MapFileManagement;
 import controller.GameEngine;
 import models.worldmap.WorldMap;
 
+/**
+ * MapFileManagementDriver is a driver class to demonstrate map file management functionalities.
+ */
 public class MapFileManagementDriver {
 
+    /**
+     * The main method to run the driver program.
+     * @param args Command-line arguments (not used).
+     */
     public static void main(String[] args){
         GameEngine ge = new GameEngine();
         MapInterface mp = new MapInterface();

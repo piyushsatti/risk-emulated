@@ -17,8 +17,17 @@ import java.io.FileWriter;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * ConquestMapInterface is a class responsible for loading Conquest maps into the game engine.
+ */
 public class ConquestMapInterface {
 
+    /**
+     * Loads a Conquest map into the game engine.
+     * @param p_gameEngine The game engine to load the map into.
+     * @param mfl The map file loader containing the map file.
+     * @return The loaded world map.
+     */
     public WorldMap loadConquestMap(GameEngine p_gameEngine, MapFileLoader mfl){
 
         WorldMap l_worldMap = new WorldMap();
@@ -33,7 +42,6 @@ public class ConquestMapInterface {
                 return new WorldMap();
             }
 
-
             try {
                 switch (i) {
                     case 0 -> loadContinents(l_file_reader, l_worldMap);
@@ -45,15 +53,15 @@ public class ConquestMapInterface {
                 return new WorldMap();
             }
         }
-
         return l_worldMap;
     }
 
-
-
-
-
-
+    /**
+     * Loads continents from the map file.
+     * @param p_scan The scanner object to read the file.
+     * @param p_map The world map to load continents into.
+     * @throws ContinentAlreadyExistsException If a continent with the same name already exists.
+     */
     void loadContinents(Scanner p_scan, WorldMap p_map) throws ContinentAlreadyExistsException {
 
         while(p_scan.hasNextLine()){
@@ -71,6 +79,13 @@ public class ConquestMapInterface {
         }
     }
 
+    /**
+     * Loads countries from the map file.
+     * @param p_scan The scanner object to read the file.
+     * @param p_map The world map to load countries into.
+     * @throws ContinentDoesNotExistException If the continent specified for a country does not exist.
+     * @throws DuplicateCountryException If a country with the same name already exists.
+     */
     void loadCountries(Scanner p_scan, WorldMap p_map) throws ContinentDoesNotExistException, DuplicateCountryException {
 
         while(p_scan.hasNextLine()){
@@ -89,7 +104,12 @@ public class ConquestMapInterface {
 
     }
 
-
+    /**
+     * Loads borders from the map file.
+     * @param p_scan The scanner object to read the file.
+     * @param p_map The world map to load borders into.
+     * @throws CountryDoesNotExistException If a country specified as a neighbor does not exist.
+     */
     void loadBorders(Scanner p_scan, WorldMap p_map) throws CountryDoesNotExistException {
 
         while(p_scan.hasNextLine()){
@@ -111,7 +131,11 @@ public class ConquestMapInterface {
 
     }
 
-
+    /**
+     * Saves the current game map to a Conquest map file.
+     * @param p_gameEngine The game engine containing the map to save.
+     * @param p_FileName The name of the file to save.
+     */
     public void saveConquestMap(GameEngine p_gameEngine, String p_FileName){
         WorldMap p_map = p_gameEngine.d_worldmap;
         File outputFile = new File(p_gameEngine.d_maps_folder + p_FileName);
@@ -122,7 +146,6 @@ public class ConquestMapInterface {
             p_gameEngine.d_renderer.renderError("Save map failed!");
             return;
         }
-
         String file_signature = "[Map]\n" +
                 "author=Sean O'Connor\n" +
                 "warn=yes image=Africa.bmp\n" +
@@ -177,7 +200,11 @@ public class ConquestMapInterface {
         logEntryBuffer.setString("saved map :" + p_FileName);
     }
 
-
+    /**
+     * Replaces spaces in a string with underscores.
+     * @param input The input string.
+     * @return The modified string with spaces replaced by underscores.
+     */
     public String replaceSpaces(String input){
         return input.replace(' ', '_');
     }

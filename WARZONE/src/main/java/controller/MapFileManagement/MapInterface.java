@@ -39,7 +39,6 @@ public class MapInterface {
         }
     }
 
-
     /**
      * Saves the provided map to a file with the given file name.
      *
@@ -100,7 +99,6 @@ public class MapInterface {
         logEntryBuffer.setString("saved map :" + p_FileName);
     }
 
-
     /**
      * Loads a map into the game engine.
      *
@@ -133,6 +131,12 @@ public class MapInterface {
     }
 
 
+    /**
+     * Loads a map into the game engine from a file using the provided map file loader.
+     * @param p_gameEngine The game engine to load the map into.
+     * @param mfl The map file loader containing the map file.
+     * @return The loaded world map.
+     */
     public WorldMap loadMap(GameEngine p_gameEngine, MapFileLoader mfl) {
 
         WorldMap l_worldMap = new WorldMap();
