@@ -8,13 +8,31 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * AggressiveStrategy class implements the Strategy interface for the aggressive strategy.
+ */
 public class AggressiveStrategy  implements Strategy {
 
+    /**
+     * The player associated with this strategy.
+     */
     private Player d_player;
+
+    /**
+     * Random object for generating random numbers.
+     */
     private Random random = new Random();
 
+    /**
+     * The game engine associated with this strategy.
+     */
     private GameEngine d_gameEngine;
 
+    /**
+     * Constructor for AggressiveStrategy.
+     * @param p_player The player using this strategy.
+     * @param p_gameEngine The game engine in which the player is playing.
+     */
     public AggressiveStrategy(Player p_player, GameEngine p_gameEngine) {
         this.d_player = p_player;
         this.d_gameEngine = p_gameEngine;

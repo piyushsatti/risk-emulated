@@ -7,11 +7,30 @@
         import java.util.ArrayList;
         import java.util.Random;
 
+        /**
+         * Implements the Strategy interface for a player following a random strategy.
+         */
         public class RandomStrategy implements Strategy{
+            /**
+             * The player associated with this strategy.
+             */
             private Player d_player;
+
+            /**
+             * Random object for generating random numbers.
+             */
             private Random random = new Random();
 
+            /**
+             * The game engine associated with this strategy.
+             */
             private GameEngine d_gameEngine;
+
+            /**
+             * Constructor for RandomStrategy class.
+             * @param p_player The player for which the strategy is applied.
+             * @param p_gameEngine The game engine managing the game.
+             */
             public RandomStrategy(Player p_player,GameEngine p_gameEngine) {
                 this.d_player = p_player;
                 this.d_gameEngine = p_gameEngine;
@@ -96,6 +115,10 @@
                 int l_numArmies = this.d_gameEngine.d_worldmap.getCountry(p_sourceCountryId).getReinforcements();
                 return random.nextInt(l_numArmies)+1;
             }
+            /**
+             * Creates an order based on a random strategy.
+             * @return The order created based on the random strategy.
+             */
             public Order createOrder(){
                 int randomNumber = random.nextInt(4) + 1;
                 Order order = null;
