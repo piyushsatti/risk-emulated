@@ -120,7 +120,7 @@ public class TournamentCommands extends Commands {
 
         int l_index = 2;
         d_mapFiles = new ArrayList<>();
-        while(splitCommand[l_index].equals("-P"))
+        while(!splitCommand[l_index].equals("-P"))
         {
             boolean flag = validateMapPresence(p_gameEngine,splitCommand[l_index]);
             if(!flag)
@@ -129,11 +129,17 @@ public class TournamentCommands extends Commands {
                 logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ "Command: tournament Not Executed, entered map file does not exist!");
                 return;
             }
+            if(d_mapFiles.contains(splitCommand[l_index]))
+            {
+                p_gameEngine.d_renderer.renderError("duplicate map file entered"+ splitCommand[l_index]);
+                logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ "Command: tournament Not Executed, duplicate map file entered in command!");
+                return;
+            }
             d_mapFiles.add(splitCommand[l_index++]);
         }
         l_index++;
         d_inputStrategies = new ArrayList<>();
-        while(splitCommand[l_index].equals("-G"))
+        while(!splitCommand[l_index].equals("-G"))
         {
             boolean flag = d_validStrategies.contains(splitCommand[l_index]);
             if(!flag)
@@ -142,12 +148,18 @@ public class TournamentCommands extends Commands {
                 logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ "Command: tournament Not Executed, entered strategy does not exist!");
                 return;
             }
+            flag = d_inputStrategies.contains(splitCommand[l_index]);
+            if(flag)
+            {
+                p_gameEngine.d_renderer.renderError("already entered strategy "+ splitCommand[l_index]);
+                logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ "Command: tournament Not Executed, duplicate strategy entered in command!");
+                return;
+            }
             d_inputStrategies.add(splitCommand[l_index++]);
         }
         l_index++;
         d_numberGames = Integer.parseInt(splitCommand[l_index++]);
         d_maxTurns = Integer.parseInt(splitCommand[l_index]);
-
     }
 
     /**
@@ -162,7 +174,7 @@ public class TournamentCommands extends Commands {
     }
     private void startTournament(List<String> d_mapFiles,List<String> d_inputStrategies,int d_numberGames, int d_maxTurns)
     {
-        
+
     }
 
 }
