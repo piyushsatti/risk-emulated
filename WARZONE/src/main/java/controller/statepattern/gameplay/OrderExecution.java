@@ -107,7 +107,7 @@ public class OrderExecution extends Phase {
      */
     public boolean isWinner()
     {
-        if(d_ge.d_players.size()==1){
+        if(d_ge.d_players.size()==1 && (d_ge.d_players.get(0).getAssignedCountries().size() ==d_ge.d_worldmap.getCountries().size())){
             d_ge.d_renderer.renderMessage("Player "+d_ge.d_players.get(0).getName()+" has won the game");
             return true;
         }
