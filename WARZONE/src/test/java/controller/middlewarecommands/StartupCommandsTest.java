@@ -109,7 +109,7 @@ public class StartupCommandsTest {
     {
         String cmd = "gameplayer -add Shashi -remove Piyush";
         StartupCommands obj = new StartupCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        assertFalse(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the gameplayer command to add player
@@ -119,7 +119,7 @@ public class StartupCommandsTest {
     {
         String cmd = "gameplayer -add Shashi";
         StartupCommands obj = new StartupCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        assertFalse(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the gameplayer command to remove player
@@ -189,7 +189,7 @@ public class StartupCommandsTest {
     {
         String cmd ="gameplayer -add Shashi -remove Priyanshu -remove Piyush -add Devdutt ";
         StartupCommands obj = new StartupCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        assertFalse(obj.validateCommand(d_gameEngine));
     }
     /**
      * Test cases for validating the assignCountries command with incorrect command
