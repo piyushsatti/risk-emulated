@@ -83,7 +83,7 @@
             Pattern pattern = Pattern.compile(
                     "^loadmap\\s\\w+\\.map(\\s)*$|" +
                             "^assigncountries(\\s)*$|" +
-                            "gameplayer(?:\\s+-add\\s+\\w+\\s+\\w+)?(?:\\s+-remove\\s+\\w+)?|"+
+                            "^gameplayer(?:(?:\\s+-add\\s+\\w+\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$|"+
                             "^loadgame\\s\\w+\\.map(\\s)*$|"
             );
             Matcher matcher = pattern.matcher(d_command) ;
