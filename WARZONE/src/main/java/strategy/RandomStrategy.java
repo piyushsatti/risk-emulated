@@ -53,7 +53,11 @@
              */
             @Override
             public int getSourceCountry() {
-                int l_index = random.nextInt(  this.d_player.getAssignedCountries().size()-1);
+                int l_size = this.d_player.getAssignedCountries().size();
+                if(l_size==0){
+                    l_size=1;
+                }
+                int l_index = random.nextInt(l_size-1);
                 return this.d_player.getAssignedCountries().get(l_index);
 
             }
