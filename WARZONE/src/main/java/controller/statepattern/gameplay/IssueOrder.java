@@ -74,27 +74,31 @@ public class IssueOrder extends Phase {
         while(!allPlayersFinished()) {
             Player p = d_ge.d_players.get(l_playerNumber);
                 p.setOrderSuccess(false);
-                while (!p.isOrderSuccess()) {          // Render player's available reinforcements and cards
-                    d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Reinforcements Available: " + p.getReinforcements());
-                    d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Cards Available: " + p.displayCards());
+                if(isHuman(p)) {
+                    while (!p.isOrderSuccess()) {          // Render player's available reinforcements and cards
+                        d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Reinforcements Available: " + p.getReinforcements());
+                        d_ge.d_renderer.renderMessage("Player: " + p.getName() + " Cards Available: " + p.displayCards());
 
-                    this.d_ge.d_renderer.renderMessage("Enter done if you have no more orders to give");
-                    this.d_ge.d_renderer.renderMessage(p.getName() + " enter order: ");
-                    String command = scan.nextLine();
-                    IssueOrderCommands ioc = new IssueOrderCommands(command, p);
-                    try {
-                        ioc.execute(d_ge);
-                    } catch (CountryDoesNotExistException | InvalidCommandException e) {
-                        d_ge.d_renderer.renderError("Following exception occured :" + e);
+                        this.d_ge.d_renderer.renderMessage("Enter done if you have no more orders to give");
+                        this.d_ge.d_renderer.renderMessage(p.getName() + " enter order: ");
+                        String command = scan.nextLine();
+                        IssueOrderCommands ioc = new IssueOrderCommands(command, p);
+                        try {
+                            ioc.execute(d_ge);
+                        } catch (CountryDoesNotExistException | InvalidCommandException e) {
+                            d_ge.d_renderer.renderError("Following exception occured :" + e);
 
 
+                        }
                     }
+                }
+                else{ //For NonHuman
+
                 }
                 l_playerNumber++;
                 if(l_playerNumber == d_ge.d_players.size()){         // Reset player number to 0 if it reaches the end of the player list
                     l_playerNumber = 0;
                 }
-
             }
 
         d_ge.setCurrentState(new OrderExecution(d_ge));
