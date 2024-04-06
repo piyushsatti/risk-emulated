@@ -162,6 +162,8 @@ public class Player {
         Order order = this.d_strategy.createOrder();
         if(order != null){
             this.d_orderList.add(order);
+        }else if(order == null && this.d_reinforcements <=0){
+            this.setFinishedIssueOrder(true);
         }
 
     }

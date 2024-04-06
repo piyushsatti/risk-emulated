@@ -50,7 +50,7 @@ public class Reinforcement extends Phase {
      * Resets the "finished issue order" status for all players.
      * This status typically indicates whether a player has finished issuing orders for the current turn.
      */
-    public void allPlayersResent(){
+    public void allPlayersReset(){
         for(Player p : d_ge.d_players){
             if(p.isFinishedIssueOrder()){
                 p.setFinishedIssueOrder(false);
@@ -63,7 +63,7 @@ public class Reinforcement extends Phase {
      */
     @Override
     public void run() {
-        allPlayersResent();
+        allPlayersReset();
         assignReinforcements(d_ge.d_players);
         d_ge.setCurrentState(new IssueOrder(d_ge));
     }

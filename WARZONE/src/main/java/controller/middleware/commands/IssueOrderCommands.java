@@ -171,6 +171,7 @@ public class IssueOrderCommands extends Commands {
             l_currPhase = getCurrentPhase(p_gameEngine);
             p.setCurrentPhase(l_currPhase);
             p.issue_order();
+            p.setFinishedIssueOrder(true);
         }
 
     }

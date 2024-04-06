@@ -67,7 +67,7 @@ public class OrderExecution extends Phase {
 
         int l_totalplayers = d_ge.d_players.size();
         int l_playerNumber = 0;
-
+        System.out.println("In order execution phase --------------------------------------------");
         while (!allOrdersExecuted(d_ge.d_players)) {
             for(Player player: d_ge.d_players){
                 if (!player.getOrderList().isEmpty()) {
@@ -87,6 +87,7 @@ public class OrderExecution extends Phase {
 
         while (iterator.hasNext()) {
             Player p = iterator.next();
+            System.out.println("Player " + p.getName() +" has country number: " + p.getAssignedCountries().size());
             if (p.getAssignedCountries().isEmpty()) {
                 d_ge.d_renderer.renderMessage("Player " + p.getName() + " has lost all territories");
                 iterator.remove(); // Remove the current player using the iterator

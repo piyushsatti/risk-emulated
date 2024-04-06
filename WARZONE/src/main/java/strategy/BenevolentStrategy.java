@@ -73,13 +73,14 @@ public class BenevolentStrategy implements Strategy{
     public int getStrongerNeighborId(int p_weakestCountryId)
     {
         ArrayList<Integer> listOfAllBorderCountriesIDs = new ArrayList<>();
-        for (Integer id : d_gameEngine.d_worldmap.getCountry(p_weakestCountryId).getAllBorderCountriesIDs()) {
-            if (this.d_player.getAssignedCountries().contains(id) && (this.d_gameEngine.d_worldmap.getCountry(id).getReinforcements() > this.d_gameEngine.d_worldmap.getCountry(p_weakestCountryId).getReinforcements()))
-            {
-                listOfAllBorderCountriesIDs.add(id);
+        if(d_gameEngine.d_worldmap.getCountry(p_weakestCountryId) != null) {
+            for (Integer id : d_gameEngine.d_worldmap.getCountry(p_weakestCountryId).getAllBorderCountriesIDs()) {
+                if (this.d_player.getAssignedCountries().contains(id) && (this.d_gameEngine.d_worldmap.getCountry(id).getReinforcements() > this.d_gameEngine.d_worldmap.getCountry(p_weakestCountryId).getReinforcements())) {
+                    listOfAllBorderCountriesIDs.add(id);
+                }
             }
         }
-        return random.nextInt(listOfAllBorderCountriesIDs.size());
+        return listOfAllBorderCountriesIDs.size()==0 ? 0 : random.nextInt(listOfAllBorderCountriesIDs.size());
     }
 
     /**
@@ -106,7 +107,10 @@ public class BenevolentStrategy implements Strategy{
         }
         else if (randomNumber == 2) //advance - move random armies from a random strong neighbor to the weakest country(has min armies)
         {
+            if(getStrongerNeighborId==0) return null;
             int l_numArmiesStrongerCountry = this.d_gameEngine.d_worldmap.getCountry(getStrongerNeighborId).getReinforcements();
+            System.out.println("l_numArmiesStrongerCountries"+ l_numArmiesStrongerCountry);
+            if(l_numArmiesStrongerCountry==0) return null;
             int l_numArmiesToDeploy = random.nextInt(l_numArmiesStrongerCountry)+1;
             int l_currArmiesWeakestCountry = this.d_gameEngine.d_worldmap.getCountry(p_weakestCountryId).getReinforcements();
             this.d_gameEngine.d_worldmap.getCountry(p_weakestCountryId).setReinforcements(l_currArmiesWeakestCountry + l_numArmiesToDeploy);
@@ -114,6 +118,7 @@ public class BenevolentStrategy implements Strategy{
         }
         else if (randomNumber == 3) {
             if (this.d_player.containsCard("airlift")) {
+                if(getStrongerNeighborId==0) return null;
                 int l_countrytoAirliftFrom = getStrongerNeighborId;
                 int l_numArmiesToDeploy = random.nextInt(l_countrytoAirliftFrom)+1;
                 order = new Airlift(this.d_player, this.d_player.getName(), this.d_player.getPlayerId(), l_countrytoAirliftFrom, p_weakestCountryId, l_numArmiesToDeploy, this.d_gameEngine);

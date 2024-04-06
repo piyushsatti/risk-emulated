@@ -5,14 +5,16 @@ import models.Player;
 import models.orders.Deploy;
 import models.orders.Order;
 import models.worldmap.Country;
+import view.TerminalRenderer;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Random;
 
 /**
  * CheaterStrategy class implements the Strategy interface for the cheater strategy.
  */
-public class CheaterStrategy implements Strategy{
+public class CheaterStrategy implements Strategy {
 
     /**
      * The player associated with this strategy.
@@ -29,7 +31,8 @@ public class CheaterStrategy implements Strategy{
 
     /**
      * Constructor for CheaterStrategy.
-     * @param p_player The player using this strategy.
+     *
+     * @param p_player     The player using this strategy.
      * @param p_gameEngine The game engine in which the player is playing.
      */
     public CheaterStrategy(Player p_player, GameEngine p_gameEngine) {
@@ -45,8 +48,10 @@ public class CheaterStrategy implements Strategy{
     public void setStrategyName(String d_strategyName) {
         this.d_strategyName = d_strategyName;
     }
+
     /**
      * Returns the source country to be used for cheating.
+     *
      * @return The source country for cheating.
      */
     public int getSourceCountry() {
@@ -55,6 +60,7 @@ public class CheaterStrategy implements Strategy{
 
     /**
      * Returns the target country for cheating.
+     *
      * @param p_sourceCountryId The ID of the source country.
      * @return The ID of the target country.
      */
@@ -65,50 +71,55 @@ public class CheaterStrategy implements Strategy{
 
     /**
      * Retrieves neighboring countries of a given country that are not owned by the player.
+     *
      * @param p_sourceCountry The ID of the source country.
      * @return An ArrayList containing the IDs of neighboring countries not owned by the player.
      */
-    public ArrayList<Integer> getNeighbouringCountry(int p_sourceCountry){
+    public ArrayList<Integer> getNeighbouringCountry(int p_sourceCountry) {
 
         ArrayList<Integer> l_listOfAllBorderCountriesIDs = new ArrayList<>();
-        for(Integer id : d_gameEngine.d_worldmap.getCountry(p_sourceCountry).getAllBorderCountriesIDs()){
-            if(!this.d_player.getAssignedCountries().contains(id)){
-            l_listOfAllBorderCountriesIDs.add(id);}
+        for (Integer id : d_gameEngine.d_worldmap.getCountry(p_sourceCountry).getAllBorderCountriesIDs()) {
+            if (!this.d_player.getAssignedCountries().contains(id)) {
+                l_listOfAllBorderCountriesIDs.add(id);
+            }
         }
         return l_listOfAllBorderCountriesIDs;
     }
 
     /**
      * Creates a conquer order for the player.
+     *
      * @return The conquer order.
      */
-    public Order createOrder(){
+    public Order createOrder() {
 
-        int l_sourceCountry = getSourceCountry();
-        ArrayList<Integer> l_neighbourCountries=getNeighbouringCountry(l_sourceCountry);
+        ArrayList<Integer> assignedCountriesCopy = new ArrayList<>(this.d_player.getAssignedCountries());
 
-        for(int l_countryId:l_neighbourCountries){
-            boolean l_isNeutral = true;
+        for (int l_sourceCountry : assignedCountriesCopy) {
+            ArrayList<Integer> l_neighbourCountries = getNeighbouringCountry(l_sourceCountry);
+            for (int l_countryId : l_neighbourCountries) {
+                boolean l_isNeutral = true;
 
-            for(Player l_player:this.d_gameEngine.d_players){
+                for (Player l_player : this.d_gameEngine.d_players) {
+                    if (l_player.getAssignedCountries().contains(l_countryId)) {
+                        l_isNeutral = false;
+                        l_player.removeAssignedCountries(l_countryId); // Collect players needing country removal
+                        int l_armies = this.d_gameEngine.d_worldmap.getCountry(l_countryId).getReinforcements();
+                        this.d_gameEngine.d_worldmap.getCountry(l_countryId).setReinforcements(l_armies * 2);
+                        this.d_player.setAssignedCountries(l_countryId);
+                        this.d_gameEngine.d_renderer.renderMessage("Cheater occupied: " + this.d_gameEngine.d_worldmap.getCountry(l_countryId).getCountryName());
+                        break;
+                    }
+                }
 
-                if(l_player.getAssignedCountries().contains(l_countryId)){
-                    l_isNeutral = false;
-                 l_player.removeAssignedCountries(l_countryId);
-                 this.d_player.setAssignedCountries(l_countryId);
-                 int l_armies=this.d_gameEngine.d_worldmap.getCountry(l_countryId).getReinforcements();
-                 this.d_gameEngine.d_worldmap.getCountry(l_countryId).setReinforcements(l_armies*2);
-                 break;
+                if (l_isNeutral) {
+                    this.d_player.setAssignedCountries(l_countryId);
+                    int l_armies = this.d_gameEngine.d_worldmap.getCountry(l_countryId).getReinforcements();
+                    this.d_gameEngine.d_worldmap.getCountry(l_countryId).setReinforcements(l_armies * 2);
+                    this.d_gameEngine.d_renderer.renderMessage("Cheater occupied: " + this.d_gameEngine.d_worldmap.getCountry(l_countryId).getCountryName());
                 }
             }
-
-            if(l_isNeutral){
-                this.d_player.setAssignedCountries(l_countryId);
-                int l_armies=this.d_gameEngine.d_worldmap.getCountry(l_countryId).getReinforcements();
-                this.d_gameEngine.d_worldmap.getCountry(l_countryId).setReinforcements(l_armies*2);
-            }
         }
-
         return null;
     }
 }
