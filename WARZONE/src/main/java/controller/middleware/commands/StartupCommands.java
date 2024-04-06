@@ -72,7 +72,6 @@
                     "exit",
                     "loadgame",
                     "showmap",
-                    "tournament"
             });
         }
 
@@ -89,7 +88,6 @@
                     "^loadmap\\s\\w+\\.map(\\s)*$|" +
                             "^assigncountries(\\s)*$|" +
                             "^showmap(\\s)*$|"+
-                            "^tournament\\s+-M\\s+(?:\\w+\\.map\\s+){1,5}-P\\s+(?:\\w+\\s+){2,4}-G\\s+[1-5]\\s+-D\\s+(?:[1-4][0-9]|50)$|"+
                             "^gameplayer(?:(?:\\s+-add\\s+\\w+\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$|"+
                             "^loadgame\\s\\w+\\.map(\\s)*$|"
             );
