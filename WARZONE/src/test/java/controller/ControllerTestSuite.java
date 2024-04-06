@@ -1,6 +1,6 @@
 package controller;
 
-import controller.middlewarecommands.CommandsTestSuite;
+import controller.middleware.commands.CommandsTestSuite;
 import controller.statepattern.gameplay.GamePlayTestSuite;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
