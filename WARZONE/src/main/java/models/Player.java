@@ -208,7 +208,6 @@ public class Player {
         this.d_finishedIssueOrder = false;
         this.d_orderList = new ArrayDeque<>();
         d_latest_playerID++;
-        d_strategy = new HumanStrategy(); //need to check if this is indeed what we want
     }
     /**
      * method to set the player strategy
