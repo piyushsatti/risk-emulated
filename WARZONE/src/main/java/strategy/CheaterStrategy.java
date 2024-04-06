@@ -9,24 +9,53 @@ import models.worldmap.Country;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * CheaterStrategy class implements the Strategy interface for the cheater strategy.
+ */
 public class CheaterStrategy implements Strategy{
 
+    /**
+     * The player associated with this strategy.
+     */
     private Player d_player;
 
+    /**
+     * The game engine associated with this strategy.
+     */
     private GameEngine d_gameEngine;
+
+    /**
+     * Constructor for CheaterStrategy.
+     * @param p_player The player using this strategy.
+     * @param p_gameEngine The game engine in which the player is playing.
+     */
     public CheaterStrategy(Player p_player, GameEngine p_gameEngine) {
         this.d_player = p_player;
         this.d_gameEngine = p_gameEngine;
     }
+    /**
+     * Returns the source country to be used for cheating.
+     * @return The source country for cheating.
+     */
     public int getSourceCountry() {
         return this.d_player.getAssignedCountries().get(0);
     }
 
+    /**
+     * Returns the target country for cheating.
+     * @param p_sourceCountryId The ID of the source country.
+     * @return The ID of the target country.
+     */
     @Override
     public int getTargetCountry(int p_sourceCountryId) {
         return 0;
     }
 
+    /**
+     * Retrieves neighboring countries of a given country that are not owned by the player.
+     * @param p_sourceCountry The ID of the source country.
+     * @return An ArrayList containing the IDs of neighboring countries not owned by the player.
+     */
     public ArrayList<Integer> getNeighbouringCountry(int p_sourceCountry){
 
         ArrayList<Integer> l_listOfAllBorderCountriesIDs = new ArrayList<>();
@@ -37,7 +66,10 @@ public class CheaterStrategy implements Strategy{
         return l_listOfAllBorderCountriesIDs;
     }
 
-
+    /**
+     * Creates a conquer order for the player.
+     * @return The conquer order.
+     */
     public Order createOrder(){
 
         int l_sourceCountry = getSourceCountry();
@@ -56,7 +88,6 @@ public class CheaterStrategy implements Strategy{
                  this.d_gameEngine.d_worldmap.getCountry(l_countryId).setReinforcements(l_armies*2);
                  break;
                 }
-
             }
 
             if(l_isNeutral){
@@ -65,7 +96,6 @@ public class CheaterStrategy implements Strategy{
                 this.d_gameEngine.d_worldmap.getCountry(l_countryId).setReinforcements(l_armies*2);
             }
         }
-
 
         return null;
     }

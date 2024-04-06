@@ -63,6 +63,10 @@ public class Continent {
         return d_continentName;
     }
 
+    /**
+     * Sets the ID of the continent.
+     * @param p_id The ID to set for the continent.
+     */
     public void set_continentID(int p_id){
         this.d_continentID = p_id;
     }
