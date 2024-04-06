@@ -67,7 +67,8 @@
                     "assigncountries",
                     "showmap",
                     "exit",
-                    "loadgame"
+                    "loadgame",
+                    "showmap"
             });
         }
 
@@ -83,6 +84,7 @@
             Pattern pattern = Pattern.compile(
                     "^loadmap\\s\\w+\\.map(\\s)*$|" +
                             "^assigncountries(\\s)*$|" +
+                            "^showmap(\\s)*$|"+
                             "^gameplayer(?:(?:\\s+-add\\s+\\w+\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$|"+
                             "^loadgame\\s\\w+\\.map(\\s)*$|"
             );
