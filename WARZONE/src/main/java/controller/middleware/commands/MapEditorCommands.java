@@ -21,6 +21,9 @@ import java.util.regex.Pattern;
  */
 public class MapEditorCommands extends Commands {
 
+    /**
+     * Represents map interface.
+     */
     MapInterface mp = new MapInterface();
     /**
      * Represents a buffer for storing log entries.
@@ -463,8 +466,6 @@ public class MapEditorCommands extends Commands {
      */
     public void editNeighbor(WorldMap p_worldMap,String p_currPhase) {
         int commandLength = this.splitCommand.length;
-
-
         int commandIndex = 1;
         while (commandIndex < commandLength) {
 
