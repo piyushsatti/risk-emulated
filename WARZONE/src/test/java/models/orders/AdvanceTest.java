@@ -3,11 +3,15 @@ package models.orders;
 import controller.GameEngine;
 import controller.MapFileManagement.MapInterface;
 import controller.middleware.commands.StartupCommands;
+import controller.statepattern.gameplay.IssueOrder;
 import controller.statepattern.gameplay.Reinforcement;
+import controller.statepattern.gameplay.Startup;
 import helpers.exceptions.*;
 import models.Player;
 import models.worldmap.Country;
 import org.junit.Test;
+import strategy.AggressiveStrategy;
+import strategy.HumanStrategy;
 
 import java.io.FileNotFoundException;
 
@@ -17,6 +21,7 @@ import static org.junit.Assert.*;
  * The AdvanceTest class contains unit tests for the Advance class.
  */
 public class AdvanceTest {
+
 
     /**
      * Tests the validateCommand method of the Advance class when the command is valid.
@@ -35,6 +40,7 @@ public class AdvanceTest {
         ge.d_worldmap = mp.loadMap(ge, "test_map.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
+        ge.setCurrentState(new Startup(ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
         cmd.execute(ge);
         Reinforcement rf = new Reinforcement(ge);
@@ -63,6 +69,11 @@ public class AdvanceTest {
         ge.d_worldmap = mp.loadMap(ge, "test_map.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
+
+        for(Player l_player: ge.d_players){
+            l_player.setPlayerStrategy(new AggressiveStrategy(l_player,ge));
+        }
+        ge.setCurrentState(new Startup(ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
         cmd.execute(ge);
         Reinforcement rf = new Reinforcement(ge);
@@ -93,10 +104,13 @@ public class AdvanceTest {
         ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
+        ge.setCurrentState(new Startup(ge));
+
         StartupCommands cmd = new StartupCommands("assigncountries");
         cmd.execute(ge);
         Reinforcement rf = new Reinforcement(ge);
         rf.run();
+
         Deploy deploy = new Deploy(ge.d_players.get(0), ge.d_players.get(0).getName(), ge.d_players.get(0).getPlayerId(), ge.d_players.get(0).getAssignedCountries().get(0), 5, ge);
         deploy.execute();
 
@@ -126,6 +140,8 @@ public class AdvanceTest {
         ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
+        ge.setCurrentState(new Startup(ge));
+
         StartupCommands cmd = new StartupCommands("assigncountries");
         cmd.execute(ge);
         Reinforcement rf = new Reinforcement(ge);
@@ -159,6 +175,8 @@ public class AdvanceTest {
         ge.d_worldmap = mp.loadMap(ge, "order_test.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
+        ge.setCurrentState(new Startup(ge));
+
         StartupCommands cmd = new StartupCommands("assigncountries");
         cmd.execute(ge);
         Reinforcement rf = new Reinforcement(ge);
