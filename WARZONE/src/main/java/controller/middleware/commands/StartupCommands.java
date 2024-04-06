@@ -83,7 +83,7 @@
             Pattern pattern = Pattern.compile(
                     "^loadmap\\s\\w+\\.map(\\s)*$|" +
                             "^assigncountries(\\s)*$|" +
-                            "^gameplayer(?:(?:\\s+-add\\s+\\w+\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$"+
+                            "gameplayer(?:\\s+-add\\s+\\w+\\s+\\w+)?(?:\\s+-remove\\s+\\w+)?|"+
                             "^loadgame\\s\\w+\\.map(\\s)*$|"
             );
             Matcher matcher = pattern.matcher(d_command) ;
@@ -335,8 +335,9 @@
                     {
                         p_gameEngine.d_renderer.renderError("invalid strategy entered. valid strategies: \"aggressive\",\"benevolent\",\"human\",\"random\",\"cheater\"");
                         logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ "Command: gameplayer Not Executed  || invalid strategy entered");
+                        return;
                     }
-                    if(!l_addPlayers.contains(splitCommand[l_index+1]))
+                    if(d_validStrategies.contains(splitCommand[l_index+2].toLowerCase()) && !l_addPlayers.contains(splitCommand[l_index+1]))
                     {
                         String[] l_addPlayer = new String[2]; //0th index:player name 1st index: strategy
                         l_addPlayer[0] = splitCommand[l_index+1];
