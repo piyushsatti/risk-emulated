@@ -4,6 +4,7 @@ import controller.GameEngine;
 import controller.MapFileManagement.MapInterface;
 import controller.middleware.commands.StartupCommands;
 import controller.statepattern.gameplay.Reinforcement;
+import controller.statepattern.gameplay.Startup;
 import helpers.exceptions.*;
 import models.Player;
 import models.worldmap.Country;
@@ -35,6 +36,7 @@ public class DiplomacyTest {
         ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
+        ge.setCurrentState(new Startup(ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
         cmd.execute(ge);
         Reinforcement rf = new Reinforcement(ge);
@@ -62,6 +64,7 @@ public class DiplomacyTest {
         ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
+        ge.setCurrentState(new Startup(ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
         cmd.execute(ge);
         Reinforcement rf = new Reinforcement(ge);
@@ -90,6 +93,7 @@ public class DiplomacyTest {
         ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
+        ge.setCurrentState(new Startup(ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
         cmd.execute(ge);
         Reinforcement rf = new Reinforcement(ge);
@@ -128,6 +132,7 @@ public class DiplomacyTest {
         ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Priyanshu", ge));
         ge.d_players.add(new Player("Abc", ge));
+        ge.setCurrentState(new Startup(ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
         cmd.execute(ge);
         Reinforcement rf = new Reinforcement(ge);

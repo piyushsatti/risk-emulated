@@ -35,6 +35,7 @@ public class OrderExecutionTest {
         GameEngine ge = new GameEngine();
         ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi",ge));
+        ge.setCurrentState(new Startup(ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
         OrderExecution oe = new OrderExecution(ge);
         cmd.execute(ge);
@@ -57,6 +58,7 @@ public class OrderExecutionTest {
         ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi",ge));
         ge.d_players.add(new Player("Priyanshu",ge));
+        ge.setCurrentState(new Startup(ge));
         StartupCommands cmd = new StartupCommands("assigncountries");
         OrderExecution oe = new OrderExecution(ge);
         cmd.execute(ge);
