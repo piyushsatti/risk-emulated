@@ -152,7 +152,9 @@ public class Advance implements Order {
                 if (l_defendingarmiessurvived <= 0) {
                     // Attacker won
                     d_sourcePlayer.setAssignedCountries(this.d_toCountryID);
-                    d_targetPlayer.removeAssignedCountries(this.d_toCountryID);
+                    if(d_targetPlayer != null) {
+                        d_targetPlayer.removeAssignedCountries(this.d_toCountryID);
+                    }
                     this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(l_attackingarmiessurvived);
                     this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
                     d_sourcePlayer.addCard();
