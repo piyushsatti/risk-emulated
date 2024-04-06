@@ -1203,3 +1203,477 @@ Phase :Startup
  Entered Command: assigncountries
 Phase :Startup
  Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add devdutt benevolent -add dev aggressive
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add devdutt benevolent -add dev aggressive
+Phase :Startup
+  Command: gameplayer -add devdutt benevolent -add dev aggressiveAdded Players [[devdutt, dev]]successfully
+Phase :Startup
+  Command: gameplayer -add devdutt benevolent -add dev aggressiveRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add devdutt benevolent -add dev aggressive
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add devdutt benevolent -add dev aggressive
+Phase :Startup
+  Command: gameplayer -add devdutt benevolent -add dev aggressiveAdded Players [[devdutt, dev]]successfully
+Phase :Startup
+  Command: gameplayer -add devdutt benevolent -add dev aggressiveRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add devdutt benevolent -add dev aggressive
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add devdutt benevolent -add dev aggressive
+Phase :Startup
+  Command: gameplayer -add devdutt benevolent -add dev aggressiveAdded Players [[devdutt, dev]]successfully
+Phase :Startup
+  Command: gameplayer -add devdutt benevolent -add dev aggressiveRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add dev benevolent -add devdutt aggressive
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add dev benevolent -add devdutt aggressive
+Phase :Startup
+  Command: gameplayer -add dev benevolent -add devdutt aggressiveAdded Players [[dev, devdutt]]successfully
+Phase :Startup
+  Command: gameplayer -add dev benevolent -add devdutt aggressiveRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add devdutt benevolent -add dev aggressive
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add devdutt benevolent -add dev aggressive
+Phase :Startup
+  Command: gameplayer -add devdutt benevolent -add dev aggressiveAdded Players [[devdutt, dev]]successfully
+Phase :Startup
+  Command: gameplayer -add devdutt benevolent -add dev aggressiveRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add dev aggressive
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add dev aggressive
+Phase :Startup
+  Command: gameplayer -add dev aggressiveAdded Players [[dev]]successfully
+Phase :Startup
+  Command: gameplayer -add dev aggressiveRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add dev benevolent -add devdutt aggresive
+Phase :Startup
+Command: gameplayer Not Executed  || invalid strategy entered
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add dev benevolent -add devdutt aggressive
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add dev benevolent -add devdutt aggressive
+Phase :Startup
+  Command: gameplayer -add dev benevolent -add devdutt aggressiveAdded Players [[dev, devdutt]]successfully
+Phase :Startup
+  Command: gameplayer -add dev benevolent -add devdutt aggressiveRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries Not Executed|| Load a valid map!
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add devdutt benevolent -add dev aggressive
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add devdutt benevolent -add dev aggressive
+Phase :Startup
+  Command: gameplayer -add devdutt benevolent -add dev aggressiveAdded Players [[devdutt, dev]]successfully
+Phase :Startup
+  Command: gameplayer -add devdutt benevolent -add dev aggressiveRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add devdutt aggressive -add dev benevolent
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add devdutt aggressive -add dev benevolent
+Phase :Startup
+  Command: gameplayer -add devdutt aggressive -add dev benevolentAdded Players [[devdutt, dev]]successfully
+Phase :Startup
+  Command: gameplayer -add devdutt aggressive -add dev benevolentRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add dev aggressive -add devdutt benevolent
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add dev aggressive -add devdutt benevolent
+Phase :Startup
+  Command: gameplayer -add dev aggressive -add devdutt benevolentAdded Players [[dev, devdutt]]successfully
+Phase :Startup
+  Command: gameplayer -add dev aggressive -add devdutt benevolentRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add dev human -add devdutt aggressive
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add dev human -add devdutt aggressive
+Phase :Startup
+  Command: gameplayer -add dev human -add devdutt aggressiveAdded Players [[dev, devdutt]]successfully
+Phase :Startup
+  Command: gameplayer -add dev human -add devdutt aggressiveRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap test_map.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add devdutt random -add dev benevolent
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add devdutt random -add dev benevolent
+Phase :Startup
+  Command: gameplayer -add devdutt random -add dev benevolentAdded Players [[devdutt, dev]]successfully
+Phase :Startup
+  Command: gameplayer -add devdutt random -add dev benevolentRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap Not Executed as Map Could Not be Loaded
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add dev random -add devdutt benevolent
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add dev random -add devdutt benevolent
+Phase :Startup
+  Command: gameplayer -add dev random -add devdutt benevolentAdded Players [[dev, devdutt]]successfully
+Phase :Startup
+  Command: gameplayer -add dev random -add devdutt benevolentRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries Not Executed|| Load a valid map!
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add devdutt random -add dev benevolent
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add devdutt random -add dev benevolent
+Phase :Startup
+  Command: gameplayer -add devdutt random -add dev benevolentAdded Players [[devdutt, dev]]successfully
+Phase :Startup
+  Command: gameplayer -add devdutt random -add dev benevolentRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add devdutt random -add dev benevolent
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add devdutt random -add dev benevolent
+Phase :Startup
+  Command: gameplayer -add devdutt random -add dev benevolentAdded Players [[devdutt, dev]]successfully
+Phase :Startup
+  Command: gameplayer -add devdutt random -add dev benevolentRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomAdded Players [[agg, ran]]successfully
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomAdded Players [[agg, ran]]successfully
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomAdded Players [[agg, ran]]successfully
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomAdded Players [[agg, ran]]successfully
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries Not Executed|| Load a valid map!
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomAdded Players [[agg, ran]]successfully
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add ran random -add agg aggressive
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add ran random -add agg aggressive
+Phase :Startup
+  Command: gameplayer -add ran random -add agg aggressiveAdded Players [[ran, agg]]successfully
+Phase :Startup
+  Command: gameplayer -add ran random -add agg aggressiveRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap test_map.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomAdded Players [[agg, ran]]successfully
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomAdded Players [[agg, ran]]successfully
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomAdded Players [[agg, ran]]successfully
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add agg aggressive -add ran random
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomAdded Players [[agg, ran]]successfully
+Phase :Startup
+  Command: gameplayer -add agg aggressive -add ran randomRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add ben benevolent -add ran random
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add ben benevolent -add ran random
+Phase :Startup
+  Command: gameplayer -add ben benevolent -add ran randomAdded Players [[ben, ran]]successfully
+Phase :Startup
+  Command: gameplayer -add ben benevolent -add ran randomRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add ben benevolent -add agg aggressive
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add ben benevolent -add agg aggressive
+Phase :Startup
+  Command: gameplayer -add ben benevolent -add agg aggressiveAdded Players [[ben, agg]]successfully
+Phase :Startup
+  Command: gameplayer -add ben benevolent -add agg aggressiveRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add ben benevolent -add agg aggressive
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add ben benevolent -add agg aggressive
+Phase :Startup
+  Command: gameplayer -add ben benevolent -add agg aggressiveAdded Players [[ben, agg]]successfully
+Phase :Startup
+  Command: gameplayer -add ben benevolent -add agg aggressiveRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap test_map.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add cheat cheater -add ran random 
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add cheat cheater -add ran random 
+Phase :Startup
+  Command: gameplayer -add cheat cheater -add ran random Added Players [[cheat, ran]]successfully
+Phase :Startup
+  Command: gameplayer -add cheat cheater -add ran random Removed Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players

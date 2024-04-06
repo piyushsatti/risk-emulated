@@ -120,7 +120,7 @@ public class TournamentCommands extends Commands {
 
         int l_index = 2;
         d_mapFiles = new ArrayList<>();
-        while(!splitCommand[l_index].equals("-P"))
+        while(splitCommand[l_index].equals("-P"))
         {
             boolean flag = validateMapPresence(p_gameEngine,splitCommand[l_index]);
             if(!flag)
@@ -172,8 +172,101 @@ public class TournamentCommands extends Commands {
         File l_map_file_obj = new File(p_gameEngine.d_maps_folder + p_mapName);
         return l_map_file_obj.exists() && !l_map_file_obj.isDirectory();
     }
-    private void startTournament(List<String> d_mapFiles,List<String> d_inputStrategies,int d_numberGames, int d_maxTurns)
-    {
+    private void startTournament(GameEngine p_gameEngine, List<String> d_mapFiles,List<String> d_inputStrategies,int d_numberGames, int d_maxTurns)  {
+        MapInterface mp = new MapInterface();
+        for(int i=0;i<d_numberGames;i++){
+            for(String d_map : d_mapFiles){
+                try {
+                    logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " loading map for tournament");      // Log the command entry
+                    p_gameEngine.d_worldmap = mp.loadMap(p_gameEngine,d_map);
+                }
+                catch(Exception e){
+                    logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Could Not Load Map. Moving to Next Map");     // Log if map loading fails
+                    System.out.println(e);
+                }
+                if(!p_gameEngine.d_worldmap.validateMap()){
+                    p_gameEngine.d_renderer.renderError("Invalid Map! Cannot load into game");
+                    p_gameEngine.d_worldmap = new WorldMap();
+                    logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Tournament Map is Invalid!");
+                }
+                logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Tournament Map Loaded");
+                for(String l_strategy : d_inputStrategies){
+                    Player l_newPlayer = new Player(l_strategy,p_gameEngine);
+                    switch(l_strategy){
+                        case "aggressive":
+                            l_newPlayer.setPlayerStrategy(new AggressiveStrategy(l_newPlayer,p_gameEngine));
+                            break;
+                        case "benevolent":
+                            l_newPlayer.setPlayerStrategy(new BenevolentStrategy(l_newPlayer,p_gameEngine));
+                            break;
+                        case "cheater":
+                            l_newPlayer.setPlayerStrategy(new CheaterStrategy(l_newPlayer,p_gameEngine));
+                            break;
+                        case "random":
+                            l_newPlayer.setPlayerStrategy(new RandomStrategy(l_newPlayer,p_gameEngine));
+                            break;
+                        default:
+                            l_newPlayer.setPlayerStrategy(new HumanStrategy(l_newPlayer,p_gameEngine));
+                            break;
+                    }
+                    p_gameEngine.d_players.add(l_newPlayer);
+
+                }
+                if(assignCountries(p_gameEngine,p_currPhase)){
+                    logEntryBuffer.setString("Phase :"+p_currPhase+"\n"+ "Countries assigned to Players");
+                }
+                for( i=0;i<d_maxTurns;i++){
+                    p_gameEngine.setCurrentState(new Reinforcement(p_gameEngine));
+                }
+
+
+            }
+        }
+    }
+    private boolean assignCountries(GameEngine p_gameEngine,String p_currPhase) {
+        logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Assigning Countries to players in Tournament");
+        if(p_gameEngine.d_players.size() == 0){
+            p_gameEngine.d_renderer.renderError("Add atleast one player before assigning");
+            logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ "Command: assigncountries Not Executed  || Must add at least one player before assigning countries");
+            return false;
+        }
+        if(p_gameEngine.d_worldmap.getCountries().size()==0){
+            p_gameEngine.d_renderer.renderError(" Empty map Please load a Valid Map");
+            logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Executed Command: assigncountries Not Executed|| Load a valid map!");
+            return false;
+        }
+        HashMap<Integer, Country> map = p_gameEngine.d_worldmap.getD_countries();
+        Set<Integer> l_countryIDSet = map.keySet();
+        ArrayList<Integer> l_countryIDList = new ArrayList<>(l_countryIDSet);
+
+        int total_players = p_gameEngine.d_players.size();
+        int playerNumber = 0;
+        while (!l_countryIDList.isEmpty()) {
+            Random rand = new Random();
+            int randomIndex = rand.nextInt(l_countryIDList.size());
+            int l_randomCountryID = l_countryIDList.get(randomIndex);
+            l_countryIDList.remove(randomIndex);
+            if ((playerNumber % total_players == 0) && playerNumber != 0) {
+                playerNumber = 0;
+            }
+            Country country = map.get(l_randomCountryID);
+            country.setCountryPlayerID(p_gameEngine.d_players.get(playerNumber).getPlayerId());
+            p_gameEngine.d_players.get(playerNumber).setAssignedCountries(l_randomCountryID);
+            playerNumber++;
+        }
+
+        System.out.println("Assigning of Countries Done");
+        for (Player l_player : p_gameEngine.d_players) {
+            System.out.println("Number of Countries: " + l_player.getAssignedCountries().size());
+            System.out.println("List of Assigned Countries for Player: " + l_player.getName());
+            ArrayList<Integer> l_listOfAssignedCountries = l_player.getAssignedCountries();
+            for (Integer l_countryID : l_listOfAssignedCountries) {
+                System.out.println(p_gameEngine.d_worldmap.getCountry(l_countryID).getCountryName());
+            }
+            System.out.println("-----------------------------------------------------------------");
+
+        }
+        return true;
 
     }
 

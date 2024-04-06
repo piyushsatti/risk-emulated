@@ -16,7 +16,8 @@ import static org.junit.Assert.*;
 /**
  * JUnit test class to validate the deployment command execution in the game.
  */
-public class DeployTest {
+public class
+DeployTest {
 
     /**
      * Test case to validate the execution of the deployment command.
