@@ -8,8 +8,15 @@ import view.TerminalRenderer;
 
 import java.util.regex.Pattern;
 
+/**
+ * EditNeighbor represents a command to edit neighbor relationships between countries in the game.
+ */
 public class EditNeighbor extends Command {
-
+    /**
+     * Constructs an EditNeighbor command with specified input and game engine.
+     * @param p_input The input string for the command.
+     * @param p_ge The game engine to operate on.
+     */
     public EditNeighbor(String p_input, GameEngine p_ge) {
         super(p_input, p_ge);
         this.d_validCommandFormat = "editneighbor -add <countryID> <neighborcountryID>";
@@ -18,11 +25,19 @@ public class EditNeighbor extends Command {
         this.d_validPhases[0] = MapEditor.class;
     }
 
+    /**
+     * Executes the EditNeighbor command, adding or removing neighbor relationships between countries.
+     */
     @Override
     public void execute() {
 
     }
 
+    /**
+     * Validates the logic of the EditNeighbor command.
+     * This method checks if the command is valid and its execution won't lead to errors.
+     * @return true if the command logic is valid, false otherwise.
+     */
     @Override
     public boolean validateLogic() {
         WorldMap copyMap = null;

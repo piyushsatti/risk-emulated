@@ -7,9 +7,15 @@ import controller.statepattern.MapEditor;
 import view.TerminalRenderer;
 import java.util.regex.Pattern;
 
+/**
+ * EditMap represents a command to edit a map in the game.
+ */
 public class EditMap extends Command {
-
-
+    /**
+     * Constructs an EditMap command with specified input and game engine.
+     * @param p_input The input string for the command.
+     * @param p_ge The game engine to operate on.
+     */
     public EditMap(String p_input, GameEngine p_ge) {
         super(p_input, p_ge);
         this.d_validCommandFormat = "editmap <map name>.map";
@@ -18,6 +24,9 @@ public class EditMap extends Command {
         this.d_validPhases[0] = MapEditor.class;
     }
 
+    /**
+     * Executes the EditMap command, loading or saving map files.
+     */
     @Override
     public void execute() {
 
@@ -41,6 +50,10 @@ public class EditMap extends Command {
         }
     }
 
+    /**
+     * Validates the logic of the EditMap command.
+     * @return true
+     */
     @Override
     public boolean validateLogic() {
         return true;

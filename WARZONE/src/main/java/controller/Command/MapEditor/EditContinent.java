@@ -8,8 +8,16 @@ import view.TerminalRenderer;
 
 import java.util.regex.Pattern;
 
+/**
+ * EditContinent represents a command to edit continents in the game.
+ */
 public class EditContinent extends Command {
 
+    /**
+     * EditContinent command with specified input and game engine.
+     * @param p_input The input string for the command.
+     * @param p_ge The game engine to operate on.
+     */
     public EditContinent(String p_input, GameEngine p_ge) {
         super(p_input, p_ge);
         this.d_validCommandFormat = "editcontinent -add <continentID> <continentvalue> -remove <continentID>";
@@ -18,6 +26,9 @@ public class EditContinent extends Command {
         this.d_validPhases[0] = MapEditor.class;
     }
 
+    /**
+     * Executes the EditContinent command, adding or removing continents from the map.
+     */
     @Override
     public void execute() {
         int commandLength = this.d_splitCommand.length;
@@ -47,6 +58,10 @@ public class EditContinent extends Command {
     }
 
 
+    /**
+     * Validates the logic of the EditContinent command.
+     * @return true if the command logic is valid, false otherwise.
+     */
     @Override
     public boolean validateLogic() {
         TerminalRenderer l_renderer = this.d_ge.d_renderer;

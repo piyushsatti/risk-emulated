@@ -78,6 +78,11 @@ public class OrderExecution extends Phase {
         }
 
 
+        /**
+         * Returns an iterator over the players in the game engine.
+         *
+         * @return An iterator that allows iteration over the players in the game engine.
+         */
         Iterator<Player> iterator = d_ge.d_players.iterator();
 
         while (iterator.hasNext()) {

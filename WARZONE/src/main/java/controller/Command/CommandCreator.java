@@ -3,8 +3,16 @@ package controller.Command;
 import controller.Command.MapEditor.*;
 import controller.GameEngine;
 
+/**
+ * CommandCreator is a factory class responsible for creating Command objects based on input strings.
+ */
 public class CommandCreator {
-
+    /**
+     * Creates a Command object based on the input string and game engine.
+     * @param p_input The input string representing the command.
+     * @param p_ge The game engine to operate on.
+     * @return The created Command object.
+     */
     public static Command createCommand(String p_input, GameEngine p_ge){
 
         String l_commandName = p_input.split("\\s+")[0];

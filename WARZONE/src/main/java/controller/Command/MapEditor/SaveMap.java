@@ -7,8 +7,16 @@ import view.TerminalRenderer;
 import java.io.IOException;
 import java.util.regex.Pattern;
 
+/**
+ * SaveMap represents a command to save the current map in the map editor mode.
+ * This command allows saving the current map to a file.
+ */
 public class SaveMap extends Command {
-
+    /**
+     * Constructs a SaveMap command with specified input and game engine.
+     * @param p_input The input string for the command.
+     * @param p_ge The game engine to operate on.
+     */
     public SaveMap(String p_input, GameEngine p_ge) {
         super(p_input,p_ge);
         this.d_validCommandFormat = "savemap <map name>.map";
@@ -17,6 +25,9 @@ public class SaveMap extends Command {
         this.d_validPhases[0] = MapEditor.class;
     }
 
+    /**
+     * Executes the SaveMap command, saving the current map to a file.
+     */
     @Override
     public void execute() {
         MapInterface mp = new MapInterface();
@@ -28,6 +39,11 @@ public class SaveMap extends Command {
         }
     }
 
+    /**
+     * Validates the logic of the SaveMap command.
+     * This method always returns true as there is no specific logic to validate.
+     * @return true
+     */
     @Override
     public boolean validateLogic() {
         return true;
