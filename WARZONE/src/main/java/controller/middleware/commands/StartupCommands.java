@@ -83,10 +83,12 @@
             Pattern pattern = Pattern.compile(
                     "^loadmap\\s\\w+\\.map(\\s)*$|" +
                             "^assigncountries(\\s)*$|" +
-                            "gameplayer(?:\\s+-add\\s+\\w+\\s+\\w+)?(?:\\s+-remove\\s+\\w+)?|"+
+                            "gameplayer(?:\\s+-add\\s+\\w+\\s+\\w+)?(?:\\s+-remove\\s+\\w+)?|" +
                             "^loadgame\\s\\w+\\.map(\\s)*$|"
             );
             Matcher matcher = pattern.matcher(d_command) ;
+            boolean flag1 = matcher.matches();
+            boolean flag2 = p_gameEngine.getCurrentState().getClass() == Startup.class;
             return matcher.matches() && (p_gameEngine.getCurrentState().getClass() == Startup.class);
         }
 
@@ -100,6 +102,10 @@
             String d_currPhase = getCurrentPhase(p_gameEngine);
             if (!this.validateCommandName() ) {
                 p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command");
+                return;
+            }
+            if (!this.validateCommand(p_gameEngine) ) {
+                p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command format");
                 return;
             }
 
@@ -243,7 +249,7 @@
          * @param p_currPhase     The current phase of the game.
          */public void addPlayers(GameEngine p_gameEngine,List<String[]> p_playersToAdd,String p_currPhase)
         {
-            List<String> l_playersAdded = new ArrayList<>();
+            List<String[]> l_playersAdded = new ArrayList<>();
             List<String> l_existingPlayers = new ArrayList<>();
             for(Player l_player : p_gameEngine.d_players)
             {
@@ -272,7 +278,7 @@
                             l_newPlayer.setPlayerStrategy(new HumanStrategy(l_newPlayer,p_gameEngine));
                             break;
                     }
-                    l_playersAdded.add(l_playertoAdd[0]);
+                    l_playersAdded.add(l_playertoAdd);
                 }
             }
             if(!l_playersAdded.isEmpty())
@@ -337,7 +343,7 @@
                         logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ "Command: gameplayer Not Executed  || invalid strategy entered");
                         return;
                     }
-                    if(d_validStrategies.contains(splitCommand[l_index+2].toLowerCase()) && !l_addPlayers.contains(splitCommand[l_index+1]))
+                    if(!l_addPlayers.contains(splitCommand[l_index+1]))
                     {
                         String[] l_addPlayer = new String[2]; //0th index:player name 1st index: strategy
                         l_addPlayer[0] = splitCommand[l_index+1];
