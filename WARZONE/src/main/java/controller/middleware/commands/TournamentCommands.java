@@ -79,7 +79,8 @@ public class TournamentCommands extends Commands {
      */
     public TournamentCommands(String p_command) {
         super(p_command, new String[]{
-                "tournament"
+                "tournament",
+                "exit"
         });
     }
 
@@ -93,7 +94,8 @@ public class TournamentCommands extends Commands {
     @Override
     public boolean validateCommand(GameEngine p_gameEngine) {
         Pattern pattern = Pattern.compile(
-                        "^tournament\\s+-M\\s+(?:\\w+\\.map\\s+){1,5}-P\\s+(?:\\w+\\s+){2,4}-G\\s+[1-5]\\s+-D\\s+(?:[1-4][0-9]|50)$|"
+                        "^tournament\\s+-M\\s+(?:\\w+\\.map\\s+){1,5}-P\\s+(?:\\w+\\s+){2,4}-G\\s+[1-5]\\s+-D\\s+(?:[1-4][0-9]|50)$|"+
+                                "^exit$|"
         );
         Matcher matcher = pattern.matcher(d_command) ;
         return matcher.matches() && (p_gameEngine.getCurrentState().getClass() == Tournament.class);
