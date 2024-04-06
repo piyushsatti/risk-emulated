@@ -127,6 +127,7 @@ public class TournamentCommands extends Commands {
             {
                 p_gameEngine.d_renderer.renderError("entered map file "+ splitCommand[l_index]+" does not exist");
                 logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ "Command: tournament Not Executed, entered map file does not exist!");
+                return;
             }
             d_mapFiles.add(splitCommand[l_index++]);
         }
@@ -134,6 +135,13 @@ public class TournamentCommands extends Commands {
         d_inputStrategies = new ArrayList<>();
         while(splitCommand[l_index].equals("-G"))
         {
+            boolean flag = d_validStrategies.contains(splitCommand[l_index]);
+            if(!flag)
+            {
+                p_gameEngine.d_renderer.renderError("entered strategy "+ splitCommand[l_index]+" is invalid");
+                logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ "Command: tournament Not Executed, entered strategy does not exist!");
+                return;
+            }
             d_inputStrategies.add(splitCommand[l_index++]);
         }
         l_index++;
@@ -151,6 +159,10 @@ public class TournamentCommands extends Commands {
     private boolean validateMapPresence(GameEngine p_gameEngine, String p_mapName) {
         File l_map_file_obj = new File(p_gameEngine.d_maps_folder + p_mapName);
         return l_map_file_obj.exists() && !l_map_file_obj.isDirectory();
+    }
+    private void startTournament(List<String> d_mapFiles,List<String> d_inputStrategies,int d_numberGames, int d_maxTurns)
+    {
+        
     }
 
 }
