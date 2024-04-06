@@ -243,7 +243,7 @@
          * @param p_currPhase     The current phase of the game.
          */public void addPlayers(GameEngine p_gameEngine,List<String[]> p_playersToAdd,String p_currPhase)
         {
-            List<String[]> l_playersAdded = new ArrayList<>();
+            List<String> l_playersAdded = new ArrayList<>();
             List<String> l_existingPlayers = new ArrayList<>();
             for(Player l_player : p_gameEngine.d_players)
             {
@@ -272,7 +272,7 @@
                             l_newPlayer.setPlayerStrategy(new HumanStrategy(l_newPlayer,p_gameEngine));
                             break;
                     }
-                    l_playersAdded.add(l_playertoAdd);
+                    l_playersAdded.add(l_playertoAdd[0]);
                 }
             }
             if(!l_playersAdded.isEmpty())
