@@ -1,5 +1,6 @@
 package strategy;
 
+import helpers.exceptions.InvalidCommandException;
 import models.orders.Order;
 
 /**
@@ -21,5 +22,7 @@ public interface Strategy {
       * Creates an order based on the strategy.
       * @return The order created based on the strategy.
       */
-     Order createOrder();
+     Order createOrder() throws InvalidCommandException;
+
+    String getStrategyName();
 }

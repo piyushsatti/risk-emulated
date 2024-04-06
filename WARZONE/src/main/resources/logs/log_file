@@ -135,3 +135,173 @@ Phase :IssueOrder
  Player Name:Piyush || Issued Order:done
 Phase :IssueOrder
  Player Name:Piyush || Player has finished issuing all orders:done
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add dev human
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add dev human
+Phase :Startup
+  Command: gameplayer -add dev humanAdded Players [[dev]]successfully
+Phase :Startup
+  Command: gameplayer -add dev humanRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: showmap
+Phase :Startup
+ Command:showmap Executed
+Phase :Startup
+ Entered Command: loadmaploadmap test_order.map
+Phase :Startup
+ Command: loadmap Not Executed as Map Could Not be Loaded
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: loadmaploadmap test_map.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: showmap
+Phase :Startup
+ Command:showmap Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add devdutt cheater
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add devdutt cheater
+Phase :Startup
+  Command: gameplayer -add devdutt cheaterAdded Players [[devdutt]]successfully
+Phase :Startup
+  Command: gameplayer -add devdutt cheaterRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: showmap
+Phase :Startup
+ Command:showmap Executed
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: loadmaploadmap test_map.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: showmap
+Phase :Startup
+ Command:showmap Executed
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add dev benevolent
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add dev benevolent
+Phase :Startup
+  Command: gameplayer -add dev benevolentAdded Players [[dev]]successfully
+Phase :Startup
+  Command: gameplayer -add dev benevolentRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add devdutt cheater
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add devdutt cheater
+Phase :Startup
+  Command: gameplayer -add devdutt cheaterAdded Players [[devdutt]]successfully
+Phase :Startup
+  Command: gameplayer -add devdutt cheaterRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: loadmaploadmap test_map.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: showmap
+Phase :Startup
+ Command:showmap Executed
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add dev cheater
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add dev cheater
+Phase :Startup
+  Command: gameplayer -add dev cheaterAdded Players [[dev]]successfully
+Phase :Startup
+  Command: gameplayer -add dev cheaterRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add devdutt benevolent
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add devdutt benevolent
+Phase :Startup
+  Command: gameplayer -add devdutt benevolentAdded Players [[devdutt]]successfully
+Phase :Startup
+  Command: gameplayer -add devdutt benevolentRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: loadmaploadmap test_order.map
+Phase :Startup
+ Command: loadmap Not Executed as Map Could Not be Loaded
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: loadmaploadmap test_map.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: showmap
+Phase :Startup
+ Command:showmap Executed
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add dev benevolent
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add dev benevolent
+Phase :Startup
+  Command: gameplayer -add dev benevolentAdded Players [[dev]]successfully
+Phase :Startup
+  Command: gameplayer -add dev benevolentRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add devdutt cheater
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add devdutt cheater
+Phase :Startup
+  Command: gameplayer -add devdutt cheaterAdded Players [[devdutt]]successfully
+Phase :Startup
+  Command: gameplayer -add devdutt cheaterRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :Startup
+ Entered Command: loadmaploadmap test_order.map
+Phase :Startup
+ Command: loadmap Not Executed as Map Could Not be Loaded
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: loadmaploadmap test_map.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add devdutt cheater
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add devdutt cheater
+Phase :Startup
+  Command: gameplayer -add devdutt cheaterAdded Players [[devdutt]]successfully
+Phase :Startup
+  Command: gameplayer -add devdutt cheaterRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add dev benevolent
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add dev benevolent
+Phase :Startup
+  Command: gameplayer -add dev benevolentAdded Players [[dev]]successfully
+Phase :Startup
+  Command: gameplayer -add dev benevolentRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players

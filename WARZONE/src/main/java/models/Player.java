@@ -20,6 +20,8 @@ import java.util.Iterator;
  * The Player class represents a player in the game.
  */
 public class Player {
+
+
     /**
      * player strategy
      */
@@ -122,6 +124,26 @@ public class Player {
      */
     GameEngine d_gameEngine;
 
+
+    public String getCurrentPhase() {
+        return d_currentPhase;
+    }
+
+    public void setCurrentPhase(String d_currentPhase) {
+        this.d_currentPhase = d_currentPhase;
+    }
+
+    String d_currentPhase;
+
+    public String getCommands() {
+        return l_commands;
+    }
+
+    public void setCommands(String l_commands) {
+        this.l_commands = l_commands;
+    }
+
+    private String l_commands;
     /**
      * Sets the current order.
      *
@@ -137,7 +159,11 @@ public class Player {
      * @throws InvalidCommandException If the command is invalid.
      */
     public void issue_order() throws InvalidCommandException {
-        this.d_orderList.add(this.d_current_order);
+        Order order = this.d_strategy.createOrder();
+        if(order != null){
+            this.d_orderList.add(order);
+        }
+
     }
 
     /**
@@ -216,6 +242,10 @@ public class Player {
     public void setPlayerStrategy(Strategy p_strategy)
     {
         d_strategy = p_strategy;
+    }
+
+    public Strategy getStrategy() {
+        return d_strategy;
     }
 
     /**

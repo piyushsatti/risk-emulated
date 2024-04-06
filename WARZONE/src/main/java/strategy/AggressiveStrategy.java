@@ -27,7 +27,7 @@ public class AggressiveStrategy  implements Strategy {
      * The game engine associated with this strategy.
      */
     private GameEngine d_gameEngine;
-
+    private String d_strategyName;
     /**
      * Constructor for AggressiveStrategy.
      * @param p_player The player using this strategy.
@@ -36,6 +36,14 @@ public class AggressiveStrategy  implements Strategy {
     public AggressiveStrategy(Player p_player, GameEngine p_gameEngine) {
         this.d_player = p_player;
         this.d_gameEngine = p_gameEngine;
+        this.d_strategyName = "Aggressive";
+    }
+    public String getStrategyName() {
+        return d_strategyName;
+    }
+
+    public void setStrategyName(String d_strategyName) {
+        this.d_strategyName = d_strategyName;
     }
 
 

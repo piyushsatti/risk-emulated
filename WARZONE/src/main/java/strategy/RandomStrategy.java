@@ -26,6 +26,16 @@
              */
             private GameEngine d_gameEngine;
 
+            public String getStrategyName() {
+                return d_strategyName;
+            }
+
+            public void setStrategyName(String d_strategyName) {
+                this.d_strategyName = d_strategyName;
+            }
+
+            private String d_strategyName;
+
             /**
              * Constructor for RandomStrategy class.
              * @param p_player The player for which the strategy is applied.
@@ -34,6 +44,7 @@
             public RandomStrategy(Player p_player,GameEngine p_gameEngine) {
                 this.d_player = p_player;
                 this.d_gameEngine = p_gameEngine;
+                this.d_strategyName = "Random";
             }
 
             /**

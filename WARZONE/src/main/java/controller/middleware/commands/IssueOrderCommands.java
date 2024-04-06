@@ -17,11 +17,15 @@ import java.util.regex.Pattern;
  * The IssueOrderCommands class represents commands related to issuing orders in a game.
  * It extends the Commands class and provides functionality for various order types.
  */
-public class IssueOrderCommands extends Commands{
-    /** The player associated with these commands. */
+public class IssueOrderCommands extends Commands {
+    /**
+     * The player associated with these commands.
+     */
     Player p;
 
-    /** The current phase of game. */
+    /**
+     * The current phase of game.
+     */
     String l_currPhase;
 
     /**
@@ -32,6 +36,7 @@ public class IssueOrderCommands extends Commands{
     public boolean isFlag() {
         return flag;
     }
+
     /**
      * Represents a buffer for storing log entries.
      */
@@ -55,11 +60,13 @@ public class IssueOrderCommands extends Commands{
      * set flag to false by default.
      */
     boolean flag = false;
+
+
     /**
      * Constructs a new IssueOrderCommands object with the given command and player.
      *
      * @param p_command The command string.
-     * @param p_player The player associated with these commands.
+     * @param p_player  The player associated with these commands.
      */
     public IssueOrderCommands(String p_command, Player p_player) {
         super(p_command, new String[]{
@@ -76,6 +83,7 @@ public class IssueOrderCommands extends Commands{
         });
         p = p_player;
     }
+
     /**
      * Validates the command based on the current game state.
      *
@@ -83,15 +91,14 @@ public class IssueOrderCommands extends Commands{
      * @return True if the command is valid according to the game rules and current state, otherwise false.
      */
     @Override
-    public boolean validateCommand(GameEngine p_gameEngine)
-    {
+    public boolean validateCommand(GameEngine p_gameEngine) {
 
         Pattern pattern = Pattern.compile(
-                "^deploy\\s+\\w+\\s+\\d+(\\s)*$|"+
-                        "^advance\\s+\\w+\\s+\\w+\\s+\\d+(\\s)*$|"+
-                        "^bomb\\s+\\w+\\s*(\\s)*$|"+
-                        "^blockade\\s+\\w+\\s*(\\s)*$|"+
-                        "^negotiate\\s+\\w+\\s*(\\s)*$|"+
+                "^deploy\\s+\\w+\\s+\\d+(\\s)*$|" +
+                        "^advance\\s+\\w+\\s+\\w+\\s+\\d+(\\s)*$|" +
+                        "^bomb\\s+\\w+\\s*(\\s)*$|" +
+                        "^blockade\\s+\\w+\\s*(\\s)*$|" +
+                        "^negotiate\\s+\\w+\\s*(\\s)*$|" +
                         "^done(\\s)*$|" +
                         "^showmap(\\s)*$|" +
                         "^airlift\\s+\\w+\\s+\\w+\\s+\\d+(\\s)*$" +
@@ -101,20 +108,21 @@ public class IssueOrderCommands extends Commands{
         Matcher matcher = pattern.matcher(d_command);
         return matcher.matches() && (p_gameEngine.getCurrentState().getClass() == IssueOrder.class);
     }
+
     /**
      * Displays the map during the Issue Order phase of the game.
      *
      * @param ge The game engine containing the game state and resources.
      */
-    private void showmapIssueOrder(GameEngine ge){
+    private void showmapIssueOrder(GameEngine ge) {
 
-        if(ge.d_worldmap == null){
+        if (ge.d_worldmap == null) {
             ge.d_renderer.renderError("No map loaded into game! Please use 'loadmap' command");
-            logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" ShowMap Order Not executed as " +
-                    "there is no map loaded "+p.getName()+" needs to load a map first");
-        }else{
+            logEntryBuffer.setString("Issue Order Phase: \n" + " Player Name:" + p.getName() + " ShowMap Order Not executed as " +
+                    "there is no map loaded " + p.getName() + " needs to load a map first");
+        } else {
             ge.d_renderer.showMap(true);
-            logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" ShowMap Order " +d_command);
+            logEntryBuffer.setString("Issue Order Phase: \n" + " Player Name:" + p.getName() + " ShowMap Order " + d_command);
         }
     }
 
@@ -124,12 +132,11 @@ public class IssueOrderCommands extends Commands{
      * @param p_gameEngine The game engine containing the current game state.
      * @return The name of the current game phase.
      */
-    public String getCurrentPhase(GameEngine p_gameEngine)
-    {
+    public String getCurrentPhase(GameEngine p_gameEngine) {
         Phase phase = p_gameEngine.getCurrentState();
         String l_currClass = String.valueOf(phase.getClass());
         int l_index = l_currClass.lastIndexOf(".");
-        return l_currClass.substring(l_index+1);
+        return l_currClass.substring(l_index + 1);
     }
 
     /**
@@ -139,183 +146,34 @@ public class IssueOrderCommands extends Commands{
      *
      * @param p_gameEngine The game engine managing the game state and resources.
      * @throws CountryDoesNotExistException If the specified country does not exist.
-     * @throws InvalidCommandException If the command is invalid or not recognized.
+     * @throws InvalidCommandException      If the command is invalid or not recognized.
      */
     @Override
-    public void execute(GameEngine p_gameEngine) throws  CountryDoesNotExistException, InvalidCommandException {
+    public void execute(GameEngine p_gameEngine) throws CountryDoesNotExistException, InvalidCommandException {
+        if (p.getStrategy().getStrategyName() == "Human") {
+            //validation of command, whether it is valid for the same phase or not, whether the format is correct or not
+            if (!this.validateCommandName()) {
+                p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command for this phase");
+                return;
+            } else if (!this.validateCommand(p_gameEngine)) {
+                p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command Format for: " + this.d_command.split("\\s+")[0]);
+                return;
+            }
 
-        //validation of command, whether it is valid for the same phase or not, whether the format is correct or not
-        if (!this.validateCommandName()) {
-            p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command for this phase");
-            return;
-        } else if (!this.validateCommand(p_gameEngine)) {
-            p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command Format for: " + this.d_command.split("\\s+")[0]);
-            return;
+            String[] l_command = d_command.trim().split("\\s+");// Split the command into parts
+
+            l_currPhase = getCurrentPhase(p_gameEngine);
+            p.setCurrentPhase(l_currPhase);
+            p.setCommands(d_command);
+            p.issue_order();
+
+        } else {
+            l_currPhase = getCurrentPhase(p_gameEngine);
+            p.setCurrentPhase(l_currPhase);
+            p.issue_order();
         }
 
-        String[] l_command = d_command.trim().split("\\s+");      // Split the command into parts
-
-        l_currPhase = getCurrentPhase(p_gameEngine);
-        /**
-         *      now, based on the main command name like deploy,advance,etc.
-         *      corresponding methods to process the execution of those commands are called.
-         */
-        switch (l_command[0]) {
-            case "deploy":
-                int l_countryID = p_gameEngine.d_worldmap.getCountryID(l_command[1]);
-                int l_numberTobeDeployed = Integer.parseInt(l_command[2]);
-                Order order = new Deploy(p, p.getName(), p.getPlayerId(), l_countryID, l_numberTobeDeployed, p_gameEngine);
-                if (order.validateCommand()) { //if the order can be executed based on the command execution scenario/logic, call execution methods
-                    p.addOrder(order);
-                    p.issue_order();
-                    p.setReinforcements(p.getReinforcements() - l_numberTobeDeployed);
-                    p.setOrderSuccess(true);
-                    p_gameEngine.d_renderer.renderMessage("Command Issued!");
-                    logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued Deploy Order:"+d_command); //setting log message
-                }
-                break;
-
-            case "advance":
-                int l_fromCountryID = p_gameEngine.d_worldmap.getCountryID(l_command[1]);
-                int l_toCountryID = p_gameEngine.d_worldmap.getCountryID(l_command[2]);
-                l_numberTobeDeployed = Integer.parseInt(l_command[3]);
-                Player l_targetPlayer = null;
-                //checking if the player given in the command exists in the player list and then setting target player
-                for(Player player : p_gameEngine.d_players){
-                    if(player.getAssignedCountries().contains(l_toCountryID)){
-                        l_targetPlayer = player;
-                    }
-                }
-                order = new Advance(p, l_targetPlayer,p.getName(),p.getPlayerId(), l_fromCountryID, l_toCountryID, l_numberTobeDeployed, p_gameEngine);
-                if (order.validateCommand()) { //if the order can be executed based on the command execution scenario/logic, call execution methods
-                    p.addOrder(order);
-                    p.issue_order();
-                    p.setOrderSuccess(true);
-                    p_gameEngine.d_renderer.renderMessage("Command Issued!");
-                    logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued Advance Order:"+d_command); //setting log message
-
-                }
-                break;
-
-            case "airlift":
-                if (p.containsCard("airlift")) {
-                    l_fromCountryID = p_gameEngine.d_worldmap.getCountryID(l_command[1]);
-                    l_toCountryID = p_gameEngine.d_worldmap.getCountryID(l_command[2]);
-                    l_numberTobeDeployed = Integer.parseInt(l_command[3]);
-                    order = new Airlift(p, p.getName(), p.getPlayerId(), l_fromCountryID, l_toCountryID, l_numberTobeDeployed, p_gameEngine);
-                    if (order.validateCommand()) { //if the order can be executed based on the command execution scenario/logic, call execution methods
-                        p.addOrder(order);
-                        p.issue_order();
-                        p.removeCard("airlift");
-                        p.setOrderSuccess(true);
-                        p_gameEngine.d_renderer.renderMessage("Command Issued!");
-                        logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued Airlift Order:"+d_command); //setting log message
-
-                    }
-                } else {
-                    p_gameEngine.d_renderer.renderMessage("You don't own airlift card");
-                    logEntryBuffer.setString("Phase :"+l_currPhase+"\n"+" Player Name:"+p.getName()+" || Airlift Order: Order Not executed as "+
-                            p.getName()+" does not own an airlift card");
-                }
-                break;
-
-            case "bomb":
-                if (p.containsCard("bomb")) {
-                    int l_bombCountryID = p_gameEngine.d_worldmap.getCountryID(l_command[1]);
-                    l_targetPlayer = null;
-                    //checking if the player given in the command exists in the player list and then setting target player
-                    for(Player player : p_gameEngine.d_players){
-                        if(player.getAssignedCountries().contains(l_bombCountryID)){
-                            l_targetPlayer = player;
-                        }
-                    }
-                    order = new Bomb(p, l_targetPlayer, p.getPlayerId(), p.getName(), l_bombCountryID, p_gameEngine);
-                    if (order.validateCommand()) { //if the order can be executed based on the command execution scenario/logic, call execution methods
-                        p.addOrder(order);
-                        p.issue_order();
-                        p.removeCard("bomb");
-                        p_gameEngine.d_renderer.renderMessage("Command Issued!");
-                        p.setOrderSuccess(true);
-                        logEntryBuffer.setString("Phase :"+l_currPhase+"\n"+" Player Name:"+p.getName()+" || Issued Bomb Order:"+d_command); //setting log message
-
-                    }
-                } else {
-                    p_gameEngine.d_renderer.renderMessage("You don't own bomb card");
-                    logEntryBuffer.setString("Phase :"+l_currPhase+"\n"+" Player Name:"+p.getName()+" || Bomb Order Not executed as "+
-                            p.getName()+" does not own a Bomb card");
-                }
-                break;
-
-
-            case "blockade":
-                if (p.containsCard("blockade")) {
-                    int l_blockadeCountryID = p_gameEngine.d_worldmap.getCountryID(l_command[1]);
-                    order = new Blockade(p, p.getPlayerId(), p.getName(), l_blockadeCountryID, p_gameEngine);
-                    if (order.validateCommand()) { //if the order can be executed based on the command execution scenario/logic, call execution methods
-                        p.addOrder(order);
-                        p.issue_order();
-                        p.removeCard("blockade");
-                        p.setOrderSuccess(true);
-                        p_gameEngine.d_renderer.renderMessage("Command Issued!");
-                        logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued  Blockade Order:"+d_command); //setting log message
-
-                    }
-                } else {
-                    p_gameEngine.d_renderer.renderMessage("You don't own blockade card");
-                    logEntryBuffer.setString("Phase :"+l_currPhase+"\n"+" Player Name:"+p.getName()+" || Blockade Order Not executed as "+
-                            p.getName()+" does not own a Blockade card"); //setting log message
-                }
-                break;
-
-            case "negotiate":
-                if (p.containsCard("diplomacy")) {
-                    String l_targetPlayerID = l_command[1];
-                    Player targetPlayer = null;
-                    //checking if the player given in the command exists in the player list and then setting target player
-                    for (Player player : p_gameEngine.d_players) {
-                        if (player.getName().equals(l_targetPlayerID)) {
-                            targetPlayer = player;
-                        }
-                    }
-                    order = new Diplomacy(p, targetPlayer, p.getPlayerId(), p.getName());
-                    if (order.validateCommand()) { //if the order can be executed based on the command execution scenario/logic, call execution methods
-                        p.addOrder(order);
-                        p.issue_order();
-                        p.removeCard("diplomacy");
-                        p.setOrderSuccess(true);
-                        p_gameEngine.d_renderer.renderMessage("Command Issued!");
-                        logEntryBuffer.setString("Issue Order Phase: \n"+" Player Name:"+p.getName()+" || Issued  Negotiate Order:"+d_command); //setting log message
-
-                    }
-                } else {
-                    p_gameEngine.d_renderer.renderMessage("You don't own negotiate card");
-                    logEntryBuffer.setString("Phase :"+l_currPhase+"\n"+" Player Name:"+p.getName()+" || Negotiate Order Not executed as "+
-                            p.getName()+" does not own a Negotiate card"); //setting log message
-                }
-                break;
-            case "done":
-                logEntryBuffer.setString("Phase :"+l_currPhase+"\n"+" Player Name:"+p.getName()+" || Issued Order:"+d_command);//setting log message
-                if (p.getReinforcements() !=0) {
-                    p_gameEngine.d_renderer.renderMessage("Need to deploy all troops!");
-                    logEntryBuffer.setString("Phase :"+l_currPhase+"\n"+" Player Name:"+p.getName()+" Done Order Not executed as "
-                            +p.getName()+" needs to deploy all troops");
-
-                }else {
-                    p.setFinishedIssueOrder(true);
-                    logEntryBuffer.setString("Phase :"+l_currPhase+"\n"+" Player Name:"+p.getName()+" || Player has finished issuing all orders:"+d_command); //setting log message
-
-                    p.setOrderSuccess(true);
-                }
-                break;
-            case "showmap":
-                logEntryBuffer.setString("Phase :"+l_currPhase+"\n"+" Player Name:"+p.getName()+" || Issued Showmap Order:"+d_command); //setting log message
-                showmapIssueOrder(p_gameEngine);
-                break;
-
-
-        }
     }
 }
-
 
 

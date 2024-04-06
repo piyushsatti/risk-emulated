@@ -27,7 +27,7 @@ public class BenevolentStrategy implements Strategy{
      * The game engine associated with this strategy.
      */
     private GameEngine d_gameEngine;
-
+    private String d_strategyName;
     /**
      * Constructor for BenevolentStrategy.
      * @param p_player The player using this strategy.
@@ -36,6 +36,15 @@ public class BenevolentStrategy implements Strategy{
     public BenevolentStrategy(Player p_player, GameEngine p_gameEngine) {
         this.d_player = p_player;
         this.d_gameEngine = p_gameEngine;
+        this.d_strategyName = "Benevolent";
+    }
+
+    public String getStrategyName() {
+        return d_strategyName;
+    }
+
+    public void setStrategyName(String d_strategyName) {
+        this.d_strategyName = d_strategyName;
     }
 
     /**
@@ -46,12 +55,12 @@ public class BenevolentStrategy implements Strategy{
     public int getSourceCountry() {
         int l_sourceCountryId = Integer.MAX_VALUE;
         List<Integer> l_listCountries = this.d_player.getAssignedCountries();
-        int l_minArmies = -1;
+        int l_minArmies = Integer.MAX_VALUE;
         for (int i = 0; i < l_listCountries.size(); i++) {
-            int l_armies = this.d_gameEngine.d_worldmap.getCountry(i).getReinforcements();
+            int l_armies = this.d_gameEngine.d_worldmap.getCountry(l_listCountries.get(i)).getReinforcements();
             if (l_armies < l_minArmies) {
                 l_minArmies = l_armies;
-                l_sourceCountryId = this.d_gameEngine.d_worldmap.getCountry(i).getCountryID();
+                l_sourceCountryId = this.d_gameEngine.d_worldmap.getCountry(l_listCountries.get(i)).getCountryID();
             }
         }
         return l_sourceCountryId;

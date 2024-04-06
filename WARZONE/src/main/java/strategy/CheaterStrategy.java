@@ -24,6 +24,9 @@ public class CheaterStrategy implements Strategy{
      */
     private GameEngine d_gameEngine;
 
+
+    private String d_strategyName;
+
     /**
      * Constructor for CheaterStrategy.
      * @param p_player The player using this strategy.
@@ -32,6 +35,15 @@ public class CheaterStrategy implements Strategy{
     public CheaterStrategy(Player p_player, GameEngine p_gameEngine) {
         this.d_player = p_player;
         this.d_gameEngine = p_gameEngine;
+        this.d_strategyName = "Cheater";
+    }
+
+    public String getStrategyName() {
+        return d_strategyName;
+    }
+
+    public void setStrategyName(String d_strategyName) {
+        this.d_strategyName = d_strategyName;
     }
     /**
      * Returns the source country to be used for cheating.
