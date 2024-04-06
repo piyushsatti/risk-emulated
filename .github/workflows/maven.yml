@@ -4,7 +4,7 @@ on:
   push:
     branches: 
     - updated_mvc_command_pattern
-    
+    - build2_refactor
     
 jobs:
   build_project:
