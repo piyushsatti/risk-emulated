@@ -92,6 +92,7 @@
                             "^loadgame\\s\\w+\\.map(\\s)*$|"
             );
             Matcher matcher = pattern.matcher(d_command) ;
+
             return matcher.matches() && (p_gameEngine.getCurrentState().getClass() == Startup.class);
         }
 
@@ -161,6 +162,7 @@
                 logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Executed Command: assigncountries Not Executed|| Load a valid map!");
                 return false;
             }
+
             HashMap<Integer, Country> map = p_gameEngine.d_worldmap.getD_countries();
             Set<Integer> l_countryIDSet = map.keySet();
             ArrayList<Integer> l_countryIDList = new ArrayList<>(l_countryIDSet);

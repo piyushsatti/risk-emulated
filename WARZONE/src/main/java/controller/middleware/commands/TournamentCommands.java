@@ -32,9 +32,6 @@ public class TournamentCommands extends Commands {
      * list of valid strategies
      */
     List<String> d_validStrategies = Arrays.asList("aggressive","benevolent","human","random","cheater");
-    /**
-     * Represents map interface.
-     */
 
     /**
      * Represents a logger associated with a log entry buffer.
