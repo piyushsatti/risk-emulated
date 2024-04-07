@@ -64,9 +64,8 @@ public class Reinforcement extends Phase {
     @Override
     public void run() {
         allPlayersReset();
-        System.out.println("HELLO fROM HERE");
+
         assignReinforcements(d_ge.d_players);
-        System.out.println("HELLO fROM HERE after reinforcements");
         d_ge.setCurrentState(new IssueOrder(d_ge));
     }
     /**
@@ -79,7 +78,6 @@ public class Reinforcement extends Phase {
     public void assignReinforcements(ArrayList<Player> players)
     {
         for(Player player : players){
-            System.out.println("in this loop of reinforcements");
             player.getListOfNegotiatedPlayers().clear();
             int bonus =0;
             HashMap<Integer, Continent> continents = d_ge.d_worldmap.getContinents();

@@ -3,6 +3,8 @@ package controller.statepattern;
 import controller.GameEngine;
 import controller.middleware.commands.StartupCommands;
 import controller.middleware.commands.TournamentCommands;
+import controller.statepattern.gameplay.Reinforcement;
+import controller.statepattern.gameplay.TournamentExecution;
 import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.InvalidCommandException;
 
@@ -20,7 +22,6 @@ public class Tournament extends Phase{
 
     @Override
     public void displayMenu() {
-
         d_ge.d_renderer.renderMessage("current game phase: " + this.d_phaseName);
         String[] menu_options = {"Enter valid tournament command to start tournament OR Enter exit to go back to main menu"};
         d_ge.d_renderer.renderMenu("Tournament Menu", menu_options);
@@ -43,5 +44,6 @@ public class Tournament extends Phase{
                 this.d_ge.d_renderer.renderUserInput("Enter command: ")
         );
         tuc.execute(this.d_ge);
+        d_ge.setCurrentState(new TournamentExecution(d_ge));
     }
 }

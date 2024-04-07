@@ -65,6 +65,8 @@ public class OrderExecution extends Phase {
     @Override
     public void run() {
         Counter++;
+        System.out.println("Counter ==" + Counter);
+        System.out.println("Number of max turns: "+ d_ge.getNumberOfTurns());
         int l_totalplayers = d_ge.d_players.size();
         int l_playerNumber = 0;
         System.out.println("In order execution phase --------------------------------------------");
@@ -94,11 +96,19 @@ public class OrderExecution extends Phase {
             }
         }
 
-        if(isWinner() || (d_ge.getNmberOfTurns() == Counter)) {
+        System.out.println("Number of Games inside order" + d_ge.getNumberGamesTournament()  );
+
+
+        if(isWinner() || (d_ge.getNumberOfTurns() == Counter)) {
             Counter = 0;
-            d_ge.setCurrentState(new End(d_ge));
+            System.out.println("=====================THERE IS A WINNER!!!=====================");
+            if(d_ge.getNumberGamesTournament() == 0 ){
+                d_ge.setCurrentState(new End(d_ge));
+            }
+            d_ge.setCurrentState(new TournamentExecution(d_ge));
+        }else {
+            d_ge.setCurrentState(new Reinforcement(d_ge));
         }
-        d_ge.setCurrentState(new Reinforcement(d_ge));
     }
 
     /**

@@ -10,6 +10,7 @@ import models.worldmap.WorldMap;
 import view.TerminalRenderer;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The GameEngine class manages the main logic of the game, including handling game phases, user input, and game loops.
@@ -47,6 +48,50 @@ public class GameEngine {
     private boolean d_tournamentMode = false;
     private boolean d_tournamentWinnerFound = false;
 
+    private List<String> d_inputStrategiesTournament = new ArrayList<>();
+
+    private List<String> d_mapFilesTournament = new ArrayList<>();
+
+    private int d_numberGamesTournament;
+    private int d_maxTurns;
+
+    public List<String> getInputStrategiesTournament() {
+        return d_inputStrategiesTournament;
+    }
+
+    public void setInputStrategiesTournament(List<String> d_inputStrategiesTournament) {
+        this.d_inputStrategiesTournament = d_inputStrategiesTournament;
+    }
+
+    public List<String> getMapFilesTournament() {
+        return d_mapFilesTournament;
+    }
+
+    public void setMapFilesTournament(List<String> d_mapFilesTournament) {
+        this.d_mapFilesTournament = d_mapFilesTournament;
+    }
+
+    public int getNumberGamesTournament() {
+        return d_numberGamesTournament;
+    }
+
+    public void setNumberGamesTournament(int d_numberGamesTournament) {
+        this.d_numberGamesTournament = d_numberGamesTournament;
+    }
+
+    public int getMaxTurns() {
+        return d_maxTurns;
+    }
+
+    public void setMaxTurns(int d_maxTurns) {
+        this.d_maxTurns = d_maxTurns;
+    }
+
+
+
+
+
+
     /**
      * Constructs a new GameEngine object.
      * Initializes the current phase to Starting phase, sets the maps folder,
@@ -73,7 +118,7 @@ public class GameEngine {
         GameEngine testEngine = new GameEngine();
         testEngine.runState();
     }
-    public int getNmberOfTurns() {
+    public int getNumberOfTurns() {
         return d_numberOfTurns;
     }
 
