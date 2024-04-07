@@ -43,7 +43,7 @@ public class OrderExecution extends Phase {
     public void endGame() {
 
     }
-
+    private static int Counter =0;
     /**
      * Checks if all players have executed their orders.
      *
@@ -64,7 +64,7 @@ public class OrderExecution extends Phase {
      */
     @Override
     public void run() {
-
+        Counter++;
         int l_totalplayers = d_ge.d_players.size();
         int l_playerNumber = 0;
         System.out.println("In order execution phase --------------------------------------------");
@@ -94,7 +94,8 @@ public class OrderExecution extends Phase {
             }
         }
 
-        if(isWinner()) {
+        if(isWinner() || (d_ge.getNmberOfTurns() == Counter)) {
+            Counter = 0;
             d_ge.setCurrentState(new End(d_ge));
         }
         d_ge.setCurrentState(new Reinforcement(d_ge));

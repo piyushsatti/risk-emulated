@@ -34,7 +34,7 @@ public class Starting extends Phase {
         if (first) d_ge.d_renderer.renderWelcome();
         first = false;
         d_ge.d_renderer.renderMessage("current game phase: " + this.d_phaseName);
-        String[] menu_options = {"Map Editor", "Play Game"};
+        String[] menu_options = {"Map Editor", "Play Game","Tournament"};
         d_ge.d_renderer.renderMenu("Starting Menu", menu_options);
         this.d_ge.d_renderer.renderMessage("Enter Selection: ");
     }
@@ -78,7 +78,10 @@ public class Starting extends Phase {
         else if(l_userSelection == 2){
             d_ge.setCurrentState(new Startup(d_ge));
         }
-        else if (l_userSelection == 3) {
+        else if(l_userSelection == 3){
+            d_ge.setCurrentState(new Tournament(d_ge));
+        }
+        else if (l_userSelection == 4) {
             d_ge.setCurrentState(new End(d_ge));
         }else{
             this.d_ge.d_renderer.renderError("Invalid selection!");

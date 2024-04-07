@@ -40,6 +40,13 @@ public class GameEngine {
      */
     private Phase d_current_phase;
 
+
+
+
+    private int d_numberOfTurns = 0;
+    private boolean d_tournamentMode = false;
+    private boolean d_tournamentWinnerFound = false;
+
     /**
      * Constructs a new GameEngine object.
      * Initializes the current phase to Starting phase, sets the maps folder,
@@ -48,7 +55,7 @@ public class GameEngine {
     public GameEngine()
     {
         this.d_current_phase = new Starting(this);
-        d_maps_folder ="src/main/resources/maps/";
+        d_maps_folder ="risk-emulated/WARZONE/src/main/resources/maps/";
         d_renderer = new TerminalRenderer(this);
         d_worldmap = new WorldMap();
         d_players = new ArrayList<>();
@@ -66,7 +73,13 @@ public class GameEngine {
         GameEngine testEngine = new GameEngine();
         testEngine.runState();
     }
+    public int getNmberOfTurns() {
+        return d_numberOfTurns;
+    }
 
+    public void setNumberOfTurns(int d_numberOfTurns) {
+        this.d_numberOfTurns = d_numberOfTurns;
+    }
     /**
      * Sets the current phase of the game engine.
      *
@@ -85,6 +98,20 @@ public class GameEngine {
     }
 
 
+    public boolean isTournamentWinnerFound() {
+        return d_tournamentWinnerFound;
+    }
+
+    public void setTournamentWinnerFound(boolean tournamentWinnerFound) {
+        d_tournamentWinnerFound = tournamentWinnerFound;
+    }
+    public boolean isTournamentMode() {
+        return d_tournamentMode;
+    }
+
+    public void setTournamentMode(boolean tournamentMode) {
+        d_tournamentMode = tournamentMode;
+    }
     /**
      * Runs the current state of the game engine until the End phase is reached.
      *

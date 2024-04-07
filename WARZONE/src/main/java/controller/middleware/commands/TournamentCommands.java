@@ -4,11 +4,17 @@ import controller.GameEngine;
 import controller.MapFileManagement.MapInterface;
 import controller.statepattern.Phase;
 import controller.statepattern.Tournament;
+import controller.statepattern.gameplay.Reinforcement;
 import controller.statepattern.gameplay.Startup;
 import models.LogEntryBuffer;
+import models.Player;
+import models.worldmap.Country;
+import models.worldmap.WorldMap;
+import strategy.*;
 import view.Logger;
 
 import java.io.File;
+import java.sql.SQLOutput;
 import java.util.*;
 
 import java.util.regex.Matcher;
@@ -29,7 +35,7 @@ public class TournamentCommands extends Commands {
     /**
      * Represents map interface.
      */
-    MapInterface mp = new MapInterface();
+
     /**
      * Represents a logger associated with a log entry buffer.
      */
@@ -38,7 +44,7 @@ public class TournamentCommands extends Commands {
     /**
      * Represents the current phase in the game.
      */
-    String p_currPhase;
+    String d_currPhase;
 
     /**
      * list storing map files given by the user
@@ -69,8 +75,10 @@ public class TournamentCommands extends Commands {
         Phase phase = p_gameEngine.getCurrentState();
         String l_currClass = String.valueOf(phase.getClass());
         int l_index = l_currClass.lastIndexOf(".");
+        System.out.println( l_currClass.substring(l_index+1));
         return l_currClass.substring(l_index+1);
     }
+
 
     /**
      * Constructs a new instance of StartupCommands with the specified command and valid commands for tournament phase.
@@ -109,6 +117,7 @@ public class TournamentCommands extends Commands {
     @Override
     public void execute(GameEngine p_gameEngine) {
         String d_currPhase = getCurrentPhase(p_gameEngine);
+        System.out.println("d_currPhase" + d_currPhase);
         if (!this.validateCommandName() ) {
             p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command");
             return;
@@ -120,19 +129,19 @@ public class TournamentCommands extends Commands {
 
         int l_index = 2;
         d_mapFiles = new ArrayList<>();
-        while(splitCommand[l_index].equals("-P"))
+        while(!splitCommand[l_index].equals("-P"))
         {
             boolean flag = validateMapPresence(p_gameEngine,splitCommand[l_index]);
             if(!flag)
             {
                 p_gameEngine.d_renderer.renderError("entered map file "+ splitCommand[l_index]+" does not exist");
-                logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ "Command: tournament Not Executed, entered map file does not exist!");
+                logEntryBuffer.setString("Phase :"+ d_currPhase +"\n"+ "Command: tournament Not Executed, entered map file does not exist!");
                 return;
             }
             if(d_mapFiles.contains(splitCommand[l_index]))
             {
                 p_gameEngine.d_renderer.renderError("duplicate map file entered"+ splitCommand[l_index]);
-                logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ "Command: tournament Not Executed, duplicate map file entered in command!");
+                logEntryBuffer.setString("Phase :"+ d_currPhase +"\n"+ "Command: tournament Not Executed, duplicate map file entered in command!");
                 return;
             }
             d_mapFiles.add(splitCommand[l_index++]);
@@ -145,22 +154,26 @@ public class TournamentCommands extends Commands {
             if(!flag)
             {
                 p_gameEngine.d_renderer.renderError("entered strategy "+ splitCommand[l_index]+" is invalid");
-                logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ "Command: tournament Not Executed, entered strategy does not exist!");
+                logEntryBuffer.setString("Phase :"+ d_currPhase +"\n"+ "Command: tournament Not Executed, entered strategy does not exist!");
                 return;
             }
             flag = d_inputStrategies.contains(splitCommand[l_index]);
             if(flag)
             {
                 p_gameEngine.d_renderer.renderError("already entered strategy "+ splitCommand[l_index]);
-                logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ "Command: tournament Not Executed, duplicate strategy entered in command!");
+                logEntryBuffer.setString("Phase :"+ d_currPhase +"\n"+ "Command: tournament Not Executed, duplicate strategy entered in command!");
                 return;
             }
             d_inputStrategies.add(splitCommand[l_index++]);
         }
         l_index++;
         d_numberGames = Integer.parseInt(splitCommand[l_index++]);
+        l_index++;
         d_maxTurns = Integer.parseInt(splitCommand[l_index]);
-    }
+        System.out.println("d_currPhase /*/8/" + d_currPhase);
+        startTournament(p_gameEngine,  d_mapFiles,d_inputStrategies, d_numberGames,  d_maxTurns);
+
+        }
 
     /**
      * method which checks if the map entered by the user in the tournament command exists or not.
@@ -173,23 +186,26 @@ public class TournamentCommands extends Commands {
         return l_map_file_obj.exists() && !l_map_file_obj.isDirectory();
     }
     private void startTournament(GameEngine p_gameEngine, List<String> d_mapFiles,List<String> d_inputStrategies,int d_numberGames, int d_maxTurns)  {
-        MapInterface mp = new MapInterface();
+        String d_currPhase = getCurrentPhase(p_gameEngine);
         for(int i=0;i<d_numberGames;i++){
             for(String d_map : d_mapFiles){
+                MapInterface mp = new MapInterface();
+                p_gameEngine.d_worldmap = null;
+                System.out.println("HERE IN MAPS");
                 try {
-                    logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " loading map for tournament");      // Log the command entry
+                    logEntryBuffer.setString("Phase :"+ d_currPhase +"\n"+ " loading map for tournament");      // Log the command entry
                     p_gameEngine.d_worldmap = mp.loadMap(p_gameEngine,d_map);
                 }
                 catch(Exception e){
-                    logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Could Not Load Map. Moving to Next Map");     // Log if map loading fails
+                    logEntryBuffer.setString("Phase :"+ d_currPhase +"\n"+ " Could Not Load Map. Moving to Next Map");     // Log if map loading fails
                     System.out.println(e);
                 }
                 if(!p_gameEngine.d_worldmap.validateMap()){
                     p_gameEngine.d_renderer.renderError("Invalid Map! Cannot load into game");
                     p_gameEngine.d_worldmap = new WorldMap();
-                    logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Tournament Map is Invalid!");
+                    logEntryBuffer.setString("Phase :"+ d_currPhase +"\n"+ " Tournament Map is Invalid!");
                 }
-                logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Tournament Map Loaded");
+                logEntryBuffer.setString("Phase :"+ d_currPhase +"\n"+ " Tournament Map Loaded");
                 for(String l_strategy : d_inputStrategies){
                     Player l_newPlayer = new Player(l_strategy,p_gameEngine);
                     switch(l_strategy){
@@ -212,12 +228,13 @@ public class TournamentCommands extends Commands {
                     p_gameEngine.d_players.add(l_newPlayer);
 
                 }
-                if(assignCountries(p_gameEngine,p_currPhase)){
-                    logEntryBuffer.setString("Phase :"+p_currPhase+"\n"+ "Countries assigned to Players");
+                if(assignCountries(p_gameEngine,d_currPhase)){
+                    logEntryBuffer.setString("Phase :"+d_currPhase+"\n"+ "Countries assigned to Players");
                 }
-                for( i=0;i<d_maxTurns;i++){
-                    p_gameEngine.setCurrentState(new Reinforcement(p_gameEngine));
-                }
+                System.out.println(p_gameEngine);
+                p_gameEngine.setCurrentState(new Reinforcement(p_gameEngine));
+
+
 
 
             }
@@ -225,6 +242,9 @@ public class TournamentCommands extends Commands {
     }
     private boolean assignCountries(GameEngine p_gameEngine,String p_currPhase) {
         logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Assigning Countries to players in Tournament");
+        for (Player l_player : p_gameEngine.d_players) {
+            l_player.getAssignedCountries().clear();
+        }
         if(p_gameEngine.d_players.size() == 0){
             p_gameEngine.d_renderer.renderError("Add atleast one player before assigning");
             logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ "Command: assigncountries Not Executed  || Must add at least one player before assigning countries");
@@ -266,6 +286,7 @@ public class TournamentCommands extends Commands {
             System.out.println("-----------------------------------------------------------------");
 
         }
+        System.out.println("ASSIGNMENT DONE HELLO FROM HERE");
         return true;
 
     }
