@@ -41,56 +41,112 @@ public class GameEngine {
      */
     private Phase d_current_phase;
 
-
-
-
+    /**
+     * The number of turns played in the game.
+     */
     private int d_numberOfTurns = 0;
+
+    /**
+     * Indicates whether the game is in tournament mode.
+     */
     private boolean d_tournamentMode = false;
+
+    /**
+     * Indicates whether a tournament winner has been found.
+     */
     private boolean d_tournamentWinnerFound = false;
 
+    /**
+     * List of input strategies used in the tournament mode.
+     */
     private List<String> d_inputStrategiesTournament = new ArrayList<>();
 
+    /**
+     * List of map files used in the tournament mode.
+     */
     private List<String> d_mapFilesTournament = new ArrayList<>();
 
+    /**
+     * Number of games to be played in the tournament mode.
+     */
     private int d_numberGamesTournament;
+
+    /**
+     * Maximum number of turns allowed per game in the tournament mode.
+     */
     private int d_maxTurns;
 
+    /**
+     * Retrieves the list of input strategies used in the tournament mode.
+     *
+     * @return The list of input strategies.
+     */
     public List<String> getInputStrategiesTournament() {
         return d_inputStrategiesTournament;
     }
 
+    /**
+     * Sets the list of input strategies used in the tournament mode.
+     *
+     * @param d_inputStrategiesTournament The list of input strategies to be set.
+     */
     public void setInputStrategiesTournament(List<String> d_inputStrategiesTournament) {
         this.d_inputStrategiesTournament = d_inputStrategiesTournament;
     }
 
+    /**
+     * Retrieves the list of map files used in the tournament mode.
+     *
+     * @return The list of map files.
+     */
     public List<String> getMapFilesTournament() {
         return d_mapFilesTournament;
     }
 
+    /**
+     * Sets the list of map files used in the tournament mode.
+     *
+     * @param d_mapFilesTournament The list of map files to be set.
+     */
     public void setMapFilesTournament(List<String> d_mapFilesTournament) {
         this.d_mapFilesTournament = d_mapFilesTournament;
     }
 
+    /**
+     * Retrieves the number of games to be played in the tournament mode.
+     *
+     * @return The number of games.
+     */
     public int getNumberGamesTournament() {
         return d_numberGamesTournament;
     }
 
+    /**
+     * Sets the number of games to be played in the tournament mode.
+     *
+     * @param d_numberGamesTournament The number of games to be set.
+     */
     public void setNumberGamesTournament(int d_numberGamesTournament) {
         this.d_numberGamesTournament = d_numberGamesTournament;
     }
 
+    /**
+     * Retrieves the maximum number of turns allowed per game in the tournament mode.
+     *
+     * @return The maximum number of turns.
+     */
     public int getMaxTurns() {
         return d_maxTurns;
     }
 
+    /**
+     * Sets the maximum number of turns allowed per game in the tournament mode.
+     *
+     * @param d_maxTurns The maximum number of turns to be set.
+     */
     public void setMaxTurns(int d_maxTurns) {
         this.d_maxTurns = d_maxTurns;
     }
-
-
-
-
-
 
     /**
      * Constructs a new GameEngine object.
@@ -118,13 +174,24 @@ public class GameEngine {
         GameEngine testEngine = new GameEngine();
         testEngine.runState();
     }
+    /**
+     * Retrieves the number of turns played in the game.
+     *
+     * @return The number of turns played.
+     */
     public int getNumberOfTurns() {
         return d_numberOfTurns;
     }
 
+    /**
+     * Sets the number of turns played in the game.
+     *
+     * @param d_numberOfTurns The number of turns to set.
+     */
     public void setNumberOfTurns(int d_numberOfTurns) {
         this.d_numberOfTurns = d_numberOfTurns;
     }
+
     /**
      * Sets the current phase of the game engine.
      *
@@ -142,21 +209,41 @@ public class GameEngine {
         return this.d_current_phase;
     }
 
-
+    /**
+     * Checks if a tournament winner has been found.
+     *
+     * @return true if a tournament winner has been found, false otherwise.
+     */
     public boolean isTournamentWinnerFound() {
         return d_tournamentWinnerFound;
     }
 
+    /**
+     * Sets the status indicating if a tournament winner has been found.
+     *
+     * @param tournamentWinnerFound The status indicating if a tournament winner has been found.
+     */
     public void setTournamentWinnerFound(boolean tournamentWinnerFound) {
         d_tournamentWinnerFound = tournamentWinnerFound;
     }
+    /**
+     * Checks if the game is in tournament mode.
+     *
+     * @return true if the game is in tournament mode, false otherwise.
+     */
     public boolean isTournamentMode() {
         return d_tournamentMode;
     }
 
+    /**
+     * Sets the status indicating if the game is in tournament mode.
+     *
+     * @param tournamentMode The status indicating if the game is in tournament mode.
+     */
     public void setTournamentMode(boolean tournamentMode) {
         d_tournamentMode = tournamentMode;
     }
+
     /**
      * Runs the current state of the game engine until the End phase is reached.
      *
@@ -168,7 +255,6 @@ public class GameEngine {
             this.d_current_phase.run();
         }
     }
-
 
     /**
      * Resets the world map of the game engine.

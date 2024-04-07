@@ -43,7 +43,12 @@ public class OrderExecution extends Phase {
     public void endGame() {
 
     }
+
+    /**
+     * Represents a counter used for tracking a numeric value.
+     */
     private static int Counter =0;
+
     /**
      * Checks if all players have executed their orders.
      *
@@ -79,12 +84,6 @@ public class OrderExecution extends Phase {
             }
         }
 
-
-        /**
-         * Returns an iterator over the players in the game engine.
-         *
-         * @return An iterator that allows iteration over the players in the game engine.
-         */
         Iterator<Player> iterator = d_ge.d_players.iterator();
 
         while (iterator.hasNext()) {
@@ -97,7 +96,6 @@ public class OrderExecution extends Phase {
         }
 
         System.out.println("Number of Games inside order" + d_ge.getNumberGamesTournament()  );
-
 
         if(isWinner() || (d_ge.getNumberOfTurns() == Counter)) {
             Counter = 0;

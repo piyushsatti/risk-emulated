@@ -30,7 +30,6 @@ public class Country {
      */
     private int d_reinforcements;
 
-
     /**
      * HashMap containing the outgoing borders associated with a country
      */
