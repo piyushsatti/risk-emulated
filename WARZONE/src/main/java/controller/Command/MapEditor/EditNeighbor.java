@@ -31,6 +31,28 @@ public class EditNeighbor extends Command {
     @Override
     public void execute() {
 
+        int commandLength = this.d_splitCommand.length;
+        int commandIndex = 1;
+        WorldMap l_wm = this.d_ge.d_worldmap;
+        while (commandIndex < commandLength) {
+
+            if (this.d_splitCommand[commandIndex].equals("-add")) {
+
+                try {
+                    l_wm.addBorder(l_wm.getCountryID(this.d_splitCommand[commandIndex + 1]), l_wm.getCountryID(this.d_splitCommand[commandIndex + 2]));
+                } catch (Exception ignored) {
+                }
+                commandIndex = commandIndex + 3;
+
+            } else if (this.d_splitCommand[commandIndex].equals("-remove")) {
+
+                try {
+                    l_wm.removeBorder(l_wm.getCountryID(this.d_splitCommand[commandIndex + 1]), l_wm.getCountryID(this.d_splitCommand[commandIndex + 2]));
+                } catch (Exception ignored) {
+                }
+                commandIndex = commandIndex + 3;
+            }
+        }
     }
 
     /**
