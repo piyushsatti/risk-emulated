@@ -20,6 +20,9 @@ public class Tournament extends Phase{
     }
 
 
+    /**
+     * Displays the tournament menu, showing the current game phase and available options.
+     */
     @Override
     public void displayMenu() {
         d_ge.d_renderer.renderMessage("current game phase: " + this.d_phaseName);
@@ -27,16 +30,29 @@ public class Tournament extends Phase{
         d_ge.d_renderer.renderMenu("Tournament Menu", menu_options);
     }
 
+    /**
+     * Moves to the next step in the tournament phase.
+     */
     @Override
     public void next() {
 
     }
 
+    /**
+     * Ends the current game.
+     */
     @Override
     public void endGame() {
 
     }
 
+    /**
+     * Runs the tournament phase, displaying the menu, executing user commands, and transitioning to the next phase.
+     * This method is responsible for executing the tournament phase logic.
+     *
+     * @throws CountryDoesNotExistException If a country referenced in the game does not exist.
+     * @throws InvalidCommandException      If an invalid command is entered by the user.
+     */
     @Override
     public void run() throws CountryDoesNotExistException, InvalidCommandException {
         displayMenu();

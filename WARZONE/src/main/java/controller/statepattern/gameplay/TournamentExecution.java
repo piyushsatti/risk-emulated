@@ -19,16 +19,15 @@ import java.util.*;
  */
 public class TournamentExecution extends Phase {
 
+    /**
+     * The number of maps used in the tournament.
+     */
     private static int MapNumber =0;
 
     /**
      * Represents a buffer for storing log entries.
      */
     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
-
-    /**
-     * Represents map interface.
-     */
 
     /**
      * Represents a logger associated with a log entry buffer.
@@ -57,6 +56,12 @@ public class TournamentExecution extends Phase {
     public void next() {
 
     }
+    /**
+     * Retrieves the name of the current phase in the game.
+     *
+     * @param p_gameEngine The GameEngine object representing the current game state.
+     * @return A String representing the name of the current phase.
+     */
     public String getCurrentPhase(GameEngine p_gameEngine)
     {
         Phase phase = p_gameEngine.getCurrentState();
@@ -72,7 +77,6 @@ public class TournamentExecution extends Phase {
     public void endGame() {
 
     }
-
 
     /**
      * Executes the order execution phase.
@@ -120,6 +124,13 @@ public class TournamentExecution extends Phase {
         d_ge.setCurrentState(new Reinforcement(d_ge));
 
     }
+    /**
+     * Assigns countries to players in the tournament phase of the game.
+     *
+     * @param p_gameEngine The GameEngine object representing the current game state.
+     * @param p_currPhase  The current phase of the game.
+     * @return true if countries are successfully assigned to players, false otherwise.
+     */
     private boolean assignCountries(GameEngine p_gameEngine,String p_currPhase) {
         logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Assigning Countries to players in Tournament");
         for (Player l_player : p_gameEngine.d_players) {
