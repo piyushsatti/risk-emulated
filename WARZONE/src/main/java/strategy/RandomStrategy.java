@@ -44,6 +44,9 @@
                 this.d_strategyName = d_strategyName;
             }
 
+            /**
+             * Name of the strategy.
+             */
             private String d_strategyName;
 
             /**

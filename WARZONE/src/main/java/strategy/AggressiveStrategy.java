@@ -28,6 +28,9 @@ public class AggressiveStrategy  implements Strategy {
      */
     private GameEngine d_gameEngine;
 
+    /**
+     * Name of the strategy.
+     */
     private String d_strategyName;
 
     /**

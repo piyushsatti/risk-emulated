@@ -51,6 +51,9 @@ public class HumanStrategy implements Strategy{
         this.d_strategyName = d_strategyName;
     }
 
+    /**
+     * Name of the strategy.
+     */
     private String d_strategyName;
 
     /**
@@ -71,10 +74,6 @@ public class HumanStrategy implements Strategy{
      */
     @Override
     public Order createOrder() throws InvalidCommandException {
-        /**
-         *      now, based on the main command name like deploy,advance,etc.
-         *      corresponding methods to process the execution of those commands are called.
-         */
 
         String l_command = d_player.getCommands();
         String[] l_command_array = l_command.trim().split("\\s+");
