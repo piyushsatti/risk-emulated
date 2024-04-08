@@ -49,7 +49,7 @@ public class ConquestMapInterface {
                     case 2 -> loadBorders(l_file_reader, l_worldMap);
                 }
             } catch (Exception e) {
-                p_gameEngine.d_renderer.renderError("Invalid map!");
+                p_gameEngine.d_renderer.renderError("Invalid map file!");
                 return new WorldMap();
             }
         }

@@ -20,8 +20,6 @@ public class MapFileLoader {
 
         if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory()) {
             d_mapFile = l_map_file_obj;
-        } else {
-            p_ge.d_renderer.renderMessage("File does not exist");
         }
     }
 

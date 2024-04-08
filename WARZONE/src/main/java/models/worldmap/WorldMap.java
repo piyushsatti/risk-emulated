@@ -179,6 +179,28 @@ public class WorldMap {
 
     }
 
+
+    /**
+     * Method which adds border to the map
+     * @param p_source String representing source country name
+     * @param p_target String representing target country name
+     * @throws CountryDoesNotExistException error throw if target/source countries do not exist
+     */
+    public void addBorder(String p_source, String p_target) throws CountryDoesNotExistException {
+
+        //check that both countries exist
+        if (!this.containsCountry(p_source)) {
+            throw new CountryDoesNotExistException(p_source);
+
+        } else if (!this.containsCountry(p_target)) {
+
+            throw new CountryDoesNotExistException(p_target);
+        }
+
+        this.getCountry(getCountryID(p_source)).addBorder(this.getCountry(getCountryID(p_target)));
+
+    }
+
     /**
      * Method which adds continent to map
      *
@@ -401,6 +423,24 @@ public class WorldMap {
             throw new CountryDoesNotExistException(p_target);
         }
         this.getCountry(p_source).removeBorder(this.getCountry(p_target));
+        //logEntryBuffer.setString("removed border between"+this.getCountry(p_source).getCountryName()+" and "+this.getCountry(p_target).getCountryName());
+    }
+
+    /**
+     * Removes border between two countries
+     * @param p_source String representing name of source country
+     * @param p_target String representing name of target country
+     * @throws CountryDoesNotExistException error thrown of target/source countries do not exist
+     */
+    public void removeBorder(String p_source, String p_target) throws CountryDoesNotExistException {
+
+        //check that both countries exist
+        if (!this.containsCountry(p_source)) {
+            throw new CountryDoesNotExistException(p_source);
+        } else if (!this.containsCountry(p_target)) {
+            throw new CountryDoesNotExistException(p_target);
+        }
+        this.getCountry(this.getCountryID(p_source)).removeBorder(this.getCountry(this.getCountryID(p_target)));
         //logEntryBuffer.setString("removed border between"+this.getCountry(p_source).getCountryName()+" and "+this.getCountry(p_target).getCountryName());
     }
 

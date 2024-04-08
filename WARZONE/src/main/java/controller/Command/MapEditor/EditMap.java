@@ -2,9 +2,14 @@ package controller.Command.MapEditor;
 
 import controller.Command.Command;
 import controller.GameEngine;
+import controller.MapFileManagement.ConquestMapInterface;
+import controller.MapFileManagement.MapAdapter;
+import controller.MapFileManagement.MapFileLoader;
 import controller.MapFileManagement.MapInterface;
 import controller.statepattern.MapEditor;
+import models.worldmap.WorldMap;
 import view.TerminalRenderer;
+
 import java.util.regex.Pattern;
 
 /**
@@ -13,8 +18,9 @@ import java.util.regex.Pattern;
 public class EditMap extends Command {
     /**
      * Constructs an EditMap command with specified input and game engine.
+     *
      * @param p_input The input string for the command.
-     * @param p_ge The game engine to operate on.
+     * @param p_ge    The game engine to operate on.
      */
     public EditMap(String p_input, GameEngine p_ge) {
         super(p_input, p_ge);
@@ -30,28 +36,33 @@ public class EditMap extends Command {
     @Override
     public void execute() {
 
-
-        MapInterface mp = new MapInterface();
+        MapInterface mp = null;
         String mapName = "";
         TerminalRenderer l_renderer = this.d_ge.d_renderer;
         mapName = this.d_splitCommand[1];
 
-        try {
-            this.d_ge.d_worldmap = mp.loadMap(this.d_ge, mapName);
-        } catch (Exception e) {
-            l_renderer.renderError("FileNotFoundException : File does not exist.");
-            l_renderer.renderMessage("Creating file by the name : " + mapName);
-            try {
-                mp.saveMap(this.d_ge, mapName);
-                this.d_ge.d_worldmap = mp.loadMap(this.d_ge, mapName);
-            } catch (Exception ex) {
-                l_renderer.renderError(ex.toString());
-            }
+        MapFileLoader l_mfl = new MapFileLoader(this.d_ge, mapName);
+
+        if (!l_mfl.fileLoaded()) {
+            l_renderer.renderError("File does not exist.");
+            l_renderer.renderMessage("Creating new map");
+            this.d_ge.d_worldmap = new WorldMap();
+            return;
         }
+
+        if (l_mfl.isConquest()) {
+            mp = new MapAdapter(new ConquestMapInterface());
+        } else {
+            mp = new MapInterface();
+        }
+
+        this.d_ge.d_worldmap = mp.loadMap(this.d_ge, l_mfl);
+
     }
 
     /**
      * Validates the logic of the EditMap command.
+     *
      * @return true
      */
     @Override

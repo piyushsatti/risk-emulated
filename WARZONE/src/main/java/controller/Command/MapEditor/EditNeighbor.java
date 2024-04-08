@@ -79,7 +79,7 @@ public class EditNeighbor extends Command {
             if (this.d_splitCommand[commandIndex].equals("-add")) {
 
                 try {
-                    copyMap.addBorder(copyMap.getCountryID(this.d_splitCommand[commandIndex + 1]), copyMap.getCountryID(this.d_splitCommand[commandIndex + 2]));
+                    copyMap.addBorder(this.d_splitCommand[commandIndex + 1], this.d_splitCommand[commandIndex + 2]);
                 } catch (Exception e) {
                     l_renderer.renderError(e.toString());
                     return false;
@@ -89,7 +89,7 @@ public class EditNeighbor extends Command {
             } else if (this.d_splitCommand[commandIndex].equals("-remove")) {
 
                 try {
-                    copyMap.removeBorder(copyMap.getCountryID(this.d_splitCommand[commandIndex + 1]), copyMap.getCountryID(this.d_splitCommand[commandIndex + 2]));
+                    copyMap.removeBorder(this.d_splitCommand[commandIndex + 1], this.d_splitCommand[commandIndex + 2]);
                 } catch (Exception e) {
                     l_renderer.renderError(e.toString());
                     return false;
