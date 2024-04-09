@@ -519,23 +519,15 @@ public class MapEditorCommands extends Commands {
             d_logEntryBuffer.setString("loaded map file " + l_mapName);
         } catch (FileNotFoundException e) {
             p_gameEngine.d_renderer.renderError("FileNotFoundException : File does not exist.");
-<<<<<<<Updated upstream
-            logEntryBuffer.setString("map file does not exist");
-            p_gameEngine.d_renderer.renderMessage("Creating file by the name : " + mapName);
-            logEntryBuffer.setString("creating file " + mapName);
+            d_logEntryBuffer.setString("map file does not exist");
+            p_gameEngine.d_renderer.renderMessage("Creating file by the name : " + l_mapName);
+            d_logEntryBuffer.setString("creating file " + l_mapName);
             try {
-                mp.saveMap(p_gameEngine, mapName);
+                d_mp.saveMap(p_gameEngine, l_mapName);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
             editMap(p_gameEngine, p_currPhase);
-=======
-            d_logEntryBuffer.setString("map file does not exist");
-            p_gameEngine.d_renderer.renderMessage("Creating file by the name : " + l_mapName);
-            d_logEntryBuffer.setString("creating file " + l_mapName);
-            d_mp.saveMap(p_gameEngine, l_mapName);
-            editMap(p_gameEngine, p_currPhase);
->>>>>>>Stashed changes
         } catch (NumberFormatException e) {
             p_gameEngine.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
             d_logEntryBuffer.setString("Phase :" + p_currPhase + "\n" + " Entered Command Not Executed: editmap => " + d_command + "  due to Incorrect Formatting");
