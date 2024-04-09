@@ -118,20 +118,14 @@ public class MapEditorCommands extends Commands {
                 }
                 break;
             case "savemap":
-<<<<<<< Updated upstream
                 try {
-                    logEntryBuffer.setString("Phase :"+d_currPhase+"\n"+ " Entered Command: savemap => "+d_command);
-                    mp.saveMap(p_gameEngine, l_command[1]);
-                    logEntryBuffer.setString("Phase :"+d_currPhase+"\n"+ "  Executed Command: savemap => "+d_command);
+                    d_logEntryBuffer.setString("Phase :" + d_currPhase + "\n" + " Entered Command: savemap => " + d_command);
+                    d_mp.saveMap(p_gameEngine, l_command[1]);
+                    d_logEntryBuffer.setString("Phase :" + d_currPhase + "\n" + "  Executed Command: savemap => " + d_command);
                 } catch (Exception e) {
                     p_gameEngine.d_renderer.renderError("IOException : Encountered File I/O Error");
-                    logEntryBuffer.setString("Phase :"+d_currPhase+"\n"+ " Command: savemap Not Executed due to File I/O Error");
+                    d_logEntryBuffer.setString("Phase :" + d_currPhase + "\n" + " Command: savemap Not Executed due to File I/O Error");
                 }
-=======
-                d_logEntryBuffer.setString("Phase :" + d_currPhase + "\n" + " Entered Command: savemap => " + d_command);
-                d_mp.saveMap(p_gameEngine, l_command[1]);
-                d_logEntryBuffer.setString("Phase :" + d_currPhase + "\n" + "  Executed Command: savemap => " + d_command);
->>>>>>> Stashed changes
                 break;
             case "editmap":
                 d_logEntryBuffer.setString("Phase :" + d_currPhase + "\n" + " Entered Command: editmap => " + d_command);
@@ -525,23 +519,23 @@ public class MapEditorCommands extends Commands {
             d_logEntryBuffer.setString("loaded map file " + l_mapName);
         } catch (FileNotFoundException e) {
             p_gameEngine.d_renderer.renderError("FileNotFoundException : File does not exist.");
-<<<<<<< Updated upstream
+<<<<<<<Updated upstream
             logEntryBuffer.setString("map file does not exist");
             p_gameEngine.d_renderer.renderMessage("Creating file by the name : " + mapName);
-            logEntryBuffer.setString("creating file "+ mapName);
+            logEntryBuffer.setString("creating file " + mapName);
             try {
                 mp.saveMap(p_gameEngine, mapName);
             } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
-            editMap(p_gameEngine,p_currPhase);
+            editMap(p_gameEngine, p_currPhase);
 =======
             d_logEntryBuffer.setString("map file does not exist");
             p_gameEngine.d_renderer.renderMessage("Creating file by the name : " + l_mapName);
             d_logEntryBuffer.setString("creating file " + l_mapName);
             d_mp.saveMap(p_gameEngine, l_mapName);
             editMap(p_gameEngine, p_currPhase);
->>>>>>> Stashed changes
+>>>>>>>Stashed changes
         } catch (NumberFormatException e) {
             p_gameEngine.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
             d_logEntryBuffer.setString("Phase :" + p_currPhase + "\n" + " Entered Command Not Executed: editmap => " + d_command + "  due to Incorrect Formatting");
