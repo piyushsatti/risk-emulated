@@ -58,6 +58,11 @@ public class End extends Phase {
     @Override
     public void run() {
     }
+    /**
+     * Displays the results of the tournament games.
+     *
+     * @param d_gameEngine The GameEngine object containing the tournament results to be displayed.
+     */
     public static void displayResults(GameEngine d_gameEngine) {
         String[][] results = d_gameEngine.getTournamentResults();
         int rows = results.length;
