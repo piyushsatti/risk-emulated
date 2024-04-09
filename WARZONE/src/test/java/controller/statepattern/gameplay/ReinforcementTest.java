@@ -10,7 +10,6 @@ import helpers.exceptions.DuplicateCountryException;
 import models.Player;
 import models.worldmap.Continent;
 import models.worldmap.Country;
-import org.junit.Before;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
@@ -25,9 +24,6 @@ public class ReinforcementTest {
      */
     GameEngine ge = new GameEngine();
 
-
-
-
     /**
      * Represents an instance of startup commands with a specific command type.
      */
@@ -37,11 +33,6 @@ public class ReinforcementTest {
      * Represents an instance of the reinforcement phase associated with a game engine.
      */
     Reinforcement rf = new Reinforcement(ge);
-
-    @Before
-    public void run()
-    {ge.setCurrentState(new Startup(ge));
-    }
 
     /**
      * Test for the run method in Reinforcement phase.
@@ -53,11 +44,9 @@ public class ReinforcementTest {
      */
     @Test
     public void runTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
-
         MapInterface mp = new MapInterface();
         ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi",ge));
-        cmd.execute(ge);
 
         rf.run();
 
@@ -98,7 +87,6 @@ public class ReinforcementTest {
         ge.d_worldmap = mp.loadMap(ge, "usa9.map");
         ge.d_players.add(new Player("Shashi", ge));
         ge.d_players.add(new Player("Priyanshu",ge));
-        cmd.execute(ge);
 
         rf.run();
 
