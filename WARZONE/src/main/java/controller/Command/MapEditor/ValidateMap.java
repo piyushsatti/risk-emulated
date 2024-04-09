@@ -14,8 +14,9 @@ import java.util.regex.Pattern;
 public class ValidateMap extends Command {
     /**
      * Constructs a ValidateMap command with specified input and game engine.
+     *
      * @param p_input The input string for the command.
-     * @param p_ge The game engine to operate on.
+     * @param p_ge    The game engine to operate on.
      */
     public ValidateMap(String p_input, GameEngine p_ge) {
         super(p_input, p_ge);
@@ -31,12 +32,9 @@ public class ValidateMap extends Command {
     @Override
     public void execute() {
         TerminalRenderer l_renderer = this.d_ge.d_renderer;
-        if (this.d_ge.d_worldmap.validateMap())
-        {
+        if (this.d_ge.d_worldmap.validateMap()) {
             l_renderer.renderMessage("Map is valid");
-        }
-        else
-        {
+        } else {
             l_renderer.renderMessage("Map is not valid");
         }
     }
@@ -44,6 +42,7 @@ public class ValidateMap extends Command {
     /**
      * Validates the logic of the ValidateMap command.
      * This method checks if the map is empty or not.
+     *
      * @return true if the map is not empty, false otherwise.
      */
     @Override
