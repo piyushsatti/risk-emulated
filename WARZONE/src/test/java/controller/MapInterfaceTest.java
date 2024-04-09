@@ -1,6 +1,7 @@
 package controller;
 
-import controller.MapFileManagement.MapInterface;
+import mvc.controller.GameEngine;
+import mvc.controller.middleware.mapfilemanagement.MapInterface;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;

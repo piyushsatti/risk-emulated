@@ -1,15 +1,13 @@
 package controller.middleware.commands;
 
-import controller.GameEngine;
-import controller.middleware.commands.TournamentCommands;
-import controller.statepattern.MapEditor;
-import controller.statepattern.Tournament;
-import helpers.exceptions.CountryDoesNotExistException;
-import helpers.exceptions.InvalidCommandException;
+import mvc.controller.GameEngine;
+import mvc.controller.middleware.commands.TournamentCommands;
+import mvc.controller.statepattern.tournament.Tournament;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TournamentTest {
     /**

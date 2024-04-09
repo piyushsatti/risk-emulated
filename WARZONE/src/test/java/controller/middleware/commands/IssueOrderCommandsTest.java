@@ -1,6 +1,7 @@
 package controller.middleware.commands;
 
 import controller.GameEngine;
+import controller.middleware.commands.IssueOrderCommands;
 import models.Player;
 import org.junit.Test;
 
@@ -14,12 +15,12 @@ public class IssueOrderCommandsTest {
     /**
      * Represents an instance of the game engine.
      */
-    GameEngine d_ge = new GameEngine();
+    GameEngine ge = new GameEngine();
 
     /**
      * Represents an instance of a player named "Devdutt" associated with the game engine.
      */
-    Player d_player = new Player("Devdutt", d_ge);
+    Player player = new Player("Devdutt", ge);
 
 
     /**
@@ -27,9 +28,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testBomb1() {
-        String l_cmd = "bomb ";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "bomb ";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -37,9 +38,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testBomb2() {
-        String l_cmd = "bomb piyush";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "bomb piyush";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -47,9 +48,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testBomb3() {
-        String l_cmd = "bomb piyush satti";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "bomb piyush satti";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -57,9 +58,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testBlockade1() {
-        String l_cmd = "blockade ";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "blockade ";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -67,9 +68,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testBlockade2() {
-        String l_cmd = "blockade piyush";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "blockade piyush";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -77,9 +78,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testBlockade3() {
-        String l_cmd = "blockade piyush satti";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "blockade piyush satti";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -87,9 +88,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testNegotiate1() {
-        String l_cmd = "negotiate ";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "negotiate ";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -97,9 +98,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testNegotiate2() {
-        String l_cmd = "negotiate piyush";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "negotiate piyush";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -107,9 +108,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testNegotiate3() {
-        String l_cmd = "negotiate piyush satti";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "negotiate piyush satti";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -117,9 +118,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testDeploy1() {
-        String l_cmd = "deploy India Shashi";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "deploy India Shashi";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -127,9 +128,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testDeploy2() {
-        String l_cmd = "deploy India ";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "deploy India ";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -137,9 +138,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testDeploy3() {
-        String l_cmd = "deploy India 300";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "deploy India 300";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -147,9 +148,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testDeploy4() {
-        String l_cmd = "deploy ";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "deploy ";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -157,9 +158,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testAdvance1() {
-        String l_cmd = "advance ";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "advance ";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -167,9 +168,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testAdvance2() {
-        String l_cmd = "advance India Bangladesh";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "advance India Bangladesh";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -177,9 +178,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testAdvance3() {
-        String l_cmd = "advance India Bangladesh 300";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "advance India Bangladesh 300";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -187,9 +188,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testAdvance4() {
-        String l_cmd = "advance India 300 ";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "advance India 300 ";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -197,9 +198,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testAdvance5() {
-        String l_cmd = "advance 300 ";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "advance 300 ";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -207,9 +208,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testAdvance6() {
-        String l_cmd = "advance India Bangladesh Nepal";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "advance India Bangladesh Nepal";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -217,9 +218,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testAirlift1() {
-        String l_cmd = "airlift ";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "airlift ";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -227,9 +228,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testAirlift2() {
-        String l_cmd = "airlift India Bangladesh";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "airlift India Bangladesh";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -237,9 +238,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testAirlift3() {
-        String l_cmd = "airlift India Bangladesh 300";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "airlift India Bangladesh 300";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -247,9 +248,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testAirlift4() {
-        String l_cmd = "airlift India 300 ";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "airlift India 300 ";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -257,9 +258,9 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testAirlift5() {
-        String l_cmd = "airlift 300 ";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "airlift 300 ";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 
     /**
@@ -267,8 +268,8 @@ public class IssueOrderCommandsTest {
      */
     @Test
     public void testAirlift6() {
-        String l_cmd = "airlift India Bangladesh Nepal";
-        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
-        assertFalse(l_obj.validateCommand(d_ge));
+        String cmd = "airlift India Bangladesh Nepal";
+        IssueOrderCommands obj = new IssueOrderCommands(cmd, player);
+        assertFalse(obj.validateCommand(ge));
     }
 }

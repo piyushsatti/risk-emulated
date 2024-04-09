@@ -1,9 +1,6 @@
 package controller.statepattern.gameplay;
 
 import controller.GameEngine;
-import controller.MapFileManagement.ConquestMapInterface;
-import controller.MapFileManagement.MapAdapter;
-import controller.MapFileManagement.MapFileLoader;
 import controller.MapFileManagement.MapInterface;
 import controller.middleware.commands.StartupCommands;
 import helpers.exceptions.ContinentAlreadyExistsException;
@@ -25,49 +22,46 @@ public class OrderExecutionTest {
     /**
      * Tests for the Winner method in the OrderExecution class.
      * Checks if the method correctly identifies a winner when only one player exists.
+     *
+     * @throws CountryDoesNotExistException     If the country does not exist.
+     * @throws ContinentAlreadyExistsException  If the continent already exists.
+     * @throws ContinentDoesNotExistException   If the continent does not exist.
+     * @throws DuplicateCountryException        If a duplicate country is encountered.
+     * @throws FileNotFoundException           If the specified file is not found.
      */
     @Test
-    public void isWinnerTest1() {
-        MapInterface l_mp = null;
-        GameEngine l_ge = new GameEngine();
-        MapFileLoader l_mfl = new MapFileLoader(l_ge, "usa9.map");
-
-        if (l_mfl.isConquest()) {
-            l_mp = new MapAdapter(new ConquestMapInterface());
-        } else {
-            l_mp = new MapInterface();
-        }
-        l_ge.d_worldmap = l_mp.loadMap(l_ge, l_mfl);
-        l_ge.d_players.add(new Player("Shashi", l_ge));
-        l_ge.setCurrentState(new Startup(l_ge));
-        StartupCommands l_cmd = new StartupCommands("assigncountries");
-        OrderExecution l_oe = new OrderExecution(l_ge);
-        l_cmd.execute(l_ge);
-        assertTrue(l_oe.isWinner());
+    public void isWinnerTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
+        MapInterface mp = new MapInterface();
+        GameEngine ge = new GameEngine();
+        ge.d_worldmap = mp.loadMap(ge, "usa9.map");
+        ge.d_players.add(new Player("Shashi", ge));
+        ge.setCurrentState(new Startup(ge));
+        StartupCommands cmd = new StartupCommands("assigncountries");
+        OrderExecution oe = new OrderExecution(ge);
+        cmd.execute(ge);
+        assertTrue(oe.isWinner());
     }
-
     /**
      * Tests for the Winner method in the OrderExecution class.
      * Checks if the method correctly identifies no winner when multiple players exist.
+     *
+     * @throws CountryDoesNotExistException     If the country does not exist.
+     * @throws ContinentAlreadyExistsException  If the continent already exists.
+     * @throws ContinentDoesNotExistException   If the continent does not exist.
+     * @throws DuplicateCountryException        If a duplicate country is encountered.
+     * @throws FileNotFoundException           If the specified file is not found.
      */
     @Test
-    public void isWinnerTest2() {
-        MapInterface l_mp = null;
-        GameEngine l_ge = new GameEngine();
-        MapFileLoader l_mfl = new MapFileLoader(l_ge, "usa9.map");
-
-        if (l_mfl.isConquest()) {
-            l_mp = new MapAdapter(new ConquestMapInterface());
-        } else {
-            l_mp = new MapInterface();
-        }
-        l_ge.d_worldmap = l_mp.loadMap(l_ge, l_mfl);
-        l_ge.d_players.add(new Player("Shashi", l_ge));
-        l_ge.d_players.add(new Player("Priyanshu", l_ge));
-        l_ge.setCurrentState(new Startup(l_ge));
-        StartupCommands l_cmd = new StartupCommands("assigncountries");
-        OrderExecution l_oe = new OrderExecution(l_ge);
-        l_cmd.execute(l_ge);
-        assertFalse(l_oe.isWinner());
+    public void isWinnerTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
+        MapInterface mp = new MapInterface();
+        GameEngine ge = new GameEngine();
+        ge.d_worldmap = mp.loadMap(ge, "usa9.map");
+        ge.d_players.add(new Player("Shashi", ge));
+        ge.d_players.add(new Player("Priyanshu", ge));
+        ge.setCurrentState(new Startup(ge));
+        StartupCommands cmd = new StartupCommands("assigncountries");
+        OrderExecution oe = new OrderExecution(ge);
+        cmd.execute(ge);
+        assertFalse(oe.isWinner());
     }
 }

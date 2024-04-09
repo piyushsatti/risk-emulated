@@ -1,12 +1,8 @@
 package controller.middleware.commands;
 
-import controller.GameEngine;
-import controller.middleware.commands.MapEditorCommands;
-import controller.statepattern.MapEditor;
-import controller.statepattern.gameplay.IssueOrder;
-import helpers.exceptions.CountryDoesNotExistException;
-import helpers.exceptions.InvalidCommandException;
-import models.Player;
+import mvc.controller.GameEngine;
+import mvc.controller.middleware.commands.MapEditorCommands;
+import mvc.controller.statepattern.mapeditor.MapEditor;
 import org.junit.Before;
 import org.junit.Test;
 
