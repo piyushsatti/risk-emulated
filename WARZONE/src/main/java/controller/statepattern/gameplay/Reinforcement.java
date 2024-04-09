@@ -30,6 +30,7 @@ public class Reinforcement extends Phase {
     public void displayMenu() {
 
     }
+
     /**
      * This method is intended to advance the game to the next step or phase.
      */
@@ -50,9 +51,9 @@ public class Reinforcement extends Phase {
      * Resets the "finished issue order" status for all players.
      * This status typically indicates whether a player has finished issuing orders for the current turn.
      */
-    public void allPlayersReset(){
-        for(Player p : d_ge.d_players){
-            if(p.isFinishedIssueOrder()){
+    public void allPlayersReset() {
+        for (Player p : d_ge.d_players) {
+            if (p.isFinishedIssueOrder()) {
                 p.setFinishedIssueOrder(false);
             }
         }
@@ -68,6 +69,7 @@ public class Reinforcement extends Phase {
         assignReinforcements(d_ge.d_players);
         d_ge.setCurrentState(new IssueOrder(d_ge));
     }
+
     /**
      * Assigns reinforcements to each player based on their assigned countries and controlled continents.
      * This method calculates the number of reinforcements each player receives by considering the number of assigned countries
@@ -75,27 +77,26 @@ public class Reinforcement extends Phase {
      *
      * @param players The list of players for whom reinforcements are to be assigned.
      */
-    public void assignReinforcements(ArrayList<Player> players)
-    {
-        for(Player player : players){
-            player.getListOfNegotiatedPlayers().clear();
-            int bonus =0;
-            HashMap<Integer, Continent> continents = d_ge.d_worldmap.getContinents();
-            for (Continent continent : continents.values()) {
-                boolean allCountriesFound = true; // Flag to track if all countries of the continent are found
-                for (Country country : d_ge.d_worldmap.getContinentCountries(continent).values()) {
-                    if (!player.getAssignedCountries().contains(country.getCountryID())) {
-                        allCountriesFound = false; // If any country is not found, set flag to false
+    public void assignReinforcements(ArrayList<Player> players) {
+        for (Player l_player : players) {
+            l_player.getListOfNegotiatedPlayers().clear();
+            int l_bonus = 0;
+            HashMap<Integer, Continent> l_continents = d_ge.d_worldmap.getContinents();
+            for (Continent l_continent : l_continents.values()) {
+                boolean l_allCountriesFound = true; // Flag to track if all countries of the continent are found
+                for (Country l_country : d_ge.d_worldmap.getContinentCountries(l_continent).values()) {
+                    if (!l_player.getAssignedCountries().contains(l_country.getCountryID())) {
+                        l_allCountriesFound = false; // If any country is not found, set flag to false
                         break;
                     }
                 }
-                if (allCountriesFound) {
+                if (l_allCountriesFound) {
                     // All countries of the continent are present
-                    bonus+= continent.getBonus(); // Get the bonus value
+                    l_bonus += l_continent.getBonus(); // Get the bonus value
                 }
             }
-            int l_numberOfTroops = Math.max(player.getAssignedCountries().size() / 3 +bonus, 3);
-            player.setReinforcements(l_numberOfTroops);
+            int l_numberOfTroops = Math.max(l_player.getAssignedCountries().size() / 3 + l_bonus, 3);
+            l_player.setReinforcements(l_numberOfTroops);
         }
         this.d_ge.d_renderer.renderMessage("----------------------------------------------------");
         this.d_ge.d_renderer.renderMessage("Reinforcements Done. Going to Issue Orders");

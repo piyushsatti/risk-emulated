@@ -1,9 +1,7 @@
 package controller.statepattern.gameplay;
 
 import controller.GameEngine;
-import controller.middleware.commands.MapEditorCommands;
 import controller.middleware.commands.StartupCommands;
-import controller.statepattern.MapEditor;
 import controller.statepattern.Phase;
 
 /**
@@ -13,15 +11,15 @@ public class Startup extends Phase {
     /**
      * Represents an array of menu options.
      */
-    String[] menu_options = {"Show Map", "Load Map", "gameplayer to Add/Remove Player", "Assign Countries"};
+    String[] d_menu_options = {"Show Map", "Load Map", "gameplayer to Add/Remove Player", "Assign Countries"};
 
     /**
      * Constructor for Startup phase.
      *
-     * @param gameEngine The GameEngine object.
+     * @param p_gameEngine The GameEngine object.
      */
-    public Startup(GameEngine gameEngine) {
-        super(gameEngine);
+    public Startup(GameEngine p_gameEngine) {
+        super(p_gameEngine);
     }
 
     /**
@@ -31,7 +29,7 @@ public class Startup extends Phase {
     public void displayMenu() {
         d_ge.d_renderer.renderMenu(
                 "Main Menu",
-                menu_options
+                d_menu_options
         );
     }
 
@@ -57,9 +55,9 @@ public class Startup extends Phase {
     @Override
     public void run() {
         displayMenu();
-        StartupCommands suc = new StartupCommands(
+        StartupCommands l_suc = new StartupCommands(
                 this.d_ge.d_renderer.renderUserInput("Enter command: ")
         );
-        suc.execute(this.d_ge);
+        l_suc.execute(this.d_ge);
     }
 }

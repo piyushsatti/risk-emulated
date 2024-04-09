@@ -7,7 +7,6 @@ import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.InvalidCommandException;
 import models.LogEntryBuffer;
 import models.Player;
-import models.orders.*;
 import view.Logger;
 
 import java.util.regex.Matcher;
@@ -21,45 +20,45 @@ public class IssueOrderCommands extends Commands {
     /**
      * The player associated with these commands.
      */
-    Player p;
+    Player d_player;
 
     /**
      * The current phase of game.
      */
-    String l_currPhase;
+    String d_currPhase;
 
     /**
      * Checks if a certain condition is met.
      *
      * @return True if the condition is met, otherwise false.
      */
-    public boolean isFlag() {
-        return flag;
+    public boolean isD_flag() {
+        return d_flag;
     }
 
     /**
      * Represents a buffer for storing log entries.
      */
-    LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+    LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer();
 
     /**
      * Represents a logger associated with a log entry buffer.
      */
-    Logger lw = new Logger(logEntryBuffer);
+    Logger d_lw = new Logger(d_logEntryBuffer);
 
     /**
      * Sets the flag indicating a condition.
      *
-     * @param flag The flag value to set.
+     * @param p_flag The flag value to set.
      */
-    public void setFlag(boolean flag) {
-        this.flag = flag;
+    public void setD_flag(boolean p_flag) {
+        this.d_flag = p_flag;
     }
 
     /**
      * set flag to false by default.
      */
-    boolean flag = false;
+    boolean d_flag = false;
 
 
     /**
@@ -81,7 +80,7 @@ public class IssueOrderCommands extends Commands {
                 "savegame",
                 "loadgame"
         });
-        p = p_player;
+        d_player = p_player;
     }
 
     /**
@@ -106,6 +105,7 @@ public class IssueOrderCommands extends Commands {
                         "^loadgame\\s\\w+\\.map(\\s)*$|"
         );
         Matcher matcher = pattern.matcher(d_command);
+        //returning true of pattern matches and the current state is Issue Order
         return matcher.matches() && (p_gameEngine.getCurrentState().getClass() == IssueOrder.class);
     }
 
@@ -118,11 +118,11 @@ public class IssueOrderCommands extends Commands {
 
         if (ge.d_worldmap == null) {
             ge.d_renderer.renderError("No map loaded into game! Please use 'loadmap' command");
-            logEntryBuffer.setString("Issue Order Phase: \n" + " Player Name:" + p.getName() + " ShowMap Order Not executed as " +
-                    "there is no map loaded " + p.getName() + " needs to load a map first");
+            d_logEntryBuffer.setString("Issue Order Phase: \n" + " Player Name:" + d_player.getName() + " ShowMap Order Not executed as " +
+                    "there is no map loaded " + d_player.getName() + " needs to load a map first");
         } else {
             ge.d_renderer.showMap(true);
-            logEntryBuffer.setString("Issue Order Phase: \n" + " Player Name:" + p.getName() + " ShowMap Order " + d_command);
+            d_logEntryBuffer.setString("Issue Order Phase: \n" + " Player Name:" + d_player.getName() + " ShowMap Order " + d_command);
         }
     }
 
@@ -150,7 +150,7 @@ public class IssueOrderCommands extends Commands {
      */
     @Override
     public void execute(GameEngine p_gameEngine) throws CountryDoesNotExistException, InvalidCommandException {
-        if (p.getStrategy().getStrategyName() == "Human") {
+        if (d_player.getStrategy().getStrategyName() == "Human") { //if this is a human player
             //validation of command, whether it is valid for the same phase or not, whether the format is correct or not
             if (!this.validateCommandName()) {
                 p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command for this phase");
@@ -162,16 +162,17 @@ public class IssueOrderCommands extends Commands {
 
             String[] l_command = d_command.trim().split("\\s+");// Split the command into parts
 
-            l_currPhase = getCurrentPhase(p_gameEngine);
-            p.setCurrentPhase(l_currPhase);
-            p.setCommands(d_command);
-            p.issue_order();
+            d_currPhase = getCurrentPhase(p_gameEngine);
+            d_player.setCurrentPhase(d_currPhase);
+            d_player.setCommands(d_command);
+            //issue the order
+            d_player.issue_order();
 
         } else {
-            l_currPhase = getCurrentPhase(p_gameEngine);
-            p.setCurrentPhase(l_currPhase);
-            p.issue_order();
-            p.setFinishedIssueOrder(true);
+            d_currPhase = getCurrentPhase(p_gameEngine);
+            d_player.setCurrentPhase(d_currPhase);
+            d_player.issue_order();
+            d_player.setFinishedIssueOrder(true);
         }
 
     }
