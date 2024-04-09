@@ -10,8 +10,17 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
+/**
+ * This class contains test cases for the TournamentExecution class.
+ */
 public class TournamentExecutionTest {
 
+    /**
+     * Test case for the run method of TournamentExecution class.
+     *
+     * @throws CountryDoesNotExistException If the specified country does not exist.
+     * @throws InvalidCommandException      If the command is invalid.
+     */
     @Test
     public void run() throws CountryDoesNotExistException, InvalidCommandException {
         GameEngine l_ge = new GameEngine();
@@ -23,14 +32,6 @@ public class TournamentExecutionTest {
         l_ge.setTournamentMode(true);
         l_ge.setCurrentState(new TournamentExecution(l_ge));
         l_ge.runState();
-//        l_ge.getCurrentState().run();
-//        l_ge.setCurrentState(new Reinforcement(l_ge));
-//        l_ge.getCurrentState().run();
-//        l_ge.setCurrentState(new IssueOrder(l_ge));
-//        l_ge.getCurrentState().run();
-//        l_ge.setCurrentState(new OrderExecution(l_ge));
-//        l_ge.getCurrentState().run();
-
 
         String [][] l_tournament_res = l_ge.getTournamentResults();
         int l_len = l_tournament_res.length;
