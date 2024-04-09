@@ -1,4 +1,5 @@
 package models.orders;
+
 import controller.GameEngine;
 import helpers.exceptions.InvalidCommandException;
 import view.TerminalRenderer;
@@ -60,7 +61,7 @@ public class Deploy implements Order {
      * @param p_reinforcementsDeployed The number of reinforcements deployed.
      * @param p_gameEngine             The game engine responsible for processing this deployment.
      */
-    public Deploy(Player p_sourcePlayer, String p_playerOrderName, int p_playerOrderID,int p_fromCountryID,int p_reinforcementsDeployed, GameEngine p_gameEngine){
+    public Deploy(Player p_sourcePlayer, String p_playerOrderName, int p_playerOrderID, int p_fromCountryID, int p_reinforcementsDeployed, GameEngine p_gameEngine) {
         this.d_sourcePlayer = p_sourcePlayer;
         this.d_playerOrderName = p_playerOrderName;
         this.d_playerOrderID = p_playerOrderID;
@@ -97,16 +98,16 @@ public class Deploy implements Order {
             this.d_terminalRenderer.renderMessage("You (" + this.d_sourcePlayer.getName() + ") don't have enough troops for this deploy order");
             return false;
         }
-        if (d_fromCountryID <=  0){
+        if (d_fromCountryID <= 0) {
             this.d_terminalRenderer.renderMessage(" (" + this.d_sourcePlayer.getName() + ") Negative countries not possible");
             return false;
         }
-        if(!this.d_sourcePlayer.getAssignedCountries().contains(d_fromCountryID)){
+        if (!this.d_sourcePlayer.getAssignedCountries().contains(d_fromCountryID)) {
             this.d_terminalRenderer.renderMessage("You don't own the country");
             return false;
         }
 
-        if(this.d_reinforcementsDeployed<=0){
+        if (this.d_reinforcementsDeployed <= 0) {
             this.d_terminalRenderer.renderMessage("Cannot use negative or zero armies");
             return false;
         }
@@ -117,26 +118,26 @@ public class Deploy implements Order {
     /**
      * Executes the order by deploying reinforcements to the specified country.
      */
-    public void execute(){
-        if(this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID) == null){
+    public void execute() {
+        if (this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID) == null) {
             return;
         }
         int l_currentReinforcements = this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
 
-       this.d_gameEngine.d_worldmap
-               .getCountry(this.d_fromCountryID)
-               .setReinforcements(this.d_reinforcementsDeployed + l_currentReinforcements);
+        this.d_gameEngine.d_worldmap
+                .getCountry(this.d_fromCountryID)
+                .setReinforcements(this.d_reinforcementsDeployed + l_currentReinforcements);
 
         this.d_terminalRenderer.renderMessage(
-              "Deploy Successful " +
-                      this.d_reinforcementsDeployed +
-                       " troops deployed on " +
-                      this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() +
-                       " by " +
-                       this.d_playerOrderName
-       );
+                "Deploy Successful " +
+                        this.d_reinforcementsDeployed +
+                        " troops deployed on " +
+                        this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() +
+                        " by " +
+                        this.d_playerOrderName
+        );
 
-   }
+    }
 
 }
 
