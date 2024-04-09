@@ -28,20 +28,20 @@ public class AdvanceTest {
 
     /**
      * Tests the validateCommand method of the Advance class when the command is valid.
-     *
-     * @throws CountryDoesNotExistException    If a country does not exist.
-     * @throws ContinentAlreadyExistsException If a continent already exists.
-     * @throws ContinentDoesNotExistException  If a continent does not exist.
-     * @throws DuplicateCountryException       If a country is duplicated.
-     * @throws FileNotFoundException           If a file is not found.
      */
     @Test
-    public void validateCommandTests1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
+    public void validateCommandTests1() {
         // Test setup
-<<<<<<< Updated upstream
-        MapInterface l_mp = new MapInterface();
         GameEngine l_ge = new GameEngine();
-        l_ge.d_worldmap = l_mp.loadMap(l_ge, "test_map.map");
+        MapInterface l_mp = null;
+        MapFileLoader l_mfl = new MapFileLoader(l_ge, "test_map.map");
+
+        if (l_mfl.isConquest()) {
+            l_mp = new MapAdapter(new ConquestMapInterface());
+        } else {
+            l_mp = new MapInterface();
+        }
+        l_ge.d_worldmap = l_mp.loadMap(l_ge, l_mfl);
         l_ge.d_players.add(new Player("Priyanshu", l_ge));
         l_ge.d_players.add(new Player("Abc", l_ge));
         l_ge.setCurrentState(new Startup(l_ge));
@@ -49,26 +49,6 @@ public class AdvanceTest {
         l_cmd.execute(l_ge);
         Reinforcement l_rf = new Reinforcement(l_ge);
         l_rf.run();
-=======
-
-        GameEngine ge = new GameEngine();
-        MapInterface mp = null;
-        MapFileLoader l_mfl = new MapFileLoader(ge, "test_map.map");
-
-        if(l_mfl.isConquest()){
-            mp = new MapAdapter(new ConquestMapInterface());
-        }else{
-            mp = new MapInterface();
-        }
-        ge.d_worldmap = mp.loadMap(ge, l_mfl);
-        ge.d_players.add(new Player("Priyanshu", ge));
-        ge.d_players.add(new Player("Abc", ge));
-        ge.setCurrentState(new Startup(ge));
-        StartupCommands cmd = new StartupCommands("assigncountries");
-        cmd.execute(ge);
-        Reinforcement rf = new Reinforcement(ge);
-        rf.run();
->>>>>>> Stashed changes
 
         // Validate command
         Advance l_av = new Advance(l_ge.d_players.get(0), l_ge.d_players.get(1), l_ge.d_players.get(0).getName(), l_ge.d_players.get(0).getPlayerId(), l_ge.d_players.get(0).getAssignedCountries().get(0), l_ge.d_players.get(1).getAssignedCountries().get(0), 5, l_ge);
@@ -78,38 +58,23 @@ public class AdvanceTest {
     /**
      * Tests the validateCommand method of the Advance class when the command is invalid.
      *
-     * @throws CountryDoesNotExistException    If a country does not exist.
-     * @throws ContinentAlreadyExistsException If a continent already exists.
-     * @throws ContinentDoesNotExistException  If a continent does not exist.
-     * @throws DuplicateCountryException       If a country is duplicated.
-     * @throws FileNotFoundException           If a file is not found.
-     * @throws InvalidCommandException         If command invalid
+     * @throws InvalidCommandException when entered command is invalid
      */
     @Test
-    public void validateCommandTests2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
+    public void validateCommandTests2() throws InvalidCommandException {
         // Test setup
-<<<<<<< Updated upstream
-        MapInterface l_mp = new MapInterface();
         GameEngine l_ge = new GameEngine();
-        l_ge.d_worldmap = l_mp.loadMap(l_ge, "test_map.map");
+        MapInterface l_mp = null;
+        MapFileLoader l_mfl = new MapFileLoader(l_ge, "test_map.map");
+
+        if (l_mfl.isConquest()) {
+            l_mp = new MapAdapter(new ConquestMapInterface());
+        } else {
+            l_mp = new MapInterface();
+        }
+        l_ge.d_worldmap = l_mp.loadMap(l_ge, l_mfl);
         l_ge.d_players.add(new Player("Priyanshu", l_ge));
         l_ge.d_players.add(new Player("Abc", l_ge));
-=======
-        GameEngine ge = new GameEngine();
-        MapInterface mp = null;
-        MapFileLoader l_mfl = new MapFileLoader(ge, "test_map.map");
-
-
-
-        if(l_mfl.isConquest()){
-            mp = new MapAdapter(new ConquestMapInterface());
-        }else{
-            mp = new MapInterface();
-        }
-        ge.d_worldmap = mp.loadMap(ge, l_mfl);
-        ge.d_players.add(new Player("Priyanshu", ge));
-        ge.d_players.add(new Player("Abc", ge));
->>>>>>> Stashed changes
 
         for (Player l_player : l_ge.d_players) {
             l_player.setPlayerStrategy(new AggressiveStrategy(l_player, l_ge));
@@ -199,40 +164,24 @@ public class AdvanceTest {
     }
 
     /**
-     * Tests the conquer result after executing Advance order.
-     *
-     * @throws CountryDoesNotExistException    If a country does not exist.
-     * @throws ContinentAlreadyExistsException If a continent already exists.
-     * @throws ContinentDoesNotExistException  If a continent does not exist.
-     * @throws DuplicateCountryException       If a country is duplicated.
-     * @throws FileNotFoundException           If a file is not found.
-     * @throws InvalidCommandException         If the command is invalid.
+     * Tests the conquer result after executing Advance orer.
      */
     @Test
-    public void advanceConquerCheck() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
+    public void advanceConquerCheck() {
         // Test setup
-<<<<<<< Updated upstream
-        MapInterface l_mp = new MapInterface();
         GameEngine l_ge = new GameEngine();
-        l_ge.d_worldmap = l_mp.loadMap(l_ge, "order_test.map");
+        MapInterface l_mp = null;
+        MapFileLoader l_mfl = new MapFileLoader(l_ge, "order_test.map");
+
+        if (l_mfl.isConquest()) {
+            l_mp = new MapAdapter(new ConquestMapInterface());
+        } else {
+            l_mp = new MapInterface();
+        }
+        l_ge.d_worldmap = l_mp.loadMap(l_ge, l_mfl);
         l_ge.d_players.add(new Player("Priyanshu", l_ge));
         l_ge.d_players.add(new Player("Abc", l_ge));
         l_ge.setCurrentState(new Startup(l_ge));
-=======
-        GameEngine ge = new GameEngine();
-        MapInterface mp = null;
-        MapFileLoader l_mfl = new MapFileLoader(ge, "order_test.map");
-
-        if(l_mfl.isConquest()){
-            mp = new MapAdapter(new ConquestMapInterface());
-        }else{
-            mp = new MapInterface();
-        }
-        ge.d_worldmap = mp.loadMap(ge, l_mfl);
-        ge.d_players.add(new Player("Priyanshu", ge));
-        ge.d_players.add(new Player("Abc", ge));
-        ge.setCurrentState(new Startup(ge));
->>>>>>> Stashed changes
 
         StartupCommands l_cmd = new StartupCommands("assigncountries");
         l_cmd.execute(l_ge);
