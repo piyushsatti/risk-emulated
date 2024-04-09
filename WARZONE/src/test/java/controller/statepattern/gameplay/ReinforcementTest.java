@@ -41,34 +41,21 @@ public class ReinforcementTest {
 
     /**
      * Test for the run method in Reinforcement phase.
-     *
-     * @throws CountryDoesNotExistException    when a country does not exist
-     * @throws ContinentAlreadyExistsException when a continent already exists
-     * @throws ContinentDoesNotExistException  when a continent does not exist
-     * @throws DuplicateCountryException       when a duplicate country is encountered
-     * @throws FileNotFoundException           when a file is not found
      */
     @Test
-    public void runTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
-<<<<<<< Updated upstream
-        MapInterface l_mp = new MapInterface();
-        d_ge.d_worldmap = l_mp.loadMap(d_ge, "usa9.map");
-        d_ge.d_players.add(new Player("Shashi", d_ge));
-=======
-        MapInterface mp = null;
-        MapFileLoader l_mfl = new MapFileLoader(ge, "usa9.map");
+    public void runTest1() {
+        MapInterface l_mp = null;
+        MapFileLoader l_mfl = new MapFileLoader(d_ge, "usa9.map");
 
-        if(l_mfl.isConquest()){
-            mp = new MapAdapter(new ConquestMapInterface());
-        }else{
-            mp = new MapInterface();
+        if (l_mfl.isConquest()) {
+            l_mp = new MapAdapter(new ConquestMapInterface());
+        } else {
+            l_mp = new MapInterface();
         }
-        ge.d_worldmap = mp.loadMap(ge, l_mfl);
-        ge.d_players.add(new Player("Shashi",ge));
->>>>>>> Stashed changes
+        d_ge.d_worldmap = l_mp.loadMap(d_ge, l_mfl);
+        d_ge.d_players.add(new Player("Shashi", d_ge));
 
         d_rf.run();
-
 
         int l_bonus = 0;
         HashMap<Integer, Continent> l_continents = d_ge.d_worldmap.getContinents();
@@ -94,33 +81,21 @@ public class ReinforcementTest {
 
     /**
      * Test for the run method in Reinforcement phase with multiple players.
-     *
-     * @throws CountryDoesNotExistException    when a country does not exist
-     * @throws ContinentAlreadyExistsException when a continent already exists
-     * @throws ContinentDoesNotExistException  when a continent does not exist
-     * @throws DuplicateCountryException       when a duplicate country is encountered
-     * @throws FileNotFoundException           when a file is not found
      */
     @Test
-    public void runTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
-<<<<<<< Updated upstream
-        MapInterface l_mp = new MapInterface();
-        d_ge.d_worldmap = l_mp.loadMap(d_ge, "usa9.map");
+    public void runTest2() {
+        MapInterface l_mp = null;
+        MapFileLoader l_mfl = new MapFileLoader(d_ge, "usa9.map");
+
+        if (l_mfl.isConquest()) {
+            l_mp = new MapAdapter(new ConquestMapInterface());
+        } else {
+            l_mp = new MapInterface();
+        }
+        d_ge.d_worldmap = l_mp.loadMap(d_ge, l_mfl);
         d_ge.d_players.add(new Player("Shashi", d_ge));
         d_ge.d_players.add(new Player("Priyanshu", d_ge));
-=======
-        MapInterface mp = null;
-        MapFileLoader l_mfl = new MapFileLoader(ge, "usa9.map");
 
-        if(l_mfl.isConquest()){
-            mp = new MapAdapter(new ConquestMapInterface());
-        }else{
-            mp = new MapInterface();
-        }
-        ge.d_worldmap = mp.loadMap(ge, l_mfl);
-        ge.d_players.add(new Player("Shashi",ge));
-        ge.d_players.add(new Player("Priyanshu",ge));
->>>>>>> Stashed changes
 
         d_rf.run();
 
