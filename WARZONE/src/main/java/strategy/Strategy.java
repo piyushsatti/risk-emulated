@@ -1,7 +1,7 @@
 package strategy;
 
 import helpers.exceptions.InvalidCommandException;
-import mvc.models.orders.Order;
+import models.orders.Order;
 
 /**
  * Interface representing different strategies for players in the game.

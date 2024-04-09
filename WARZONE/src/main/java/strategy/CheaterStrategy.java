@@ -1,10 +1,15 @@
 package strategy;
 
-import mvc.controller.GameEngine;
-import mvc.models.Player;
-import mvc.models.orders.Order;
+import controller.GameEngine;
+import models.Player;
+import models.orders.Deploy;
+import models.orders.Order;
+import models.worldmap.Country;
+import view.TerminalRenderer;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Random;
 
 /**
  * CheaterStrategy class implements the Strategy interface for the cheater strategy.
