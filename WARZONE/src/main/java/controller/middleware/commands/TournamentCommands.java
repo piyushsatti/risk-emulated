@@ -114,7 +114,6 @@ public class TournamentCommands extends Commands {
     @Override
     public void execute(GameEngine p_gameEngine) {
         String d_currPhase = getCurrentPhase(p_gameEngine);
-        System.out.println("d_currPhase" + d_currPhase);
         if (!this.validateCommandName() ) {
             p_gameEngine.d_renderer.renderError("InvalidCommandException : Invalid Command");
             return;
@@ -172,8 +171,7 @@ public class TournamentCommands extends Commands {
         p_gameEngine.setNumberOfTurns(d_maxTurns);
         p_gameEngine.setNumberGamesTournament(d_numberGames);
         createPlayers(p_gameEngine);
-
-
+        p_gameEngine.setTournamentResults(new String[d_numberGames][d_mapFiles.size()]);
         }
 
     /**

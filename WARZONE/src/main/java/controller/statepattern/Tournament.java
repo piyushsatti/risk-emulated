@@ -60,6 +60,7 @@ public class Tournament extends Phase{
                 this.d_ge.d_renderer.renderUserInput("Enter command: ")
         );
         tuc.execute(this.d_ge);
+        d_ge.setTournamentMode(true);
         d_ge.setCurrentState(new TournamentExecution(d_ge));
     }
 }

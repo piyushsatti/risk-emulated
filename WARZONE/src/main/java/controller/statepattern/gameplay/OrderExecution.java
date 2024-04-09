@@ -70,11 +70,11 @@ public class OrderExecution extends Phase {
     @Override
     public void run() {
         Counter++;
-        System.out.println("Counter ==" + Counter);
+        System.out.println("Current Turn" + Counter);
         System.out.println("Number of max turns: "+ d_ge.getNumberOfTurns());
         int l_totalplayers = d_ge.d_players.size();
         int l_playerNumber = 0;
-        System.out.println("In order execution phase --------------------------------------------");
+        d_ge.d_renderer.renderMessage("In order execution phase --------------------------------------------");
         while (!allOrdersExecuted(d_ge.d_players)) {
             for(Player player: d_ge.d_players){
                 if (!player.getOrderList().isEmpty()) {
@@ -95,11 +95,17 @@ public class OrderExecution extends Phase {
             }
         }
 
-        System.out.println("Number of Games inside order" + d_ge.getNumberGamesTournament()  );
 
         if(isWinner() || (d_ge.getNumberOfTurns() == Counter)) {
             Counter = 0;
-            System.out.println("=====================THERE IS A WINNER!!!=====================");
+            System.out.println("Game Over!");
+            if(isWinner()){
+             d_ge.setGameResult(d_ge.getNumberGamesTournament()-1,d_ge.currentMapIndex,d_ge.d_players.get(0).getName());
+            }
+            else{
+                d_ge.setGameResult(d_ge.getNumberGamesTournament()-1,d_ge.currentMapIndex,"DRAW");
+
+            }
             if(d_ge.getNumberGamesTournament() == 0 ){
                 d_ge.setCurrentState(new End(d_ge));
             }

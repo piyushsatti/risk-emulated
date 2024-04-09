@@ -36,6 +36,30 @@ public class GameEngine {
      */
     public WorldMap d_worldmap;
 
+    public int getCurrentGameNumber() {
+        return d_currentGameNumber;
+    }
+
+    public void setCurrentGameNumber(int d_currentGameNumber) {
+        this.d_currentGameNumber = d_currentGameNumber;
+    }
+
+    private int d_currentGameNumber;
+    private String[][] d_tournamentResults;
+    public void setTournamentResults(String[][] l_tournamentResults){
+        d_tournamentResults = l_tournamentResults;
+    }
+    public String[][] getTournamentResults() {
+        return d_tournamentResults;
+    }
+
+    public void setGameResult(int games, int maps, String winner){
+        d_tournamentResults[games][maps] = winner;
+    }
+
+
+
+
     /**
      * Represents the current phase of the game.
      */
@@ -94,6 +118,7 @@ public class GameEngine {
         this.d_inputStrategiesTournament = d_inputStrategiesTournament;
     }
 
+
     /**
      * Retrieves the list of map files used in the tournament mode.
      *
@@ -102,6 +127,17 @@ public class GameEngine {
     public List<String> getMapFilesTournament() {
         return d_mapFilesTournament;
     }
+
+    public int getCurrentMapIndex() {
+        return currentMapIndex;
+    }
+
+    public void setCurrentMapIndex(int currentMapIndex) {
+        this.currentMapIndex = currentMapIndex;
+    }
+
+    public int currentMapIndex;
+
 
     /**
      * Sets the list of map files used in the tournament mode.
@@ -156,7 +192,7 @@ public class GameEngine {
     public GameEngine()
     {
         this.d_current_phase = new Starting(this);
-        d_maps_folder ="risk-emulated/WARZONE/src/main/resources/maps/";
+        d_maps_folder ="C:\\Users\\HP\\Documents\\MACS PROJECTS\\soen6441 updated mvc final\\risk-emulated\\WARZONE\\src\\main\\resources\\maps\\";
         d_renderer = new TerminalRenderer(this);
         d_worldmap = new WorldMap();
         d_players = new ArrayList<>();

@@ -66606,3 +66606,147 @@ Phase :TournamentExecution
  Assigning Countries to players in Tournament
 Phase :TournamentExecution
 Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players
+Phase :Startup
+ Entered Command: loadmaploadmap Africa.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: showmap
+Phase :Startup
+ Command:showmap Executed
+Phase :Startup
+ Entered Command: loadmaploadmap usa9.map
+Phase :Startup
+ Command: loadmap  Executed
+Phase :Startup
+ Entered Command: gameplayer=>gameplayer -add human human
+Phase :Startup
+ Executed Command: gameplayer=>gameplayer -add human human
+Phase :Startup
+  Command: gameplayer -add human humanAdded Players [[human]]successfully
+Phase :Startup
+  Command: gameplayer -add human humanRemoved Players [[]]successfully
+Phase :Startup
+ Entered Command: assigncountries
+Phase :Startup
+ Executed Command: assigncountries || Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players
+Phase :TournamentExecution
+ loading map for tournament
+Phase :TournamentExecution
+ Tournament Map Loaded
+Phase :TournamentExecution
+ Assigning Countries to players in Tournament
+Phase :TournamentExecution
+Countries assigned to Players

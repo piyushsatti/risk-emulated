@@ -19,6 +19,10 @@ public class End extends Phase {
     public End(GameEngine p_gameEngine) {
         super(p_gameEngine);
         d_gameEngine = p_gameEngine;
+        if(d_gameEngine.isTournamentMode()){
+            displayResults(p_gameEngine);
+        }
+
         displayMenu();
     }
 
@@ -53,5 +57,40 @@ public class End extends Phase {
      */
     @Override
     public void run() {
+    }
+    public static void displayResults(GameEngine d_gameEngine) {
+        String[][] results = d_gameEngine.getTournamentResults();
+        int rows = results.length;
+        int cols = results[0].length;
+
+        // Display column headers with column indices
+        System.out.print("    ");
+        for (int j = 0; j < cols; j++) {
+            System.out.print("Game " + (j+1));
+        }
+        System.out.println();
+
+        // Display top boundary
+        System.out.print("   ");
+        for (int j = 0; j < (4 * cols) + 2; j++) {
+            System.out.print("-");
+        }
+        System.out.println();
+
+        // Display row numbers, matrix elements, and boundaries
+        for (int i = 0; i < rows; i++) {
+            System.out.print("Map " + (i+1)+"| ");
+            for (int j = 0; j < cols; j++) {
+                System.out.print(results[i][j] + " "); // Display matrix element
+            }
+            System.out.println(" |"); // Right boundary
+        }
+
+        // Display bottom boundary
+        System.out.print("   ");
+        for (int j = 0; j < (4 * cols) + 2; j++) {
+            System.out.print("-");
+        }
+        System.out.println();
     }
 }

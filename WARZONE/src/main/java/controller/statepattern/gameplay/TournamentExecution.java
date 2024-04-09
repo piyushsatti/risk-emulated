@@ -84,16 +84,18 @@ public class TournamentExecution extends Phase {
     @Override
     public void run() {
         String d_currPhase = getCurrentPhase(d_ge);
-        System.out.println("GAME NUMBER !!!!!!! " + d_ge.getNumberGamesTournament());
-
-        System.out.println("MAP NUMBER !!!!!!!! " + MapNumber);
 
         if(MapNumber == d_ge.getMapFilesTournament().size()){
             MapNumber =0;
             int numberOfGames = d_ge.getNumberGamesTournament();
+            d_ge.setGameResult(numberOfGames,MapNumber,"in progress");
             numberOfGames--;
             d_ge.setNumberGamesTournament(numberOfGames);
+            d_ge.setCurrentMapIndex(MapNumber);
             System.out.println("Number of Games:" + d_ge.getNumberGamesTournament());
+        }else{
+            d_ge.setCurrentMapIndex(MapNumber);
+            d_ge.setGameResult(d_ge.getNumberGamesTournament()-1,MapNumber,"in progress");
         }
         if(d_ge.getNumberGamesTournament() == 0 ){
             d_ge.setCurrentState(new End(d_ge));
@@ -177,7 +179,6 @@ public class TournamentExecution extends Phase {
             System.out.println("-----------------------------------------------------------------");
 
         }
-        System.out.println("ASSIGNMENT DONE HELLO FROM HERE");
         return true;
 
     }
