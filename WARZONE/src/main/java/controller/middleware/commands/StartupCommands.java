@@ -1,6 +1,9 @@
     package controller.middleware.commands;
 
     import controller.GameEngine;
+    import controller.MapFileManagement.ConquestMapInterface;
+    import controller.MapFileManagement.MapAdapter;
+    import controller.MapFileManagement.MapFileLoader;
     import controller.MapFileManagement.MapInterface;
     import controller.statepattern.Phase;
     import controller.statepattern.Starting;
@@ -31,10 +34,8 @@
          * list of valid strategies
          */
         List<String> d_validStrategies = Arrays.asList("aggressive","benevolent","human","random","cheater");
-        /**
-         * Represents map interface.
-         */
-        MapInterface mp = new MapInterface();
+
+
         /**
          * Represents a logger associated with a log entry buffer.
          */
@@ -224,14 +225,25 @@
          * @param p_currPhase The current phase of the game.
          */
         private void loadMap(GameEngine p_gameEngine,String p_currPhase){
+            MapInterface mp = null;
+
             if(this.splitCommand.length < 2){
                 // Render error if the command format is invalid
                 p_gameEngine.d_renderer.renderError("Invalid command! Correct format is loadmap <mapname>");
             }else{
 
                 try {
-                    logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Entered Command: loadmap" + d_command);      // Log the command entry
+                    logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Entered Command: loadmap" + d_command);// Log the command entry
+                    MapFileLoader l_mfl = new MapFileLoader(p_gameEngine, splitCommand[1]);
+
+                    if(l_mfl.isConquest()){
+                        mp = new MapAdapter(new ConquestMapInterface());
+                    }else{
+                        mp = new MapInterface();
+                    }
+
                     p_gameEngine.d_worldmap = mp.loadMap(p_gameEngine, splitCommand[1]);
+
                 }
                 catch(Exception e){
 
