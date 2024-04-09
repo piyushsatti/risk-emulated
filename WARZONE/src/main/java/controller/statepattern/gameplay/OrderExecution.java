@@ -101,19 +101,10 @@ public class OrderExecution extends Phase {
         if (isWinner() || (d_ge.getNumberOfTurns() == Counter)) {
             Counter = 0;
             System.out.println("Game Over!");
-<<<<<<< Updated upstream
-            if(isWinner()){
-             d_ge.setGameResult(d_ge.getNumberOfGames()-1,d_ge.currentMapIndex,d_ge.d_players.get(0).getName());
-            }
-            else{
-                d_ge.setGameResult(d_ge.getNumberOfGames()-1,d_ge.currentMapIndex,"DRAW");
-=======
             if (isWinner()) {
-                d_ge.setGameResult(d_ge.getNumberGamesTournament() - 1, d_ge.currentMapIndex, d_ge.d_players.get(0).getName());
+                d_ge.setGameResult(d_ge.getNumberOfGames() - 1, d_ge.currentMapIndex, d_ge.d_players.get(0).getName());
             } else {
-                d_ge.setGameResult(d_ge.getNumberGamesTournament() - 1, d_ge.currentMapIndex, "DRAW");
->>>>>>> Stashed changes
-
+                d_ge.setGameResult(d_ge.getNumberOfGames() - 1, d_ge.currentMapIndex, "DRAW");
             }
             if (d_ge.getNumberGamesTournament() == 0) {
                 d_ge.setCurrentState(new End(d_ge));
