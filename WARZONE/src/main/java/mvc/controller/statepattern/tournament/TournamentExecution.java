@@ -1,4 +1,4 @@
-package mvc.controller.statepattern.tournament;
+package mvc.controller.statepattern.tournament.;
 
 import mvc.controller.GameEngine;
 import mvc.controller.middleware.mapfilemanagement.ConquestMapInterface;
@@ -7,7 +7,6 @@ import mvc.controller.middleware.mapfilemanagement.MapFileLoader;
 import mvc.controller.middleware.mapfilemanagement.MapInterface;
 import mvc.controller.statepattern.End;
 import mvc.controller.statepattern.Phase;
-import mvc.controller.statepattern.gameplay.Reinforcement;
 import mvc.models.LogEntryBuffer;
 import mvc.models.Player;
 import mvc.models.worldmap.Country;

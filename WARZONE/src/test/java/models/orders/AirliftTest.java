@@ -1,23 +1,22 @@
 package models.orders;
 
+import controller.GameEngine;
+import controller.MapFileManagement.ConquestMapInterface;
+import controller.MapFileManagement.MapAdapter;
+import controller.MapFileManagement.MapFileLoader;
+import controller.MapFileManagement.MapInterface;
+import controller.middleware.commands.StartupCommands;
+import controller.statepattern.gameplay.Reinforcement;
+import controller.statepattern.gameplay.Startup;
 import helpers.exceptions.*;
 import models.Player;
 import models.worldmap.Country;
-import mvc.controller.GameEngine;
-import mvc.controller.middleware.commands.StartupCommands;
-import mvc.controller.middleware.mapfilemanagement.ConquestMapInterface;
-import mvc.controller.middleware.mapfilemanagement.MapAdapter;
-import mvc.controller.middleware.mapfilemanagement.MapFileLoader;
-import mvc.controller.middleware.mapfilemanagement.MapInterface;
-import mvc.controller.statepattern.gameplay.Reinforcement;
 import org.junit.Test;
+import strategy.AggressiveStrategy;
 
 import java.io.FileNotFoundException;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-;
+import static org.junit.Assert.*;
 
 /**
  * The AirliftTest class contains unit tests for the Airlift class.
@@ -35,6 +34,19 @@ public class AirliftTest {
      */
     @Test
     public void validateCommandTests1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
+        // Test setup
+<<<<<<< Updated upstream
+        MapInterface l_mp = new MapInterface();
+        GameEngine l_ge = new GameEngine();
+        l_ge.d_worldmap = l_mp.loadMap(l_ge, "usa9.map");
+        l_ge.d_players.add(new Player("Priyanshu", l_ge));
+        l_ge.d_players.add(new Player("Abc", l_ge));
+        l_ge.setCurrentState(new Startup(l_ge));
+        StartupCommands l_cmd = new StartupCommands("assigncountries");
+        l_cmd.execute(l_ge);
+        Reinforcement l_rf = new Reinforcement(l_ge);
+        l_rf.run();
+=======
         GameEngine ge = new GameEngine();
 
         MapInterface mp = null;
@@ -72,6 +84,19 @@ public class AirliftTest {
      */
     @Test
     public void validateCommandTests2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
+        // Test setup
+<<<<<<< Updated upstream
+        MapInterface l_mp = new MapInterface();
+        GameEngine l_ge = new GameEngine();
+        l_ge.d_worldmap = l_mp.loadMap(l_ge, "usa9.map");
+        l_ge.d_players.add(new Player("Priyanshu", l_ge));
+        l_ge.d_players.add(new Player("Abc", l_ge));
+        l_ge.setCurrentState(new Startup(l_ge));
+        StartupCommands l_cmd = new StartupCommands("assigncountries");
+        l_cmd.execute(l_ge);
+        Reinforcement l_rf = new Reinforcement(l_ge);
+        l_rf.run();
+=======
         GameEngine ge = new GameEngine();
         MapInterface mp = null;
         MapFileLoader l_mfl = new MapFileLoader(ge, "usa9.map");
@@ -107,6 +132,19 @@ public class AirliftTest {
      */
     @Test
     public void validateCommandTests3() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
+        // Test setup
+<<<<<<< Updated upstream
+        MapInterface l_mp = new MapInterface();
+        GameEngine l_ge = new GameEngine();
+        l_ge.d_worldmap = l_mp.loadMap(l_ge, "usa9.map");
+        l_ge.d_players.add(new Player("Priyanshu", l_ge));
+        l_ge.d_players.add(new Player("Abc", l_ge));
+        l_ge.setCurrentState(new Startup(l_ge));
+        StartupCommands l_cmd = new StartupCommands("assigncountries");
+        l_cmd.execute(l_ge);
+        Reinforcement l_rf = new Reinforcement(l_ge);
+        l_rf.run();
+=======
         GameEngine ge = new GameEngine();
         MapInterface mp = null;
         MapFileLoader l_mfl = new MapFileLoader(ge, "usa9.map");

@@ -1,8 +1,7 @@
 package strategy;
 
-import mvc.controller.GameEngine;
-import mvc.models.Player;
-import mvc.models.orders.*;
+import controller.GameEngine;
+import models.Player;
 
 import java.util.ArrayList;
 import java.util.Random;

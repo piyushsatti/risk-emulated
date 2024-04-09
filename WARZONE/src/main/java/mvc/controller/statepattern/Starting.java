@@ -1,7 +1,6 @@
 package mvc.controller.statepattern;
 
 import mvc.controller.GameEngine;
-import mvc.controller.statepattern.mainmenu.Startup;
 import mvc.controller.statepattern.mapeditor.MapEditor;
 import mvc.controller.statepattern.tournament.Tournament;
 

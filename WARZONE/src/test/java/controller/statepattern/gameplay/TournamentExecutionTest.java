@@ -1,14 +1,14 @@
 package controller.statepattern.gameplay;
 
+import controller.GameEngine;
+import controller.middleware.commands.TournamentCommands;
+import controller.statepattern.Tournament;
 import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.InvalidCommandException;
-import mvc.controller.GameEngine;
-import mvc.controller.middleware.commands.TournamentCommands;
-import mvc.controller.statepattern.tournament.Tournament;
-import mvc.controller.statepattern.tournament.TournamentExecution;
+import org.junit.Assert;
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 /**
  * This class contains test cases for the TournamentExecution class.
