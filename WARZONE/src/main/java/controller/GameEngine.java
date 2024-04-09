@@ -36,29 +36,56 @@ public class GameEngine {
      */
     public WorldMap d_worldmap;
 
+    /**
+     * Retrieves the current game number.
+     *
+     * @return The current game number.
+     */
     public int getCurrentGameNumber() {
         return d_currentGameNumber;
     }
 
+    /**
+     * Sets the current game number to the specified value.
+     *
+     * @param d_currentGameNumber The new value for the current game number.
+     */
     public void setCurrentGameNumber(int d_currentGameNumber) {
         this.d_currentGameNumber = d_currentGameNumber;
     }
 
     private int d_currentGameNumber;
     private String[][] d_tournamentResults;
+
+    /**
+     * Sets the tournament results to the specified two-dimensional array.
+     *
+     * @param l_tournamentResults The two-dimensional array containing tournament results.
+     */
     public void setTournamentResults(String[][] l_tournamentResults){
         d_tournamentResults = l_tournamentResults;
     }
+
+    /**
+     * Retrieves the tournament results as a two-dimensional array.
+     *
+     * @return The two-dimensional array containing tournament results.
+     */
     public String[][] getTournamentResults() {
         return d_tournamentResults;
     }
 
+
+    /**
+     * Sets the result of a specific game on a specific map in the tournament results.
+     *
+     * @param games The index of the game in the tournament.
+     * @param maps The index of the map played in the game.
+     * @param winner The winner of the game.
+     */
     public void setGameResult(int games, int maps, String winner){
         d_tournamentResults[games][maps] = winner;
     }
-
-
-
 
     /**
      * Represents the current phase of the game.
@@ -118,7 +145,6 @@ public class GameEngine {
         this.d_inputStrategiesTournament = d_inputStrategiesTournament;
     }
 
-
     /**
      * Retrieves the list of map files used in the tournament mode.
      *
@@ -128,14 +154,27 @@ public class GameEngine {
         return d_mapFilesTournament;
     }
 
+    /**
+     * Retrieves the index of the current map.
+     *
+     * @return The index of the current map.
+     */
     public int getCurrentMapIndex() {
         return currentMapIndex;
     }
 
+    /**
+     * Sets the index of the current map to the specified value.
+     *
+     * @param currentMapIndex The new value for the index of the current map.
+     */
     public void setCurrentMapIndex(int currentMapIndex) {
         this.currentMapIndex = currentMapIndex;
     }
 
+    /**
+     * Represents the index of the current map.
+     */
     public int currentMapIndex;
 
 
