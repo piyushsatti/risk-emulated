@@ -28,6 +28,7 @@ public class TournamentCommands extends Commands {
      * Represents a buffer for storing log entries.
      */
     LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+
     /**
      * list of valid strategies
      */
@@ -51,16 +52,16 @@ public class TournamentCommands extends Commands {
      * list storing input strategies given by the user
      */
     List<String> d_inputStrategies;
+
     /**
      * number of games
      */
     private int d_numberGames;
+
     /**
      * number of max turns
      */
     private int d_maxTurns;
-
-
 
     /**
      * method which returns the current gamephase
@@ -184,6 +185,13 @@ public class TournamentCommands extends Commands {
         File l_map_file_obj = new File(p_gameEngine.d_maps_folder + p_mapName);
         return l_map_file_obj.exists() && !l_map_file_obj.isDirectory();
     }
+
+    /**
+     * Creates players for the game based on the input strategies provided.
+     * Each player is assigned a specific strategy based on the input.
+     *
+     * @param p_gameEngine The game engine object managing the game.
+     */
     private void createPlayers(GameEngine p_gameEngine){
         for(String l_strategy : d_inputStrategies){
             Player l_newPlayer = new Player(l_strategy,p_gameEngine);

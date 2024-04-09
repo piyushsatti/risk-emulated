@@ -8,6 +8,10 @@ import controller.statepattern.gameplay.TournamentExecution;
 import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.InvalidCommandException;
 
+/**
+ * Represents the tournament phase of the game.
+ * This phase is responsible for managing the tournament gameplay.
+ */
 public class Tournament extends Phase{
     /**
      * Constructs a Phase with the specified GameEngine.
