@@ -11,7 +11,7 @@ import java.util.Random;
 /**
  * AggressiveStrategy class implements the Strategy interface for the aggressive strategy.
  */
-public class AggressiveStrategy  implements Strategy {
+public class AggressiveStrategy implements Strategy {
 
     /**
      * The player associated with this strategy.
@@ -21,7 +21,7 @@ public class AggressiveStrategy  implements Strategy {
     /**
      * Random object for generating random numbers.
      */
-    private Random random = new Random();
+    private Random d_random = new Random();
 
     /**
      * The game engine associated with this strategy.
@@ -95,9 +95,9 @@ public class AggressiveStrategy  implements Strategy {
 
         // Get the list of own neighboring countries
         ArrayList<Integer> ownNeighboringCountries = new ArrayList<>();
-        for (Integer id : d_gameEngine.d_worldmap.getCountry(p_sourceCountryId).getAllBorderCountriesIDs()) {
-            if (this.d_player.getAssignedCountries().contains(id)) {
-                ownNeighboringCountries.add(id);
+        for (Integer l_id : d_gameEngine.d_worldmap.getCountry(p_sourceCountryId).getAllBorderCountriesIDs()) {
+            if (this.d_player.getAssignedCountries().contains(l_id)) {
+                ownNeighboringCountries.add(l_id);
             }
         }
 
@@ -108,7 +108,7 @@ public class AggressiveStrategy  implements Strategy {
 
         // Choose a random own neighboring country
         do {
-            l_randomCountryId = ownNeighboringCountries.get(random.nextInt(ownNeighboringCountries.size()));
+            l_randomCountryId = ownNeighboringCountries.get(d_random.nextInt(ownNeighboringCountries.size()));
         } while (l_randomCountryId == p_sourceCountryId);
 
         return l_randomCountryId;
@@ -121,13 +121,13 @@ public class AggressiveStrategy  implements Strategy {
      * @return country id
      */
     public List<Integer> getOwnNeighboringCountriesToSource(int p_sourceCountryId) {
-        ArrayList<Integer> listOfAllBorderCountriesIDs = new ArrayList<>();
-        for (Integer id : d_gameEngine.d_worldmap.getCountry(p_sourceCountryId).getAllBorderCountriesIDs()) {
-            if (this.d_player.getAssignedCountries().contains(id)) {
-                listOfAllBorderCountriesIDs.add(id);
+        ArrayList<Integer> l_listOfAllBorderCountriesIDs = new ArrayList<>();
+        for (Integer l_id : d_gameEngine.d_worldmap.getCountry(p_sourceCountryId).getAllBorderCountriesIDs()) {
+            if (this.d_player.getAssignedCountries().contains(l_id)) {
+                l_listOfAllBorderCountriesIDs.add(l_id);
             }
         }
-        return listOfAllBorderCountriesIDs;
+        return l_listOfAllBorderCountriesIDs;
     }
 
     /**
@@ -138,21 +138,22 @@ public class AggressiveStrategy  implements Strategy {
      */
     @Override
     public int getTargetCountry(int p_sourceCountryId) {
-        ArrayList<Integer> listOfAllBorderCountriesIDs = new ArrayList<>();
-        if(d_gameEngine.d_worldmap.getCountry(p_sourceCountryId) != null){
-        for (Integer id : d_gameEngine.d_worldmap.getCountry(p_sourceCountryId).getAllBorderCountriesIDs()) {
-            if (!this.d_player.getAssignedCountries().contains(id)) {
+        ArrayList<Integer> l_listOfAllBorderCountriesIDs = new ArrayList<>();
+        if (d_gameEngine.d_worldmap.getCountry(p_sourceCountryId) != null) {
+            for (Integer l_id : d_gameEngine.d_worldmap.getCountry(p_sourceCountryId).getAllBorderCountriesIDs()) {
+                if (!this.d_player.getAssignedCountries().contains(l_id)) {
 
-                listOfAllBorderCountriesIDs.add(id);
+                    l_listOfAllBorderCountriesIDs.add(l_id);
+                }
             }
-        }}
+        }
 
-        if (listOfAllBorderCountriesIDs.isEmpty()) {
+        if (l_listOfAllBorderCountriesIDs.isEmpty()) {
             return -1; // Return a special value to indicate that no target country is available
         }
 
-        int l_index = random.nextInt(listOfAllBorderCountriesIDs.size());
-        return listOfAllBorderCountriesIDs.get(l_index);
+        int l_index = d_random.nextInt(l_listOfAllBorderCountriesIDs.size());
+        return l_listOfAllBorderCountriesIDs.get(l_index);
     }
 
     /**
@@ -161,36 +162,37 @@ public class AggressiveStrategy  implements Strategy {
      * @return Order object
      */
     public Order createOrder() {
-        int randomNumber = random.nextInt(3) + 1;
+        int l_randomNumber = d_random.nextInt(3) + 1;
         int l_strongestCountryId = getSourceCountry();
-        Order order = null;
-        if (randomNumber == 1) { //deploy
+        Order l_order = null;
+        if (l_randomNumber == 1) { //deploy
             if (l_strongestCountryId != -1) {
-            order = new Deploy(this.d_player, this.d_player.getName(), this.d_player.getPlayerId(), l_strongestCountryId, this.d_player.getReinforcements(), this.d_gameEngine);
-           return order;
-            }  return null;
-        }
-        else if (randomNumber == 2) { //advance - attack
+                l_order = new Deploy(this.d_player, this.d_player.getName(), this.d_player.getPlayerId(), l_strongestCountryId, this.d_player.getReinforcements(), this.d_gameEngine);
+                return l_order;
+            }
+            return null;
+        } else if (l_randomNumber == 2) { //advance - attack
             int l_targetCountryID = getTargetCountry(l_strongestCountryId);
             if (l_strongestCountryId != -1 && l_targetCountryID != -1) {
                 int l_maxArmies = this.d_gameEngine.d_worldmap.getCountry(l_strongestCountryId).getReinforcements();
                 Player l_targetPlayer = null;
-                for (Player player : this.d_gameEngine.d_players) {
-                    if (player.getAssignedCountries().contains(l_targetCountryID)) {
-                        l_targetPlayer = player;
+                for (Player l_player : this.d_gameEngine.d_players) {
+                    if (l_player.getAssignedCountries().contains(l_targetCountryID)) {
+                        l_targetPlayer = l_player;
                     }
                 }
-                order = new Advance(this.d_player, l_targetPlayer, this.d_player.getName(), this.d_player.getPlayerId(), l_strongestCountryId, l_targetCountryID, l_maxArmies, this.d_gameEngine);
-                return order;
+                l_order = new Advance(this.d_player, l_targetPlayer, this.d_player.getName(), this.d_player.getPlayerId(), l_strongestCountryId, l_targetCountryID, l_maxArmies, this.d_gameEngine);
+                return l_order;
             }
             return null;
 
-        } else if (randomNumber == 3) //advance - move armies from neighbors(owned by player) to the source country(has max armies)
-        {      int l_targetCountryID = getTargetCountry(l_strongestCountryId);
+        } else if (l_randomNumber == 3) //advance - move armies from neighbors(owned by player) to the source country(has max armies)
+        {
+            int l_targetCountryID = getTargetCountry(l_strongestCountryId);
             if (l_strongestCountryId != -1 && l_targetCountryID != -1) {
 
-                List<Integer> ownNeighboringCountriesToSource = getOwnNeighboringCountriesToSource(l_strongestCountryId);
-                for (int l_country : ownNeighboringCountriesToSource) {
+                List<Integer> l_ownNeighboringCountriesToSource = getOwnNeighboringCountriesToSource(l_strongestCountryId);
+                for (int l_country : l_ownNeighboringCountriesToSource) {
                     int l_armiesToAdd = this.d_gameEngine.d_worldmap.getCountry(l_country).getReinforcements();
                     this.d_gameEngine.d_worldmap.getCountry(l_country).setReinforcements(0);
                     int l_currArmies = this.d_gameEngine.d_worldmap.getCountry(l_targetCountryID).getReinforcements();
@@ -199,35 +201,34 @@ public class AggressiveStrategy  implements Strategy {
 
             }
             return null;
-        }else if (randomNumber == 4) {
-                if (this.d_player.containsCard("airlift")) {
-                    if (l_strongestCountryId != -1) {
-                        int l_countrytoAirliftFrom = getOwnRandomCountry(l_strongestCountryId);
-                        if (l_countrytoAirliftFrom != -1) {
-                            int l_armiesToDeploy = this.d_gameEngine.d_worldmap.getCountry(l_countrytoAirliftFrom).getReinforcements();
-                            order = new Airlift(this.d_player, this.d_player.getName(), this.d_player.getPlayerId(), l_countrytoAirliftFrom, l_strongestCountryId, l_armiesToDeploy, this.d_gameEngine);
-                            this.d_player.removeCard("airlift");
-                            return order;
-                        }
-                        return null;
+        } else if (l_randomNumber == 4) {
+            if (this.d_player.containsCard("airlift")) {
+                if (l_strongestCountryId != -1) {
+                    int l_countrytoAirliftFrom = getOwnRandomCountry(l_strongestCountryId);
+                    if (l_countrytoAirliftFrom != -1) {
+                        int l_armiesToDeploy = this.d_gameEngine.d_worldmap.getCountry(l_countrytoAirliftFrom).getReinforcements();
+                        l_order = new Airlift(this.d_player, this.d_player.getName(), this.d_player.getPlayerId(), l_countrytoAirliftFrom, l_strongestCountryId, l_armiesToDeploy, this.d_gameEngine);
+                        this.d_player.removeCard("airlift");
+                        return l_order;
                     }
                     return null;
                 }
-                else if (this.d_player.containsCard("bomb")) {
-                    int l_countryToBomb = getTargetCountry(l_strongestCountryId);
-                    Player l_targetPlayer = null;
-                    for (Player player : this.d_gameEngine.d_players) {
-                        if (player.getAssignedCountries().contains(l_countryToBomb)) {
-                            l_targetPlayer = player;
-                        }
+                return null;
+            } else if (this.d_player.containsCard("bomb")) {
+                int l_countryToBomb = getTargetCountry(l_strongestCountryId);
+                Player l_targetPlayer = null;
+                for (Player l_player : this.d_gameEngine.d_players) {
+                    if (l_player.getAssignedCountries().contains(l_countryToBomb)) {
+                        l_targetPlayer = l_player;
                     }
-                    order = new Bomb(this.d_player, l_targetPlayer, this.d_player.getPlayerId(), this.d_player.getName(), l_countryToBomb, this.d_gameEngine);
-                    this.d_player.removeCard("bomb");
-                    return order;
                 }
+                l_order = new Bomb(this.d_player, l_targetPlayer, this.d_player.getPlayerId(), this.d_player.getName(), l_countryToBomb, this.d_gameEngine);
+                this.d_player.removeCard("bomb");
+                return l_order;
             }
-            return null;
         }
+        return null;
+    }
 
 
 }
