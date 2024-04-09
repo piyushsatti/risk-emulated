@@ -112,7 +112,6 @@ public class TournamentExecution extends Phase {
         if (d_ge.getNumberGamesTournament() == 0) {
             d_ge.setCurrentState(new End(d_ge));
         }
-        MapInterface l_mp = new MapInterface();
         String d_map = d_ge.getMapFilesTournament().get(MapNumber);
         MapNumber++;
         d_ge.d_worldmap = null;
