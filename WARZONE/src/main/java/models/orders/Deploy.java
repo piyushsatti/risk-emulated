@@ -118,6 +118,9 @@ public class Deploy implements Order {
      * Executes the order by deploying reinforcements to the specified country.
      */
     public void execute(){
+        if(this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID) == null){
+            return;
+        }
         int l_currentReinforcements = this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
 
        this.d_gameEngine.d_worldmap

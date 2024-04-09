@@ -172,7 +172,7 @@ public class TournamentCommands extends Commands {
         p_gameEngine.setNumberOfTurns(d_maxTurns);
         p_gameEngine.setNumberGamesTournament(d_numberGames);
         createPlayers(p_gameEngine);
-        p_gameEngine.setTournamentResults(new String[d_numberGames][d_mapFiles.size()]);
+        p_gameEngine.setTournamentResults(new String[d_mapFiles.size()][d_numberGames]);
         }
 
     /**

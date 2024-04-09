@@ -84,7 +84,7 @@ public class GameEngine {
      * @param winner The winner of the game.
      */
     public void setGameResult(int games, int maps, String winner){
-        d_tournamentResults[games][maps] = winner;
+        d_tournamentResults[maps][games] = winner;
     }
 
     /**
@@ -96,6 +96,16 @@ public class GameEngine {
      * The number of turns played in the game.
      */
     private int d_numberOfTurns = 0;
+
+    public int getNumberOfGames() {
+        return d_numberOfGames;
+    }
+
+    public void setNumberOfGames(int d_numberOfGames) {
+        this.d_numberOfGames = d_numberOfGames;
+    }
+
+    private int d_numberOfGames = 1;
 
     /**
      * Indicates whether the game is in tournament mode.

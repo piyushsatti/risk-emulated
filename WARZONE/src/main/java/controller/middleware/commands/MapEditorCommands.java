@@ -124,7 +124,7 @@ public class MapEditorCommands extends Commands {
                     logEntryBuffer.setString("Phase :"+d_currPhase+"\n"+ " Entered Command: savemap => "+d_command);
                     mp.saveMap(p_gameEngine, l_command[1]);
                     logEntryBuffer.setString("Phase :"+d_currPhase+"\n"+ "  Executed Command: savemap => "+d_command);
-                } catch (IOException e) {
+                } catch (Exception e) {
                     p_gameEngine.d_renderer.renderError("IOException : Encountered File I/O Error");
                     logEntryBuffer.setString("Phase :"+d_currPhase+"\n"+ " Command: savemap Not Executed due to File I/O Error");
                 }
@@ -526,7 +526,7 @@ public class MapEditorCommands extends Commands {
             logEntryBuffer.setString("creating file "+ mapName);
             try {
                 mp.saveMap(p_gameEngine, mapName);
-            } catch (IOException ex) {
+            } catch (Exception ex) {
                 throw new RuntimeException(ex);
             }
             editMap(p_gameEngine,p_currPhase);

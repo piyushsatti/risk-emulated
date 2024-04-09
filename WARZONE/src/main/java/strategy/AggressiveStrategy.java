@@ -139,12 +139,13 @@ public class AggressiveStrategy  implements Strategy {
     @Override
     public int getTargetCountry(int p_sourceCountryId) {
         ArrayList<Integer> listOfAllBorderCountriesIDs = new ArrayList<>();
+        if(d_gameEngine.d_worldmap.getCountry(p_sourceCountryId) != null){
         for (Integer id : d_gameEngine.d_worldmap.getCountry(p_sourceCountryId).getAllBorderCountriesIDs()) {
             if (!this.d_player.getAssignedCountries().contains(id)) {
 
                 listOfAllBorderCountriesIDs.add(id);
             }
-        }
+        }}
 
         if (listOfAllBorderCountriesIDs.isEmpty()) {
             return -1; // Return a special value to indicate that no target country is available

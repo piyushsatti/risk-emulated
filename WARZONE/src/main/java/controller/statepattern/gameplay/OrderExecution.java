@@ -100,10 +100,10 @@ public class OrderExecution extends Phase {
             Counter = 0;
             System.out.println("Game Over!");
             if(isWinner()){
-             d_ge.setGameResult(d_ge.getNumberGamesTournament()-1,d_ge.currentMapIndex,d_ge.d_players.get(0).getName());
+             d_ge.setGameResult(d_ge.getNumberOfGames()-1,d_ge.currentMapIndex,d_ge.d_players.get(0).getName());
             }
             else{
-                d_ge.setGameResult(d_ge.getNumberGamesTournament()-1,d_ge.currentMapIndex,"DRAW");
+                d_ge.setGameResult(d_ge.getNumberOfGames()-1,d_ge.currentMapIndex,"DRAW");
 
             }
             if(d_ge.getNumberGamesTournament() == 0 ){

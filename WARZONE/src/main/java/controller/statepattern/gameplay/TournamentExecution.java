@@ -87,15 +87,19 @@ public class TournamentExecution extends Phase {
 
         if(MapNumber == d_ge.getMapFilesTournament().size()){
             MapNumber =0;
+            d_ge.setNumberOfGames(d_ge.getNumberOfGames() + 1);
             int numberOfGames = d_ge.getNumberGamesTournament();
-            d_ge.setGameResult(numberOfGames,MapNumber,"in progress");
+            //System.out.println("Number of Games"+ (d_ge.getNumberOfGames()-1));
             numberOfGames--;
             d_ge.setNumberGamesTournament(numberOfGames);
+
+            //d_ge.setGameResult(d_ge.getNumberOfGames()-1,MapNumber,"in progress");
             d_ge.setCurrentMapIndex(MapNumber);
-            System.out.println("Number of Games:" + d_ge.getNumberGamesTournament());
+            //System.out.println("Number of Games:" + d_ge.getNumberGamesTournament());
         }else{
             d_ge.setCurrentMapIndex(MapNumber);
-            d_ge.setGameResult(d_ge.getNumberGamesTournament()-1,MapNumber,"in progress");
+            //System.out.println("Number of Games"+ (d_ge.getNumberOfGames()-1));
+            d_ge.setGameResult(d_ge.getNumberOfGames()-1,MapNumber,"in progress");
         }
         if(d_ge.getNumberGamesTournament() == 0 ){
             d_ge.setCurrentState(new End(d_ge));
