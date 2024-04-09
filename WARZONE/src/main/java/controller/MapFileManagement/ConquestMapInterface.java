@@ -1,4 +1,5 @@
 package controller.MapFileManagement;
+
 import controller.GameEngine;
 import helpers.exceptions.ContinentAlreadyExistsException;
 import helpers.exceptions.ContinentDoesNotExistException;
@@ -24,14 +25,15 @@ public class ConquestMapInterface {
 
     /**
      * Loads a Conquest map into the game engine.
+     *
      * @param p_gameEngine The game engine to load the map into.
-     * @param p_mfl The map file loader containing the map file.
+     * @param p_mfl        The map file loader containing the map file.
      * @return The loaded world map.
      */
-    public WorldMap loadConquestMap(GameEngine p_gameEngine, MapFileLoader p_mfl){
+    public WorldMap loadConquestMap(GameEngine p_gameEngine, MapFileLoader p_mfl) {
         WorldMap l_worldMap = new WorldMap();
         Scanner l_file_reader = null;
-        for(int l_i = 0; l_i < 3; l_i++) {
+        for (int l_i = 0; l_i < 3; l_i++) {
             try {
                 l_file_reader = new Scanner(p_mfl.d_mapFile);
             } catch (Exception e) { //map file does not exist
@@ -54,16 +56,17 @@ public class ConquestMapInterface {
 
     /**
      * Loads continents from the map file.
+     *
      * @param p_scan The scanner object to read the file.
-     * @param p_map The world map to load continents into.
+     * @param p_map  The world map to load continents into.
      * @throws ContinentAlreadyExistsException If a continent with the same name already exists.
      */
     void loadContinents(Scanner p_scan, WorldMap p_map) throws ContinentAlreadyExistsException {
-        while(p_scan.hasNextLine()){
-            if(p_scan.nextLine().trim().equals("[Continents]")){
-                while (p_scan.hasNextLine()){
+        while (p_scan.hasNextLine()) {
+            if (p_scan.nextLine().trim().equals("[Continents]")) {
+                while (p_scan.hasNextLine()) {
                     String l_input = p_scan.nextLine();
-                    if(l_input.isBlank()) return;
+                    if (l_input.isBlank()) return;
                     String[] l_split = l_input.split("=");
                     p_map.addContinent(replaceSpaces(l_split[0]), Integer.parseInt(l_split[1]));
                 }
@@ -73,20 +76,21 @@ public class ConquestMapInterface {
 
     /**
      * Loads countries from the map file.
+     *
      * @param p_scan The scanner object to read the file.
-     * @param p_map The world map to load countries into.
+     * @param p_map  The world map to load countries into.
      * @throws ContinentDoesNotExistException If the continent specified for a country does not exist.
-     * @throws DuplicateCountryException If a country with the same name already exists.
+     * @throws DuplicateCountryException      If a country with the same name already exists.
      */
     void loadCountries(Scanner p_scan, WorldMap p_map) throws ContinentDoesNotExistException, DuplicateCountryException {
 
-        while(p_scan.hasNextLine()){
-            if(p_scan.nextLine().trim().equals("[Territories]")){
-                while (p_scan.hasNextLine()){
+        while (p_scan.hasNextLine()) {
+            if (p_scan.nextLine().trim().equals("[Territories]")) {
+                while (p_scan.hasNextLine()) {
                     String l_input = p_scan.nextLine();
-                    if(l_input.isBlank()) continue;
+                    if (l_input.isBlank()) continue;
                     String[] l_split = l_input.split(",");
-                    p_map.addCountry(replaceSpaces(l_split[0]),p_map.getContinentID(replaceSpaces(l_split[3])));
+                    p_map.addCountry(replaceSpaces(l_split[0]), p_map.getContinentID(replaceSpaces(l_split[3])));
                 }
             }
         }
@@ -95,19 +99,20 @@ public class ConquestMapInterface {
 
     /**
      * Loads borders from the map file.
+     *
      * @param p_scan The scanner object to read the file.
-     * @param p_map The world map to load borders into.
+     * @param p_map  The world map to load borders into.
      * @throws CountryDoesNotExistException If a country specified as a neighbor does not exist.
      */
     void loadBorders(Scanner p_scan, WorldMap p_map) throws CountryDoesNotExistException {
 
-        while(p_scan.hasNextLine()){
-            if(p_scan.nextLine().trim().equals("[Territories]")){
-                while (p_scan.hasNextLine()){
+        while (p_scan.hasNextLine()) {
+            if (p_scan.nextLine().trim().equals("[Territories]")) {
+                while (p_scan.hasNextLine()) {
                     String l_input = p_scan.nextLine();
-                    if(l_input.isBlank()) continue;
+                    if (l_input.isBlank()) continue;
                     String[] l_split = l_input.split(",");
-                    for(int l_i = 4; l_i < l_split.length; l_i++){
+                    for (int l_i = 4; l_i < l_split.length; l_i++) {
                         p_map.addBorder(p_map.getCountryID(replaceSpaces(l_split[0])), p_map.getCountryID(replaceSpaces(l_split[l_i])));
                     }
                 }
@@ -118,16 +123,17 @@ public class ConquestMapInterface {
 
     /**
      * Saves the current game map to a Conquest map file.
+     *
      * @param p_gameEngine The game engine containing the map to save.
-     * @param p_FileName The name of the file to save.
+     * @param p_FileName   The name of the file to save.
      */
-    public void saveConquestMap(GameEngine p_gameEngine, String p_FileName){
+    public void saveConquestMap(GameEngine p_gameEngine, String p_FileName) {
         WorldMap p_map = p_gameEngine.d_worldmap;
         File l_outputFile = new File(p_gameEngine.d_maps_folder + p_FileName);
         //creating a new output file
         try {
             p_gameEngine.d_renderer.renderMessage("Was file created? " + l_outputFile.createNewFile());
-        }catch (Exception e){
+        } catch (Exception e) {
             p_gameEngine.d_renderer.renderError("Save map failed!");
             return;
         }
@@ -139,8 +145,8 @@ public class ConquestMapInterface {
                 "scroll=horizontal\n";
         BufferedWriter l_writer = null;
         try {
-             l_writer = new BufferedWriter(new FileWriter(l_outputFile));
-        }catch (Exception e){
+            l_writer = new BufferedWriter(new FileWriter(l_outputFile));
+        } catch (Exception e) {
             p_gameEngine.d_renderer.renderError("Save map failed!");
             return;
         }
@@ -148,23 +154,23 @@ public class ConquestMapInterface {
         StringBuilder l_added_line = new StringBuilder();
         l_added_line.append(l_file_signature);
         l_added_line.append("\n[Continents]\n");
-
+        //adding continents
         for (Continent l_continent_obj : p_map.getContinents().values()) {
             l_added_line.append(l_continent_obj.d_continentName)
                     .append("=").append(l_continent_obj.getBonus()).append("\n");
         }
-
+        //adding countries
         l_added_line.append("\n[Territories]\n");
 
-        for(Continent l_continent_obj : p_map.getContinents().values()){
+        for (Continent l_continent_obj : p_map.getContinents().values()) {
             HashMap<Integer, Country> l_hash = p_map.getContinentCountries(l_continent_obj);
-            for(Country l_c:l_hash.values()){
+            for (Country l_c : l_hash.values()) {
                 l_added_line.append(l_c.getCountryName());
                 l_added_line.append(",0,0,");
-                if(!l_c.getBorders().isEmpty()) l_added_line.append(l_c.getContinent().getContinentName()).append(",");
+                if (!l_c.getBorders().isEmpty()) l_added_line.append(l_c.getContinent().getContinentName()).append(",");
                 boolean l_first = true;
-                for(Border l_b: l_c.getBorders().values()){
-                    if(!l_first) l_added_line.append(",");
+                for (Border l_b : l_c.getBorders().values()) {
+                    if (!l_first) l_added_line.append(",");
                     l_added_line.append(l_b.getTarget().getCountryName());
                     l_first = false;
                 }
@@ -176,7 +182,7 @@ public class ConquestMapInterface {
         try {
             l_writer.write(l_added_line.toString());
             l_writer.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             p_gameEngine.d_renderer.renderError("Save map failed!");
             return;
         }
@@ -188,10 +194,11 @@ public class ConquestMapInterface {
 
     /**
      * Replaces spaces in a string with underscores.
+     *
      * @param p_input The input string.
      * @return The modified string with spaces replaced by underscores.
      */
-    public String replaceSpaces(String p_input){
+    public String replaceSpaces(String p_input) {
         return p_input.replace(' ', '_');
     }
 }
