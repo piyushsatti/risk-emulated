@@ -21,6 +21,16 @@ public class IssueOrderCommandsTest {
      */
     Player d_player = new Player("Devdutt", d_ge);
 
+    /**
+     * test to validate invalid command for the given game phase
+     */
+    @Test
+    public void testInvalidCommand() {
+        String l_cmd = "tournament -M usa9.map test_map.map -P benevolent aggressive -G 2 -D 10 ";
+        IssueOrderCommands l_obj = new IssueOrderCommands(l_cmd, d_player);
+        assertFalse(l_obj.validateCommand(d_ge));
+    }
+
 
     /**
      * Tests the validation of the Bomb command with no parameters.

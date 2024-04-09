@@ -32,6 +32,16 @@ public class StartupCommandsTest {
         d_gameEngine.setCurrentState(new Startup((d_gameEngine)));
     }
 
+    /**test to validate invalid command for the given game phase
+     *
+     *  **/
+    @Test
+    public void testInvalidCommand() {
+        String l_cmd = "tournament -M usa9.map test_map.map -P benevolent aggressive -G 2 -D 10";
+        StartupCommands l_obj = new StartupCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
+    }
+
     /**
      * Test case for validating the loadmap command with no parameters.
      */

@@ -22,6 +22,8 @@ public class MapEditorCommandsTest {
      */
     GameEngine d_gameEngine;
 
+
+
     /**
      * This method is executed before each test method to set up the testing environment.
      */
@@ -41,6 +43,17 @@ public class MapEditorCommandsTest {
         MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
         assertFalse(l_obj.validateCommand(d_gameEngine));
     }
+
+    /**
+     * test to validate invalid command for the given game phase
+     */
+    @Test
+    public void testInvalidCommand() {
+        String l_cmd = "tournament -M usa9.map test_map.map -P benevolent aggressive -G 2 -D 10";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
+    }
+
 
     /**
      * Test case for validating the command with multiple country names.

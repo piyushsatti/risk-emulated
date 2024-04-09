@@ -27,6 +27,16 @@ public class TournamentTest {
     }
 
     /**
+     * test to validate invalid command for the given game phase
+     */
+    @Test
+    public void testInvalidCommand() {
+        String l_cmd = "loadmap usa9.map";;
+        TournamentCommands l_obj = new TournamentCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
+    }
+
+    /**
      * Test cases for validating the tournament command with incorrect command
      */
     @Test
