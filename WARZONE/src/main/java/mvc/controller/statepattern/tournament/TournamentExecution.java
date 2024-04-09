@@ -34,7 +34,9 @@ public class TournamentExecution extends Phase {
      */
     LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer();
 
-
+    /**
+     * Represents the map interface for the tournament.
+     */
     MapInterface d_mp = null;
 
     /**
