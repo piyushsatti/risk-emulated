@@ -242,7 +242,7 @@
                         mp = new MapInterface();
                     }
 
-                    p_gameEngine.d_worldmap = mp.loadMap(p_gameEngine, d_splitCommand[1]);
+                    p_gameEngine.d_worldmap = mp.loadMap(p_gameEngine, l_mfl);
 
                 }
                 catch(Exception e){

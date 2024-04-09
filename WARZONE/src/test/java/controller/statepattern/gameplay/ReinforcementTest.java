@@ -1,6 +1,9 @@
 package controller.statepattern.gameplay;
 
 import controller.GameEngine;
+import controller.MapFileManagement.ConquestMapInterface;
+import controller.MapFileManagement.MapAdapter;
+import controller.MapFileManagement.MapFileLoader;
 import controller.MapFileManagement.MapInterface;
 import controller.middleware.commands.StartupCommands;
 import helpers.exceptions.ContinentAlreadyExistsException;
@@ -47,9 +50,22 @@ public class ReinforcementTest {
      */
     @Test
     public void runTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
+<<<<<<< Updated upstream
         MapInterface l_mp = new MapInterface();
         d_ge.d_worldmap = l_mp.loadMap(d_ge, "usa9.map");
         d_ge.d_players.add(new Player("Shashi", d_ge));
+=======
+        MapInterface mp = null;
+        MapFileLoader l_mfl = new MapFileLoader(ge, "usa9.map");
+
+        if(l_mfl.isConquest()){
+            mp = new MapAdapter(new ConquestMapInterface());
+        }else{
+            mp = new MapInterface();
+        }
+        ge.d_worldmap = mp.loadMap(ge, l_mfl);
+        ge.d_players.add(new Player("Shashi",ge));
+>>>>>>> Stashed changes
 
         d_rf.run();
 
@@ -87,10 +103,24 @@ public class ReinforcementTest {
      */
     @Test
     public void runTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
+<<<<<<< Updated upstream
         MapInterface l_mp = new MapInterface();
         d_ge.d_worldmap = l_mp.loadMap(d_ge, "usa9.map");
         d_ge.d_players.add(new Player("Shashi", d_ge));
         d_ge.d_players.add(new Player("Priyanshu", d_ge));
+=======
+        MapInterface mp = null;
+        MapFileLoader l_mfl = new MapFileLoader(ge, "usa9.map");
+
+        if(l_mfl.isConquest()){
+            mp = new MapAdapter(new ConquestMapInterface());
+        }else{
+            mp = new MapInterface();
+        }
+        ge.d_worldmap = mp.loadMap(ge, l_mfl);
+        ge.d_players.add(new Player("Shashi",ge));
+        ge.d_players.add(new Player("Priyanshu",ge));
+>>>>>>> Stashed changes
 
         d_rf.run();
 

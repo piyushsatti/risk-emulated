@@ -1,6 +1,9 @@
 package controller.middleware.commands;
 
 import controller.GameEngine;
+import controller.MapFileManagement.ConquestMapInterface;
+import controller.MapFileManagement.MapAdapter;
+import controller.MapFileManagement.MapFileLoader;
 import controller.MapFileManagement.MapInterface;
 import controller.statepattern.MapEditor;
 import controller.statepattern.Phase;
@@ -515,9 +518,16 @@ public class MapEditorCommands extends Commands {
         l_mapName = d_splitCommand[1];
 
         try {
-            p_gameEngine.d_worldmap = d_mp.loadMap(p_gameEngine, l_mapName);
+            MapFileLoader l_mfl = new MapFileLoader(p_gameEngine, l_mapName);
+
+            if (l_mfl.isConquest()) {
+                d_mp = new MapAdapter(new ConquestMapInterface());
+            } else {
+                d_mp = new MapInterface();
+            }
+            p_gameEngine.d_worldmap = d_mp.loadMap(p_gameEngine, l_mfl);
             d_logEntryBuffer.setString("loaded map file " + l_mapName);
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             p_gameEngine.d_renderer.renderError("FileNotFoundException : File does not exist.");
             d_logEntryBuffer.setString("map file does not exist");
             p_gameEngine.d_renderer.renderMessage("Creating file by the name : " + l_mapName);
@@ -528,14 +538,7 @@ public class MapEditorCommands extends Commands {
                 throw new RuntimeException(ex);
             }
             editMap(p_gameEngine, p_currPhase);
-        } catch (NumberFormatException e) {
-            p_gameEngine.d_renderer.renderError("NumberFormatException : File has incorrect formatting.");
-            d_logEntryBuffer.setString("Phase :" + p_currPhase + "\n" + " Entered Command Not Executed: editmap => " + d_command + "  due to Incorrect Formatting");
-        } catch (ContinentAlreadyExistsException | ContinentDoesNotExistException |
-                 DuplicateCountryException | CountryDoesNotExistException e) {
-            p_gameEngine.d_renderer.renderError("InvalidMapException : Map is disjoint or incorrect.");
-            d_logEntryBuffer.setString("Phase :" + p_currPhase + "\n" + " Entered Command Not Executed: editmap => " + d_command + "  as Map is disjoint or incorrect");
         }
-    }
 
+    }
 }

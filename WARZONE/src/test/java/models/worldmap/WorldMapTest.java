@@ -1,6 +1,9 @@
 package models.worldmap;
 
 import controller.GameEngine;
+import controller.MapFileManagement.ConquestMapInterface;
+import controller.MapFileManagement.MapAdapter;
+import controller.MapFileManagement.MapFileLoader;
 import controller.MapFileManagement.MapInterface;
 import helpers.exceptions.ContinentAlreadyExistsException;
 import helpers.exceptions.ContinentDoesNotExistException;
@@ -28,10 +31,24 @@ public class WorldMapTest {
      */
     @Test
     public void mapConnectivityTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
+<<<<<<< Updated upstream:WARZONE/src/test/java/models/worldmap/WorldMapTest.java
         GameEngine l_ge = new GameEngine();
         MapInterface l_mp = new MapInterface();
         l_mp.loadMap(l_ge, "usa9.map");
         assertTrue(l_ge.d_worldmap.isConnected() && l_ge.d_worldmap.isContinentConnected());
+=======
+        GameEngine ge = new GameEngine();
+        MapInterface mp = null;
+        MapFileLoader l_mfl = new MapFileLoader(ge, "usa9.map");
+
+        if(l_mfl.isConquest()){
+            mp = new MapAdapter(new ConquestMapInterface());
+        }else{
+            mp = new MapInterface();
+        }
+        ge.d_worldmap = mp.loadMap(ge, l_mfl);
+        assertTrue(ge.d_worldmap.isConnected() && ge.d_worldmap.isContinentConnected());
+>>>>>>> Stashed changes:WARZONE/src/main/java/models/worldmap/WorldMapTest.java
     }
 
     /**
@@ -45,10 +62,24 @@ public class WorldMapTest {
      */
     @Test
     public void mapConnectivityTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
+<<<<<<< Updated upstream:WARZONE/src/test/java/models/worldmap/WorldMapTest.java
         GameEngine l_ge = new GameEngine();
         MapInterface l_mp = new MapInterface();
         l_mp.loadMap(l_ge, "disconnected.map");
         assertFalse(l_ge.d_worldmap.isConnected() && l_ge.d_worldmap.isContinentConnected());
+=======
+        GameEngine ge = new GameEngine();
+        MapInterface mp = null;
+        MapFileLoader l_mfl = new MapFileLoader(ge, "usa9.map");
+
+        if(l_mfl.isConquest()){
+            mp = new MapAdapter(new ConquestMapInterface());
+        }else{
+            mp = new MapInterface();
+        }
+        ge.d_worldmap = mp.loadMap(ge, l_mfl);
+        assertFalse(ge.d_worldmap.isConnected() && ge.d_worldmap.isContinentConnected());
+>>>>>>> Stashed changes:WARZONE/src/main/java/models/worldmap/WorldMapTest.java
     }
 
 }

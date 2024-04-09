@@ -1,6 +1,9 @@
 package controller.statepattern.gameplay;
 
 import controller.GameEngine;
+import controller.MapFileManagement.ConquestMapInterface;
+import controller.MapFileManagement.MapAdapter;
+import controller.MapFileManagement.MapFileLoader;
 import controller.MapFileManagement.MapInterface;
 import controller.statepattern.End;
 import controller.statepattern.Phase;
@@ -26,6 +29,9 @@ public class TournamentExecution extends Phase {
      * Represents a buffer for storing log entries.
      */
     LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer();
+
+
+    MapInterface d_mp = null;
 
     /**
      * Represents a logger associated with a log entry buffer.
@@ -67,7 +73,6 @@ public class TournamentExecution extends Phase {
         Phase l_phase = p_gameEngine.getCurrentState();
         String l_currClass = String.valueOf(l_phase.getClass());
         int l_index = l_currClass.lastIndexOf(".");
-        System.out.println(l_currClass.substring(l_index + 1));
         return l_currClass.substring(l_index + 1);
     }
 
@@ -111,7 +116,14 @@ public class TournamentExecution extends Phase {
         d_ge.d_worldmap = null;
         try {
             d_logEntryBuffer.setString("Phase :" + d_currPhase + "\n" + " loading map for tournament");      // Log the command entry
-            d_ge.d_worldmap = l_mp.loadMap(d_ge, d_map);
+            MapFileLoader l_mfl = new MapFileLoader(d_ge, d_map);
+
+            if(l_mfl.isConquest()){
+                d_mp = new MapAdapter(new ConquestMapInterface());
+            }else{
+                d_mp = new MapInterface();
+            }
+            d_ge.d_worldmap = d_mp.loadMap(d_ge, l_mfl);
         } catch (Exception e) {
             d_logEntryBuffer.setString("Phase :" + d_currPhase + "\n" + " Could Not Load Map. Moving to Next Map");     // Log if map loading fails
             System.out.println(e);
@@ -126,7 +138,6 @@ public class TournamentExecution extends Phase {
         if (assignCountries(d_ge, d_currPhase)) {
             d_logEntryBuffer.setString("Phase :" + d_currPhase + "\n" + "Countries assigned to Players");
         }
-        System.out.println(d_ge);
         d_ge.setCurrentState(new Reinforcement(d_ge));
 
     }

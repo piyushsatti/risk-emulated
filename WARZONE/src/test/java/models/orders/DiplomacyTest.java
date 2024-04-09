@@ -1,6 +1,9 @@
 package models.orders;
 
 import controller.GameEngine;
+import controller.MapFileManagement.ConquestMapInterface;
+import controller.MapFileManagement.MapAdapter;
+import controller.MapFileManagement.MapFileLoader;
 import controller.MapFileManagement.MapInterface;
 import controller.middleware.commands.StartupCommands;
 import controller.statepattern.gameplay.Reinforcement;
@@ -31,6 +34,7 @@ public class DiplomacyTest {
     @Test
     public void validateCommandTests1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         // Test setup
+<<<<<<< Updated upstream
         MapInterface l_mp = new MapInterface();
         GameEngine l_ge = new GameEngine();
         l_ge.d_worldmap = l_mp.loadMap(l_ge, "usa9.map");
@@ -41,6 +45,26 @@ public class DiplomacyTest {
         l_cmd.execute(l_ge);
         Reinforcement l_rf = new Reinforcement(l_ge);
         l_rf.run();
+=======
+        GameEngine ge = new GameEngine();
+        MapInterface mp = null;
+        MapFileLoader l_mfl = new MapFileLoader(ge, "usa9.map");
+
+        if(l_mfl.isConquest()){
+            mp = new MapAdapter(new ConquestMapInterface());
+        }else{
+            mp = new MapInterface();
+        }
+        ge.d_worldmap = mp.loadMap(ge, l_mfl);
+
+        ge.d_players.add(new Player("Priyanshu", ge));
+        ge.d_players.add(new Player("Abc", ge));
+        ge.setCurrentState(new Startup(ge));
+        StartupCommands cmd = new StartupCommands("assigncountries");
+        cmd.execute(ge);
+        Reinforcement rf = new Reinforcement(ge);
+        rf.run();
+>>>>>>> Stashed changes
 
         // Validate command
         Diplomacy l_dip = new Diplomacy(l_ge.d_players.get(0), l_ge.d_players.get(1), l_ge.d_players.get(0).getPlayerId(), l_ge.d_players.get(0).getName());
@@ -59,6 +83,7 @@ public class DiplomacyTest {
     @Test
     public void validateCommandTests2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
         // Test setup
+<<<<<<< Updated upstream
         MapInterface l_mp = new MapInterface();
         GameEngine l_ge = new GameEngine();
         l_ge.d_worldmap = l_mp.loadMap(l_ge, "usa9.map");
@@ -69,6 +94,25 @@ public class DiplomacyTest {
         l_cmd.execute(l_ge);
         Reinforcement l_rf = new Reinforcement(l_ge);
         l_rf.run();
+=======
+        GameEngine ge = new GameEngine();
+        MapInterface mp = null;
+        MapFileLoader l_mfl = new MapFileLoader(ge, "usa9.map");
+
+        if(l_mfl.isConquest()){
+            mp = new MapAdapter(new ConquestMapInterface());
+        }else{
+            mp = new MapInterface();
+        }
+        ge.d_worldmap = mp.loadMap(ge, l_mfl);
+        ge.d_players.add(new Player("Priyanshu", ge));
+        ge.d_players.add(new Player("Abc", ge));
+        ge.setCurrentState(new Startup(ge));
+        StartupCommands cmd = new StartupCommands("assigncountries");
+        cmd.execute(ge);
+        Reinforcement rf = new Reinforcement(ge);
+        rf.run();
+>>>>>>> Stashed changes
 
         // Validate command
         Diplomacy l_dip = new Diplomacy(l_ge.d_players.get(0), l_ge.d_players.get(0), l_ge.d_players.get(0).getPlayerId(), l_ge.d_players.get(0).getName());
@@ -88,6 +132,7 @@ public class DiplomacyTest {
     @Test
     public void orderValidationTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         // Test setup
+<<<<<<< Updated upstream
         MapInterface l_mp = new MapInterface();
         GameEngine l_ge = new GameEngine();
         l_ge.d_worldmap = l_mp.loadMap(l_ge, "usa9.map");
@@ -100,6 +145,27 @@ public class DiplomacyTest {
         l_rf.run();
         Deploy l_deploy = new Deploy(l_ge.d_players.get(0), l_ge.d_players.get(0).getName(), l_ge.d_players.get(0).getPlayerId(), l_ge.d_players.get(0).getAssignedCountries().get(0), 4, l_ge);
         l_deploy.execute();
+=======
+        GameEngine ge = new GameEngine();
+        MapInterface mp = null;
+        MapFileLoader l_mfl = new MapFileLoader(ge, "usa9.map");
+
+        if(l_mfl.isConquest()){
+            mp = new MapAdapter(new ConquestMapInterface());
+        }else{
+            mp = new MapInterface();
+        }
+        ge.d_worldmap = mp.loadMap(ge, l_mfl);
+        ge.d_players.add(new Player("Priyanshu", ge));
+        ge.d_players.add(new Player("Abc", ge));
+        ge.setCurrentState(new Startup(ge));
+        StartupCommands cmd = new StartupCommands("assigncountries");
+        cmd.execute(ge);
+        Reinforcement rf = new Reinforcement(ge);
+        rf.run();
+        Deploy deploy = new Deploy(ge.d_players.get(0), ge.d_players.get(0).getName(), ge.d_players.get(0).getPlayerId(), ge.d_players.get(0).getAssignedCountries().get(0), 4, ge);
+        deploy.execute();
+>>>>>>> Stashed changes
 
         // Execute Diplomacy
         Diplomacy l_dip = new Diplomacy(l_ge.d_players.get(0), l_ge.d_players.get(1), l_ge.d_players.get(0).getPlayerId(), l_ge.d_players.get(0).getName());
@@ -127,6 +193,7 @@ public class DiplomacyTest {
     @Test
     public void orderValidationTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException, InvalidCommandException {
         // Test setup
+<<<<<<< Updated upstream
         MapInterface l_mp = new MapInterface();
         GameEngine l_ge = new GameEngine();
         l_ge.d_worldmap = l_mp.loadMap(l_ge, "usa9.map");
@@ -139,6 +206,27 @@ public class DiplomacyTest {
         l_rf.run();
         Deploy l_deploy = new Deploy(l_ge.d_players.get(0), l_ge.d_players.get(0).getName(), l_ge.d_players.get(0).getPlayerId(), l_ge.d_players.get(0).getAssignedCountries().get(0), 10, l_ge);
         l_deploy.execute();
+=======
+        GameEngine ge = new GameEngine();
+        MapInterface mp = null;
+        MapFileLoader l_mfl = new MapFileLoader(ge, "usa9.map");
+
+        if(l_mfl.isConquest()){
+            mp = new MapAdapter(new ConquestMapInterface());
+        }else{
+            mp = new MapInterface();
+        }
+        ge.d_worldmap = mp.loadMap(ge, l_mfl);
+        ge.d_players.add(new Player("Priyanshu", ge));
+        ge.d_players.add(new Player("Abc", ge));
+        ge.setCurrentState(new Startup(ge));
+        StartupCommands cmd = new StartupCommands("assigncountries");
+        cmd.execute(ge);
+        Reinforcement rf = new Reinforcement(ge);
+        rf.run();
+        Deploy deploy = new Deploy(ge.d_players.get(0), ge.d_players.get(0).getName(), ge.d_players.get(0).getPlayerId(), ge.d_players.get(0).getAssignedCountries().get(0), 10, ge);
+        deploy.execute();
+>>>>>>> Stashed changes
 
         // Execute Diplomacy
         Diplomacy l_dip = new Diplomacy(l_ge.d_players.get(0), l_ge.d_players.get(1), l_ge.d_players.get(0).getPlayerId(), l_ge.d_players.get(0).getName());

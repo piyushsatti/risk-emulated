@@ -20,8 +20,9 @@ public class MapFileLoader {
     public MapFileLoader(GameEngine p_ge, String p_mapName) {
 
         File l_map_file_obj = new File(p_ge.d_maps_folder + p_mapName);
-
-        if (l_map_file_obj.exists() && !l_map_file_obj.isDirectory()) {
+        boolean f1 =  l_map_file_obj.exists() ;
+        boolean f2 = !l_map_file_obj.isDirectory();
+        if (f1 && f2) {
             d_mapFile = l_map_file_obj;
         }
     }
