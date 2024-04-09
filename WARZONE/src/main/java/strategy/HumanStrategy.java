@@ -1,9 +1,10 @@
 package strategy;
 
-import controller.GameEngine;
 import helpers.exceptions.InvalidCommandException;
-import models.LogEntryBuffer;
-import models.Player;
+import mvc.controller.GameEngine;
+import mvc.models.LogEntryBuffer;
+import mvc.models.Player;
+import mvc.models.orders.*;
 
 /**
  * Represents a strategy where a human player manually selects actions.

@@ -9,6 +9,7 @@ import mvc.controller.middleware.mapfilemanagement.MapInterface;
 import mvc.controller.statepattern.Phase;
 import mvc.controller.statepattern.Starting;
 import mvc.controller.statepattern.gameplay.Reinforcement;
+import mvc.controller.statepattern.mainmenu.Startup;
 import mvc.models.LogEntryBuffer;
 import mvc.models.Player;
 import mvc.models.worldmap.Country;
@@ -293,10 +294,10 @@ import java.util.regex.Pattern;
                             l_newPlayer.setPlayerStrategy(new CheaterStrategy(l_newPlayer,p_gameEngine));
                             break;
                         case "random":
-                            l_newPlayer.setPlayerStrategy(new RandomStrategy(l_newPlayer,p_gameEngine));
+                            l_newPlayer.setPlayerStrategy(new RandomStrategy(l_newPlayer, p_gameEngine));
                             break;
                         default:
-                            l_newPlayer.setPlayerStrategy(new HumanStrategy(l_newPlayer,p_gameEngine));
+                            l_newPlayer.setPlayerStrategy(new HumanStrategy(l_newPlayer, p_gameEngine));
                             break;
                     }
                     l_playersAdded.add(l_playertoAdd[0]);
