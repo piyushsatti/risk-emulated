@@ -2,6 +2,8 @@ package controller.Command.MapEditor;
 
 import controller.Command.Command;
 import controller.GameEngine;
+import controller.MapFileManagement.ConquestMapInterface;
+import controller.MapFileManagement.MapAdapter;
 import controller.MapFileManagement.MapInterface;
 import controller.statepattern.MapEditor;
 import view.TerminalRenderer;
@@ -33,13 +35,26 @@ public class SaveMap extends Command {
      */
     @Override
     public void execute() {
-        MapInterface mp = new MapInterface();
+        MapInterface mp;
         TerminalRenderer l_renderer = this.d_ge.d_renderer;
-        try {
+        String l_selection = "";
+        /*try {
             mp.saveMap(this.d_ge, this.d_splitCommand[1]);
         } catch (IOException e) {
             l_renderer.renderError(e.toString());
+        }*/
+
+        while(!(l_selection.equals("c") || l_selection.equals("d"))){
+             l_selection = l_renderer.renderUserInput("Enter d for domination format and c for conquest format");
         }
+
+        if(l_selection.equals("c")){
+            mp = new MapAdapter(new ConquestMapInterface());
+        }else {
+            mp = new MapInterface();
+        }
+
+        mp.saveMap(this.d_ge, this.d_splitCommand[1]);
     }
 
     /**

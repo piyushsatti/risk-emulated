@@ -46,11 +46,17 @@ public class MapInterface {
      * @param p_FileName    The name of the file to save the map to.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public void saveMap(GameEngine p_gameEnginee, String p_FileName) throws IOException {
+    public void saveMap(GameEngine p_gameEnginee, String p_FileName){
         WorldMap p_map = p_gameEnginee.d_worldmap;
         p_map.normalizeContinents();
         File outputFile = new File(p_gameEnginee.d_maps_folder + p_FileName);
-        p_gameEnginee.d_renderer.renderMessage("Was file created? " + outputFile.createNewFile());
+
+        try {
+            p_gameEnginee.d_renderer.renderMessage("Was file created? " + outputFile.createNewFile());
+        }catch (Exception e){
+            p_gameEnginee.d_renderer.renderError("Save map failed!");
+            return;
+        }
 
         String file_signature = """
                 ; map: estonia.map
@@ -62,7 +68,16 @@ public class MapInterface {
                 map estonia_map.gif
                 crd estonia.cards
                 """;
-        BufferedWriter writer = new BufferedWriter(new FileWriter(outputFile));
+        BufferedWriter writer = null;
+
+        try {
+            writer = new BufferedWriter(new FileWriter(outputFile));
+        }
+        catch(Exception e){
+            p_gameEnginee.d_renderer.renderError("Save map failed!");
+            return;
+        }
+
         StringBuilder added_line = new StringBuilder();
         added_line.append(file_signature);
         added_line.append("\n[continents]\n");
@@ -92,8 +107,15 @@ public class MapInterface {
                 added_line.append(" ").append(border_country_id);
             }
         }
-        writer.write(added_line.toString());
-        writer.close();
+
+        try {
+            writer.write(added_line.toString());
+            writer.close();
+        }catch (Exception e){
+            p_gameEnginee.d_renderer.renderError("Save map failed!");
+            return;
+        }
+
         LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
         Logger lw = new Logger(logEntryBuffer);
         logEntryBuffer.setString("saved map :" + p_FileName);
