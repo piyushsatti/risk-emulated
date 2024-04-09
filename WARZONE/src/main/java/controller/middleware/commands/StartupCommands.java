@@ -223,7 +223,6 @@
          * @param p_gameEngine         The GameEngine instance managing the game state.
          * @param p_currPhase The current phase of the game.
          */
-
         private void loadMap(GameEngine p_gameEngine,String p_currPhase){
             if(this.splitCommand.length < 2){
                 // Render error if the command format is invalid
@@ -256,7 +255,8 @@
          * @param p_gameEngine              The GameEngine instance managing the game state.
          * @param p_playersToAdd  The list of player names to add to the game engine.
          * @param p_currPhase     The current phase of the game.
-         */public void addPlayers(GameEngine p_gameEngine,List<String[]> p_playersToAdd,String p_currPhase)
+         */
+        public void addPlayers(GameEngine p_gameEngine,List<String[]> p_playersToAdd,String p_currPhase)
         {
             List<String> l_playersAdded = new ArrayList<>();
             List<String> l_existingPlayers = new ArrayList<>();
