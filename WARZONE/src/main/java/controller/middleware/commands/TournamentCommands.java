@@ -156,13 +156,9 @@ public class TournamentCommands extends Commands {
         p_gameEngine.setNumberOfTurns(d_maxTurns);
         p_gameEngine.setNumberGamesTournament(d_numberGames);
         createPlayers(p_gameEngine);
-<<<<<<< Updated upstream
         p_gameEngine.setTournamentResults(new String[d_mapFiles.size()][d_numberGames]);
-        }
-=======
-        p_gameEngine.setTournamentResults(new String[d_numberGames][d_mapFiles.size()]);
     }
->>>>>>> Stashed changes
+
 
     /**
      * method which checks if the map entered by the user in the tournament command exists or not.
