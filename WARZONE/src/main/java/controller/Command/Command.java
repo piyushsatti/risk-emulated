@@ -34,6 +34,7 @@ public abstract class Command {
      * The valid phases in which the command can be executed.
      */
     protected Class[] d_validPhases;
+
     /**
      * The array containing split parts of the command input.
      */
@@ -71,8 +72,8 @@ public abstract class Command {
      * @return true if the format is valid, false otherwise.
      */
     public  boolean validateFormat(){
-        Matcher matcher = d_commandPattern.matcher(d_input);
-        if(matcher.matches()){
+        Matcher l_matcher = d_commandPattern.matcher(d_input);
+        if(l_matcher.matches()){
             return true;
         }else{
             invalidFormatMessage();
