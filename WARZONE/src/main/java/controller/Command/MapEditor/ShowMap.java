@@ -1,9 +1,11 @@
 package controller.Command.MapEditor;
+
 import controller.Command.Command;
 import controller.GameEngine;
 import controller.statepattern.MapEditor;
 import controller.statepattern.gameplay.IssueOrder;
 import controller.statepattern.gameplay.Startup;
+
 import java.util.regex.Pattern;
 
 /**
@@ -12,8 +14,9 @@ import java.util.regex.Pattern;
 public class ShowMap extends Command {
     /**
      * Constructs a ShowMap command with specified input and game engine.
+     *
      * @param p_input The input string for the command.
-     * @param p_ge The game engine to operate on.
+     * @param p_ge    The game engine to operate on.
      */
     public ShowMap(String p_input, GameEngine p_ge) {
         super(p_input, p_ge);
@@ -31,9 +34,11 @@ public class ShowMap extends Command {
         boolean p_enable_gameview = this.d_ge.getCurrentState().getClass() == IssueOrder.class;
         this.d_ge.d_renderer.showMap(p_enable_gameview);
     }
+
     /**
      * Validates the logic of the ShowMap command.
      * This method checks if the map is empty or not.
+     *
      * @return true if the map is not empty, false otherwise.
      */
     @Override

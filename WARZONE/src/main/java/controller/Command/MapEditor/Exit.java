@@ -14,8 +14,9 @@ import java.util.regex.Pattern;
 public class Exit extends Command {
     /**
      * Constructs an Exit command with specified input and game engine.
+     *
      * @param p_input The input string for the command.
-     * @param p_ge The game engine to operate on.
+     * @param p_ge    The game engine to operate on.
      */
     public Exit(String p_input, GameEngine p_ge) {
         super(p_input, p_ge);
@@ -29,10 +30,10 @@ public class Exit extends Command {
      */
     @Override
     public void execute() {
-        if(this.d_ge.getCurrentState().getClass() != Starting.class){
+        if (this.d_ge.getCurrentState().getClass() != Starting.class) {
             this.d_ge.resetMap();
             this.d_ge.setCurrentState(new Starting(this.d_ge));
-        }else {
+        } else {
             this.d_ge.setCurrentState(new End(this.d_ge));
         }
     }
@@ -40,6 +41,7 @@ public class Exit extends Command {
     /**
      * Validates the logic of the Exit command.
      * This method always returns true as there is no specific logic to validate.
+     *
      * @return true
      */
     @Override
