@@ -36,34 +36,29 @@ public class EditMap extends Command {
     @Override
     public void execute() {
 
-        MapInterface mp = null;
-        String mapName = "";
+        MapInterface l_mp = null;
+        String l_mapName = "";
         TerminalRenderer l_renderer = this.d_ge.d_renderer;
-        mapName = this.d_splitCommand[1];
-
-        MapFileLoader l_mfl = new MapFileLoader(this.d_ge, mapName);
-
-        if (!l_mfl.fileLoaded()) {
+        l_mapName = this.d_splitCommand[1];
+        MapFileLoader l_mfl = new MapFileLoader(this.d_ge, l_mapName);
+        if (!l_mfl.fileLoaded()) { //if map is not loaded, print error and create a new map
             l_renderer.renderError("File does not exist.");
             l_renderer.renderMessage("Creating new map");
             this.d_ge.d_worldmap = new WorldMap();
             return;
         }
-
-        if (l_mfl.isConquest()) {
-            mp = new MapAdapter(new ConquestMapInterface());
-        } else {
-            mp = new MapInterface();
+        if (l_mfl.isConquest()) { //if the map is in conquest format, initialize MapAdapter object by passing ConquestMapInterface object as a parameter
+            l_mp = new MapAdapter(new ConquestMapInterface());
+        } else { //if map is not in conquest format, we initialize a MapInterface object
+            l_mp = new MapInterface();
         }
-
-        this.d_ge.d_worldmap = mp.loadMap(this.d_ge, l_mfl);
-
+        this.d_ge.d_worldmap = l_mp.loadMap(this.d_ge, l_mfl); //calling the loadmap method
     }
 
     /**
      * Validates the logic of the EditMap command.
      *
-     * @return true
+     * @return true if the logic is correct
      */
     @Override
     public boolean validateLogic() {
