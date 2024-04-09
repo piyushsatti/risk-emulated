@@ -20,10 +20,11 @@ public class MapInterfaceTest {
      */
     @Test(expected = FileNotFoundException.class)
     public void readMapTest1() throws FileNotFoundException {
-        GameEngine ge = new GameEngine();
-        MapInterface mp = new MapInterface();
-        mp.createFileObjectFromFileName(ge,"usa1.map");
+        GameEngine l_ge = new GameEngine();
+        MapInterface l_mp = new MapInterface();
+        l_mp.createFileObjectFromFileName(l_ge, "usa1.map");
     }
+
     /**
      * Tests the behavior of the createFileObjectFromFileName method when provided with an existing file name.
      * Expects the method to execute successfully without throwing any exceptions.
@@ -32,10 +33,10 @@ public class MapInterfaceTest {
      */
     @Test
     public void readMapTest2() throws FileNotFoundException {
-        GameEngine ge = new GameEngine();
+        GameEngine l_ge = new GameEngine();
         try {
-            MapInterface mp = new MapInterface();
-            mp.createFileObjectFromFileName(ge,"usa9.map");
+            MapInterface l_mp = new MapInterface();
+            l_mp.createFileObjectFromFileName(l_ge, "usa9.map");
         } catch (Exception e) {
             fail("the map file exists, but there is an unexpected error in reading it");
         }

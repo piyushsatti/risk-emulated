@@ -9,9 +9,9 @@ public class InvalidCommandException extends Exception {
     /**
      * Constructs an InvalidCommandException with the specified detail message.
      *
-     * @param message The detail message explaining the reason for the exception.
+     * @param p_message The detail message explaining the reason for the exception.
      */
-    public InvalidCommandException(String message) {
-        super(message);
+    public InvalidCommandException(String p_message) {
+        super(p_message);
     }
 }

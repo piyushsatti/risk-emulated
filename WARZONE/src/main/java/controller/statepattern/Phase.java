@@ -23,10 +23,10 @@ public abstract class Phase {
     /**
      * Constructs a Phase with the specified GameEngine.
      *
-     * @param gameEngine The GameEngine object managing the game.
+     * @param p_gameEngine The GameEngine object managing the game.
      */
-    public Phase(GameEngine gameEngine) {
-        this.d_ge = gameEngine;
+    public Phase(GameEngine p_gameEngine) {
+        this.d_ge = p_gameEngine;
     }
 
     /**
@@ -49,7 +49,7 @@ public abstract class Phase {
      * This method must be implemented in subclasses to define the main behavior of the phase.
      *
      * @throws CountryDoesNotExistException If a country referenced in the phase does not exist.
-     * @throws InvalidCommandException If an invalid command is encountered during the phase execution.
+     * @throws InvalidCommandException      If an invalid command is encountered during the phase execution.
      */
     abstract public void run() throws CountryDoesNotExistException, InvalidCommandException;
 

@@ -13,7 +13,8 @@ public class Starting extends Phase {
     /**
      * check if in starting phase.
      */
-    boolean first = true;
+    boolean d_first = true;
+
     /**
      * Constructs a Starting phase with the specified GameEngine.
      *
@@ -31,11 +32,11 @@ public class Starting extends Phase {
      */
     @Override
     public void displayMenu() {
-        if (first) d_ge.d_renderer.renderWelcome();
-        first = false;
+        if (d_first) d_ge.d_renderer.renderWelcome();
+        d_first = false;
         d_ge.d_renderer.renderMessage("current game phase: " + this.d_phaseName);
-        String[] menu_options = {"Map Editor", "Play Game","Tournament"};
-        d_ge.d_renderer.renderMenu("Starting Menu", menu_options);
+        String[] l_menu_options = {"Map Editor", "Play Game", "Tournament"};
+        d_ge.d_renderer.renderMenu("Starting Menu", l_menu_options);
         this.d_ge.d_renderer.renderMessage("Enter Selection: ");
     }
 
@@ -62,28 +63,25 @@ public class Starting extends Phase {
     @Override
     public void run() {
         displayMenu();
-        Scanner s = new Scanner(System.in);
+        Scanner l_scanner = new Scanner(System.in);
         int l_userSelection = 0;
 
         try {
-            l_userSelection = s.nextInt();
-        }catch (Exception e){
+            l_userSelection = l_scanner.nextInt();
+        } catch (Exception e) {
             this.d_ge.d_renderer.renderError("Invalid selection!");
             return;
         }
 
-        if (l_userSelection == 1){
+        if (l_userSelection == 1) {
             d_ge.setCurrentState(new MapEditor(d_ge));
-        }
-        else if(l_userSelection == 2){
+        } else if (l_userSelection == 2) {
             d_ge.setCurrentState(new Startup(d_ge));
-        }
-        else if(l_userSelection == 3){
+        } else if (l_userSelection == 3) {
             d_ge.setCurrentState(new Tournament(d_ge));
-        }
-        else if (l_userSelection == 4) {
+        } else if (l_userSelection == 4) {
             d_ge.setCurrentState(new End(d_ge));
-        }else{
+        } else {
             this.d_ge.d_renderer.renderError("Invalid selection!");
         }
     }

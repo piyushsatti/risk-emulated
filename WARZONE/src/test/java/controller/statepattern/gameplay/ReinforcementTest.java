@@ -21,97 +21,98 @@ import static org.junit.Assert.*;
  * Test class for the Reinforcement phase.
  */
 public class ReinforcementTest {
-  /**
-   * Represents an instance of the game engine responsible for managing game logic and state.
-  */
-    GameEngine ge = new GameEngine();
+    /**
+     * Represents an instance of the game engine responsible for managing game logic and state.
+     */
+    GameEngine d_ge = new GameEngine();
 
     /**
      * Represents an instance of startup commands with a specific command type.
      */
-    StartupCommands cmd = new StartupCommands("assigncountries");
+    StartupCommands d_cmd = new StartupCommands("assigncountries");
 
     /**
      * Represents an instance of the reinforcement phase associated with a game engine.
      */
-    Reinforcement rf = new Reinforcement(ge);
+    Reinforcement d_rf = new Reinforcement(d_ge);
 
     /**
      * Test for the run method in Reinforcement phase.
-     * @throws CountryDoesNotExistException when a country does not exist
+     *
+     * @throws CountryDoesNotExistException    when a country does not exist
      * @throws ContinentAlreadyExistsException when a continent already exists
-     * @throws ContinentDoesNotExistException when a continent does not exist
-     * @throws DuplicateCountryException when a duplicate country is encountered
-     * @throws FileNotFoundException when a file is not found
+     * @throws ContinentDoesNotExistException  when a continent does not exist
+     * @throws DuplicateCountryException       when a duplicate country is encountered
+     * @throws FileNotFoundException           when a file is not found
      */
     @Test
     public void runTest1() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
-        MapInterface mp = new MapInterface();
-        ge.d_worldmap = mp.loadMap(ge, "usa9.map");
-        ge.d_players.add(new Player("Shashi",ge));
+        MapInterface l_mp = new MapInterface();
+        d_ge.d_worldmap = l_mp.loadMap(d_ge, "usa9.map");
+        d_ge.d_players.add(new Player("Shashi", d_ge));
 
-        rf.run();
+        d_rf.run();
 
 
-
-        int bonus =0;
-        HashMap<Integer, Continent> continents = ge.d_worldmap.getContinents();
-        for (Continent continent : continents.values()) {
-            boolean allCountriesFound = true; // Flag to track if all countries of the continent are found
-            for (Country country : ge.d_worldmap.getContinentCountries(continent).values()) {
-                if (!ge.d_players.get(0).getAssignedCountries().contains(country.getCountryID())) {
-                    allCountriesFound = false; // If any country is not found, set flag to false
+        int l_bonus = 0;
+        HashMap<Integer, Continent> l_continents = d_ge.d_worldmap.getContinents();
+        for (Continent l_continent : l_continents.values()) {
+            boolean l_allCountriesFound = true; // Flag to track if all countries of the continent are found
+            for (Country l_country : d_ge.d_worldmap.getContinentCountries(l_continent).values()) {
+                if (!d_ge.d_players.get(0).getAssignedCountries().contains(l_country.getCountryID())) {
+                    l_allCountriesFound = false; // If any country is not found, set flag to false
                     break;
                 }
             }
-            if (allCountriesFound) {
-                bonus+= continent.getBonus();
+            if (l_allCountriesFound) {
+                l_bonus += l_continent.getBonus();
             }
         }
 
 
-        int l_numberOfTroops = Math.max(ge.d_players.get(0).getAssignedCountries().size() / 3 +bonus, 3);
+        int l_numberOfTroops = Math.max(d_ge.d_players.get(0).getAssignedCountries().size() / 3 + l_bonus, 3);
 
-        assertEquals(l_numberOfTroops,ge.d_players.get(0).getReinforcements());
+        assertEquals(l_numberOfTroops, d_ge.d_players.get(0).getReinforcements());
 
     }
 
     /**
      * Test for the run method in Reinforcement phase with multiple players.
-     * @throws CountryDoesNotExistException when a country does not exist
+     *
+     * @throws CountryDoesNotExistException    when a country does not exist
      * @throws ContinentAlreadyExistsException when a continent already exists
-     * @throws ContinentDoesNotExistException when a continent does not exist
-     * @throws DuplicateCountryException when a duplicate country is encountered
-     * @throws FileNotFoundException when a file is not found
+     * @throws ContinentDoesNotExistException  when a continent does not exist
+     * @throws DuplicateCountryException       when a duplicate country is encountered
+     * @throws FileNotFoundException           when a file is not found
      */
     @Test
     public void runTest2() throws CountryDoesNotExistException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, FileNotFoundException {
-        MapInterface mp = new MapInterface();
-        ge.d_worldmap = mp.loadMap(ge, "usa9.map");
-        ge.d_players.add(new Player("Shashi",ge));
-        ge.d_players.add(new Player("Priyanshu",ge));
+        MapInterface l_mp = new MapInterface();
+        d_ge.d_worldmap = l_mp.loadMap(d_ge, "usa9.map");
+        d_ge.d_players.add(new Player("Shashi", d_ge));
+        d_ge.d_players.add(new Player("Priyanshu", d_ge));
 
-        rf.run();
+        d_rf.run();
 
         //main logic: armies should return the value of l_numberOfTroops
-        for(Player player : ge.d_players){
-            int bonus =0;
-            HashMap<Integer, Continent> continents = ge.d_worldmap.getContinents();
-            for (Continent continent : continents.values()) {
-                boolean allCountriesFound = true; // Flag to track if all countries of the continent are found
-                for (Country country : ge.d_worldmap.getContinentCountries(continent).values()) {
-                    if (!player.getAssignedCountries().contains(country.getCountryID())) {
-                        allCountriesFound = false; // If any country is not found, set flag to false
+        for (Player l_player : d_ge.d_players) {
+            int l_bonus = 0;
+            HashMap<Integer, Continent> l_continents = d_ge.d_worldmap.getContinents();
+            for (Continent l_continent : l_continents.values()) {
+                boolean l_allCountriesFound = true; // Flag to track if all countries of the continent are found
+                for (Country l_country : d_ge.d_worldmap.getContinentCountries(l_continent).values()) {
+                    if (!l_player.getAssignedCountries().contains(l_country.getCountryID())) {
+                        l_allCountriesFound = false; // If any country is not found, set flag to false
                         break;
                     }
                 }
-                if (allCountriesFound) {
+                if (l_allCountriesFound) {
                     // All countries of the continent are present
-                    bonus+= continent.getBonus(); // Get the bonus value
+                    l_bonus += l_continent.getBonus(); // Get the bonus value
                 }
             }
-            int l_numberOfTroops = Math.max(player.getAssignedCountries().size() / 3 +bonus, 3);
-            assertEquals(l_numberOfTroops,player.getReinforcements());
+            int l_numberOfTroops = Math.max(l_player.getAssignedCountries().size() / 3 + l_bonus, 3);
+            assertEquals(l_numberOfTroops, l_player.getReinforcements());
 
 
         }

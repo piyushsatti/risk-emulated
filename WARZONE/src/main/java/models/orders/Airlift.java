@@ -6,7 +6,7 @@ import models.Player;
 /**
  * Represents the "Airlift" order, which allows a player to move troops from one of their countries to any other country on the map.
  */
-public class Airlift implements Order{
+public class Airlift implements Order {
     /**
      * The player who issued the order.
      */
@@ -55,7 +55,7 @@ public class Airlift implements Order{
         this.d_playerOrderID = p_playerOrderID;
         this.d_fromCountryID = p_fromCountryID;
         this.d_toCountryID = p_toCountryID;
-        this.d_airliftedTroops = p_airliftedTroops ;
+        this.d_airliftedTroops = p_airliftedTroops;
         this.d_gameEngine = p_gameEngine;
     }
 
@@ -65,18 +65,18 @@ public class Airlift implements Order{
      * @return true if the airlift command is valid, false otherwise.
      */
     @Override
-    public boolean validateCommand(){
+    public boolean validateCommand() {
 
         if (!d_sourcePlayer.getAssignedCountries().contains(d_fromCountryID)) {
             this.d_gameEngine.d_renderer.renderError("Player does not own the source country");
             return false;
         }
-        if(!d_sourcePlayer.getAssignedCountries().contains(d_toCountryID)){
+        if (!d_sourcePlayer.getAssignedCountries().contains(d_toCountryID)) {
             this.d_gameEngine.d_renderer.renderError("Player does not own the target country");
             return false;
         }
 
-        if(d_fromCountryID == d_toCountryID){
+        if (d_fromCountryID == d_toCountryID) {
             this.d_gameEngine.d_renderer.renderError("Player cannot Airlift in the same country");
             return false;
         }
@@ -91,13 +91,13 @@ public class Airlift implements Order{
     public void execute() {
 
         int l_currentReinforcementsFromCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
-        if(this.d_airliftedTroops <= l_currentReinforcementsFromCountry && this.d_airliftedTroops >0){
+        if (this.d_airliftedTroops <= l_currentReinforcementsFromCountry && this.d_airliftedTroops > 0) {
             int l_currentReinforcementsToCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getReinforcements();
             this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_airliftedTroops);
             this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(l_currentReinforcementsToCountry + this.d_airliftedTroops);
-            this.d_gameEngine.d_renderer.renderMessage("Airlift successful "+ "From: " +this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + "To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + "by: " + this.d_sourcePlayer.getName());
+            this.d_gameEngine.d_renderer.renderMessage("Airlift successful " + "From: " + this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + "To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + "by: " + this.d_sourcePlayer.getName());
             return;
-        }else{
+        } else {
             this.d_gameEngine.d_renderer.renderError("Invalid troops. Either troops are not enough or in negative.");
         }
     }

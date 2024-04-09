@@ -35,6 +35,7 @@ public class Continent {
         this.d_continentName = p_name;
         this.d_bonus = p_bonus; // Bonus set to zero for now (to be used in the future)
     }
+
     /**
      * Accessor method
      *
@@ -58,16 +59,16 @@ public class Continent {
      *
      * @return continent name string
      */
-    public String getContinentName()
-    {
+    public String getContinentName() {
         return d_continentName;
     }
 
     /**
      * Sets the ID of the continent.
+     *
      * @param p_id The ID to set for the continent.
      */
-    public void set_continentID(int p_id){
+    public void set_continentID(int p_id) {
         this.d_continentID = p_id;
     }
 }

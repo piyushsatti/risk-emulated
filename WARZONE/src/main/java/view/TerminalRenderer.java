@@ -18,17 +18,25 @@ import java.util.Scanner;
  */
 public class TerminalRenderer {
 
-    /** Log entry buffer for logging messages. */
-    LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+    /**
+     * Log entry buffer for logging messages.
+     */
+    LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer();
 
-    /** Logger for logging messages. */
-    Logger lw = new Logger(logEntryBuffer);
+    /**
+     * Logger for logging messages.
+     */
+    Logger d_lw = new Logger(d_logEntryBuffer);
 
-    /** Game engine associated with the renderer. */
+    /**
+     * Game engine associated with the renderer.
+     */
     GameEngine d_ge;
 
-    /** Scanner object for reading user input from the terminal. */
-    Scanner in;
+    /**
+     * Scanner object for reading user input from the terminal.
+     */
+    Scanner d_in;
 
     /**
      * Constructs a new TerminalRenderer object.
@@ -37,7 +45,7 @@ public class TerminalRenderer {
      */
     public TerminalRenderer(GameEngine p_gameEngine) {
         d_ge = p_gameEngine;
-        in = new Scanner(System.in);
+        d_in = new Scanner(System.in);
     }
 
     /**
@@ -90,48 +98,48 @@ public class TerminalRenderer {
     /**
      * Renders a menu with the specified type and options.
      *
-     * @param menu_type The type of the menu.
-     * @param options   The options to be displayed in the menu.
+     * @param p_menu_type The type of the menu.
+     * @param p_options   The options to be displayed in the menu.
      */
-    public void renderMenu(String menu_type, String[] options) {
+    public void renderMenu(String p_menu_type, String[] p_options) {
 
-        StringBuilder out = new StringBuilder();
+        StringBuilder l_out = new StringBuilder();
 
-        out.append(
-                TerminalColors.ANSI_BLUE +
-                "============================\n" +
-                TerminalColors.ANSI_GREEN)
+        l_out.append(
+                        TerminalColors.ANSI_BLUE +
+                                "============================\n" +
+                                TerminalColors.ANSI_GREEN)
                 .append(String.format(
-                """
-                |  %s Options:\s
-                """,
-                menu_type)
+                        """
+                                |  %s Options:\s
+                                """,
+                        p_menu_type)
                 );
 
-        for (int i = 0; i < options.length; i++) {
+        for (int l_i = 0; l_i < p_options.length; l_i++) {
 
-            out.append(String.format(
-                """
-                |     %d. %s\s
-                """,
-                i + 1,
-                options[i])
+            l_out.append(String.format(
+                    """
+                            |     %d. %s\s
+                            """,
+                    l_i + 1,
+                    p_options[l_i])
             );
 
         }
 
-        out.append(String.format(
-            """
-            |     %d. Exit\s
-            """,
-            options.length + 1)
+        l_out.append(String.format(
+                """
+                        |     %d. Exit\s
+                        """,
+                p_options.length + 1)
         );
 
         System.out.println(
-            out +
-            TerminalColors.ANSI_BLUE +
-            "============================" +
-            TerminalColors.ANSI_RESET
+                l_out +
+                        TerminalColors.ANSI_BLUE +
+                        "============================" +
+                        TerminalColors.ANSI_RESET
         );
 
     }
@@ -139,11 +147,11 @@ public class TerminalRenderer {
     /**
      * Renders an error message.
      *
-     * @param error_string The error message to be rendered.
+     * @param p_error_string The error message to be rendered.
      */
-    public void renderError(String error_string) {
+    public void renderError(String p_error_string) {
 
-        System.out.println(TerminalColors.ANSI_RED + error_string + TerminalColors.ANSI_RESET);
+        System.out.println(TerminalColors.ANSI_RED + p_error_string + TerminalColors.ANSI_RESET);
 
     }
 
@@ -158,22 +166,22 @@ public class TerminalRenderer {
                 Please Enter a valid .map filename from folder:\t
                 """ + TerminalColors.ANSI_GREEN + d_ge.d_maps_folder + TerminalColors.ANSI_RESET);
 
-        Scanner in = new Scanner(System.in);
+        Scanner l_in = new Scanner(System.in);
 
-        return in.nextLine().strip();
+        return l_in.nextLine().strip();
 
     }
+
     /**
      * Renders the request for map editor commands.
-     *
      */
     public void renderMapEditorCommands() {
         this.renderMessage(
                 TerminalColors.ANSI_BLUE + """
-                Please Enter a valid command:\t
-                """ + TerminalColors.ANSI_GREEN +
-                "Super Commands: savemap, editmap, showmap, validatemap\n" +
-                "Map Edit Commands: editcountry, editneighbor, editcontinent" +
+                        Please Enter a valid command:\t
+                        """ + TerminalColors.ANSI_GREEN +
+                        "Super Commands: savemap, editmap, showmap, validatemap\n" +
+                        "Map Edit Commands: editcountry, editneighbor, editcontinent" +
                         TerminalColors.ANSI_RESET + "\n" +
                         "Type 'exit' to quit map editing."
         );
@@ -182,24 +190,24 @@ public class TerminalRenderer {
     /**
      * Renders a message to the user and waits for user input.
      *
-     * @param message The message to be displayed to the user.
+     * @param p_message The message to be displayed to the user.
      * @return The user's input as a String.
      */
-    public String renderUserInput(String message) {
-        renderMessage(message);
-        return this.in.nextLine();
+    public String renderUserInput(String p_message) {
+        renderMessage(p_message);
+        return this.d_in.nextLine();
     }
 
     /**
      * Renders a message.
      *
-     * @param message The message to be rendered.
+     * @param p_message The message to be rendered.
      */
-    public void renderMessage(String message) {
+    public void renderMessage(String p_message) {
 
         System.out.println(
                 TerminalColors.ANSI_BLUE +
-                        message +
+                        p_message +
                         TerminalColors.ANSI_RESET
         );
 
@@ -212,85 +220,84 @@ public class TerminalRenderer {
      */
     public void showMap(boolean p_enable_gameview) {
 
-        WorldMap map = d_ge.d_worldmap;
-        StringBuilder out = new StringBuilder();
-        HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
+        WorldMap l_map = d_ge.d_worldmap;
+        StringBuilder l_out = new StringBuilder();
+        HashMap<Continent, List<Country>> l_continentCountriesMap = new HashMap<>();
 
-        for (Country c : map.getCountries().values()) {
-            List<Country> temp = continentCountriesMap.getOrDefault(c.getContinent(), new ArrayList<>());
-            temp.add(c);
-            continentCountriesMap.put(c.getContinent(), temp);
+        for (Country l_c : l_map.getCountries().values()) {
+            List<Country> l_temp = l_continentCountriesMap.getOrDefault(l_c.getContinent(), new ArrayList<>());
+            l_temp.add(l_c);
+            l_continentCountriesMap.put(l_c.getContinent(), l_temp);
         }
-        for (Continent c : map.getContinents().values()){
-            continentCountriesMap.computeIfAbsent(c, k -> new ArrayList<>());
+        for (Continent l_c : l_map.getContinents().values()) {
+            l_continentCountriesMap.computeIfAbsent(l_c, k -> new ArrayList<>());
         }
-        for(Continent continent : continentCountriesMap.keySet())
-        {
-            String continentName = continent.getContinentName();
-            out.append(continentName);
-            out.append("\n\t");
-            for (Country country : continentCountriesMap.get(continent)) {
-                out.append(country.getCountryName());
+        for (Continent l_continent : l_continentCountriesMap.keySet()) {
+            String l_continentName = l_continent.getContinentName();
+            l_out.append(l_continentName);
+            l_out.append("\n\t");
+            for (Country l_country : l_continentCountriesMap.get(l_continent)) {
+                l_out.append(l_country.getCountryName());
                 if (p_enable_gameview) {
-                    out.append(" Reinforcements Deployed: ").append(country.getReinforcements());
-                    int l_ownerPlayerID = country.getCountryPlayerID();
+                    l_out.append(" Reinforcements Deployed: ").append(l_country.getReinforcements());
+                    int l_ownerPlayerID = l_country.getCountryPlayerID();
 
                 }
-                out.append("\n\t\t");
-                for (Country borderCountries : country.getBorderCountries().values())
-                {
-                    out.append(borderCountries.getCountryName()).append(" ");
+                l_out.append("\n\t\t");
+                for (Country l_borderCountries : l_country.getBorderCountries().values()) {
+                    l_out.append(l_borderCountries.getCountryName()).append(" ");
                 }
-                out.append("\n\t");
+                l_out.append("\n\t");
             }
-            out.append("\n");
+            l_out.append("\n");
         }
-        System.out.println(out);
+        System.out.println(l_out);
     }
 
     /**
      * Displays the current game map.
      */
     public void showCurrentGameMap() {
-        WorldMap map = d_ge.d_worldmap;
-        StringBuilder out = new StringBuilder();
-        HashMap<Continent,List<Country>> continentCountriesMap = new HashMap<>();
-        for (Country c : map.getCountries().values()) {
-            List<Country> temp = continentCountriesMap.getOrDefault(c.getContinent(), new ArrayList<>());
-            temp.add(c);
-            continentCountriesMap.put(c.getContinent(), temp);
+        WorldMap l_map = d_ge.d_worldmap;
+        StringBuilder l_out = new StringBuilder();
+        HashMap<Continent, List<Country>> l_continentCountriesMap = new HashMap<>();
+        for (Country l_c : l_map.getCountries().values()) {
+            List<Country> l_temp = l_continentCountriesMap.getOrDefault(l_c.getContinent(), new ArrayList<>());
+            l_temp.add(l_c);
+            l_continentCountriesMap.put(l_c.getContinent(), l_temp);
         }
-        for(Continent continent : continentCountriesMap.keySet())
-        {
-            String continentName = continent.getContinentName();
-            out.append(continentName);
-            out.append("\n\t");
-            for (Country country : continentCountriesMap.get(continent)) {
-                out.append(country.getCountryName());
-                out.append("\n\t\t");
-                for (Country borderCountries : country.getBorderCountries().values()) {
-                    out.append(borderCountries.getCountryName()).append(" ");
+        for (Continent l_continent : l_continentCountriesMap.keySet()) {
+            String l_continentName = l_continent.getContinentName();
+            l_out.append(l_continentName);
+            l_out.append("\n\t");
+            for (Country l_country : l_continentCountriesMap.get(l_continent)) {
+                l_out.append(l_country.getCountryName());
+                l_out.append("\n\t\t");
+                for (Country l_borderCountries : l_country.getBorderCountries().values()) {
+                    l_out.append(l_borderCountries.getCountryName()).append(" ");
                 }
-                out.append("\n\t");
+                l_out.append("\n\t");
             }
-            out.append("\n");
+            l_out.append("\n");
         }
-        System.out.println(out);
+        System.out.println(l_out);
     }
+
     /**
      * Renders the request for a map filename.
      *
      * @return The filename entered by the user.
      */
-    public String renderRequestMapFileName(){
+    public String renderRequestMapFileName() {
         return "usa9.map";
     }
+
     /**
      * Renders the request to assign countries.
      *
      * @return The filename entered by the user.
      */
-    public String renderAssignCountries(){
+    public String renderAssignCountries() {
         return "usa9.map";
     }
 
@@ -300,11 +307,10 @@ public class TerminalRenderer {
      * @param p_player The name of the player issuing the order.
      * @return The order entered by the player.
      */
-    public String issueOrderView(String p_player)
-    {
+    public String issueOrderView(String p_player) {
         this.renderMessage(p_player + " Please Enter Your Order");
-        Scanner in = new Scanner(System.in);
-        return in.nextLine();
+        Scanner l_in = new Scanner(System.in);
+        return l_in.nextLine();
     }
 
 }

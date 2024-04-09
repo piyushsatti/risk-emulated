@@ -23,22 +23,13 @@ public class MapEditorCommandsTest {
     GameEngine d_gameEngine;
 
     /**
-     * Represents a player object. It is initialized as null and should be assigned a valid player object later.
-     */
-    Player p = null;
-
-    /**
      * This method is executed before each test method to set up the testing environment.
-     *
-     * @throws CountryDoesNotExistException If a country referenced by the command does not exist.
-     * @throws InvalidCommandException      If an invalid command is encountered during setup.
      */
     @Before
-    public void beforeTest() throws CountryDoesNotExistException, InvalidCommandException {
+    public void beforeTest() {
         d_gameEngine = new GameEngine();
         d_gameEngine.setCurrentState(new MapEditor(d_gameEngine));
     }
-
 
 
     /**
@@ -46,9 +37,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testShowMap1() {
-        String cmd = "showmap India";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "showmap India";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -56,9 +47,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testShowMap2() {
-        String cmd = "showmap India Nepal";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "showmap India Nepal";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -66,9 +57,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testShowMap3() {
-        String cmd = "showmap ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        String l_cmd = "showmap ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertTrue(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -76,9 +67,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testValidateMap1() {
-        String cmd = "validatemap India Bangladesh";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "validatemap India Bangladesh";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -86,9 +77,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testValidateMap2() {
-        String cmd = "validatemap India Bangladesh Nepal";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "validatemap India Bangladesh Nepal";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -96,9 +87,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testValidateMap3() {
-        String cmd = "validatemap ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        String l_cmd = "validatemap ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertTrue(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -106,9 +97,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testSaveMap1() {
-        String cmd = "savemap ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "savemap ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -116,9 +107,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testSaveMap2() {
-        String cmd = "savemap piyush";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "savemap piyush";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -126,9 +117,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testSaveMap3() {
-        String cmd = "savemap piyush.map";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        String l_cmd = "savemap piyush.map";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertTrue(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -136,9 +127,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testSaveMap4() {
-        String cmd = "savemap piyush satti.map";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "savemap piyush satti.map";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -146,9 +137,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditMap1() {
-        String cmd = "editmap ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editmap ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -156,9 +147,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditMap2() {
-        String cmd = "editmap piyush";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editmap piyush";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -166,9 +157,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditMap3() {
-        String cmd = "editmap piyush.map";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editmap piyush.map";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertTrue(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -176,9 +167,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditMap4() {
-        String cmd = "editmap piyush satti.map";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editmap piyush satti.map";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -186,9 +177,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditContinent1() {
-        String cmd = "editcontinent ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcontinent ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertTrue(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -196,9 +187,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditContinent2() {
-        String cmd = "editcontinent Asia Africa";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcontinent Asia Africa";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -206,9 +197,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditContinent3() {
-        String cmd = "editcontinent -add Asia -remove Africa";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcontinent -add Asia -remove Africa";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -216,9 +207,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditContinent4() {
-        String cmd = "editcontinent -add Asia Africa -remove Australia";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcontinent -add Asia Africa -remove Australia";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -226,9 +217,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditContinent5() {
-        String cmd = "editcontinent -add -remove Australia";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcontinent -add -remove Australia";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -236,9 +227,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditContinent6() {
-        String cmd = "editcontinent -remove ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcontinent -remove ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -246,9 +237,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditContinent7() {
-        String cmd = "editcontinent -remove -add Asia";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcontinent -remove -add Asia";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -256,9 +247,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditContinent8() {
-        String cmd = "editcontinent -remove -add ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcontinent -remove -add ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -266,9 +257,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditContinent9() {
-        String cmd = "editcontinent -add Asia 100";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcontinent -add Asia 100";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertTrue(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -276,9 +267,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditContinent10() {
-        String cmd = "editcontinent -add Asia 100 -remove Africa";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcontinent -add Asia 100 -remove Africa";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertTrue(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -286,9 +277,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditContinent11() {
-        String cmd = "editcontinent -shashi Asia 100 -remove Africa";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcontinent -shashi Asia 100 -remove Africa";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -296,9 +287,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditNeighbor1() {
-        String cmd = "editneighbor ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editneighbor ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertTrue(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -306,9 +297,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditNeighbor2() {
-        String cmd = "editneighbor India Bangladesh";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editneighbor India Bangladesh";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -316,9 +307,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditNeighbor3() {
-        String cmd = "editneighbor -add India -remove India Bangladesh";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editneighbor -add India -remove India Bangladesh";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -326,9 +317,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditNeighbor4() {
-        String cmd = "editneighbor -add India Bangladesh -remove India Bangladesh";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editneighbor -add India Bangladesh -remove India Bangladesh";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertTrue(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -336,9 +327,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditNeighbor5() {
-        String cmd = "editneighbor -add -remove India Bangladesh";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editneighbor -add -remove India Bangladesh";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -346,9 +337,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditNeighbor6() {
-        String cmd = "editneighbor -remove ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editneighbor -remove ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -356,9 +347,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditNeighbor7() {
-        String cmd = "editneighbor -remove -add India Bangladesh";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editneighbor -remove -add India Bangladesh";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -366,9 +357,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditNeighbor8() {
-        String cmd = "editneighbor -remove -add ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editneighbor -remove -add ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -376,9 +367,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditNeighbor9() {
-        String cmd = "editneighbor -add India Bangladesh";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editneighbor -add India Bangladesh";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertTrue(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -386,9 +377,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditNeighbor10() {
-        String cmd = "editneighbor -add -remove";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editneighbor -add -remove";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -396,9 +387,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditNeighbor11() {
-        String cmd = "editneighbor -remove India ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editneighbor -remove India ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -406,9 +397,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditNeighbor12() {
-        String cmd = "editneighbor -remove India -shashi Australia ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editneighbor -remove India -shashi Australia ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -416,9 +407,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditCountry1() {
-        String cmd = "editcountry ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcountry ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertTrue(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -426,9 +417,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditCountry2() {
-        String cmd = "editcountry India Asia";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcountry India Asia";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -436,9 +427,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditCountry3() {
-        String cmd = "editcountry -add India -remove India";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcountry -add India -remove India";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -446,9 +437,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditCountry4() {
-        String cmd = "editcountry -add India Asia -remove Bangladesh";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcountry -add India Asia -remove Bangladesh";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertTrue(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -456,9 +447,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditCountry5() {
-        String cmd = "editcountry -add -remove Bangladesh";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcountry -add -remove Bangladesh";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -466,9 +457,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditCountry6() {
-        String cmd = "editcountry -remove ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcountry -remove ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -476,9 +467,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditCountry7() {
-        String cmd = "editcountry -remove -add India";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcountry -remove -add India";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -486,9 +477,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditCountry8() {
-        String cmd = "editcountry -remove -add ";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcountry -remove -add ";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -496,9 +487,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditCountry9() {
-        String cmd = "editcountry -add India Asia";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcountry -add India Asia";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertTrue(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -506,9 +497,9 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditCountry10() {
-        String cmd = "editcountry -add India Asia -remove Bangladesh";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertTrue(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcountry -add India Asia -remove Bangladesh";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertTrue(l_obj.validateCommand(d_gameEngine));
     }
 
     /**
@@ -516,8 +507,8 @@ public class MapEditorCommandsTest {
      */
     @Test
     public void testEditCountry11() {
-        String cmd = "editcountry -add India Asia -shashi Bangladesh";
-        MapEditorCommands obj = new MapEditorCommands(cmd);
-        assertFalse(obj.validateCommand(d_gameEngine));
+        String l_cmd = "editcountry -add India Asia -shashi Bangladesh";
+        MapEditorCommands l_obj = new MapEditorCommands(l_cmd);
+        assertFalse(l_obj.validateCommand(d_gameEngine));
     }
 }

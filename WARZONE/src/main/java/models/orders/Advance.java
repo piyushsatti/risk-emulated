@@ -54,20 +54,19 @@ public class Advance implements Order {
     private TerminalRenderer d_terminalRenderer;
 
 
-
     /**
      * Constructs a new Advance order with the specified parameters.
      *
-     * @param p_sourcePlayer     The player initiating the advance order.
-     * @param p_targetPlayer     The player owning the target country.
-     * @param p_playerOrderID    ID of the player issuing the order.
-     * @param p_playerOrderName  Name of the player issuing the order.
-     * @param p_fromCountryID    ID of the country from which troops are advancing.
-     * @param p_toCountryID      ID of the country to which troops are advancing.
-     * @param p_advancingtroops  Number of troops being advanced.
-     * @param p_gameEngine       The game engine managing the game state.
+     * @param p_sourcePlayer    The player initiating the advance order.
+     * @param p_targetPlayer    The player owning the target country.
+     * @param p_playerOrderID   ID of the player issuing the order.
+     * @param p_playerOrderName Name of the player issuing the order.
+     * @param p_fromCountryID   ID of the country from which troops are advancing.
+     * @param p_toCountryID     ID of the country to which troops are advancing.
+     * @param p_advancingtroops Number of troops being advanced.
+     * @param p_gameEngine      The game engine managing the game state.
      */
-    public Advance(Player p_sourcePlayer, Player p_targetPlayer,String p_playerOrderName, int p_playerOrderID, int p_fromCountryID, int p_toCountryID, int p_advancingtroops, GameEngine p_gameEngine) {
+    public Advance(Player p_sourcePlayer, Player p_targetPlayer, String p_playerOrderName, int p_playerOrderID, int p_fromCountryID, int p_toCountryID, int p_advancingtroops, GameEngine p_gameEngine) {
         this.d_sourcePlayer = p_sourcePlayer;
         this.d_targetPlayer = p_targetPlayer;
         this.d_playerOrderName = p_playerOrderName;
@@ -86,7 +85,7 @@ public class Advance implements Order {
      * @return true if the command is valid, false otherwise.
      */
     @Override
-    public boolean validateCommand(){
+    public boolean validateCommand() {
 
         if (!d_sourcePlayer.getAssignedCountries().contains(d_fromCountryID)) {
             System.out.println("Player does not own the source country");
@@ -97,8 +96,8 @@ public class Advance implements Order {
             return false;
         }
 
-       int l_currentReinforcementsFromCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
-        if( this.d_advancingtroops < 0){
+        int l_currentReinforcementsFromCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
+        if (this.d_advancingtroops < 0) {
             System.out.println("Not enough troops to advance.");
             return false;
         }
@@ -126,23 +125,23 @@ public class Advance implements Order {
             if (d_sourcePlayer.getAssignedCountries().contains(d_toCountryID)) {
 
                 //Move order moving from within own adjacent territories.
-                int l_currentReinforcementsFromCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
+                int l_currentReinforcementsFromCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
                 this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
-                int l_currentReinforcementsToCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getReinforcements();
+                int l_currentReinforcementsToCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getReinforcements();
                 this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(l_currentReinforcementsToCountry + this.d_advancingtroops);
-                this.d_gameEngine.d_renderer.renderMessage("Move successful "+ "From: " +this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + "  To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() +  " By: " + this.d_sourcePlayer.getName());
+                this.d_gameEngine.d_renderer.renderMessage("Move successful " + "From: " + this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + "  To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + " By: " + this.d_sourcePlayer.getName());
 
                 return;
 
             } else {
                 // Attacking adjacent territory
-                if(d_sourcePlayer.getListOfNegotiatedPlayers().contains(d_targetPlayer)){
-                    this.d_gameEngine.d_renderer.renderError(d_sourcePlayer.getName()+" has negotiated with "+d_targetPlayer.getName());
+                if (d_sourcePlayer.getListOfNegotiatedPlayers().contains(d_targetPlayer)) {
+                    this.d_gameEngine.d_renderer.renderError(d_sourcePlayer.getName() + " has negotiated with " + d_targetPlayer.getName());
                     //skip execute
                     return;
                 }
-                int l_currentReinforcementsToCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getReinforcements();
-                int l_currentReinforcementsFromCountry =  this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
+                int l_currentReinforcementsToCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getReinforcements();
+                int l_currentReinforcementsFromCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getReinforcements();
                 int l_attackingArmiesKills = (this.d_advancingtroops) * 60 / 100;
 
                 int l_defendingArmiesKills = (l_currentReinforcementsToCountry) * 70 / 100;
@@ -152,15 +151,15 @@ public class Advance implements Order {
                 if (l_defendingarmiessurvived <= 0) {
                     // Attacker won
                     d_sourcePlayer.setAssignedCountries(this.d_toCountryID);
-                    if(d_targetPlayer != null) {
+                    if (d_targetPlayer != null) {
                         d_targetPlayer.removeAssignedCountries(this.d_toCountryID);
                     }
 
                     this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).setReinforcements(l_attackingarmiessurvived);
                     this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
                     d_sourcePlayer.addCard();
-                    this.d_gameEngine.d_renderer.renderMessage("Attack successful "+ "from: " +this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + " To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + " By: " + this.d_sourcePlayer.getName());
-                    this.d_gameEngine.d_renderer.renderMessage("Now: " +this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + " is owned by: " +  this.d_sourcePlayer.getName());
+                    this.d_gameEngine.d_renderer.renderMessage("Attack successful " + "from: " + this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + " To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + " By: " + this.d_sourcePlayer.getName());
+                    this.d_gameEngine.d_renderer.renderMessage("Now: " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + " is owned by: " + this.d_sourcePlayer.getName());
 
                     return;
                 } else {
@@ -171,7 +170,7 @@ public class Advance implements Order {
                     } else {
                         this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).setReinforcements(l_currentReinforcementsFromCountry - this.d_advancingtroops);
                     }
-                    this.d_gameEngine.d_renderer.renderMessage("Attack unsuccessful "+ "From: " +this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + " To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + " By: " + this.d_sourcePlayer.getName());
+                    this.d_gameEngine.d_renderer.renderMessage("Attack unsuccessful " + "From: " + this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + " To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + " By: " + this.d_sourcePlayer.getName());
 
                     return;
 
@@ -180,7 +179,7 @@ public class Advance implements Order {
             }
 
         } else {
-            this.d_gameEngine.d_renderer.renderError("Not enough troops to advance " + "From: " +this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + "To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + "by: " + this.d_sourcePlayer.getName());
+            this.d_gameEngine.d_renderer.renderError("Not enough troops to advance " + "From: " + this.d_gameEngine.d_worldmap.getCountry(this.d_fromCountryID).getCountryName() + "To " + this.d_gameEngine.d_worldmap.getCountry(this.d_toCountryID).getCountryName() + "by: " + this.d_sourcePlayer.getName());
         }
     }
 }

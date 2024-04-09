@@ -9,7 +9,7 @@ public interface Observer {
     /**
      * Update method called by the subject to notify the observer of a change.
      *
-     * @param model The subject that triggered the update
+     * @param p_model The subject that triggered the update
      */
-    void update(Subject model);
+    void update(Subject p_model);
 }

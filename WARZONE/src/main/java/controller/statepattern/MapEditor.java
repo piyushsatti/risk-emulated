@@ -50,18 +50,13 @@ public class MapEditor extends Phase {
     public void run() {
         displayMenu();
 
-        /*MapEditorCommands mec = new MapEditorCommands(
-                this.d_ge.d_renderer.renderUserInput("Enter command: ")
-        );
-        mec.execute(this.d_ge);*/
-
         Command l_command = CommandCreator.createCommand(this.d_ge.d_renderer.renderUserInput("Enter command: "), this.d_ge);
 
-        if(l_command != null){
-            if(l_command.validate()){
+        if (l_command != null) {
+            if (l_command.validate()) {
                 l_command.execute();
             }
-        }else{
+        } else {
             this.d_ge.d_renderer.renderError("Invalid command!");
         }
     }

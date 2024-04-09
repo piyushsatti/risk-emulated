@@ -55,10 +55,10 @@ public class CheaterStrategy implements Strategy {
     /**
      * Sets the name of the strategy.
      *
-     * @param d_strategyName The name of the strategy to be set.
+     * @param p_strategyName The name of the strategy to be set.
      */
-    public void setStrategyName(String d_strategyName) {
-        this.d_strategyName = d_strategyName;
+    public void setStrategyName(String p_strategyName) {
+        this.d_strategyName = p_strategyName;
     }
 
     /**
@@ -90,9 +90,9 @@ public class CheaterStrategy implements Strategy {
     public ArrayList<Integer> getNeighbouringCountry(int p_sourceCountry) {
 
         ArrayList<Integer> l_listOfAllBorderCountriesIDs = new ArrayList<>();
-        for (Integer id : d_gameEngine.d_worldmap.getCountry(p_sourceCountry).getAllBorderCountriesIDs()) {
-            if (!this.d_player.getAssignedCountries().contains(id)) {
-                l_listOfAllBorderCountriesIDs.add(id);
+        for (Integer l_id : d_gameEngine.d_worldmap.getCountry(p_sourceCountry).getAllBorderCountriesIDs()) {
+            if (!this.d_player.getAssignedCountries().contains(l_id)) {
+                l_listOfAllBorderCountriesIDs.add(l_id);
             }
         }
         return l_listOfAllBorderCountriesIDs;
@@ -105,9 +105,9 @@ public class CheaterStrategy implements Strategy {
      */
     public Order createOrder() {
 
-        ArrayList<Integer> assignedCountriesCopy = new ArrayList<>(this.d_player.getAssignedCountries());
+        ArrayList<Integer> l_assignedCountriesCopy = new ArrayList<>(this.d_player.getAssignedCountries());
 
-        for (int l_sourceCountry : assignedCountriesCopy) {
+        for (int l_sourceCountry : l_assignedCountriesCopy) {
             ArrayList<Integer> l_neighbourCountries = getNeighbouringCountry(l_sourceCountry);
             for (int l_countryId : l_neighbourCountries) {
                 boolean l_isNeutral = true;

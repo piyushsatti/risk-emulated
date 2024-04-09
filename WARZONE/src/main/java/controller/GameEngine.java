@@ -48,22 +48,28 @@ public class GameEngine {
     /**
      * Sets the current game number to the specified value.
      *
-     * @param d_currentGameNumber The new value for the current game number.
+     * @param p_currentGameNumber The new value for the current game number.
      */
-    public void setCurrentGameNumber(int d_currentGameNumber) {
-        this.d_currentGameNumber = d_currentGameNumber;
+    public void setCurrentGameNumber(int p_currentGameNumber) {
+        this.d_currentGameNumber = p_currentGameNumber;
     }
 
+    /**
+     * stores current game number
+     */
     private int d_currentGameNumber;
+    /**
+     * stores tournament results
+     */
     private String[][] d_tournamentResults;
 
     /**
      * Sets the tournament results to the specified two-dimensional array.
      *
-     * @param l_tournamentResults The two-dimensional array containing tournament results.
+     * @param p_tournamentResults The two-dimensional array containing tournament results.
      */
-    public void setTournamentResults(String[][] l_tournamentResults){
-        d_tournamentResults = l_tournamentResults;
+    public void setTournamentResults(String[][] p_tournamentResults) {
+        d_tournamentResults = p_tournamentResults;
     }
 
     /**
@@ -79,12 +85,12 @@ public class GameEngine {
     /**
      * Sets the result of a specific game on a specific map in the tournament results.
      *
-     * @param games The index of the game in the tournament.
-     * @param maps The index of the map played in the game.
-     * @param winner The winner of the game.
+     * @param p_games  The index of the game in the tournament.
+     * @param p_maps   The index of the map played in the game.
+     * @param p_winner The winner of the game.
      */
-    public void setGameResult(int games, int maps, String winner){
-        d_tournamentResults[maps][games] = winner;
+    public void setGameResult(int p_games, int p_maps, String p_winner) {
+        d_tournamentResults[p_maps][p_games] = p_winner;
     }
 
     /**
@@ -97,14 +103,27 @@ public class GameEngine {
      */
     private int d_numberOfTurns = 0;
 
+    /**
+     * returns the number of games
+     *
+     * @return the number of games
+     */
     public int getNumberOfGames() {
         return d_numberOfGames;
     }
 
-    public void setNumberOfGames(int d_numberOfGames) {
-        this.d_numberOfGames = d_numberOfGames;
+    /**
+     * this method is used to set the number of games
+     *
+     * @param p_numberOfGames number of games
+     */
+    public void setNumberOfGames(int p_numberOfGames) {
+        this.d_numberOfGames = p_numberOfGames;
     }
 
+    /**
+     * stores number of games
+     */
     private int d_numberOfGames = 1;
 
     /**
@@ -149,10 +168,10 @@ public class GameEngine {
     /**
      * Sets the list of input strategies used in the tournament mode.
      *
-     * @param d_inputStrategiesTournament The list of input strategies to be set.
+     * @param p_inputStrategiesTournament The list of input strategies to be set.
      */
-    public void setInputStrategiesTournament(List<String> d_inputStrategiesTournament) {
-        this.d_inputStrategiesTournament = d_inputStrategiesTournament;
+    public void setInputStrategiesTournament(List<String> p_inputStrategiesTournament) {
+        this.d_inputStrategiesTournament = p_inputStrategiesTournament;
     }
 
     /**
@@ -169,32 +188,32 @@ public class GameEngine {
      *
      * @return The index of the current map.
      */
-    public int getCurrentMapIndex() {
-        return currentMapIndex;
+    public int getD_currentMapIndex() {
+        return d_currentMapIndex;
     }
 
     /**
      * Sets the index of the current map to the specified value.
      *
-     * @param currentMapIndex The new value for the index of the current map.
+     * @param d_currentMapIndex The new value for the index of the current map.
      */
-    public void setCurrentMapIndex(int currentMapIndex) {
-        this.currentMapIndex = currentMapIndex;
+    public void setD_currentMapIndex(int d_currentMapIndex) {
+        this.d_currentMapIndex = d_currentMapIndex;
     }
 
     /**
      * Represents the index of the current map.
      */
-    public int currentMapIndex;
+    public int d_currentMapIndex;
 
 
     /**
      * Sets the list of map files used in the tournament mode.
      *
-     * @param d_mapFilesTournament The list of map files to be set.
+     * @param p_mapFilesTournament The list of map files to be set.
      */
-    public void setMapFilesTournament(List<String> d_mapFilesTournament) {
-        this.d_mapFilesTournament = d_mapFilesTournament;
+    public void setMapFilesTournament(List<String> p_mapFilesTournament) {
+        this.d_mapFilesTournament = p_mapFilesTournament;
     }
 
     /**
@@ -209,10 +228,10 @@ public class GameEngine {
     /**
      * Sets the number of games to be played in the tournament mode.
      *
-     * @param d_numberGamesTournament The number of games to be set.
+     * @param p_numberGamesTournament The number of games to be set.
      */
-    public void setNumberGamesTournament(int d_numberGamesTournament) {
-        this.d_numberGamesTournament = d_numberGamesTournament;
+    public void setNumberGamesTournament(int p_numberGamesTournament) {
+        this.d_numberGamesTournament = p_numberGamesTournament;
     }
 
     /**
@@ -227,10 +246,10 @@ public class GameEngine {
     /**
      * Sets the maximum number of turns allowed per game in the tournament mode.
      *
-     * @param d_maxTurns The maximum number of turns to be set.
+     * @param p_maxTurns The maximum number of turns to be set.
      */
-    public void setMaxTurns(int d_maxTurns) {
-        this.d_maxTurns = d_maxTurns;
+    public void setMaxTurns(int p_maxTurns) {
+        this.d_maxTurns = p_maxTurns;
     }
 
     /**
@@ -238,10 +257,9 @@ public class GameEngine {
      * Initializes the current phase to Starting phase, sets the maps folder,
      * initializes the renderer, world map, and player list.
      */
-    public GameEngine()
-    {
+    public GameEngine() {
         this.d_current_phase = new Starting(this);
-        d_maps_folder ="C:\\Users\\HP\\Documents\\MACS PROJECTS\\soen6441 updated mvc final\\risk-emulated\\WARZONE\\src\\main\\resources\\maps\\";
+        d_maps_folder = "C:\\Users\\HP\\Documents\\MACS PROJECTS\\soen6441 updated mvc final\\risk-emulated\\WARZONE\\src\\main\\resources\\maps\\";
         d_renderer = new TerminalRenderer(this);
         d_worldmap = new WorldMap();
         d_players = new ArrayList<>();
@@ -256,9 +274,10 @@ public class GameEngine {
      * @throws InvalidCommandException      If an invalid command is encountered.
      */
     public static void main(String[] args) throws CountryDoesNotExistException, InvalidCommandException {
-        GameEngine testEngine = new GameEngine();
-        testEngine.runState();
+        GameEngine l_testEngine = new GameEngine();
+        l_testEngine.runState();
     }
+
     /**
      * Retrieves the number of turns played in the game.
      *
@@ -271,10 +290,10 @@ public class GameEngine {
     /**
      * Sets the number of turns played in the game.
      *
-     * @param d_numberOfTurns The number of turns to set.
+     * @param p_numberOfTurns The number of turns to set.
      */
-    public void setNumberOfTurns(int d_numberOfTurns) {
-        this.d_numberOfTurns = d_numberOfTurns;
+    public void setNumberOfTurns(int p_numberOfTurns) {
+        this.d_numberOfTurns = p_numberOfTurns;
     }
 
     /**
@@ -288,6 +307,7 @@ public class GameEngine {
 
     /**
      * Get the current phase of the game engine.
+     *
      * @return the current phase of the game engine.
      */
     public Phase getCurrentState() {
@@ -306,11 +326,12 @@ public class GameEngine {
     /**
      * Sets the status indicating if a tournament winner has been found.
      *
-     * @param tournamentWinnerFound The status indicating if a tournament winner has been found.
+     * @param p_tournamentWinnerFound The status indicating if a tournament winner has been found.
      */
-    public void setTournamentWinnerFound(boolean tournamentWinnerFound) {
-        d_tournamentWinnerFound = tournamentWinnerFound;
+    public void setTournamentWinnerFound(boolean p_tournamentWinnerFound) {
+        d_tournamentWinnerFound = p_tournamentWinnerFound;
     }
+
     /**
      * Checks if the game is in tournament mode.
      *
@@ -323,10 +344,10 @@ public class GameEngine {
     /**
      * Sets the status indicating if the game is in tournament mode.
      *
-     * @param tournamentMode The status indicating if the game is in tournament mode.
+     * @param p_tournamentMode The status indicating if the game is in tournament mode.
      */
-    public void setTournamentMode(boolean tournamentMode) {
-        d_tournamentMode = tournamentMode;
+    public void setTournamentMode(boolean p_tournamentMode) {
+        d_tournamentMode = p_tournamentMode;
     }
 
     /**
@@ -344,7 +365,7 @@ public class GameEngine {
     /**
      * Resets the world map of the game engine.
      */
-    public void resetMap(){
+    public void resetMap() {
         d_worldmap = new WorldMap();
     }
 

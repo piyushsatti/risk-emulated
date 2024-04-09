@@ -7,7 +7,7 @@ import models.Player;
  * Represents a blockade order, which is used to blockade a country.
  * This class implements the Order interface.
  */
-public class Blockade implements Order{
+public class Blockade implements Order {
     /**
      * The player who issued the order.
      */
@@ -39,7 +39,7 @@ public class Blockade implements Order{
      * @return Always returns true.
      */
     @Override
-    public boolean validateCommand(){
+    public boolean validateCommand() {
 
         if (!d_sourcePlayer.getAssignedCountries().contains(d_blockadeCountryID)) {
             this.d_gameEngine.d_renderer.renderError("Player does not own the source country");
@@ -60,7 +60,7 @@ public class Blockade implements Order{
     public Blockade(Player p_sourcePlayer, int p_playerOrderID, String p_playerOrderName, int p_blockadeCountryID, GameEngine p_gameEngine) {
         this.d_sourcePlayer = p_sourcePlayer;
         this.d_playerOrderID = p_playerOrderID;
-        this.d_playerOrderName  = p_playerOrderName;
+        this.d_playerOrderName = p_playerOrderName;
         this.d_blockadeCountryID = p_blockadeCountryID;
         this.d_gameEngine = p_gameEngine;
     }
@@ -71,12 +71,12 @@ public class Blockade implements Order{
      * and the country is removed from the source player's assigned countries.
      */
     @Override
-    public void execute(){
+    public void execute() {
 
         int l_currentReinforcementsBlockadeCountry = this.d_gameEngine.d_worldmap.getCountry(this.d_blockadeCountryID).getReinforcements();
-        this.d_gameEngine.d_worldmap.getCountry(this.d_blockadeCountryID).setReinforcements(l_currentReinforcementsBlockadeCountry*3);
+        this.d_gameEngine.d_worldmap.getCountry(this.d_blockadeCountryID).setReinforcements(l_currentReinforcementsBlockadeCountry * 3);
         this.d_sourcePlayer.removeAssignedCountries(this.d_blockadeCountryID);
-        this.d_gameEngine.d_renderer.renderMessage("Blockade Successful "+ "On: " +this.d_gameEngine.d_worldmap.getCountry(this.d_blockadeCountryID).getCountryName() + " by: " + this.d_sourcePlayer.getName());
+        this.d_gameEngine.d_renderer.renderMessage("Blockade Successful " + "On: " + this.d_gameEngine.d_worldmap.getCountry(this.d_blockadeCountryID).getCountryName() + " by: " + this.d_sourcePlayer.getName());
 
 
     }

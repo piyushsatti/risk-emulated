@@ -5,11 +5,11 @@ import view.Logger;
 /**
  * The LogEntryBuffer class represents a buffer for logging messages.
  */
-public class LogEntryBuffer extends Subject{
+public class LogEntryBuffer extends Subject {
     /**
      * Represents the log content.
      */
-    private String log;
+    private String d_log;
 
     /**
      * Represents the folder path where logs are stored.
@@ -21,9 +21,8 @@ public class LogEntryBuffer extends Subject{
      *
      * @return The log message
      */
-    public String getLog()
-    {
-        return this.log;
+    public String getD_log() {
+        return this.d_log;
     }
 
     /**
@@ -31,8 +30,7 @@ public class LogEntryBuffer extends Subject{
      *
      * @return The log folder path
      */
-    public String getLogFolder()
-    {
+    public String getLogFolder() {
         return this.LOG_FOLDER;
     }
 
@@ -41,9 +39,8 @@ public class LogEntryBuffer extends Subject{
      *
      * @param logMessage The log message to set
      */
-    public void setString(String logMessage)
-    {
-        this.log = logMessage;
+    public void setString(String logMessage) {
+        this.d_log = logMessage;
         notifyAllViews(this);
     }
 
@@ -53,9 +50,9 @@ public class LogEntryBuffer extends Subject{
      * @param args The command-line arguments
      */
     public static void main(String[] args) {
-        LogEntryBuffer lg = new LogEntryBuffer();
-        Logger lw = new Logger(lg);
-        lg.setString(" devdutt was here!");
+        LogEntryBuffer l_lg = new LogEntryBuffer();
+        Logger l_lw = new Logger(l_lg);
+        l_lg.setString(" devdutt was here!");
     }
 
 }

@@ -1,4 +1,5 @@
 package models.worldmap;
+
 /**
  * The Border class represents a border between two countries on a world map.
  * It connects two countries and provides access to the target country.

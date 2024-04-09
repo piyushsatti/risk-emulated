@@ -74,11 +74,11 @@ public class AggressiveStrategy implements Strategy {
         int l_sourceCountryId = -1;
         List<Integer> l_listCountries = this.d_player.getAssignedCountries();
         int l_maxArmies = -1;
-        for (int i = 0; i < l_listCountries.size(); i++) {
-            int l_armies = this.d_gameEngine.d_worldmap.getCountry(l_listCountries.get(i)).getReinforcements();
+        for (int l_i = 0; l_i < l_listCountries.size(); l_i++) {
+            int l_armies = this.d_gameEngine.d_worldmap.getCountry(l_listCountries.get(l_i)).getReinforcements();
             if (l_armies > l_maxArmies) {
                 l_maxArmies = l_armies;
-                l_sourceCountryId = this.d_gameEngine.d_worldmap.getCountry(l_listCountries.get(i)).getCountryID();
+                l_sourceCountryId = this.d_gameEngine.d_worldmap.getCountry(l_listCountries.get(l_i)).getCountryID();
             }
         }
         return l_sourceCountryId;
@@ -94,21 +94,21 @@ public class AggressiveStrategy implements Strategy {
         int l_randomCountryId = p_sourceCountryId;
 
         // Get the list of own neighboring countries
-        ArrayList<Integer> ownNeighboringCountries = new ArrayList<>();
+        ArrayList<Integer> l_ownNeighboringCountries = new ArrayList<>();
         for (Integer l_id : d_gameEngine.d_worldmap.getCountry(p_sourceCountryId).getAllBorderCountriesIDs()) {
             if (this.d_player.getAssignedCountries().contains(l_id)) {
-                ownNeighboringCountries.add(l_id);
+                l_ownNeighboringCountries.add(l_id);
             }
         }
 
         // If there are no own neighboring countries, return -1
-        if (ownNeighboringCountries.isEmpty()) {
+        if (l_ownNeighboringCountries.isEmpty()) {
             return -1;
         }
 
         // Choose a random own neighboring country
         do {
-            l_randomCountryId = ownNeighboringCountries.get(d_random.nextInt(ownNeighboringCountries.size()));
+            l_randomCountryId = l_ownNeighboringCountries.get(d_random.nextInt(l_ownNeighboringCountries.size()));
         } while (l_randomCountryId == p_sourceCountryId);
 
         return l_randomCountryId;

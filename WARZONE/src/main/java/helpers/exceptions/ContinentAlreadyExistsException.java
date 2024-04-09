@@ -10,10 +10,10 @@ public class ContinentAlreadyExistsException extends Exception {
      * Constructs a ContinentAlreadyExistsException with a detail message indicating
      * that the continent with the specified name already exists.
      *
-     * @param name The name of the continent that already exists.
+     * @param p_name The name of the continent that already exists.
      */
-    public ContinentAlreadyExistsException(String name){
-        super("Continent " +name+ " already exists, cannot add it again ");
+    public ContinentAlreadyExistsException(String p_name) {
+        super("Continent " + p_name + " already exists, cannot add it again ");
     }
 
     /**
@@ -22,7 +22,7 @@ public class ContinentAlreadyExistsException extends Exception {
      *
      * @param p_id The ID of the continent that already exists.
      */
-    public ContinentAlreadyExistsException(int p_id){
-        super("Continent " +p_id+ " already exists, cannot add it again ");
+    public ContinentAlreadyExistsException(int p_id) {
+        super("Continent " + p_id + " already exists, cannot add it again ");
     }
 }

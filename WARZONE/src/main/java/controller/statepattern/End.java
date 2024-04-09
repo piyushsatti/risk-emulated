@@ -1,4 +1,5 @@
 package controller.statepattern;
+
 import controller.GameEngine;
 
 /**
@@ -19,7 +20,7 @@ public class End extends Phase {
     public End(GameEngine p_gameEngine) {
         super(p_gameEngine);
         d_gameEngine = p_gameEngine;
-        if(d_gameEngine.isTournamentMode()){
+        if (d_gameEngine.isTournamentMode()) {
             displayResults(p_gameEngine);
         }
 
@@ -37,7 +38,6 @@ public class End extends Phase {
 
     /**
      * Proceeds to the next phase.
-     *
      */
     @Override
     public void next() {
@@ -45,7 +45,6 @@ public class End extends Phase {
 
     /**
      * Ends the game.
-     *
      */
     @Override
     public void endGame() {
@@ -53,47 +52,47 @@ public class End extends Phase {
 
     /**
      * Runs the end phase.
-     *
      */
     @Override
     public void run() {
     }
+
     /**
      * Displays the results of the tournament games.
      *
      * @param d_gameEngine The GameEngine object containing the tournament results to be displayed.
      */
     public static void displayResults(GameEngine d_gameEngine) {
-        String[][] results = d_gameEngine.getTournamentResults();
-        int rows = results.length;
-        int cols = results[0].length;
+        String[][] l_results = d_gameEngine.getTournamentResults();
+        int l_rows = l_results.length;
+        int l_cols = l_results[0].length;
 
         // Display column headers with column indices
         System.out.print("    ");
-        for (int j = 0; j < cols; j++) {
-            System.out.print("Game " + (j+1));
+        for (int l_j = 0; l_j < l_cols; l_j++) {
+            System.out.print("Game " + (l_j + 1));
         }
         System.out.println();
 
         // Display top boundary
         System.out.print("   ");
-        for (int j = 0; j < (4 * cols) + 2; j++) {
+        for (int l_j = 0; l_j < (4 * l_cols) + 2; l_j++) {
             System.out.print("-");
         }
         System.out.println();
 
         // Display row numbers, matrix elements, and boundaries
-        for (int i = 0; i < rows; i++) {
-            System.out.print("Map " + (i+1)+"| ");
-            for (int j = 0; j < cols; j++) {
-                System.out.print(results[i][j] + " "); // Display matrix element
+        for (int l_i = 0; l_i < l_rows; l_i++) {
+            System.out.print("Map " + (l_i + 1) + "| ");
+            for (int l_j = 0; l_j < l_cols; l_j++) {
+                System.out.print(l_results[l_i][l_j] + " "); // Display matrix element
             }
             System.out.println(" |"); // Right boundary
         }
 
         // Display bottom boundary
         System.out.print("   ");
-        for (int j = 0; j < (4 * cols) + 2; j++) {
+        for (int l_j = 0; l_j < (4 * l_cols) + 2; l_j++) {
             System.out.print("-");
         }
         System.out.println();

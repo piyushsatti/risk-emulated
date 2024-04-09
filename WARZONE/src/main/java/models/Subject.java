@@ -13,38 +13,36 @@ public class Subject {
     /**
      * List of viewers.
      */
-    List<Logger> viewList = new ArrayList<>();
+    List<Logger> d_viewList = new ArrayList<>();
+
     /**
      * Notifies all attached views.
      *
      * @param model The subject model
      */
-    public void notifyAllViews(Subject model)
-    {
-        for(Logger logwriter : viewList)
-        {
-            logwriter.update(model);
+    public void notifyAllViews(Subject model) {
+        for (Logger l_logwriter : d_viewList) {
+            l_logwriter.update(model);
         }
     }
+
     /**
      * Attaches a view to the subject.
      *
-     * @param view The view to attach
+     * @param p_view The view to attach
      */
-    public void attachView(Observer view)
-    {
-        viewList.add((Logger) view);
+    public void attachView(Observer p_view) {
+        d_viewList.add((Logger) p_view);
     }
+
     /**
      * Detaches a view from the subject.
      *
-     * @param view The view to detach
+     * @param p_view The view to detach
      */
-    public void detachView(Observer view)
-    {
-        if(!viewList.isEmpty())
-        {
-            viewList.remove((Logger) view);
+    public void detachView(Observer p_view) {
+        if (!d_viewList.isEmpty()) {
+            d_viewList.remove((Logger) p_view);
         }
     }
 }

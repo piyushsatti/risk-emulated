@@ -49,14 +49,16 @@ public class Player {
     public boolean isOrderSuccess() {
         return d_orderSuccess;
     }
+
     /**
      * Sets the status of the order execution.
      *
-     * @param orderSuccess True if the order was successfully executed, false otherwise.
+     * @param p_orderSuccess True if the order was successfully executed, false otherwise.
      */
-    public void setOrderSuccess(boolean orderSuccess) {
-        this.d_orderSuccess = orderSuccess;
+    public void setOrderSuccess(boolean p_orderSuccess) {
+        this.d_orderSuccess = p_orderSuccess;
     }
+
     /**
      * Check if order has been successful issued.
      */
@@ -88,10 +90,10 @@ public class Player {
     /**
      * Adds an order to the list of orders.
      *
-     * @param order The order to be added.
+     * @param p_order The order to be added.
      */
-    public void addOrderToList(Order order) {
-        this.d_orderList.add(order);
+    public void addOrderToList(Order p_order) {
+        this.d_orderList.add(p_order);
     }
 
     /**
@@ -136,12 +138,15 @@ public class Player {
     /**
      * Sets the current phase of the system.
      *
-     * @param d_currentPhase The current phase to be set.
+     * @param p_currentPhase The current phase to be set.
      */
-    public void setCurrentPhase(String d_currentPhase) {
-        this.d_currentPhase = d_currentPhase;
+    public void setCurrentPhase(String p_currentPhase) {
+        this.d_currentPhase = p_currentPhase;
     }
 
+    /**
+     * stores current phase
+     */
     String d_currentPhase;
 
     /**
@@ -156,20 +161,24 @@ public class Player {
     /**
      * Sets the commands associated with the system.
      *
-     * @param l_commands The commands to be set.
+     * @param p_commands The commands to be set.
      */
-    public void setCommands(String l_commands) {
-        this.l_commands = l_commands;
+    public void setCommands(String p_commands) {
+        this.l_commands = p_commands;
     }
 
+    /**
+     * stores the commands
+     */
     private String l_commands;
+
     /**
      * Sets the current order.
      *
-     * @param order The current order.
+     * @param p_order The current order.
      */
-    public void addOrder(Order order) {
-        this.d_current_order = order;
+    public void addOrder(Order p_order) {
+        this.d_current_order = p_order;
     }
 
     /**
@@ -178,10 +187,10 @@ public class Player {
      * @throws InvalidCommandException If the command is invalid.
      */
     public void issue_order() throws InvalidCommandException {
-        Order order = this.d_strategy.createOrder();
-        if(order != null){
-            this.d_orderList.add(order);
-        }else if(order == null && this.d_reinforcements <=0){
+        Order l_order = this.d_strategy.createOrder();
+        if (l_order != null) {
+            this.d_orderList.add(l_order);
+        } else if (l_order == null && this.d_reinforcements <= 0) {
             this.setFinishedIssueOrder(true);
         }
 
@@ -256,12 +265,13 @@ public class Player {
         this.d_orderList = new ArrayDeque<>();
         d_latest_playerID++;
     }
+
     /**
      * method to set the player strategy
+     *
      * @param p_strategy player strategy
      */
-    public void setPlayerStrategy(Strategy p_strategy)
-    {
+    public void setPlayerStrategy(Strategy p_strategy) {
         d_strategy = p_strategy;
     }
 
@@ -397,20 +407,22 @@ public class Player {
         Card l_card = Card.createCard();
         this.d_listOfCards.add(l_card);
     }
+
     /**
      * Removes a card of the specified type from the hand.
      *
      * @param p_cardType The type of card to remove
      */
-    public void removeCard(String p_cardType){
-        Iterator<Card> iterator = this.d_listOfCards.iterator();
-        while (iterator.hasNext()) {
-            Card card = iterator.next();
-            if (card.getTypeOfCard().equals(p_cardType)) {
-                iterator.remove(); // Remove the current card using the iterator
+    public void removeCard(String p_cardType) {
+        Iterator<Card> l_iterator = this.d_listOfCards.iterator();
+        while (l_iterator.hasNext()) {
+            Card l_card = l_iterator.next();
+            if (l_card.getTypeOfCard().equals(p_cardType)) {
+                l_iterator.remove(); // Remove the current card using the iterator
             }
         }
     }
+
     /**
      * Checks if the hand contains a card with the specified name.
      *
@@ -425,15 +437,16 @@ public class Player {
         }
         return false;
     }
+
     /**
      * Displays the types of cards in the hand.
      *
      * @return A string representation of the cards in the hand
      */
-    public String displayCards(){
+    public String displayCards() {
         String l_s = "";
-        for(Card l_card: this.d_listOfCards){
-            l_s+=" "+l_card.getTypeOfCard();
+        for (Card l_card : this.d_listOfCards) {
+            l_s += " " + l_card.getTypeOfCard();
         }
         return l_s;
     }

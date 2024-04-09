@@ -1,6 +1,5 @@
 package models.worldmap;
 
-import controller.GameEngine;
 import helpers.exceptions.ContinentAlreadyExistsException;
 import helpers.exceptions.ContinentDoesNotExistException;
 import helpers.exceptions.CountryDoesNotExistException;
@@ -21,12 +20,12 @@ public class WorldMap {
     /**
      * Represents a buffer for storing log entries.
      */
-    LogEntryBuffer logEntryBuffer = new LogEntryBuffer();
+    LogEntryBuffer d_logEntryBuffer = new LogEntryBuffer();
 
     /**
      * Represents a logger associated with a log entry buffer.
      */
-    Logger lw = new Logger(logEntryBuffer);
+    Logger d_lw = new Logger(d_logEntryBuffer);
 
     /**
      * HashMap containing all countries.
@@ -182,6 +181,7 @@ public class WorldMap {
 
     /**
      * Method which adds border to the map
+     *
      * @param p_source String representing source country name
      * @param p_target String representing target country name
      * @throws CountryDoesNotExistException error throw if target/source countries do not exist
@@ -428,6 +428,7 @@ public class WorldMap {
 
     /**
      * Removes border between two countries
+     *
      * @param p_source String representing name of source country
      * @param p_target String representing name of target country
      * @throws CountryDoesNotExistException error thrown of target/source countries do not exist
@@ -483,16 +484,16 @@ public class WorldMap {
      * @return The next available continent ID
      */
     public int getNextContinentID() {
-        int max = 0;
+        int l_max = 0;
         if (d_continents.isEmpty()) {
             return 1;
         } else {
-            for (Continent c : d_continents.values()) {
-                if (c.getContinentID() > max) {
-                    max = c.getContinentID();
+            for (Continent l_c : d_continents.values()) {
+                if (l_c.getContinentID() > l_max) {
+                    l_max = l_c.getContinentID();
                 }
             }
-            return max + 1;
+            return l_max + 1;
         }
     }
 
@@ -502,16 +503,16 @@ public class WorldMap {
      * @return The next available country ID
      */
     public int getNextCountryID() {
-        int max = 0;
+        int l_max = 0;
         if (d_countries.isEmpty()) {
             return 1;
         } else {
-            for (Country c : d_countries.values()) {
-                if (c.getCountryID() > max) {
-                    max = c.getCountryID();
+            for (Country l_c : d_countries.values()) {
+                if (l_c.getCountryID() > l_max) {
+                    l_max = l_c.getCountryID();
                 }
             }
-            return max + 1;
+            return l_max + 1;
         }
     }
 
