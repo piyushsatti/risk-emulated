@@ -114,7 +114,7 @@
                 return;
             }
 
-            String commandName = splitCommand[0];
+            String commandName = d_splitCommand[0];
 
             switch (commandName) {
                 case "assigncountries":
@@ -130,7 +130,7 @@
                     loadMap(p_gameEngine,d_currPhase);
                     break;
                 case "gameplayer":
-                    gameplayer(p_gameEngine, splitCommand,d_currPhase);
+                    gameplayer(p_gameEngine, d_splitCommand,d_currPhase);
                     break;
                 case "tournament":
                     //method to check valid strategies in the tournament command
@@ -227,14 +227,14 @@
         private void loadMap(GameEngine p_gameEngine,String p_currPhase){
             MapInterface mp = null;
 
-            if(this.splitCommand.length < 2){
+            if(this.d_splitCommand.length < 2){
                 // Render error if the command format is invalid
                 p_gameEngine.d_renderer.renderError("Invalid command! Correct format is loadmap <mapname>");
             }else{
 
                 try {
                     logEntryBuffer.setString("Phase :"+ p_currPhase +"\n"+ " Entered Command: loadmap" + d_command);// Log the command entry
-                    MapFileLoader l_mfl = new MapFileLoader(p_gameEngine, splitCommand[1]);
+                    MapFileLoader l_mfl = new MapFileLoader(p_gameEngine, d_splitCommand[1]);
 
                     if(l_mfl.isConquest()){
                         mp = new MapAdapter(new ConquestMapInterface());
@@ -242,7 +242,7 @@
                         mp = new MapInterface();
                     }
 
-                    p_gameEngine.d_worldmap = mp.loadMap(p_gameEngine, splitCommand[1]);
+                    p_gameEngine.d_worldmap = mp.loadMap(p_gameEngine, d_splitCommand[1]);
 
                 }
                 catch(Exception e){
