@@ -423,7 +423,6 @@ public class WorldMap {
             throw new CountryDoesNotExistException(p_target);
         }
         this.getCountry(p_source).removeBorder(this.getCountry(p_target));
-        //logEntryBuffer.setString("removed border between"+this.getCountry(p_source).getCountryName()+" and "+this.getCountry(p_target).getCountryName());
     }
 
     /**
