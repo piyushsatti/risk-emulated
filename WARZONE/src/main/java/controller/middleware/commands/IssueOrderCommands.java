@@ -100,9 +100,9 @@ public class IssueOrderCommands extends Commands {
                         "^negotiate\\s+\\w+\\s*(\\s)*$|" +
                         "^done(\\s)*$|" +
                         "^showmap(\\s)*$|" +
-                        "^airlift\\s+\\w+\\s+\\w+\\s+\\d+(\\s)*$" +
-                        "^savegame\\s\\w+\\.map(\\s)*$|" +
-                        "^loadgame\\s\\w+\\.map(\\s)*$|"
+                        "^airlift\\s+\\w+\\s+\\w+\\s+\\d+(\\s)*$|" +
+                        "^savegame\\s+\\w+\\s*$|" +
+                        "^loadgame\\s+\\w+\\s*$|"
         );
         Matcher matcher = pattern.matcher(d_command);
         //returning true of pattern matches and the current state is Issue Order
