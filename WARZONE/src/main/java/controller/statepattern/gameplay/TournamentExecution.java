@@ -97,16 +97,12 @@ public class TournamentExecution extends Phase {
             MapNumber = 0;
             d_ge.setNumberOfGames(d_ge.getNumberOfGames() + 1);
             int l_numberOfGames = d_ge.getNumberGamesTournament();
-            //System.out.println("Number of Games"+ (d_ge.getNumberOfGames()-1));
             l_numberOfGames--;
             d_ge.setNumberGamesTournament(l_numberOfGames);
 
-            //d_ge.setGameResult(d_ge.getNumberOfGames()-1,MapNumber,"in progress");
             d_ge.setD_currentMapIndex(MapNumber);
-            //System.out.println("Number of Games:" + d_ge.getNumberGamesTournament());
         } else {
             d_ge.setD_currentMapIndex(MapNumber);
-            //System.out.println("Number of Games"+ (d_ge.getNumberOfGames()-1));
             d_ge.setGameResult(d_ge.getNumberOfGames() - 1, MapNumber, "in progress");
         }
         if (d_ge.getNumberGamesTournament() == 0) {
