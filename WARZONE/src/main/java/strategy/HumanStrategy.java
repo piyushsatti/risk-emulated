@@ -1,10 +1,21 @@
 package strategy;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import controller.GameEngine;
+import helpers.GameEngineManagement;
 import helpers.exceptions.InvalidCommandException;
 import models.LogEntryBuffer;
 import models.Player;
 import models.orders.*;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import models.worldmap.WorldMap;
 
 /**
  * Represents a strategy where a human player manually selects actions.
@@ -13,6 +24,7 @@ public class HumanStrategy implements Strategy {
     /**
      * The player associated with this strategy.
      */
+    @JsonIgnore
     private Player d_player;
     /**
      * Represents a buffer for storing log entries.
@@ -21,6 +33,7 @@ public class HumanStrategy implements Strategy {
     /**
      * The game engine associated with this strategy.
      */
+    @JsonIgnore
     GameEngine d_gameEngine;
 
     /**
@@ -80,6 +93,7 @@ public class HumanStrategy implements Strategy {
 
         String l_command = d_player.getCommands();
         String[] l_command_array = l_command.trim().split("\\s+");
+
         switch (l_command_array[0]) {
             case "deploy":
                 int l_countryID = d_gameEngine.d_worldmap.getCountryID(l_command_array[1]);
@@ -222,6 +236,23 @@ public class HumanStrategy implements Strategy {
                     d_player.setOrderSuccess(true);
                 }
                 break;
+            case "loadgame":
+                String file_name = l_command_array[1];
+                try{
+                    loadGame(file_name);
+                }catch(Exception e){
+                   e.printStackTrace();
+                }
+                break;
+            case "savegame":
+               String file_name_save = l_command_array[1];
+                try{
+                    GameEngineManagement ge = new GameEngineManagement(this.d_gameEngine);
+                    ge.saveGame(file_name_save);
+                }catch(Exception e){
+                    e.printStackTrace();
+                }
+                break;
             case "showmap":
                 d_logEntryBuffer.setString("Phase :" + d_player.getCurrentPhase() + "\n" + " Player Name:" + d_player.getName() + " || Issued Showmap Order:" + l_command); //setting log message
                 if (this.d_gameEngine.d_worldmap == null) {
@@ -245,9 +276,21 @@ public class HumanStrategy implements Strategy {
      * @param p_player     The player associated with this strategy.
      * @param p_gameEngine The game engine associated with this strategy.
      */
+    @JsonIgnore
     public HumanStrategy(Player p_player, GameEngine p_gameEngine) {
         d_player = p_player;
         d_gameEngine = p_gameEngine;
         d_strategyName = "Human";
+    }
+
+
+    public void loadGame(String p_save_file_name) throws IOException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.configure(SerializationFeature. FAIL_ON_EMPTY_BEANS, false);
+        objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+        File player_file = new File(p_save_file_name + ".player");
+        File map_file = new File(p_save_file_name + ".map");
+        this.d_gameEngine.d_players = (ArrayList<Player>) objectMapper.readValue(player_file, ArrayList.class);
+        this.d_gameEngine.d_worldmap = objectMapper.readValue(map_file, WorldMap.class);
     }
 }

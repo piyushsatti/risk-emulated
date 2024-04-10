@@ -1,5 +1,6 @@
 package controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import controller.statepattern.End;
 import controller.statepattern.Phase;
 import controller.statepattern.Starting;
@@ -318,6 +319,7 @@ public class GameEngine {
      *
      * @param p_phase The phase to set as the current phase.
      */
+    @JsonIgnore
     public void setCurrentState(Phase p_phase) {
         this.d_current_phase = p_phase;
     }

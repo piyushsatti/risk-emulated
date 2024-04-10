@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import controller.GameEngine;
 import controller.middleware.commands.IssueOrderCommands;
 import helpers.exceptions.CountryDoesNotExistException;
@@ -118,11 +119,13 @@ public class Player {
     /**
      * The terminal renderer.
      */
+    @JsonIgnore
     TerminalRenderer d_renderer;
 
     /**
      * The game engine.
      */
+    @JsonIgnore
     GameEngine d_gameEngine;
 
 
@@ -250,6 +253,7 @@ public class Player {
      * @param p_gameEngine The game engine associated with this player.
      */
     //Constructors
+    @JsonIgnore
     public Player(String p_playerName, GameEngine p_gameEngine) {
 
         this.d_playerId = d_latest_playerID;

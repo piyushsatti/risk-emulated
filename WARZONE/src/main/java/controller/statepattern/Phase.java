@@ -1,5 +1,6 @@
 package controller.statepattern;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import controller.GameEngine;
 import helpers.exceptions.CountryDoesNotExistException;
 import helpers.exceptions.InvalidCommandException;

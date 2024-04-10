@@ -1,5 +1,6 @@
 package view;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import controller.GameEngine;
 import models.LogEntryBuffer;
 import models.Subject;
@@ -12,6 +13,7 @@ import java.io.IOException;
 /**
  * The Logger class handles logging messages to a file.
  */
+
 public class Logger implements Observer {
     /**
      * Updates the logger with the latest log message.
@@ -38,6 +40,7 @@ public class Logger implements Observer {
      *
      * @param p_model The subject to attach the logger to
      */
+    @JsonIgnore
     public Logger(Subject p_model) {
         p_model.attachView(this);
     }
