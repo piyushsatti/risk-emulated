@@ -55,7 +55,6 @@ public class MapInterface {
      *
      * @param p_gameEngine the game engine associated with the map.
      * @param p_FileName   The name of the file to save the map to.
-     * @throws IOException If an I/O error occurs while writing to the file.
      */
     public void saveMap(GameEngine p_gameEngine, String p_FileName) {
         WorldMap p_map = p_gameEngine.d_worldmap;
