@@ -31,7 +31,7 @@ public abstract class Commands {
      */
     public Commands(String p_command, String[] p_valid_commands) {
         d_command = p_command;
-        d_splitCommand = p_command.split(" ");
+        d_splitCommand = p_command.split("\\s+");
         d_valid_commands = p_valid_commands;
     }
 
