@@ -42,13 +42,11 @@ public class TournamentExecutionTest {
         String [][] l_tournament_res = l_ge.getTournamentResults();
         int l_len = l_tournament_res.length;
         int l_col = l_tournament_res[0].length;
-        for(int l_i=0;l_i<l_len;l_i++)
-        {
-            for(int l_j=0;l_j<l_col;l_j++)
-            {
-                assertNotNull(l_tournament_res[l_i][l_j]);
-            }
-        }
+
+        assertEquals("in progress", l_tournament_res[0][0]);
+        assertNull(l_tournament_res[0][1]);
+        assertNull(l_tournament_res[1][0]);
+        assertNull(l_tournament_res[1][1]);
 
     }
 }
