@@ -7,6 +7,9 @@ import models.worldmap.WorldMap;
  * MapAdapter is a class that adapts ConquestMapInterface to MapInterface.
  */
 public class MapAdapter extends MapInterface {
+    /**
+     * adaptee conquestmap interface
+     */
     ConquestMapInterface d_adaptee;
 
     /**

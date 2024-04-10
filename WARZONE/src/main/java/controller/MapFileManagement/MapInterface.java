@@ -133,14 +133,14 @@ public class MapInterface {
 
     /**
      * Loads a map into the game engine.
-     *
      * @param p_gameEngine The GameEngine object.
-     * @param p_mapName    The name of the map to load.
-     * @throws FileNotFoundException           If the specified file is not found.
+     * @param p_mapName The name of the map to load.
+     * @return WorldMap object
+     * @throws FileNotFoundException If the specified file is not found.
      * @throws ContinentAlreadyExistsException If a continent already exists while loading.
-     * @throws ContinentDoesNotExistException  If a continent does not exist while loading.
-     * @throws DuplicateCountryException       If a country already exists while loading.
-     * @throws CountryDoesNotExistException    If a country does not exist while loading.
+     * @throws ContinentDoesNotExistException If a continent does not exist while loading.
+     * @throws DuplicateCountryException If a country already exists while loading.
+     * @throws CountryDoesNotExistException If a country does not exist while loading.
      */
     public WorldMap loadMap(GameEngine p_gameEngine, String p_mapName) throws FileNotFoundException, ContinentAlreadyExistsException, ContinentDoesNotExistException, DuplicateCountryException, CountryDoesNotExistException {
         WorldMap l_worldMap = new WorldMap();

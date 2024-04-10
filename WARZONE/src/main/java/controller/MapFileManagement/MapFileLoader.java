@@ -9,6 +9,9 @@ import java.util.Scanner;
  * MapFileLoader is a class responsible for loading map files.
  */
 public class MapFileLoader {
+    /**
+     * map file
+     */
     File d_mapFile;
 
     /**

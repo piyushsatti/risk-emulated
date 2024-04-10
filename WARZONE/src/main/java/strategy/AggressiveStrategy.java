@@ -36,7 +36,7 @@ public class AggressiveStrategy implements Strategy {
     /**
      * Constructor for AggressiveStrategy.
      *
-     * @param p_player     The player using this strategy.
+     * @param p_player The player using this strategy.
      * @param p_gameEngine The game engine in which the player is playing.
      */
     public AggressiveStrategy(Player p_player, GameEngine p_gameEngine) {
@@ -87,7 +87,7 @@ public class AggressiveStrategy implements Strategy {
     /**
      * this method returns a random country id from the countries that the player owns except the source country
      *
-     * @param p_sourceCountryId
+     * @param p_sourceCountryId source country id
      * @return country id
      */
     public int getOwnRandomCountry(int p_sourceCountryId) {
@@ -117,7 +117,7 @@ public class AggressiveStrategy implements Strategy {
     /**
      * this method returns own neighboring countries to the source
      *
-     * @param p_sourceCountryId
+     * @param p_sourceCountryId source country id
      * @return country id
      */
     public List<Integer> getOwnNeighboringCountriesToSource(int p_sourceCountryId) {
@@ -133,7 +133,7 @@ public class AggressiveStrategy implements Strategy {
     /**
      * this method returns the random enemy country id, aggressive player about which country is to be attacked
      *
-     * @param p_sourceCountryId
+     * @param p_sourceCountryId source country id
      * @return random enemy country id
      */
     @Override

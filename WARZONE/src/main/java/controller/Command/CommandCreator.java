@@ -9,7 +9,6 @@ import controller.GameEngine;
 public class CommandCreator {
     /**
      * Creates a Command object based on the input string and game engine.
-     *
      * @param p_input The input string representing the command.
      * @param p_ge    The game engine to operate on.
      * @return The created Command object.

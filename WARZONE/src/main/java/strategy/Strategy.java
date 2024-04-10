@@ -24,8 +24,8 @@ public interface Strategy {
 
     /**
      * Creates an order based on the strategy.
-     *
      * @return The order created based on the strategy.
+     * @throws InvalidCommandException
      */
     Order createOrder() throws InvalidCommandException;
 

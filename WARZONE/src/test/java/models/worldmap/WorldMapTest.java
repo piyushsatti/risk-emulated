@@ -45,7 +45,7 @@ public class WorldMapTest {
     public void mapConnectivityTest2() {
         GameEngine l_ge = new GameEngine();
         MapInterface l_mp = null;
-        MapFileLoader l_mfl = new MapFileLoader(l_ge, "usa9.map");
+        MapFileLoader l_mfl = new MapFileLoader(l_ge, "disconnected.map");
 
         if (l_mfl.isConquest()) {
             l_mp = new MapAdapter(new ConquestMapInterface());
