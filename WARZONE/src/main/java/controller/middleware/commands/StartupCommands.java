@@ -71,7 +71,6 @@
                     "assigncountries",
                     "showmap",
                     "exit",
-                    "loadgame",
                     "showmap",
             });
         }
@@ -89,8 +88,7 @@
                     "^loadmap\\s\\w+\\.map(\\s)*$|" +
                             "^assigncountries(\\s)*$|" +
                             "^showmap(\\s)*$|"+
-                            "^gameplayer(?:(?:\\s+-add\\s+\\w+\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$|"+
-                            "^loadgame\\s\\w+\\.map(\\s)*$|"
+                            "^gameplayer(?:(?:\\s+-add\\s+\\w+\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*(?:\\s+-remove\\s+\\w+)*)*(\\s)*$|"
             );
             Matcher matcher = pattern.matcher(d_command) ;
 
