@@ -86,8 +86,8 @@ public class BenevolentStrategy implements Strategy {
     /**
      * this method returns the player's own random country's id which has more number of armies
      * and is neighboring to the weakest country
-     *
-     * @return country id
+     * @param p_weakestCountryId weakest country id
+     * @return stronger neihgbor id
      */
     public int getStrongerNeighborId(int p_weakestCountryId) {
         ArrayList<Integer> l_listOfAllBorderCountriesIDs = new ArrayList<>();
@@ -104,7 +104,7 @@ public class BenevolentStrategy implements Strategy {
     /**
      * this method returns the target enemy country
      *
-     * @param p_sourceCountryId
+     * @param p_sourceCountryId source country id
      * @return country id
      */
     @Override

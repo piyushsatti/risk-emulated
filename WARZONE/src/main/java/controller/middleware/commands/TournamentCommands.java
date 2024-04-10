@@ -56,7 +56,7 @@ public class TournamentCommands extends Commands {
     /**
      * method which returns the current gamephase
      *
-     * @param p_gameEngine
+     * @param p_gameEngine game engine
      * @return current game phase
      */
     public String getCurrentPhase(GameEngine p_gameEngine) {
@@ -163,7 +163,7 @@ public class TournamentCommands extends Commands {
     /**
      * method which checks if the map entered by the user in the tournament command exists or not.
      *
-     * @param p_gameEngine
+     * @param p_gameEngine game engine
      * @param p_mapName    name of map file from tournament command
      * @return true: map exists or false: map does not exist
      */

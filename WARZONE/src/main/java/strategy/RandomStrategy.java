@@ -80,7 +80,8 @@ public class RandomStrategy implements Strategy {
     /**
      * this method return the random enemy country id
      *
-     * @param p_sourceCountryId
+     * @param p_sourceCountryId source country id
+     *
      * @return random enemy country id
      */
     @Override
@@ -98,7 +99,7 @@ public class RandomStrategy implements Strategy {
 
     /**
      * method which returns the country id of the neighbor from which armies need to be moved from
-     *
+     * @param sourceCountryID souce country id
      * @return neighboring country id
      */
     public int getRandomNeigbouringCountry(int sourceCountryID) {
@@ -117,7 +118,7 @@ public class RandomStrategy implements Strategy {
     /**
      * this method returns a random country id from the countries that the player owns except the source country
      *
-     * @param p_sourceCountryId
+     * @param p_sourceCountryId source country id
      * @return country id
      */
     public int getOwnRandomCountry(int p_sourceCountryId) {
@@ -159,7 +160,7 @@ public class RandomStrategy implements Strategy {
 
     /**
      * method which returns a random number of armies from 1 to number of armies from the source country
-     *
+     * @param p_sourceCountryId source country id
      * @return random number of armies
      */
     public int getRandomNumberArmiesFromSourceCountry(int p_sourceCountryId) {
