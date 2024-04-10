@@ -1,5 +1,6 @@
 package controller;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import controller.statepattern.End;
 import controller.statepattern.Phase;
 import controller.statepattern.Starting;
@@ -276,7 +277,7 @@ public class GameEngine {
      */
     public GameEngine() {
         this.d_current_phase = new Starting(this);
-        d_maps_folder = "src/main/resources/maps/";
+        d_maps_folder = "risk-emulated/WARZONE/src/main/resources/maps/";
         d_renderer = new TerminalRenderer(this);
         d_worldmap = new WorldMap();
         d_players = new ArrayList<>();
@@ -318,6 +319,7 @@ public class GameEngine {
      *
      * @param p_phase The phase to set as the current phase.
      */
+    @JsonIgnore
     public void setCurrentState(Phase p_phase) {
         this.d_current_phase = p_phase;
     }

@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import view.Logger;
 
 /**
@@ -9,11 +10,13 @@ public class LogEntryBuffer extends Subject {
     /**
      * Represents the log content.
      */
+    @JsonIgnore
     private String d_log;
 
     /**
      * Represents the folder path where logs are stored.
      */
+    @JsonIgnore
     private String LOG_FOLDER = "risk-emulated/WARZONE/src/main/resources/logs/";
 
     /**
@@ -21,6 +24,8 @@ public class LogEntryBuffer extends Subject {
      *
      * @return The log message
      */
+
+
     public String getD_log() {
         return this.d_log;
     }

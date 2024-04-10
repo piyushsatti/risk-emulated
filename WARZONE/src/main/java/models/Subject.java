@@ -1,5 +1,6 @@
 package models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import view.Logger;
 import view.Observer;
 
@@ -13,6 +14,7 @@ public class Subject {
     /**
      * List of viewers.
      */
+    @JsonIgnore
     List<Logger> d_viewList = new ArrayList<>();
 
     /**

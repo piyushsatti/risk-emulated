@@ -1,5 +1,6 @@
 package view;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import controller.GameEngine;
 import helpers.TerminalColors;
 import models.LogEntryBuffer;
@@ -7,6 +8,7 @@ import models.worldmap.Continent;
 import models.worldmap.Country;
 import models.worldmap.WorldMap;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +18,8 @@ import java.util.Scanner;
  * The TerminalRenderer class provides methods for rendering various components in a terminal interface,
  * such as a welcome message, a menu, and displaying a map.
  */
-public class TerminalRenderer {
+public class TerminalRenderer implements Serializable {
+    public TerminalRenderer(){}
 
     /**
      * Log entry buffer for logging messages.
@@ -31,6 +34,7 @@ public class TerminalRenderer {
     /**
      * Game engine associated with the renderer.
      */
+    @JsonIgnore
     GameEngine d_ge;
 
     /**
@@ -43,6 +47,7 @@ public class TerminalRenderer {
      *
      * @param p_gameEngine The game engine associated with the renderer
      */
+    @JsonIgnore
     public TerminalRenderer(GameEngine p_gameEngine) {
         d_ge = p_gameEngine;
         d_in = new Scanner(System.in);
