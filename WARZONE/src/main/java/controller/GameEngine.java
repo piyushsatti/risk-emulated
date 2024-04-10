@@ -268,8 +268,7 @@ public class GameEngine {
      */
     public GameEngine() {
         this.d_current_phase = new Starting(this);
-        d_maps_folder = "C:\\Users\\HP\\Documents\\MACS PROJECTS\\soen6441 updated mvc final\\risk-emulated\\WARZONE\\src\\main\\resources\\maps\\";
-       //d_maps_folder = "src/main/resources/maps/";
+        d_maps_folder = "src/main/resources/maps/";
         d_renderer = new TerminalRenderer(this);
         d_worldmap = new WorldMap();
         d_players = new ArrayList<>();
