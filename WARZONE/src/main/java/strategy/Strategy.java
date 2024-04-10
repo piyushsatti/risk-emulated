@@ -16,7 +16,6 @@ public interface Strategy {
 
     /**
      * Gets the target country for the strategy based on the given source country.
-     *
      * @param p_sourceCountryId The ID of the source country.
      * @return The ID of the target country.
      */
@@ -25,7 +24,7 @@ public interface Strategy {
     /**
      * Creates an order based on the strategy.
      * @return The order created based on the strategy.
-     * @throws InvalidCommandException
+     * @throws InvalidCommandException when command is invalid
      */
     Order createOrder() throws InvalidCommandException;
 
