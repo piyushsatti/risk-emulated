@@ -234,6 +234,15 @@ public class GameEngine {
         this.d_numberGamesTournament = p_numberGamesTournament;
     }
 
+    public boolean isFoundAllWinners() {
+        return d_foundAllWinners;
+    }
+
+    public void setFoundAllWinners(boolean foundAllWinners) {
+        this.d_foundAllWinners = foundAllWinners;
+    }
+
+    private boolean d_foundAllWinners = false;
     /**
      * Retrieves the maximum number of turns allowed per game in the tournament mode.
      *
@@ -259,8 +268,8 @@ public class GameEngine {
      */
     public GameEngine() {
         this.d_current_phase = new Starting(this);
-        //d_maps_folder = "C:\\Users\\HP\\Documents\\MACS PROJECTS\\soen6441 updated mvc final\\risk-emulated\\WARZONE\\src\\main\\resources\\maps\\";
-       d_maps_folder = "src/main/resources/maps/";
+        d_maps_folder = "C:\\Users\\HP\\Documents\\MACS PROJECTS\\soen6441 updated mvc final\\risk-emulated\\WARZONE\\src\\main\\resources\\maps\\";
+       //d_maps_folder = "src/main/resources/maps/";
         d_renderer = new TerminalRenderer(this);
         d_worldmap = new WorldMap();
         d_players = new ArrayList<>();
