@@ -55,6 +55,14 @@ public class GameEngine {
     }
 
     /**
+     * method sets the current phase
+     * @param d_current_phase current phase
+     */
+    public void setD_current_phase(Phase d_current_phase) {
+        this.d_current_phase = d_current_phase;
+    }
+
+    /**
      * stores current game number
      */
     private int d_currentGameNumber;
