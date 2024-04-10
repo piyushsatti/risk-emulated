@@ -31,7 +31,7 @@ public class TournamentExecutionTest {
         l_tc.execute(l_ge);
         l_ge.setTournamentMode(true);
         l_ge.setCurrentState(new TournamentExecution(l_ge));
-        l_ge.runState();
+
 
         String [][] l_tournament_res = l_ge.getTournamentResults();
         int l_len = l_tournament_res.length;

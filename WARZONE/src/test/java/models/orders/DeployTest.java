@@ -7,6 +7,7 @@ import controller.MapFileManagement.MapFileLoader;
 import controller.MapFileManagement.MapInterface;
 import controller.middleware.commands.StartupCommands;
 import controller.statepattern.gameplay.Reinforcement;
+import controller.statepattern.gameplay.Startup;
 import helpers.exceptions.*;
 import models.Player;
 import models.worldmap.Country;
@@ -41,7 +42,7 @@ DeployTest {
         l_ge.d_worldmap = l_mp.loadMap(l_ge, l_mfl);
         l_ge.d_players.add(new Player("Priyanshu", l_ge));
         l_ge.d_players.add(new Player("Abc", l_ge));
-
+        l_ge.setCurrentState(new Startup(l_ge));
         StartupCommands l_cmd = new StartupCommands("assigncountries");
         l_cmd.execute(l_ge);
         Reinforcement l_rf = new Reinforcement(l_ge);
@@ -72,7 +73,7 @@ DeployTest {
         l_ge.d_worldmap = l_mp.loadMap(l_ge, l_mfl);
         l_ge.d_players.add(new Player("Priyanshu", l_ge));
         l_ge.d_players.add(new Player("Abc", l_ge));
-
+        l_ge.setCurrentState(new Startup(l_ge));
         StartupCommands l_cmd = new StartupCommands("assigncountries");
         l_cmd.execute(l_ge);
         Reinforcement l_rf = new Reinforcement(l_ge);
@@ -103,7 +104,7 @@ DeployTest {
         l_ge.d_worldmap = l_mp.loadMap(l_ge, l_mfl);
         l_ge.d_players.add(new Player("Priyanshu", l_ge));
         l_ge.d_players.add(new Player("Abc", l_ge));
-
+        l_ge.setCurrentState(new Startup(l_ge));
         StartupCommands l_cmd = new StartupCommands("assigncountries");
         l_cmd.execute(l_ge);
         Reinforcement l_rf = new Reinforcement(l_ge);
@@ -133,7 +134,7 @@ DeployTest {
         l_ge.d_worldmap = l_mp.loadMap(l_ge, l_mfl);
         l_ge.d_players.add(new Player("Priyanshu", l_ge));
         l_ge.d_players.add(new Player("Abc", l_ge));
-
+        l_ge.setCurrentState(new Startup(l_ge));
         StartupCommands l_cmd = new StartupCommands("assigncountries");
         l_cmd.execute(l_ge);
         Reinforcement l_rf = new Reinforcement(l_ge);
@@ -163,7 +164,7 @@ DeployTest {
         l_ge.d_worldmap = l_mp.loadMap(l_ge, l_mfl);
         l_ge.d_players.add(new Player("Priyanshu", l_ge));
         l_ge.d_players.add(new Player("Abc", l_ge));
-
+        l_ge.setCurrentState(new Startup(l_ge));
         StartupCommands l_cmd = new StartupCommands("assigncountries");
         l_cmd.execute(l_ge);
         Reinforcement l_rf = new Reinforcement(l_ge);
@@ -191,7 +192,7 @@ DeployTest {
         l_ge.d_worldmap = l_mp.loadMap(l_ge, l_mfl);
         l_ge.d_players.add(new Player("Priyanshu", l_ge));
         l_ge.d_players.add(new Player("Abc", l_ge));
-
+        l_ge.setCurrentState(new Startup(l_ge));
         StartupCommands l_cmd = new StartupCommands("assigncountries");
         l_cmd.execute(l_ge);
         Reinforcement l_rf = new Reinforcement(l_ge);
@@ -221,7 +222,7 @@ DeployTest {
         l_ge.d_worldmap = l_mp.loadMap(l_ge, l_mfl);
         l_ge.d_players.add(new Player("Priyanshu", l_ge));
         l_ge.d_players.add(new Player("Abc", l_ge));
-
+        l_ge.setCurrentState(new Startup(l_ge));
         StartupCommands l_cmd = new StartupCommands("assigncountries");
         l_cmd.execute(l_ge);
         Reinforcement l_rf = new Reinforcement(l_ge);
